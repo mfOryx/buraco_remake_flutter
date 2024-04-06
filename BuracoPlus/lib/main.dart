@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
-import 'package:buracoplus/login.dart';
+import 'package:buracoplus/login/views/login.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const startApp());
+  runApp(const StartApp());
 }
 
-class startApp extends StatelessWidget {
-  const startApp({super.key});
+class StartApp extends StatelessWidget {
+  const StartApp({super.key});
 
   @override
   Widget build(BuildContext context) {
