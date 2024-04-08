@@ -1,29 +1,37 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:buracoplus/common/web_socket_service.dart';
+import 'package:buracoplus/common/web_sockets_actions.dart';
 
 class LoginController {
-  final _messagesStreamSubscription;
+  late final StreamSubscription
+      _messagesStreamSubscription; // Rendi la sottoscrizione "late"
 
-  LoginController({
-    required Function onFirstConnectionOk,
-    required Function onLoginSuccess,
-    required Function(String) onLoginError,
-  }) : _messagesStreamSubscription =
+  LoginController()
+      : _messagesStreamSubscription =
             WebSocketService().messagesStream.listen((message) {
-          if (message['type'] == 'firstConnectionResponse' &&
-              message['response'] == 'ok') {
-            onFirstConnectionOk();
-          } else if (message['type'] == 'loginResponse') {
-            if (message['player'] != null) {
-              onLoginSuccess(message['player']);
-            } else {
-              onLoginError('Login fallito');
-            }
-          }
+          final actionType = message['type'];
+          final Function? handler = actionHandlers[actionType];
+          handler?.call(message);
         });
 
-  void connectToWebSocket() {
-    WebSocketService().connect('ws://15.161.77.214:3003');
+  Future<void> connectToWebSocket() async {
+    await WebSocketService().connect('ws://15.161.77.214:3003');
+    _initWebSocketListeners(); // Inizializza i listener dopo aver stabilito la connessione
+  }
+
+  void _initWebSocketListeners() {
+    _messagesStreamSubscription =
+        WebSocketService().messagesStream.listen((message) {
+      final actionType = message['type'];
+      final Function? handler = actionHandlers[actionType];
+      if (handler != null) {
+        handler(message);
+      } else {
+        print('No handler for actionType: $actionType');
+      }
+    });
   }
 
   void sendFirstConnection() {

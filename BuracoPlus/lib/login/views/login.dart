@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:buracoplus/home.dart';
 import 'package:buracoplus/create_table_single_player.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import 'package:buracoplus/login/controllers/login_controller.dart';
+import 'package:buracoplus/common/web_sockets_actions.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,24 +21,21 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
   bool _isLoggedIn = false;
   String? _loginError;
+  bool _isObscured = true; // Deve essere una variabile di stato
+  bool isMenuVisible = false; // Stato per la visibilità del menu
+
+  void _toggleMenu() {
+    setState(() {
+      isMenuVisible = !isMenuVisible;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-    _controller = LoginController(
-      onFirstConnectionOk: _sendLogin,
-      onLoginSuccess: (player) {
-        setState(() {
-          _isLoggedIn = true;
-          // Puoi salvare i dati del player o navigare a una nuova vista qui
-        });
-      },
-      onLoginError: (error) {
-        setState(() {
-          _loginError = error;
-        });
-      },
-    );
+    _controller = LoginController();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   }
 
   void _sendLogin() {
@@ -55,294 +54,312 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    bool isObscured = true;
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Center(
         child: Stack(
+          alignment: Alignment.center,
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color.fromRGBO(
-                        114, 60, 125, 1.0), // Colore medio lato sinistro
-                    Color.fromRGBO(
-                        141, 107, 147, 1.0), // Colore medio lato superiore
-                    Color.fromRGBO(
-                        96, 132, 166, 1.0), // Colore medio lato inferiore
-                    Color.fromRGBO(
-                        88, 104, 147, 1.0), // Colore medio lato destro
-                  ],
-                  stops: [
-                    0.0,
-                    0.33,
-                    0.66,
-                    1.0
-                  ], // Regola questi valori per i tuoi bisogni
-                ),
-              ),
+            GestureDetector(
+              onTap: () {
+                if (isMenuVisible) {
+                  setState(() {
+                    isMenuVisible = false;
+                  });
+                }
+              },
               child: Container(
                 decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/spade_transparent_v2.png'),
-                      fit: BoxFit.scaleDown,
-                      alignment: Alignment.bottomLeft),
-                  color: Colors.transparent,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromRGBO(
+                          114, 60, 125, 1.0), // Colore medio lato sinistro
+                      Color.fromRGBO(
+                          141, 107, 147, 1.0), // Colore medio lato superiore
+                      Color.fromRGBO(
+                          96, 132, 166, 1.0), // Colore medio lato inferiore
+                      Color.fromRGBO(
+                          88, 104, 147, 1.0), // Colore medio lato destro
+                    ],
+                    stops: [
+                      0.0,
+                      0.33,
+                      0.66,
+                      1.0
+                    ], // Regola questi valori per i tuoi bisogni
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/logo-and-cards.png',
-                      width: 100,
-                      height: 60,
-                    ),
-                    Container(
-                      width: 400,
-                      margin: const EdgeInsets.all(5.0),
-                      padding: const EdgeInsets.all(10.0),
-                      decoration: BoxDecoration(
-                        // border: Border.all(color: Colors.white, width: 1.0),
-                        borderRadius: BorderRadius.circular(20.0),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'assets/square_curved_transparent_outline_white.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'HELLO',
-                            style: TextStyle(color: Colors.white),
-                            textAlign: TextAlign.center,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Email or Nickname',
-                                prefixIcon: Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                ),
-                              ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image:
+                            AssetImage('assets/spade_transparent_v2.png.webp'),
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.bottomLeft),
+                    color: Colors.transparent,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: screenSize.width *
+                            0.4, // Usa il 80% della larghezza dello schermo
+                        margin: EdgeInsets.only(
+                            top: screenSize.height * 0.2), // Distanza dall'alto
+                        padding: const EdgeInsets.all(
+                            10.0), // Aggiungi del padding per il contenuto interno
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(
+                                0.3), // Colore con opacità per l'effetto trasparente
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.white)),
+
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'HELLO',
+                              style: TextStyle(color: Colors.white),
+                              textAlign: TextAlign.center,
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          Container(
-                            margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: TextField(
-                              obscureText: isObscured,
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                prefixIcon: const Icon(
-                                  Icons.lock,
-                                  color: Colors.white,
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isObscured = !isObscured;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    isObscured
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: const TextField(
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  hintText: 'Email or Nickname',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  prefixIcon: Icon(
+                                    Icons.person,
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  _controller.connectToWebSocket();
+                            const SizedBox(height: 5),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: TextField(
+                                obscureText: _isObscured,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  hintStyle:
+                                      const TextStyle(color: Colors.white),
+                                  prefixIcon: const Icon(
+                                    Icons.lock,
+                                    color: Colors.white,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscured = !_isObscured;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      _isObscured
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    _controller.connectToWebSocket();
 /*                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => const Home()));*/
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    // Impostazioni base del bottone, incluso il background
+                                    foregroundColor:
+                                        const Color.fromRGBO(92, 70, 154, 1),
+                                    backgroundColor: Colors.white,
+                                  ).copyWith(
+                                    side: MaterialStateProperty.resolveWith<
+                                        BorderSide>(
+                                      (Set<MaterialState> states) {
+                                        if (states
+                                            .contains(MaterialState.pressed)) {
+                                          return const BorderSide(
+                                            color: Colors
+                                                .black, // Colore del bordo quando il bottone è premuto
+                                            width: 1.5,
+                                          );
+                                        }
+                                        return const BorderSide(
+                                          color: Color.fromRGBO(92, 70, 154, 1),
+                                          width: 1.5,
+                                        );
+                                      },
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10), // Aggiusta il raggio se necessario
+                                      ),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(92, 70, 154, 1),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            GestureDetector(
+                              onTap: () {},
+                              child: const Text(
+                                'FORGOT PASSWORD?',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.white,
+                                  fontSize: 10.0,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (Platform.isIOS || Platform.isMacOS) ...[
+                            Column(children: [
+                              IconButton(
+                                icon: SvgPicture.asset(
+                                  'assets/apple.svg',
+                                  width: 40,
+                                  height: 40,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      this.context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Home()));
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6.0),
-                                  ),
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0.0,
-                                ),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/button_login.png',
-                                      fit: BoxFit.fill,
-                                      height: 45,
-                                      width: 110,
-                                    ),
-                                    const Text(
-                                      'Login',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
-                                ),
                               ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: const Text(
-                                  'FORGOT PASSWORD?',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: Colors.white,
-                                    fontSize: 10.0,
+                            ]),
+                            const SizedBox(width: 40),
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/gamecenter.svg',
+                                    width: 40,
+                                    height: 40,
                                   ),
-                                  textAlign: TextAlign.center,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Home()));
+                                  },
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
+                          ],
+                          if (Platform.isAndroid) ...[
+                            Column(
+                              children: [
+                                IconButton(
+                                  icon: SvgPicture.asset(
+                                    'assets/gmail.svg',
+                                    width: 50,
+                                    height: 50,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Home()));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
                         ],
                       ),
-                    ),
-                    const Text(
-                      'Or log in directly with your social account',
-                      style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                'assets/apple.svg',
-                                width: 30,
-                                height: 30,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Home()));
-                              },
-                            ),
-                            const Text(
-                              "Apple",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        Column(
-                          children: [
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                'assets/gamecenter.svg',
-                                width: 50,
-                                height: 30,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Home()));
-                              },
-                            ),
-                            const Text(
-                              "Game Center",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 20),
-                        Column(
-                          children: [
-                            IconButton(
-                              icon: SvgPicture.asset(
-                                'assets/gmail.svg',
-                                width: 30,
-                                height: 30,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Home()));
-                              },
-                            ),
-                            const Text(
-                              "Gmail",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _launchURL(Uri.parse(
-                                'https://www.buraco.plus/privacy_en.pdf'));
-                          },
-                          child: const Text(
-                            'PRIVACY POLICY',
-                            style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        GestureDetector(
-                          onTap: () {
-                            _launchURL(Uri.parse(
-                                'https://www.buraco.plus/terms_and_conditions.pdf'));
-                          },
-                          child: const Text(
-                            'TERMS AND CONDITIONS',
-                            style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        GestureDetector(
-                          onTap: () {
-                            _launchURL(Uri.parse(
-                                'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'));
-                          },
-                          child: const Text(
-                            'TERMS OF USE (EULA)',
-                            style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration:
+                  const Duration(milliseconds: 250), // Velocità dell'animazione
+              curve: Curves.easeInOut, // Tipo di animazione
+              right: isMenuVisible
+                  ? 0
+                  : -300, // Cambia questo valore per spostare il menu dentro e fuori
+              top: 70,
+              child: Material(
+                elevation: 4.0,
+                borderRadius: BorderRadius.circular(20.0),
+                child: Container(
+                  width: 300, // Imposta la larghezza del menu
+                  color: Colors.white, // Colore dello sfondo del menu
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: const Text('Privacy Policy'),
+                        onTap: () {
+                          _launchURL(Uri.parse(
+                              'https://www.buraco.plus/privacy_en.pdf'));
+                        },
+                      ),
+                      const Divider(),
+                      ListTile(
+                        title: const Text('Terms and Conditions'),
+                        onTap: () {
+                          _launchURL(Uri.parse(
+                              'https://www.buraco.plus/terms_and_conditions.pdf'));
+                        },
+                      ),
+                      const Divider(),
+                      ListTile(
+                        title: const Text('Terms of Use (EULA)'),
+                        onTap: () {
+                          _launchURL(Uri.parse(
+                              'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/'));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 10.0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                'assets/logo-and-cards.png',
+                width: 100,
+                height: 60,
               ),
             ),
           ],
@@ -353,7 +370,7 @@ class _LoginState extends State<Login> {
           Positioned(
             width: 70,
             bottom: 0.0,
-            left: 150.0,
+            left: Platform.isMacOS ? 40.0 : 150.0,
             child: FloatingActionButton(
               heroTag: null,
               onPressed: () {
@@ -414,16 +431,20 @@ class _LoginState extends State<Login> {
               onPressed: () {
                 //exit(0);
               },
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              hoverElevation: 0,
+              focusElevation: 0,
               elevation: 0.0,
-              child: Column(children: [
-                Image.asset(
-                  'assets/ic_settings.png',
-                  width: 30,
-                  height: 30,
+              child: const Column(children: [
+                Icon(
+                  Icons.settings,
+                  color: Colors.white,
                 ),
-                const Text('OPTIONS', style: TextStyle(color: Colors.white)),
+                Text('OPTIONS', style: TextStyle(color: Colors.white)),
               ]),
             ),
           ),
@@ -433,19 +454,21 @@ class _LoginState extends State<Login> {
             right: 0.0,
             child: FloatingActionButton(
               heroTag: null,
-              onPressed: () {
-                //exit(0);
-              },
+              onPressed: _toggleMenu,
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              hoverElevation: 0,
+              focusElevation: 0,
               elevation: 0.0,
-              child: Column(children: [
-                Image.asset(
-                  'assets/ic_rankings.png',
-                  width: 30,
-                  height: 30,
+              child: const Column(children: [
+                Icon(
+                  Icons.privacy_tip,
+                  color: Colors.white,
                 ),
-                const Text('RANKING', style: TextStyle(color: Colors.white)),
+                Text('PRIVACY', style: TextStyle(color: Colors.white)),
               ]),
             ),
           ),

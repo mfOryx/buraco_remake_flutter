@@ -61,8 +61,13 @@ class _CreateTableSPState extends State<CreateTableSP> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              hoverElevation: 0,
+              focusElevation: 0,
               elevation: 0.0,
               child: Row(children: [
                 Transform.rotate(
@@ -86,8 +91,13 @@ class _CreateTableSPState extends State<CreateTableSP> {
               onPressed: () {
                 //exit(0);
               },
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              hoverElevation: 0,
+              focusElevation: 0,
               elevation: 0.0,
               child: Column(children: [
                 Image.asset(
@@ -108,8 +118,13 @@ class _CreateTableSPState extends State<CreateTableSP> {
               onPressed: () {
                 //exit(0);
               },
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              hoverElevation: 0,
+              focusElevation: 0,
               elevation: 0.0,
               child: Column(children: [
                 Image.asset(
