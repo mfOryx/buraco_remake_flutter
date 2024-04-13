@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:buracoplus/blocks/privacy_button.dart';
+import 'package:buracoplus/blocks/privacy_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:buracoplus/common/toast_builder.dart';
+import 'package:buracoplus/common/toast_with_button.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -140,9 +142,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       fit: BoxFit.fill,
                                       child: InkWell(
                                         onTap: () {
-                                          ToastBuilder.showTopScrollingSnackbar(
+                                          ToastWithButton
+                                              .showTopScrollingSnackbar(
                                             context,
-                                            Text(
+                                            const Text(
                                               'Questo è un messaggio importante!',
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -152,7 +155,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               onPressed: () {
                                                 // Azione del pulsante
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 'Annulla',
                                                 style: TextStyle(
                                                     color: Colors.black),
@@ -463,47 +466,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                AnimatedPositioned(
-                  duration: const Duration(
-                      milliseconds: 250), // Velocità dell'animazione
-                  curve: Curves.easeInOut, // Tipo di animazione
-                  right: isMenuVisible
-                      ? 0
-                      : -300, // Cambia questo valore per spostare il menu dentro e fuori
-                  top: 70,
-                  child: Material(
-                    elevation: 4.0,
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(
-                              0.3), // Colore con opacità per l'effetto trasparente
-                          borderRadius: BorderRadius.circular(20.0),
-                          border: Border.all(color: Colors.white)),
-
-                      width: 300, // Imposta la larghezza del menu
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: const Text('Privacy Policy'),
-                            onTap: () {
-                              _launchURL(Uri.parse(
-                                  'https://www.buraco.plus/privacy_en.pdf'));
-                            },
-                          ),
-                          const Divider(),
-                          ListTile(
-                            title: const Text('Ethic rules'),
-                            onTap: () {
-                              _launchURL(Uri.parse(
-                                  'https://www.buraco.plus/en/ethic-rules/'));
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
                 Positioned(
                   top: 10.0,
                   left: 0,
@@ -513,6 +475,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     width: 100,
                     height: 60,
                   ),
+                ),
+                //privacy section
+                PrivacyButton(toggleMenu: _toggleMenu),
+                PrivacyMenu(
+                  isMenuVisible: isMenuVisible,
+                  launchURL: launchUrl,
                 ),
               ],
             ),
@@ -568,30 +536,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     ),
                   ],
                 ),
-              ),
-            ),
-            Positioned(
-              width: 70,
-              top: 50.0,
-              right: 0.0,
-              child: FloatingActionButton(
-                heroTag: null,
-                onPressed: _toggleMenu,
-                backgroundColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                foregroundColor: Colors.transparent,
-                hoverElevation: 0,
-                focusElevation: 0,
-                elevation: 0.0,
-                child: const Column(children: [
-                  Icon(
-                    Icons.privacy_tip,
-                    color: Colors.white,
-                  ),
-                  Text('PRIVACY', style: TextStyle(color: Colors.white)),
-                ]),
               ),
             ),
           ],

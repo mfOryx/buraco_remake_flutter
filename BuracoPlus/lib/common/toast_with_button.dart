@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ToastBuilder {
+class ToastWithButton {
   static void showTopScrollingSnackbar(BuildContext context, Widget message,
       {Widget? action}) {
     OverlayEntry? overlayEntry;

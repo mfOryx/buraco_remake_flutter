@@ -1,17 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:buracoplus/common/web_sockets_actions.dart';
+import '../models/message_data.dart';
+import '../models/web_socket_actions.dart';
 
 class WebSocketService {
-  WebSocketChannel? _channel;
-  final _connectionStatusController = StreamController<bool>.broadcast();
-  final _messagesController = StreamController<dynamic>.broadcast();
-  final _ackController = StreamController<Map<String, dynamic>>.broadcast();
-  int _messageId = 0;
-  final _pendingAcks = <int, Completer>{};
-
   static final WebSocketService _singleton = WebSocketService._internal();
+  WebSocketChannel? _channel;
+  final StreamController<bool> _connectionStatusController =
+      StreamController<bool>.broadcast();
+  final StreamController<dynamic> _messagesController =
+      StreamController<dynamic>.broadcast();
+  final Map<int, Completer<Map<String, dynamic>>> _pendingAcks = {};
+  int _messageId = 10;
+  int _reconnectAttempts = 0;
+  final int _maxReconnectAttempts = 3;
+  bool _isAttemptingReconnect = false;
 
   factory WebSocketService() {
     return _singleton;
@@ -19,40 +24,74 @@ class WebSocketService {
 
   WebSocketService._internal();
 
-  Stream<bool> get connectionStatusStream => _connectionStatusController.stream;
+  Stream<bool> get connectionStatus => _connectionStatusController.stream;
   Stream<dynamic> get messagesStream => _messagesController.stream;
 
   Future<void> connect(String url) async {
-    _channel = WebSocketChannel.connect(Uri.parse(url))
-      ..stream.listen((message) {
-        final decodedMessage = json.decode(message);
-        final actionType = decodedMessage['type'];
+    if (_isAttemptingReconnect) {
+      if (kDebugMode) {
+        print("Riconnessione già in corso. Ignorando il tentativo duplicato.");
+      }
+      return;
+    }
 
-        // Gestione degli acknowledgment
-        if (actionType == 'ack') {
-          final messageId = decodedMessage['messageId'];
-          _ackReceived(messageId);
-        } else {
-          // Chiamata all'handler appropriato dalla mappa actionHandlers
-          final Function? handler = actionHandlers[actionType];
-          if (handler != null) {
-            handler(decodedMessage);
-          }
-        }
+    _isAttemptingReconnect = true;
+    _disposeChannel();
 
-        // Gestione del messaggio in arrivo
-        _handleIncomingMessage(decodedMessage);
-      }, onDone: () {
-        _connectionStatusController.add(false);
-      }, onError: (error) {
-        _connectionStatusController.add(false);
-      });
-    _connectionStatusController.add(true);
+    try {
+      _channel = WebSocketChannel.connect(Uri.parse(url));
+      _reconnectAttempts = 0;
+      _channel!.stream.listen(_handleMessage,
+          onDone: _handleWebSocketClosed,
+          onError: _handleWebSocketError,
+          cancelOnError: true);
+      _connectionStatusController.add(true);
+    } catch (e) {
+      _handleWebSocketError(e);
+    } finally {
+      _isAttemptingReconnect = false;
+    }
   }
 
-  Future<void> sendMessage(String type, Map<String, dynamic> data) {
+  void _handleWebSocketClosed() {
+    if (kDebugMode) {
+      print("WebSocket Disconnected.");
+    }
+    _connectionStatusController.add(false);
+    _attemptReconnect();
+  }
+
+  void _handleWebSocketError(dynamic error) {
+    if (kDebugMode) {
+      print("WebSocket Error: $error");
+    }
+    _connectionStatusController.add(false);
+    _attemptReconnect();
+  }
+
+  void _attemptReconnect() {
+    if (_reconnectAttempts < _maxReconnectAttempts && !_isAttemptingReconnect) {
+      _reconnectAttempts++;
+      _isAttemptingReconnect = true;
+      Future.delayed(Duration(seconds: 5), () {
+        connect("ws://15.161.77.214:3003").catchError((error) {
+          if (kDebugMode) {
+            print("Reconnection attempt failed: $error");
+          }
+          _isAttemptingReconnect = false;
+        });
+      });
+    } else {
+      _isAttemptingReconnect = false;
+    }
+  }
+
+  Future<Map<String, dynamic>> sendMessage(
+      String type, Map<String, dynamic> data) async {
     final messageId = _messageId++;
-    final completer = Completer();
+    // Explicitly type the Completer
+    final Completer<Map<String, dynamic>> completer =
+        Completer<Map<String, dynamic>>();
     _pendingAcks[messageId] = completer;
 
     final message = json.encode({
@@ -63,34 +102,41 @@ class WebSocketService {
 
     _channel!.sink.add(message);
 
-    // Start a timer to wait for an ACK
-    Timer(const Duration(seconds: 2), () {
+    // Set a timer to consider a timeout scenario where no response is received
+    Timer(const Duration(seconds: 5), () {
       if (!completer.isCompleted) {
-        completer.completeError('No ACK received');
+        completer.completeError('No ACK or response received');
         _pendingAcks.remove(messageId);
-        // Handle retransmission if necessary
       }
     });
 
     return completer.future;
   }
 
-  void _handleIncomingMessage(String message) {
+  void _handleMessage(dynamic message) {
     final decodedMessage = json.decode(message);
+    final data = decodedMessage['data'];
+    final messageId = data['messageId'];
 
-    // Invia il messaggio decodificato al controller di stream per essere ascoltato nell'app
-    _messagesController.add(decodedMessage);
+    if (_pendingAcks.containsKey(messageId)) {
+      _pendingAcks[messageId]!.complete(data
+          as Map<String, dynamic>); // Ensure data is cast to the correct type
+      _pendingAcks.remove(messageId);
+    }
 
-    // Aggiungi qui ulteriori logiche basate sul tipo di messaggio se necessario
+    _messagesController.add(MessageData.fromJson(data));
   }
 
-  void _ackReceived(int messageId) {
-    _pendingAcks[messageId]?.complete();
-    _pendingAcks.remove(messageId);
+  void _disposeChannel() {
+    if (_channel != null) {
+      _channel!.sink.close();
+      _channel = null;
+    }
   }
 
   void dispose() {
-    _channel?.sink.close();
-    _ackController.close();
+    _disposeChannel();
+    _connectionStatusController.close();
+    _messagesController.close();
   }
 }
