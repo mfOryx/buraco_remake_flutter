@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:buracoplus/common/rotating_loader.dart';
 import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
@@ -57,6 +58,8 @@ class LoginController {
         // Assume response is a JSON object that contains a status and possibly an error message
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
+          final playerSettings = json.decode(response['player']['userData']);
+
           Toast.showTopScrollingSnackbar(
               context,
               const Text(
@@ -67,7 +70,7 @@ class LoginController {
               Colors.green);
           // Save details in SharedPreferences
           if (kDebugMode) {
-            print(response['player']['_id'].toString());
+            print(playerSettings['PSs'].toString());
           }
           _saveCredentials(
               username, password, response['player']['_id'].toString());
@@ -101,7 +104,7 @@ class LoginController {
               Colors.green);
           // Save details in SharedPreferences
           if (kDebugMode) {
-            print(response['player']['_id'].toString());
+            print(response['player']['userData'].toString());
           }
         } else {
           onError
