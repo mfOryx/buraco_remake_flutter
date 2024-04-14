@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyMenu extends StatelessWidget {
   final bool isMenuVisible;
   final Function(Uri) launchURL;
 
   const PrivacyMenu({
-    Key? key,
+    super.key,
     required this.isMenuVisible,
     required this.launchURL,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

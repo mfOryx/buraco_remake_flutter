@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class PrivacyButton extends StatelessWidget {
   final VoidCallback toggleMenu;
 
-  const PrivacyButton({Key? key, required this.toggleMenu}) : super(key: key);
+  const PrivacyButton({super.key, required this.toggleMenu});
 
   @override
   Widget build(BuildContext context) {

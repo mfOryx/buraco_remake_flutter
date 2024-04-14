@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
 
-  const OptionsButton({Key? key, required this.toggleMenu}) : super(key: key);
+  const OptionsButton({super.key, required this.toggleMenu});
 
   @override
   Widget build(BuildContext context) {
@@ -232,7 +232,7 @@ class OptionsButton extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(20.0), // Arrotonda tutti gli angoli
           ),
-          child: Container(
+          child: SizedBox(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width / 2,
             child: Column(

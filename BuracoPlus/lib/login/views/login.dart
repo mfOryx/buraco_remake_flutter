@@ -1,7 +1,5 @@
 import 'package:buracoplus/blocks/options_button.dart';
 import 'package:buracoplus/blocks/privacy_button.dart';
-import 'package:buracoplus/common/custom_switch.dart';
-import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/toast_with_button.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +29,7 @@ class _LoginState extends State<Login> {
   String? _loginError;
   bool _isObscured = true; // Deve essere una variabile di stato
   bool isMenuVisible = false; // Stato per la visibilità del menu
-  bool _isButtonDisabled = false;
+  final bool _isButtonDisabled = false;
 
   void _toggleMenu() {
     setState(() {
@@ -168,7 +166,7 @@ class _LoginState extends State<Login> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                translationManager!.translate('hello'),
+                                translationManager.translate('hello'),
                                 style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),

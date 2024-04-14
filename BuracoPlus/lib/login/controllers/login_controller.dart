@@ -49,13 +49,26 @@ class LoginController {
       return;
     }
     RotatingLoader.showOverlay(context);
-    connectToWebSocket().then((_) {
+    if (!WebSocketService().isConnected) {
+      WebSocketService().connect('ws://15.161.77.214:3003').then((_) {
+        _sendLoginMessage(context, username, password, '');
+      }).catchError((error) {
+        RotatingLoader.hideOverlay();
+        onError?.call('Errore di connessione: $error');
+      });
+    } else {
+      _sendLoginMessage(context, username, password, '');
+    }
+  }
+
+  void _sendLoginMessage(
+      BuildContext context, String username, String password, String playerId) {
+    if (playerId == '') {
       WebSocketService().sendMessage('loginAction', {
         'username': username,
         'password': password,
       }).then((response) {
         RotatingLoader.hideOverlay();
-        // Assume response is a JSON object that contains a status and possibly an error message
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
           final playerSettings = json.decode(response['player']['userData']);
@@ -78,20 +91,14 @@ class LoginController {
           onError
               ?.call(response['message']); // Show error message from the server
         }
+      }).catchError((error) {
+        RotatingLoader.hideOverlay();
+        onError?.call('Errore durante l\'invio del messaggio: $error');
       });
-    }).catchError((error) {
-      RotatingLoader.hideOverlay();
-      onError?.call('Errore di connessione: $error');
-    });
-  }
-
-  void sendAutoLogin(BuildContext context, String playerId) {
-    RotatingLoader.showOverlay(context);
-    connectToWebSocket().then((_) {
+    } else {
       WebSocketService().sendMessage(
           'autoLoginAction', {'playerId': playerId}).then((response) {
         RotatingLoader.hideOverlay();
-        // Assume response is a JSON object that contains a status and possibly an error message
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
           Toast.showTopScrollingSnackbar(
@@ -104,17 +111,32 @@ class LoginController {
               Colors.green);
           // Save details in SharedPreferences
           if (kDebugMode) {
-            print(response['player']['userData'].toString());
+            //print(response['player']['userData'].toString());
           }
         } else {
           onError
               ?.call(response['message']); // Show error message from the server
         }
+        // Gestisci la risposta qui
+      }).catchError((error) {
+        RotatingLoader.hideOverlay();
+        onError?.call('Errore durante l\'invio del messaggio: $error');
       });
-    }).catchError((error) {
-      RotatingLoader.hideOverlay();
-      onError?.call('Errore di connessione: $error');
-    });
+    }
+  }
+
+  void sendAutoLogin(BuildContext context, String playerId) {
+    RotatingLoader.showOverlay(context);
+    if (!WebSocketService().isConnected) {
+      WebSocketService().connect('ws://15.161.77.214:3003').then((_) {
+        _sendLoginMessage(context, '', '', playerId);
+      }).catchError((error) {
+        RotatingLoader.hideOverlay();
+        onError?.call('Errore di connessione: $error');
+      });
+    } else {
+      _sendLoginMessage(context, '', '', playerId);
+    }
   }
 
   Future<void> _saveCredentials(
@@ -123,14 +145,6 @@ class LoginController {
     await prefs.setString('username', username);
     await prefs.setString('password', password);
     await prefs.setString('playerId', playerId);
-  }
-
-  void _launchURL(Uri url) async {
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   void dispose() {

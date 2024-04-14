@@ -41,6 +41,9 @@ dependencies:
   shared_preferences: ^2.2.2
   flutter_localizations:
     sdk: flutter
+  rxdart: ^0.27.7
+  firebase_messaging: ^14.8.1
+  flutter_stripe: ^10.1.1
 
 dev_dependencies:
   flutter_test:
