@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
   late final LoginController _controller;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLoggedIn = false;
+  final bool _isLoggedIn = false;
   String? _loginError;
   bool _isObscured = true; // Deve essere una variabile di stato
   bool isMenuVisible = false; // Stato per la visibilità del menu
