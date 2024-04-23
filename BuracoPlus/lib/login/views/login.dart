@@ -13,6 +13,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import 'package:buracoplus/login/controllers/login_controller.dart';
 import 'package:buracoplus/blocks/privacy_menu.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/providers/theme_provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -101,6 +103,11 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
+    // Accesso al provider del tema
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    // Ottieni i colori correnti basati sul tema attivo
+    final colors = themeProvider.currentColors;
+
     final translationManager = Provider.of<TranslationManager>(context);
 
     return Scaffold(
@@ -118,27 +125,8 @@ class _LoginState extends State<Login> {
                 }
               },
               child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromRGBO(
-                          114, 60, 125, 1.0), // Colore medio lato sinistro
-                      Color.fromRGBO(
-                          141, 107, 147, 1.0), // Colore medio lato superiore
-                      Color.fromRGBO(
-                          96, 132, 166, 1.0), // Colore medio lato inferiore
-                      Color.fromRGBO(
-                          88, 104, 147, 1.0), // Colore medio lato destro
-                    ],
-                    stops: [
-                      0.0,
-                      0.33,
-                      0.66,
-                      1.0
-                    ], // Regola questi valori per i tuoi bisogni
-                  ),
+                decoration: BoxDecoration(
+                  gradient: colors.gradient,
                 ),
                 child: Container(
                   decoration: const BoxDecoration(

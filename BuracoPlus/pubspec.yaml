@@ -42,9 +42,13 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   rxdart: ^0.27.7
-  firebase_messaging: ^14.8.1
+  firebase_messaging: ^14.8.2
   flutter_stripe: ^10.1.1
-
+  google_fonts: ^6.2.1
+  permission_handler: ^11.3.1
+  immutable_device_identifier: ^0.0.2
+  firebase_core: ^2.30.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,6 +68,7 @@ flutter:
   assets:
     - assets/
     - assets/translations/
+    - assets/google_fonts/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

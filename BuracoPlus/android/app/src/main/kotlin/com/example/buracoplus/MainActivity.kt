@@ -1,4 +1,4 @@
-package com.example.buracoplus
+package com.mediasouls.buracoPlusFlutter
 
 import io.flutter.embedding.android.FlutterActivity
 

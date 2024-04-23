@@ -6,8 +6,9 @@ import 'package:buracoplus/common/translation_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:buracoplus/common/web_socket_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:immutable_device_identifier/immutable_device_identifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LoginController {
   StreamSubscription? _messagesStreamSubscription;
@@ -61,8 +62,20 @@ class LoginController {
     }
   }
 
-  void _sendLoginMessage(
-      BuildContext context, String username, String password, String playerId) {
+  Future<void> _sendLoginMessage(BuildContext context, String username,
+      String password, String playerId) async {
+    final immutableDeviceIdentifierPlugin = ImmutableDeviceIdentifier();
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      platformVersion = await immutableDeviceIdentifierPlugin.getUniqueId();
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+    if (kDebugMode) {
+      print(platformVersion);
+    }
     if (playerId == '') {
       WebSocketService().sendMessage('loginAction', {
         'username': username,
@@ -72,7 +85,6 @@ class LoginController {
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
           final playerSettings = json.decode(response['player']['userData']);
-
           Toast.showTopScrollingSnackbar(
               context,
               const Text(
@@ -125,7 +137,20 @@ class LoginController {
     }
   }
 
-  void sendAutoLogin(BuildContext context, String playerId) {
+  Future<void> sendAutoLogin(BuildContext context, String playerId) async {
+    final immutableDeviceIdentifierPlugin = ImmutableDeviceIdentifier();
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      platformVersion = await immutableDeviceIdentifierPlugin.getUniqueId();
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+    if (kDebugMode) {
+      print(platformVersion);
+    }
+
     RotatingLoader.showOverlay(context);
     if (!WebSocketService().isConnected) {
       WebSocketService().connect('ws://15.161.77.214:3003').then((_) {
@@ -137,6 +162,7 @@ class LoginController {
     } else {
       _sendLoginMessage(context, '', '', playerId);
     }
+    //DE94330A-E9F6-42CD-AE3D-76D8EE32B37E
   }
 
   Future<void> _saveCredentials(

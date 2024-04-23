@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "17541395010",
+    "project_id": "buraco-plus-flutter-edition",
+    "storage_bucket": "buraco-plus-flutter-edition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17541395010:android:0f4317e5ddd6c79d3473db",
+        "android_client_info": {
+          "package_name": "com.example.buracoplus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU5e8YFUEX3HCdrCx-ZLqGAES2lBmzrsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17541395010:android:d4fec3a8c81449053473db",
+        "android_client_info": {
+          "package_name": "com.mediasouls.buracoPlusFlutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU5e8YFUEX3HCdrCx-ZLqGAES2lBmzrsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

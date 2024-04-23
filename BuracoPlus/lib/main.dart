@@ -1,27 +1,46 @@
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
+import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
 import 'package:buracoplus/login/views/login.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences().loadPreferences();
   final String languageCode = UserPreferences().languageCode;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final TranslationManager translationManager =
       TranslationManager(languageCode);
   await translationManager.loadTranslations();
 
-  runApp(
-    ChangeNotifierProvider<TranslationManager>.value(
-      value: translationManager,
+  runApp(MainApp(translationManager: translationManager));
+}
+
+class MainApp extends StatelessWidget {
+  final TranslationManager translationManager;
+
+  const MainApp({super.key, required this.translationManager});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
+        ChangeNotifierProvider<TranslationManager>.value(
+            value: translationManager),
+      ],
       child: const StartApp(),
-    ),
-  );
+    );
+  }
 }
 
 class StartApp extends StatelessWidget {
@@ -35,8 +54,14 @@ class StartApp extends StatelessWidget {
     // Usa Provider.of o Consumer per accedere a TranslationManager se necessario qui
     final String languageCode =
         Provider.of<TranslationManager>(context).languageCode;
+    final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return MaterialApp(
+      theme: themeProvider.currentTheme, // Usato per la modalità light
+      darkTheme: themeProvider.currentTheme, // Usato per la modalità dark
+      themeMode: themeProvider.isDarkMode
+          ? ThemeMode.dark
+          : ThemeMode.light, // Usa il tema dal provider
       locale:
           Locale(languageCode), // Qui utilizzi la lingua dal TranslationManager
       localizationsDelegates: const [
