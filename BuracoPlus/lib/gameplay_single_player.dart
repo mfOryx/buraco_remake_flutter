@@ -8,6 +8,8 @@ class GameplaySP extends StatefulWidget {
 }
 
 class _GameplaySPState extends State<GameplaySP> {
+  List<bool> isTapped = List.generate(13, (_) => false);
+  double yOffset = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +41,8 @@ class _GameplaySPState extends State<GameplaySP> {
                 ),
                 const SizedBox(width: 12),
                 Container(
-                  width: 100,
-                  height: 100,
+                  width: 70,
+                  height: 75,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -64,7 +66,7 @@ class _GameplaySPState extends State<GameplaySP> {
                       ),
                       Positioned(
                         top: 40,
-                        left: 25,
+                        left: 20,
                         child: Container(
                           width: 20,
                           height: 20,
@@ -174,7 +176,7 @@ class _GameplaySPState extends State<GameplaySP> {
                   children: [
                     Container(
                       width: 70,
-                      height: 80,
+                      height: 75,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(color: Colors.white38, width: 1),
@@ -190,13 +192,11 @@ class _GameplaySPState extends State<GameplaySP> {
                     ),
                     const SizedBox(width: 5.0),
                     SizedBox(
-                      width: 450,
-                      height: 100,
+                      width: 500,
+                      height: 75,
                       child: Stack(
                         children: [
                           Container(
-                            width: 450,
-                            height: 80,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(color: Colors.white38, width: 1),
@@ -210,135 +210,29 @@ class _GameplaySPState extends State<GameplaySP> {
                               ],
                             ),
                           ),
-                          Positioned(
-                            left: 105,
-                            top: 30,
-                            child: Image.asset(
-                              'assets/Spade2.png',
-                              fit: BoxFit.fill,
-                              width: 50,
-                              height: 50,
-                            ),
-                          ),
-                          // Positioned(
-                          //   left: 65,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade3.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 75,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade4.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 85,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade5.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 95,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade6.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 105,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade7.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 115,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade8.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 125,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade9.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 135,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/Spade10.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 145,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/SpadeJ.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 155,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/SpadeQ.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 165,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/SpadeK.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
-                          // ),
-                          // Positioned(
-                          //   left: 175,
-                          //   top: 30,
-                          //   child: Image.asset(
-                          //     'assets/SpadeA.png',
-                          //     fit: BoxFit.fill,
-                          //     width: 50,
-                          //     height: 50,
-                          //   ),
+                          // Stack(
+                          //   children: List.generate(13, (index) {
+                          //     return AnimatedPositioned(
+                          //       duration: Duration(milliseconds: 300),
+                          //       curve: Curves.easeInOut,
+                          //       left: 5 + (index * 15),
+                          //       top: isTapped[index] ? yOffset : 5,
+                          //       child: GestureDetector(
+                          //         onTap: () {
+                          //           setState(() {
+                          //             isTapped[index] = !isTapped[index];
+                          //             yOffset = isTapped[index] ? -20 : 0;
+                          //           });
+                          //         },
+                          //         child: Image.asset(
+                          //           'assets/Spade${index + 2}.png',
+                          //           fit: BoxFit.fill,
+                          //           width: 50,
+                          //           height: 65,
+                          //         ),
+                          //       ),
+                          //     );
+                          //   }),
                           // ),
                         ],
                       ),
@@ -347,21 +241,62 @@ class _GameplaySPState extends State<GameplaySP> {
                 ),
               ],
             ),
-            Container(
-              width: 450,
-              height: 80,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Colors.white38, width: 1),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.white38,
-                    spreadRadius: -2,
-                    blurRadius: 4,
-                    offset: Offset(0, 0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                    width: 754,
+                    height: 75,
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: 640,
+                          height: 75,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.white38, width: 1),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.white38,
+                                spreadRadius: -2,
+                                blurRadius: 4,
+                                offset: Offset(0, 0),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Cards stack
+                        Stack(
+                          children: List.generate(13, (index) {
+                            return AnimatedPositioned(
+                              duration: Duration(milliseconds: 300),
+                              left: 5 + (index * 35),
+                              top: isTapped[index] ? yOffset : 5,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isTapped[index] = !isTapped[index];
+                                    yOffset = isTapped[index] ? -25 : 0;
+                                  });
+                                },
+                                child: Image.asset(
+                                  'assets/Spade${index + 2}.png',
+                                  fit: BoxFit.fill,
+                                  width: 50,
+                                  height: 65,
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
