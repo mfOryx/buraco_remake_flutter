@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class GameplaySP extends StatefulWidget {
@@ -7,9 +9,55 @@ class GameplaySP extends StatefulWidget {
   State<GameplaySP> createState() => _GameplaySPState();
 }
 
-class _GameplaySPState extends State<GameplaySP> {
+class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<bool> isTapped = List.generate(13, (_) => false);
   double yOffset = 0;
+  List<String> cards = ["assets/Spade2.png", "assets/Spade3.png", "assets/Spade4.png", "assets/Spade5.png", "assets/Spade6.png",
+    "assets/Spade7.png", "assets/Spade8.png", "assets/Spade9.png", "assets/Spade10.png", "assets/Spade11.png", "assets/Spade12.png",
+    "assets/Spade13.png", "assets/Spade14.png"];
+
+  void toggleCard(int index) {
+    setState(() {
+      isTapped[index] = !isTapped[index];
+      yOffset = isTapped[index] ? -25 : 0;
+    });
+  }
+
+  List<String> secondContainerCards = [];
+
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+    _animation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset(0.5, 0),
+    ).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void addRandomCard() {
+    setState(() {
+      int randomIndex = Random().nextInt(cards.length);
+      String card = cards[randomIndex];
+      secondContainerCards.add(card);
+      cards.removeAt(randomIndex);
+      _controller.reset();
+      _controller.forward();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,20 +220,51 @@ class _GameplaySPState extends State<GameplaySP> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: 70,
+                    SizedBox(
+                      width: 60,
                       height: 75,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.white38, width: 1),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.white38,
-                            spreadRadius: -2,
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
+                      child: Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              addRandomCard();
+                            },
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.white38, width: 1),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.white38,
+                                        spreadRadius: -2,
+                                        blurRadius: 4,
+                                        offset: Offset(0, 0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Stack(
+                                  children: List.generate(13, (index) {
+                                    return AnimatedPositioned(
+                                      duration: Duration(milliseconds: 300),
+                                      left: 5 ,
+                                      top: 5,
+                                      child: Image.asset(
+                                        'assets/Spade${index + 2}.png',
+                                        fit: BoxFit.fill,
+                                        width: 50,
+                                        height: 65,
+                                      ),
+                                    );
+                                  }),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -210,28 +289,36 @@ class _GameplaySPState extends State<GameplaySP> {
                               ],
                             ),
                           ),
+                          SlideTransition(
+                            position: _animation,
+                            child: Row(
+                              children: secondContainerCards.map((card) {
+                                return Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  width: 50,
+                                  height: 65,
+                                  child: Image.asset(
+                                    card,
+                                    fit: BoxFit.fill,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                           // Stack(
                           //   children: List.generate(13, (index) {
-                          //     return AnimatedPositioned(
-                          //       duration: Duration(milliseconds: 300),
-                          //       curve: Curves.easeInOut,
-                          //       left: 5 + (index * 15),
-                          //       top: isTapped[index] ? yOffset : 5,
-                          //       child: GestureDetector(
-                          //         onTap: () {
-                          //           setState(() {
-                          //             isTapped[index] = !isTapped[index];
-                          //             yOffset = isTapped[index] ? -20 : 0;
-                          //           });
-                          //         },
-                          //         child: Image.asset(
-                          //           'assets/Spade${index + 2}.png',
-                          //           fit: BoxFit.fill,
-                          //           width: 50,
-                          //           height: 65,
-                          //         ),
+                          //     return isTapped[index]
+                          //         ? Container(
+                          //       padding: EdgeInsets.only(left: 5),
+                          //       margin: EdgeInsets.only(top: 5),
+                          //       child: Image.asset(
+                          //         cards[index],
+                          //         fit: BoxFit.fill,
+                          //         width: 50,
+                          //         height: 65,
                           //       ),
-                          //     );
+                          //     )
+                          //         : SizedBox();
                           //   }),
                           // ),
                         ],
@@ -248,12 +335,12 @@ class _GameplaySPState extends State<GameplaySP> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: SizedBox(
-                    width: 754,
+                    width: 749,
                     height: 75,
                     child: Stack(
                       children: [
                         Container(
-                          width: 640,
+                          width: 635,
                           height: 75,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -278,8 +365,7 @@ class _GameplaySPState extends State<GameplaySP> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    isTapped[index] = !isTapped[index];
-                                    yOffset = isTapped[index] ? -25 : 0;
+                                    toggleCard(index);
                                   });
                                 },
                                 child: Image.asset(
