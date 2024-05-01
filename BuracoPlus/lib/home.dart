@@ -138,7 +138,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     onPressed: () {},
                                     child: Ink.image(
                                       image: const AssetImage(
-                                          'assets/button_24.png'),
+                                          'assets/buttons/button_24.png'),
                                       fit: BoxFit.fill,
                                       child: InkWell(
                                         onTap: () {
@@ -194,7 +194,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                     onPressed: () {},
                                     child: Ink.image(
                                       image: const AssetImage(
-                                          'assets/button_24.png'),
+                                          'assets/buttons/button_24.png'),
                                       fit: BoxFit.fill, // Adjust as needed
                                       child: InkWell(
                                         onTap: () {
@@ -232,7 +232,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               'https://www.facebook.com/BuracoP/?show_switched_toast=0&show_invite_to_follow=0&show_switched_tooltip=0&show_podcast_settings=0&show_community_review_changes=0&show_community_rollback=0&show_follower_visibility_disclosure=0'));
                                         },
                                         icon: Image.asset(
-                                          'assets/facebook-white.png',
+                                          'assets/socialMediaIcons/facebook-white.png',
                                           width: 20,
                                           height: 20,
                                         ),
@@ -253,7 +253,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               'https://www.instagram.com/buracoplus/'));
                                         },
                                         icon: Image.asset(
-                                          'assets/ic_insta.png',
+                                          'assets/socialMediaIcons/ic_insta.png',
                                           width: 20,
                                           height: 20,
                                         ),
@@ -309,7 +309,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/mail.png',
+                                            'assets/menuIcons/mail.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -327,7 +327,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/ic_contacts.png',
+                                            'assets/menuIcons/ic_contacts.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -345,7 +345,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/ic_clubs.png',
+                                            'assets/menuIcons/ic_clubs.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -364,7 +364,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/ic_settings.png',
+                                            'assets/menuIcons/ic_settings.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -382,7 +382,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/ic_rankings.png',
+                                            'assets/menuIcons/ic_rankings.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -400,7 +400,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         elevation: 0.0,
                                         child: Column(children: [
                                           Image.asset(
-                                            'assets/ic_store.png',
+                                            'assets/menuIcons/ic_store.png',
                                             width: 25,
                                             height: 25,
                                           ),
@@ -449,7 +449,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       ),
                                       child: ClipOval(
                                         child: Image.asset(
-                                          'assets/blankAvatar_2.png',
+                                          'assets/menuIcons/blankAvatar_2.png',
                                           width: 60,
                                           height: 60,
                                           fit: BoxFit.cover,

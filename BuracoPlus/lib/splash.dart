@@ -49,7 +49,7 @@ class _SplashState extends State<Splash> {
           ),
         ),
         child: Center(
-          child: Lottie.asset('assets/buraco_logo.json'),
+          child: Lottie.asset('assets/splashScreenAnimation/buraco_logo.json'),
         ),
       ),
     );

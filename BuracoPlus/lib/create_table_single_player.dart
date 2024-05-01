@@ -223,9 +223,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: classicToggle
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -264,9 +264,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: professionalToggle
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -329,9 +329,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: twoPlayersToggle
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -370,9 +370,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: fourPlayersToggle
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -445,9 +445,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               child: Ink.image(
                                                 image: directToggle
                                                     ? const AssetImage(
-                                                        'assets/button_23_curved.png')
+                                                        'assets/buttons/button_23_curved.png')
                                                     : const AssetImage(
-                                                        'assets/button_22_curved.png'),
+                                                        'assets/buttons/button_22_curved.png'),
                                                 fit: BoxFit.fill,
                                                 child: InkWell(
                                                   onTap: () {
@@ -489,9 +489,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               child: Ink.image(
                                                 image: indirectToggle
                                                     ? const AssetImage(
-                                                        'assets/button_23_curved.png')
+                                                        'assets/buttons/button_23_curved.png')
                                                     : const AssetImage(
-                                                        'assets/button_22_curved.png'),
+                                                        'assets/buttons/button_22_curved.png'),
                                                 fit: BoxFit.fill,
                                                 child: InkWell(
                                                   onTap: () {
@@ -540,7 +540,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                                     children: [
                                                       Ink.image(
                                                         image: const AssetImage(
-                                                            'assets/button_22_curved.png'),
+                                                            'assets/buttons/button_22_curved.png'),
                                                         fit: BoxFit.fill,
                                                         width: 30,
                                                         height: 30,
@@ -560,7 +560,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                                               ? const AssetImage(
                                                                   'assets/ic_check_gradiant2.png')
                                                               : const AssetImage(
-                                                                  'assets/white_empty.png'),
+                                                                  'assets/buttons/white_empty.png'),
                                                           width: 40,
                                                           height: 20,
                                                         ),
@@ -615,9 +615,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: pointsOne
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -656,9 +656,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: pointsTwo
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -697,9 +697,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: pointsThree
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -742,9 +742,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                         child: Ink.image(
                                           image: pointsFour
                                               ? const AssetImage(
-                                                  'assets/button_23_curved.png')
+                                                  'assets/buttons/button_23_curved.png')
                                               : const AssetImage(
-                                                  'assets/button_22_curved.png'),
+                                                  'assets/buttons/button_22_curved.png'),
                                           fit: BoxFit.fill,
                                           width: double
                                               .infinity, // Make the image fill the button
@@ -811,9 +811,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: difficultyEasy
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -852,9 +852,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: Ink.image(
                                         image: difficultyNormal
                                             ? const AssetImage(
-                                                'assets/button_23_curved.png')
+                                                'assets/buttons/button_23_curved.png')
                                             : const AssetImage(
-                                                'assets/button_22_curved.png'),
+                                                'assets/buttons/button_22_curved.png'),
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
@@ -897,7 +897,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                             onPressed: () {},
                             child: Ink.image(
                               image: const AssetImage(
-                                  'assets/square_curved_2.png'),
+                                  'assets/buttons/square_curved_2.png'),
                               fit: BoxFit.fill,
                               child: InkWell(
                                 onTap: () {
@@ -971,7 +971,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
               elevation: 0.0,
               child: Column(children: [
                 Image.asset(
-                  'assets/ic_settings.png',
+                  'assets/menuIcons/ic_settings.png',
                   width: 30,
                   height: 25,
                 ),
@@ -999,7 +999,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/ic_rankings.png',
+                    'assets/menuIcons/ic_rankings.png',
                     width: 30,
                     height: 25,
                   ),

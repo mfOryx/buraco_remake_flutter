@@ -279,7 +279,7 @@ class _LoginState extends State<Login> {
                             Column(children: [
                               IconButton(
                                 icon: SvgPicture.asset(
-                                  'assets/apple.svg',
+                                  'assets/socialMediaIcons/apple.svg',
                                   width: 40,
                                   height: 40,
                                   color: Colors.white,
@@ -297,7 +297,7 @@ class _LoginState extends State<Login> {
                               children: [
                                 IconButton(
                                   icon: SvgPicture.asset(
-                                    'assets/gamecenter.svg',
+                                    'assets/socialMediaIcons/gamecenter.svg',
                                     width: 40,
                                     height: 40,
                                   ),
@@ -317,7 +317,7 @@ class _LoginState extends State<Login> {
                               children: [
                                 IconButton(
                                   icon: SvgPicture.asset(
-                                    'assets/gmail.svg',
+                                    'assets/socialMediaIcons/gmail.svg',
                                     width: 50,
                                     height: 50,
                                   ),

@@ -69,6 +69,15 @@ flutter:
     - assets/
     - assets/translations/
     - assets/google_fonts/
+    - assets/spadesCards/
+    - assets/clubsCards/
+    - assets/diamondsCards/
+    - assets/heartsCards/
+    - assets/extraCards/
+    - assets/buttons/
+    - assets/menuIcons/
+    - assets/socialMediaIcons/
+    - assets/splashScreenAnimation/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
