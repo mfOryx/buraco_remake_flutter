@@ -48,6 +48,8 @@ dependencies:
   permission_handler: ^11.3.1
   immutable_device_identifier: ^0.0.2
   firebase_core: ^2.30.0
+  http: ^1.2.1
+  device_info_plus: ^10.1.0
   
 dev_dependencies:
   flutter_test:
