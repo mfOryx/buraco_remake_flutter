@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GameplaySP extends StatefulWidget {
@@ -165,6 +166,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
     int player2CardsCount = (player2Cards.length).toInt();
     int deckCount = (deck.length).toInt();
+    int potCount = (pot.length).toInt();
 
     return Scaffold(
       backgroundColor: const Color(0xFF344264),
@@ -177,7 +179,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 //Avatar and Nickname starts
                 const Row(
@@ -185,7 +187,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                   children: [
                     CircleAvatar(
                       radius: 25,
-                      backgroundImage: AssetImage('assets/blankAvatar_2.png'),
+                      backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
                     ),
                     SizedBox(width: 12),
                     Text(
@@ -198,16 +200,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 const SizedBox(width: 12),
                 //Player 2 Hand Container starts
                 Container(
-                  width: 70,
-                  height: 75,
+                  width: 60,
+                  height: 65,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Stack(
                     children: [
                       Container(
-                        width: 70,
-                        height: 75,
+                        width: 60,
+                        height: 65,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.white38, width: 1),
@@ -229,8 +231,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                             top: 5,
                             child: Image.asset(
                               player2Cards[index].imagePath,
-                              width: 50,
-                              height: 65,
+                              width: 40,
+                              height: 55,
                             ),
                           ),
                         ),
@@ -240,13 +242,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         child: Image.asset(
                           'assets/extraCards/Blue.png',
                           fit: BoxFit.fill,
-                          width: 50,
-                          height: 65,
+                          width: 40,
+                          height: 55,
                         ),
                       ),
                       Positioned(
-                        top: 40,
-                        left: 20,
+                        top: 32,
+                        left: 13,
                         child: Container(
                           width: 20,
                           height: 20,
@@ -266,11 +268,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                   ),
                 ),
                 //Player 2 Hand Container ends
-                const SizedBox(width: 12),
+                const SizedBox(width: 15),
                 //Nickname with Points starts
                 Container(
-                  width: 180,
-                  height: 30,
+                  width: 130,
+                  height: 25,
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5),
@@ -284,7 +286,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         padding: EdgeInsets.only(left: 8.0),
                         child: Text(
                           'ABC XYZ',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
+                          style: TextStyle(fontSize: 10, color: Colors.white),
                         ),
                       ),
                       Spacer(),
@@ -292,7 +294,38 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         padding: EdgeInsets.only(right: 8.0),
                         child: Text(
                           '0/0',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
+                          style: TextStyle(fontSize: 10, color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  width: 130,
+                  height: 25,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'XYZ ABC',
+                          style: TextStyle(fontSize: 10, color: Colors.white),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Text(
+                          '0/0',
+                          style: TextStyle(fontSize: 10, color: Colors.white),
                         ),
                       ),
                     ],
@@ -308,7 +341,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
               children: [
                 Container(
                   width: 350,
-                  height: 200,
+                  height: 215,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
                     boxShadow: [
@@ -330,7 +363,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 const SizedBox(width: 2.0),
                 Container(
                   width: 350,
-                  height: 200,
+                  height: 215,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
                     boxShadow: [
@@ -352,175 +385,321 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
               ],
             ),
             //Tables ends
-            const SizedBox(height: 5.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    //Deck starts
-                    SizedBox(
-                      width: 60,
-                      height: 75,
-                      child: Stack(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              addRandomCard(deck);
-                              setState(() {
-                                deckCount = deck.length;
-                              });
-                            },
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(color: Colors.white38, width: 1),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.white38,
-                                        spreadRadius: -2,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 5, top: 5),
-                                  child: Image.asset(
-                                    'assets/extraCards/Red.png',
-                                    fit: BoxFit.fill,
-                                    width: 50,
-                                    height: 65,
-                                  ),
-                                ),
-                                Center(
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        deckCount.toString(),
-                                        style: TextStyle(fontSize: 10, color: Colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                //Pot starts
+                Container(
+                  width: 60,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 60,
+                        height: 55,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.white38, width: 1),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.white38,
+                              spreadRadius: -2,
+                              blurRadius: 4,
+                              offset: Offset(0, 0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Stack(
+                        children: List.generate(
+                          pot.length,
+                              (index) => Positioned(
+                            right: 5,
+                            top: 5,
+                            child: Image.asset(
+                              pot[index].imagePath,
+                              width: 40,
+                              height: 45,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                    //Deck ends
-                    const SizedBox(width: 5.0),
-                    //Discard Pile starts
-                    SizedBox(
-                      width: 500,
-                      height: 75,
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.white38, width: 1),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.white38,
-                                  spreadRadius: -2,
-                                  blurRadius: 4,
-                                  offset: Offset(0, 0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Stack(
-                            children: List.generate(discardPile.length, (index) {
-                              return AnimatedPositioned(
-                                duration: Duration(milliseconds: 300),
-                                left: 5 + (index * 10),
-                                top: 5,
-                                child: Image.asset(
-                                  discardPile[index].imagePath,
-                                  fit: BoxFit.fill,
-                                  width: 50,
-                                  height: 65,
-                                ),
-                              );
-                            }),
-                          ),
-                        ],
+                      Container(
+                        margin: EdgeInsets.only(left: 5, top: 5),
+                        child: Image.asset(
+                          'assets/extraCards/Blue.png',
+                          fit: BoxFit.fill,
+                          width: 40,
+                          height: 45,
+                        ),
                       ),
-                    ),
-                    //Discard Pile ends
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                //Player 1 Hand Container starts
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    width: 749,
-                    height: 75,
-                    child: Stack(
+                //Pot ends
+                SizedBox(width: 62),
+                Column(
+                  children: [
+                    Row(
                       children: [
-                        Container(
-                          width: 635,
+                        //Deck starts
+                        SizedBox(
+                          width: 60,
                           height: 75,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.white38, width: 1),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.white38,
-                                spreadRadius: -2,
-                                blurRadius: 4,
-                                offset: Offset(0, 0),
+                          child: Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  addRandomCard(deck);
+                                  setState(() {
+                                    deckCount = deck.length;
+                                  });
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 75,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(color: Colors.white38, width: 1),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.white38,
+                                            spreadRadius: -2,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5, top: 5),
+                                      child: Image.asset(
+                                        'assets/extraCards/Red.png',
+                                        fit: BoxFit.fill,
+                                        width: 50,
+                                        height: 65,
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            deckCount.toString(),
+                                            style: TextStyle(fontSize: 10, color: Colors.black),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        // Cards stack
-                        Stack(
-                          children: List.generate(player1Cards.length, (index) {
-                            return AnimatedPositioned(
-                              duration: Duration(milliseconds: 300),
-                              left: (((635 - ((player1Cards.length - 1) + 5)) / player1Cards.length) * index) + 5,
-                              top: isTapped[index] ? yOffset : 5,
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    toggleCard(index);
-                                  });
-                                },
-                                child: Image.asset(
-                                  player1Cards[index].imagePath,
-                                  fit: BoxFit.fill,
-                                  width: 50,
-                                  height: 65,
+                        //Deck ends
+                        const SizedBox(width: 5),
+                        //Discard Pile starts
+                        SizedBox(
+                          width: 500,
+                          height: 75,
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: Colors.white38, width: 1),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.white38,
+                                      spreadRadius: -2,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          }),
+                              Stack(
+                                children: List.generate(discardPile.length, (index) {
+                                  return AnimatedPositioned(
+                                    duration: Duration(milliseconds: 300),
+                                    left: 5 + (index * 10),
+                                    top: 5,
+                                    child: Image.asset(
+                                      discardPile[index].imagePath,
+                                      fit: BoxFit.fill,
+                                      width: 50,
+                                      height: 65,
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
                         ),
+                        //Discard Pile ends
                       ],
                     ),
-                  ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                            ),
+                            SizedBox(width: 12),
+                            Text(
+                              'XYZ ABC',
+                              style: TextStyle(fontSize: 10, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 5,),
+                        // Player 1 Hand Container starts
+                        SizedBox(
+                          width: 635,
+                          height: 75,
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: 635,
+                                height: 75,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(color: Colors.white38, width: 1),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.white38,
+                                      spreadRadius: -2,
+                                      blurRadius: 4,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // Cards stack
+                              Stack(
+                                children: List.generate(player1Cards.length, (index) {
+                                  double containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
+                                  double cardWidth = 50; // Width of each card
+                                  double totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+                                  double spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+                                  // double leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
+                                  double leftPosition;
+                                  double topPosition;
+
+                                  if (index < 20) {
+                                    leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
+                                    topPosition = isTapped[index] ? yOffset : 5;
+                                  } else {
+                                    // For the second row, adjust the index and position
+                                    leftPosition = (cardWidth + spaceBetweenCards) * (index - 20) + 5;
+                                    topPosition = isTapped[index] ? yOffset + 10 : 10; // Adjust the top position for the second row
+                                  }
+
+                                  return AnimatedPositioned(
+                                    duration: Duration(milliseconds: 300),
+                                    left: leftPosition,
+                                    top: topPosition,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          toggleCard(index);
+                                        });
+                                      },
+                                      child: Image.asset(
+                                        player1Cards[index].imagePath,
+                                        fit: BoxFit.fill,
+                                        width: cardWidth,
+                                        height: 65,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Player 1 Hand Container ends
+                      ],
+                    ),
+                  ],
                 ),
-                //Player 1 Hand Container ends
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.zero,
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                        ),
+                        child: Image.asset(
+                          'assets/buttons/2rowsoff.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 0),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.zero,
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                        ),
+                        child: Image.asset(
+                          'assets/buttons/sort234off.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.zero,
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                        ),
+                        child: Image.asset(
+                          'assets/buttons/sortKKKoff.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ],
