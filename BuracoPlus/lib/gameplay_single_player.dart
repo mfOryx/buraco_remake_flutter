@@ -19,60 +19,60 @@ class Card {
 class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   List<Card> classic_deck = [
-    Card('Spade2_1', 'assets/spadesCards/Spade2.png'), Card('Spade2_2', 'assets/spadesCards/Spade2.png'),
-    Card('Spade3_1', 'assets/spadesCards/Spade3.png'), Card('Spade3_2', 'assets/spadesCards/Spade3.png'),
-    Card('Spade4_1', 'assets/spadesCards/Spade4.png'), Card('Spade4_2', 'assets/spadesCards/Spade4.png'),
-    Card('Spade5_1', 'assets/spadesCards/Spade5.png'), Card('Spade5_2', 'assets/spadesCards/Spade5.png'),
-    Card('Spade6_1', 'assets/spadesCards/Spade6.png'), Card('Spade6_2', 'assets/spadesCards/Spade6.png'),
-    Card('Spade7_1', 'assets/spadesCards/Spade7.png'), Card('Spade7_2', 'assets/spadesCards/Spade7.png'),
-    Card('Spade8_1', 'assets/spadesCards/Spade8.png'), Card('Spade8_2', 'assets/spadesCards/Spade8.png'),
-    Card('Spade9_1', 'assets/spadesCards/Spade9.png'), Card('Spade9_2', 'assets/spadesCards/Spade9.png'),
-    Card('Spade10_1', 'assets/spadesCards/Spade10.png'), Card('Spade10_2', 'assets/spadesCards/Spade10.png'),
-    Card('Spade11_1', 'assets/spadesCards/Spade11.png'), Card('Spade11_2', 'assets/spadesCards/Spade11.png'),
-    Card('Spade12_1', 'assets/spadesCards/Spade12.png'), Card('Spade12_2', 'assets/spadesCards/Spade12.png'),
-    Card('Spade13_1', 'assets/spadesCards/Spade13.png'), Card('Spade13_2', 'assets/spadesCards/Spade13.png'),
-    Card('Spade14_1', 'assets/spadesCards/Spade14.png'), Card('Spade14_2', 'assets/spadesCards/Spade14.png'),
-    Card('Club2_1', 'assets/clubsCards/Club2.png'), Card('Club2_2', 'assets/clubsCards/Club2.png'),
-    Card('Club3_1', 'assets/clubsCards/Club3.png'), Card('Club3_2', 'assets/clubsCards/Club3.png'),
-    Card('Club4_1', 'assets/clubsCards/Club4.png'), Card('Club4_2', 'assets/clubsCards/Club4.png'),
-    Card('Club5_1', 'assets/clubsCards/Club5.png'), Card('Club5_2', 'assets/clubsCards/Club5.png'),
-    Card('Club6_1', 'assets/clubsCards/Club6.png'), Card('Club6_2', 'assets/clubsCards/Club6.png'),
-    Card('Club7_1', 'assets/clubsCards/Club7.png'), Card('Club7_2', 'assets/clubsCards/Club7.png'),
-    Card('Club8_1', 'assets/clubsCards/Club8.png'), Card('Club8_2', 'assets/clubsCards/Club8.png'),
-    Card('Club9_1', 'assets/clubsCards/Club9.png'), Card('Club9_2', 'assets/clubsCards/Club9.png'),
-    Card('Club10_1', 'assets/clubsCards/Club10.png'), Card('Club10_2', 'assets/clubsCards/Club10.png'),
-    Card('Club11_1', 'assets/clubsCards/Club11.png'), Card('Club11_2', 'assets/clubsCards/Club11.png'),
-    Card('Club12_1', 'assets/clubsCards/Club12.png'), Card('Club12_2', 'assets/clubsCards/Club12.png'),
-    Card('Club13_1', 'assets/clubsCards/Club13.png'), Card('Club13_2', 'assets/clubsCards/Club13.png'),
-    Card('Club14_1', 'assets/clubsCards/Club14.png'), Card('Club14_2', 'assets/clubsCards/Club14.png'),
-    Card('Diamond2_1', 'assets/diamondsCards/Diamond2.png'), Card('Diamond2_2', 'assets/diamondsCards/Diamond2.png'),
-    Card('Diamond3_1', 'assets/diamondsCards/Diamond3.png'), Card('Diamond3_2', 'assets/diamondsCards/Diamond3.png'),
-    Card('Diamond4_1', 'assets/diamondsCards/Diamond4.png'), Card('Diamond4_2', 'assets/diamondsCards/Diamond4.png'),
-    Card('Diamond5_1', 'assets/diamondsCards/Diamond5.png'), Card('Diamond5_2', 'assets/diamondsCards/Diamond5.png'),
-    Card('Diamond6_1', 'assets/diamondsCards/Diamond6.png'), Card('Diamond6_2', 'assets/diamondsCards/Diamond6.png'),
-    Card('Diamond7_1', 'assets/diamondsCards/Diamond7.png'), Card('Diamond7_2', 'assets/diamondsCards/Diamond7.png'),
-    Card('Diamond8_1', 'assets/diamondsCards/Diamond8.png'), Card('Diamond8_2', 'assets/diamondsCards/Diamond8.png'),
-    Card('Diamond9_1', 'assets/diamondsCards/Diamond9.png'), Card('Diamond9_2', 'assets/diamondsCards/Diamond9.png'),
-    Card('Diamond10_1', 'assets/diamondsCards/Diamond10.png'), Card('Diamond10_2', 'assets/diamondsCards/Diamond10.png'),
-    Card('Diamond11_1', 'assets/diamondsCards/Diamond11.png'), Card('Diamond11_2', 'assets/diamondsCards/Diamond11.png'),
-    Card('Diamond12_1', 'assets/diamondsCards/Diamond12.png'), Card('Diamond12_2', 'assets/diamondsCards/Diamond12.png'),
-    Card('Diamond13_1', 'assets/diamondsCards/Diamond13.png'), Card('Diamond13_2', 'assets/diamondsCards/Diamond13.png'),
-    Card('Diamond14_1', 'assets/diamondsCards/Diamond14.png'), Card('Diamond14_2', 'assets/diamondsCards/Diamond14.png'),
-    Card('Heart2_1', 'assets/heartsCards/Heart2.png'), Card('Heart2_2', 'assets/heartsCards/Heart2.png'),
-    Card('Heart3_1', 'assets/heartsCards/Heart3.png'), Card('Heart3_2', 'assets/heartsCards/Heart3.png'),
-    Card('Heart4_1', 'assets/heartsCards/Heart4.png'), Card('Heart4_2', 'assets/heartsCards/Heart4.png'),
-    Card('Heart5_1', 'assets/heartsCards/Heart5.png'), Card('Heart5_2', 'assets/heartsCards/Heart5.png'),
-    Card('Heart6_1', 'assets/heartsCards/Heart6.png'), Card('Heart6_2', 'assets/heartsCards/Heart6.png'),
-    Card('Heart7_1', 'assets/heartsCards/Heart7.png'), Card('Heart7_2', 'assets/heartsCards/Heart7.png'),
-    Card('Heart8_1', 'assets/heartsCards/Heart8.png'), Card('Heart8_2', 'assets/heartsCards/Heart8.png'),
-    Card('Heart9_1', 'assets/heartsCards/Heart9.png'), Card('Heart9_2', 'assets/heartsCards/Heart9.png'),
-    Card('Heart10_1', 'assets/heartsCards/Heart10.png'), Card('Heart10_2', 'assets/heartsCards/Heart10.png'),
-    Card('Heart11_1', 'assets/heartsCards/Heart11.png'), Card('Heart11_2', 'assets/heartsCards/Heart11.png'),
-    Card('Heart12_1', 'assets/heartsCards/Heart12.png'), Card('Heart12_2', 'assets/heartsCards/Heart12.png'),
-    Card('Heart13_1', 'assets/heartsCards/Heart13.png'), Card('Heart13_2', 'assets/heartsCards/Heart13.png'),
-    Card('Heart14_1', 'assets/heartsCards/Heart14.png'), Card('Heart14_2', 'assets/heartsCards/Heart14.png'),
-    Card('Joker1', 'assets/extraCards/Joker.png'), Card('Joker2', 'assets/extraCards/Joker.png'),
-    Card('Joker3', 'assets/extraCards/Joker.png'), Card('Joker4', 'assets/extraCards/Joker.png'),
+    Card('Spade_2_1', 'assets/spadesCards/Spade2.png'), Card('Spade_2_2', 'assets/spadesCards/Spade2.png'),
+    Card('Spade_3_1', 'assets/spadesCards/Spade3.png'), Card('Spade_3_2', 'assets/spadesCards/Spade3.png'),
+    Card('Spade_4_1', 'assets/spadesCards/Spade4.png'), Card('Spade_4_2', 'assets/spadesCards/Spade4.png'),
+    Card('Spade_5_1', 'assets/spadesCards/Spade5.png'), Card('Spade_5_2', 'assets/spadesCards/Spade5.png'),
+    Card('Spade_6_1', 'assets/spadesCards/Spade6.png'), Card('Spade_6_2', 'assets/spadesCards/Spade6.png'),
+    Card('Spade_7_1', 'assets/spadesCards/Spade7.png'), Card('Spade_7_2', 'assets/spadesCards/Spade7.png'),
+    Card('Spade_8_1', 'assets/spadesCards/Spade8.png'), Card('Spade_8_2', 'assets/spadesCards/Spade8.png'),
+    Card('Spade_9_1', 'assets/spadesCards/Spade9.png'), Card('Spade_9_2', 'assets/spadesCards/Spade9.png'),
+    Card('Spade_10_1', 'assets/spadesCards/Spade10.png'), Card('Spade_10_2', 'assets/spadesCards/Spade10.png'),
+    Card('Spade_11_1', 'assets/spadesCards/Spade11.png'), Card('Spade_11_2', 'assets/spadesCards/Spade11.png'),
+    Card('Spade_12_1', 'assets/spadesCards/Spade12.png'), Card('Spade_12_2', 'assets/spadesCards/Spade12.png'),
+    Card('Spade_13_1', 'assets/spadesCards/Spade13.png'), Card('Spade_13_2', 'assets/spadesCards/Spade13.png'),
+    Card('Spade_14_1', 'assets/spadesCards/Spade14.png'), Card('Spade_14_2', 'assets/spadesCards/Spade14.png'),
+    Card('Club_2_1', 'assets/clubsCards/Club2.png'), Card('Club_2_2', 'assets/clubsCards/Club2.png'),
+    Card('Club_3_1', 'assets/clubsCards/Club3.png'), Card('Club_3_2', 'assets/clubsCards/Club3.png'),
+    Card('Club_4_1', 'assets/clubsCards/Club4.png'), Card('Club_4_2', 'assets/clubsCards/Club4.png'),
+    Card('Club_5_1', 'assets/clubsCards/Club5.png'), Card('Club_5_2', 'assets/clubsCards/Club5.png'),
+    Card('Club_6_1', 'assets/clubsCards/Club6.png'), Card('Club_6_2', 'assets/clubsCards/Club6.png'),
+    Card('Club_7_1', 'assets/clubsCards/Club7.png'), Card('Club_7_2', 'assets/clubsCards/Club7.png'),
+    Card('Club_8_1', 'assets/clubsCards/Club8.png'), Card('Club_8_2', 'assets/clubsCards/Club8.png'),
+    Card('Club_9_1', 'assets/clubsCards/Club9.png'), Card('Club_9_2', 'assets/clubsCards/Club9.png'),
+    Card('Club_10_1', 'assets/clubsCards/Club10.png'), Card('Club_10_2', 'assets/clubsCards/Club10.png'),
+    Card('Club_11_1', 'assets/clubsCards/Club11.png'), Card('Club_11_2', 'assets/clubsCards/Club11.png'),
+    Card('Club_12_1', 'assets/clubsCards/Club12.png'), Card('Club_12_2', 'assets/clubsCards/Club12.png'),
+    Card('Club_13_1', 'assets/clubsCards/Club13.png'), Card('Club_13_2', 'assets/clubsCards/Club13.png'),
+    Card('Club_14_1', 'assets/clubsCards/Club14.png'), Card('Club_14_2', 'assets/clubsCards/Club14.png'),
+    Card('Diamond_2_1', 'assets/diamondsCards/Diamond2.png'), Card('Diamond_2_2', 'assets/diamondsCards/Diamond2.png'),
+    Card('Diamond_3_1', 'assets/diamondsCards/Diamond3.png'), Card('Diamond_3_2', 'assets/diamondsCards/Diamond3.png'),
+    Card('Diamond_4_1', 'assets/diamondsCards/Diamond4.png'), Card('Diamond_4_2', 'assets/diamondsCards/Diamond4.png'),
+    Card('Diamond_5_1', 'assets/diamondsCards/Diamond5.png'), Card('Diamond_5_2', 'assets/diamondsCards/Diamond5.png'),
+    Card('Diamond_6_1', 'assets/diamondsCards/Diamond6.png'), Card('Diamond_6_2', 'assets/diamondsCards/Diamond6.png'),
+    Card('Diamond_7_1', 'assets/diamondsCards/Diamond7.png'), Card('Diamond_7_2', 'assets/diamondsCards/Diamond7.png'),
+    Card('Diamond_8_1', 'assets/diamondsCards/Diamond8.png'), Card('Diamond_8_2', 'assets/diamondsCards/Diamond8.png'),
+    Card('Diamond_9_1', 'assets/diamondsCards/Diamond9.png'), Card('Diamond_9_2', 'assets/diamondsCards/Diamond9.png'),
+    Card('Diamond_10_1', 'assets/diamondsCards/Diamond10.png'), Card('Diamond_10_2', 'assets/diamondsCards/Diamond10.png'),
+    Card('Diamond_11_1', 'assets/diamondsCards/Diamond11.png'), Card('Diamond_11_2', 'assets/diamondsCards/Diamond11.png'),
+    Card('Diamond_12_1', 'assets/diamondsCards/Diamond12.png'), Card('Diamond_12_2', 'assets/diamondsCards/Diamond12.png'),
+    Card('Diamond_13_1', 'assets/diamondsCards/Diamond13.png'), Card('Diamond_13_2', 'assets/diamondsCards/Diamond13.png'),
+    Card('Diamond_14_1', 'assets/diamondsCards/Diamond14.png'), Card('Diamond_14_2', 'assets/diamondsCards/Diamond14.png'),
+    Card('Heart_2_1', 'assets/heartsCards/Heart2.png'), Card('Heart_2_2', 'assets/heartsCards/Heart2.png'),
+    Card('Heart_3_1', 'assets/heartsCards/Heart3.png'), Card('Heart_3_2', 'assets/heartsCards/Heart3.png'),
+    Card('Heart_4_1', 'assets/heartsCards/Heart4.png'), Card('Heart_4_2', 'assets/heartsCards/Heart4.png'),
+    Card('Heart_5_1', 'assets/heartsCards/Heart5.png'), Card('Heart_5_2', 'assets/heartsCards/Heart5.png'),
+    Card('Heart_6_1', 'assets/heartsCards/Heart6.png'), Card('Heart_6_2', 'assets/heartsCards/Heart6.png'),
+    Card('Heart_7_1', 'assets/heartsCards/Heart7.png'), Card('Heart_7_2', 'assets/heartsCards/Heart7.png'),
+    Card('Heart_8_1', 'assets/heartsCards/Heart8.png'), Card('Heart_8_2', 'assets/heartsCards/Heart8.png'),
+    Card('Heart_9_1', 'assets/heartsCards/Heart9.png'), Card('Heart_9_2', 'assets/heartsCards/Heart9.png'),
+    Card('Heart_10_1', 'assets/heartsCards/Heart10.png'), Card('Heart_10_2', 'assets/heartsCards/Heart10.png'),
+    Card('Heart_11_1', 'assets/heartsCards/Heart11.png'), Card('Heart_11_2', 'assets/heartsCards/Heart11.png'),
+    Card('Heart_12_1', 'assets/heartsCards/Heart12.png'), Card('Heart_12_2', 'assets/heartsCards/Heart12.png'),
+    Card('Heart_13_1', 'assets/heartsCards/Heart13.png'), Card('Heart_13_2', 'assets/heartsCards/Heart13.png'),
+    Card('Heart_14_1', 'assets/heartsCards/Heart14.png'), Card('Heart_14_2', 'assets/heartsCards/Heart14.png'),
+    Card('Joker_1', 'assets/extraCards/Joker.png'), Card('Joker_2', 'assets/extraCards/Joker.png'),
+    Card('Joker_3', 'assets/extraCards/Joker.png'), Card('Joker_4', 'assets/extraCards/Joker.png'),
   ];
   // List<Card> professional_deck = [
   //   Card('assets/spadesCards/Spade2.png'), Card('assets/spadesCards/Spade3.png'), Card('assets/spadesCards/Spade4.png'),
@@ -102,12 +102,14 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<Card> discardPile = [];
   List<bool> isTapped = [];
   double yOffset = 5;
+  bool is20CardsInHand = false;
+  bool rowsButtonToggle = false;
 
   void toggleCard(int index) {
     setState(() {
       if(isTapped[index] == false){
         isTapped[index] = true;
-        yOffset = isTapped[index] ? -10 : 5;
+        yOffset = isTapped[index] ? -5 : 5;
       }
       else{
         isTapped[index] = false;
@@ -135,9 +137,14 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       duration: Duration(milliseconds: 500),
     );
     _animation = Tween<Offset>(
-      begin: Offset.zero,
-      end: Offset(0.5, 0),
-    ).animate(_controller);
+      begin: Offset(-1.0, 0.0),
+      end: Offset(0.0, 0.0),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.elasticInOut,
+    ));
+
+    _controller.forward();
   }
 
   @override
@@ -157,6 +164,111 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         deck.removeAt(randomIndex);
         _controller.reset();
         _controller.forward();
+      }
+    });
+  }
+
+  void addDiscardPileToHand(List<Card> discardPile){
+    setState(() {
+      if (discardPile.isNotEmpty) {
+        for(int i = 0; i < discardPile.length; i++){
+          player1Cards.add(Card(discardPile[i].cardId, discardPile[i].imagePath));
+          isTapped.add(false);
+        }
+        discardPile.clear();
+      }
+    });
+  }
+
+  List<Widget> splitInTwoRows(int splitCut){
+    return List.generate(player1Cards.length, (index)
+    {
+      double containerWidth;
+      double cardWidth;
+      double totalSpaceForCards;
+      double spaceBetweenCards;
+      double leftPosition;
+      double topPosition;
+
+      if (index < splitCut) {
+        containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
+        cardWidth = 50; // Width of each card
+        totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+        spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+        leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
+        topPosition = isTapped[index] ? yOffset : 5;
+        if (rowsButtonToggle){
+          containerWidth = 1220;
+          cardWidth = 50; // Width of each card
+          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+          leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
+          topPosition = isTapped[index] ? yOffset : 5;
+        }
+      } else {
+        if(index > 18){ is20CardsInHand = true; }
+        containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
+        cardWidth = 50; // Width of each card
+        totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+        spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+        if (rowsButtonToggle) {
+          containerWidth = (player1Cards.length) % 2 == 0 ? 1220 : 1200; // Width of the container with minus 10 space units to give padding to the right
+          cardWidth = 50; // Width of each card
+          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+          // For the second row, adjust the index and position
+          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + 5;
+          topPosition = isTapped[index] ? yOffset + 20 : 25; // Adjust the top position for the second row
+        } else {
+          leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
+          topPosition = isTapped[index] ? yOffset : 5;
+        }
+      }
+      return AnimatedPositioned(
+        duration: Duration(milliseconds: 300),
+        left: leftPosition,
+        top: topPosition,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              toggleCard(index);
+            });
+          },
+          child: Image.asset(
+            player1Cards[index].imagePath,
+            fit: BoxFit.fill,
+            width: cardWidth,
+            height: 65,
+          ),
+        ),
+      );
+    });
+  }
+
+  // Custom comparator function to sort the cards
+  void sortCards(List<Card> deck) {
+    deck.sort((a, b) {
+      // Define the order of suits and joker cards
+      Map<String, int> suitOrder = {
+        'Spade': 0,
+        'Diamond': 1,
+        'Club': 2,
+        'Heart': 3,
+        'Joker': 4,
+      };
+
+      // Extract the suit and rank from the card name
+      String getSuit(String cardName) {
+        return cardName.split('_')[0];
+      }
+
+      // Compare the suits and joker cards based on the defined order
+      int suitCompare = suitOrder[getSuit(a.cardId)]! - suitOrder[getSuit(b.cardId)]!;
+      if (suitCompare != 0) {
+        return suitCompare; // Different suits, sort by suit order
+      } else {
+        // Same suit, compare card names within the same suit
+        return a.cardId.compareTo(b.cardId);
       }
     });
   }
@@ -515,34 +627,66 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           height: 75,
                           child: Stack(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(color: Colors.white38, width: 1),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Colors.white38,
-                                      spreadRadius: -2,
-                                      blurRadius: 4,
-                                      offset: Offset(0, 0),
+                              GestureDetector(
+                                onTap: () {
+                                  addDiscardPileToHand(discardPile);
+                                },
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(color: Colors.white38, width: 1),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.white38,
+                                            spreadRadius: -2,
+                                            blurRadius: 4,
+                                            offset: Offset(0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Stack(
+                                    //   children: List.generate(discardPile.length, (index) {
+                                    //     return AnimatedPositioned(
+                                    //       duration: Duration(milliseconds: 300),
+                                    //       left: 5 + (index * 10),
+                                    //       top: 5,
+                                    //       child: Image.asset(
+                                    //         discardPile[index].imagePath,
+                                    //         fit: BoxFit.fill,
+                                    //         width: 50,
+                                    //         height: 65,
+                                    //       ),
+                                    //     );
+                                    //   }),
+                                    // ),
+                                    AnimatedBuilder(
+                                      animation: _controller,
+                                      builder: (context, child) {
+                                        return Stack(
+                                          children: List.generate(discardPile.length, (index) {
+                                            // Calculate the animated left position based on index and animation value
+                                            double animatedLeft = 5.0 + (index * 10);
+
+                                            return AnimatedPositioned(
+                                              duration: Duration(milliseconds: 300),
+                                              left: animatedLeft.toDouble(),
+                                              top: 5.0,
+                                              child: Image.asset(
+                                                discardPile[index].imagePath,
+                                                fit: BoxFit.fill,
+                                                width: 50,
+                                                height: 65,
+                                              ),
+                                            );
+                                          }),
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
-                              ),
-                              Stack(
-                                children: List.generate(discardPile.length, (index) {
-                                  return AnimatedPositioned(
-                                    duration: Duration(milliseconds: 300),
-                                    left: 5 + (index * 10),
-                                    top: 5,
-                                    child: Image.asset(
-                                      discardPile[index].imagePath,
-                                      fit: BoxFit.fill,
-                                      width: 50,
-                                      height: 65,
-                                    ),
-                                  );
-                                }),
                               ),
                             ],
                           ),
@@ -590,43 +734,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               ),
                               // Cards stack
                               Stack(
-                                children: List.generate(player1Cards.length, (index) {
-                                  double containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
-                                  double cardWidth = 50; // Width of each card
-                                  double totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-                                  double spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-                                  // double leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
-                                  double leftPosition;
-                                  double topPosition;
-
-                                  if (index < 20) {
-                                    leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
-                                    topPosition = isTapped[index] ? yOffset : 5;
-                                  } else {
-                                    // For the second row, adjust the index and position
-                                    leftPosition = (cardWidth + spaceBetweenCards) * (index - 20) + 5;
-                                    topPosition = isTapped[index] ? yOffset + 10 : 10; // Adjust the top position for the second row
-                                  }
-
-                                  return AnimatedPositioned(
-                                    duration: Duration(milliseconds: 300),
-                                    left: leftPosition,
-                                    top: topPosition,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          toggleCard(index);
-                                        });
-                                      },
-                                      child: Image.asset(
-                                        player1Cards[index].imagePath,
-                                        fit: BoxFit.fill,
-                                        width: cardWidth,
-                                        height: 65,
-                                      ),
-                                    ),
-                                  );
-                                }),
+                                children: splitInTwoRows(player1Cards.length~/2),
                               ),
                             ],
                           ),
@@ -643,19 +751,26 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                     Container(
                       width: 50,
                       height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      child: Visibility(
+                        visible: is20CardsInHand,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              rowsButtonToggle = !rowsButtonToggle;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.zero,
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
                           ),
-                          padding: EdgeInsets.zero,
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
-                        ),
-                        child: Image.asset(
-                          'assets/buttons/2rowsoff.png',
-                          fit: BoxFit.cover,
+                          child: Image.asset(
+                            'assets/buttons/2rowsoff.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -664,7 +779,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                       width: 50,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            sortCards(player1Cards);
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -683,7 +802,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                       width: 50,
                       height: 50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
