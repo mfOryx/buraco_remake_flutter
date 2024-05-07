@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:buracoplus/common/rotating_loader.dart';
 import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
@@ -9,12 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:immutable_device_identifier/immutable_device_identifier.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:buracoplus/common/general_functions.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class LoginController {
   StreamSubscription? _messagesStreamSubscription;
   VoidCallback? onSuccessfulMessage;
   Function(String)? onError;
   TranslationManager? translationManager;
+  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
 
   Future<void> connectToWebSocket() async {
     WebSocketService().connectionStatus.listen((isConnected) {
@@ -75,11 +80,34 @@ class LoginController {
     }
     if (kDebugMode) {
       print(platformVersion);
+      print(Platform.operatingSystemVersion);
+      print(Platform.localHostname);
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      if (Platform.isAndroid) {
+        AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+        print(androidInfo.model);
+      }
+      if (Platform.isIOS) {
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        print('questo il modello ' + iosInfo.name);
+        print('model ' + iosInfo.model);
+        print('version ' + iosInfo.utsname.version);
+      }
+      if (Platform.isMacOS) {
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+        print('questo il modello ' + iosInfo.name);
+        print('model ' + iosInfo.model);
+        print('version ' + iosInfo.utsname.version);
+      }
     }
+    /*
+
     if (playerId == '') {
       WebSocketService().sendMessage('loginAction', {
         'username': username,
         'password': password,
+        'deviceId': platformVersion,
+        'ip': getPublicIP()
       }).then((response) {
         RotatingLoader.hideOverlay();
         if (response['socketId'].toString() != '') {
@@ -135,6 +163,7 @@ class LoginController {
         onError?.call('Errore durante l\'invio del messaggio: $error');
       });
     }
+    */
   }
 
   Future<void> sendAutoLogin(BuildContext context, String playerId) async {
