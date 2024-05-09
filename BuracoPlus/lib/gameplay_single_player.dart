@@ -19,7 +19,7 @@ class Card {
 class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   List<Card> classic_deck = [
-    Card('Spade_2_1', 'assets/spadesCards/Spade2.png'), Card('Spade_2_2', 'assets/spadesCards/Spade2.png'),
+    Card('Special_2_1', 'assets/spadesCards/Spade2.png'), Card('Special_2_2', 'assets/spadesCards/Spade2.png'),
     Card('Spade_3_1', 'assets/spadesCards/Spade3.png'), Card('Spade_3_2', 'assets/spadesCards/Spade3.png'),
     Card('Spade_4_1', 'assets/spadesCards/Spade4.png'), Card('Spade_4_2', 'assets/spadesCards/Spade4.png'),
     Card('Spade_5_1', 'assets/spadesCards/Spade5.png'), Card('Spade_5_2', 'assets/spadesCards/Spade5.png'),
@@ -32,7 +32,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     Card('Spade_12_1', 'assets/spadesCards/Spade12.png'), Card('Spade_12_2', 'assets/spadesCards/Spade12.png'),
     Card('Spade_13_1', 'assets/spadesCards/Spade13.png'), Card('Spade_13_2', 'assets/spadesCards/Spade13.png'),
     Card('Spade_14_1', 'assets/spadesCards/Spade14.png'), Card('Spade_14_2', 'assets/spadesCards/Spade14.png'),
-    Card('Club_2_1', 'assets/clubsCards/Club2.png'), Card('Club_2_2', 'assets/clubsCards/Club2.png'),
+    Card('Special_2_1', 'assets/clubsCards/Club2.png'), Card('Special_2_2', 'assets/clubsCards/Club2.png'),
     Card('Club_3_1', 'assets/clubsCards/Club3.png'), Card('Club_3_2', 'assets/clubsCards/Club3.png'),
     Card('Club_4_1', 'assets/clubsCards/Club4.png'), Card('Club_4_2', 'assets/clubsCards/Club4.png'),
     Card('Club_5_1', 'assets/clubsCards/Club5.png'), Card('Club_5_2', 'assets/clubsCards/Club5.png'),
@@ -45,7 +45,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     Card('Club_12_1', 'assets/clubsCards/Club12.png'), Card('Club_12_2', 'assets/clubsCards/Club12.png'),
     Card('Club_13_1', 'assets/clubsCards/Club13.png'), Card('Club_13_2', 'assets/clubsCards/Club13.png'),
     Card('Club_14_1', 'assets/clubsCards/Club14.png'), Card('Club_14_2', 'assets/clubsCards/Club14.png'),
-    Card('Diamond_2_1', 'assets/diamondsCards/Diamond2.png'), Card('Diamond_2_2', 'assets/diamondsCards/Diamond2.png'),
+    Card('Special_2_1', 'assets/diamondsCards/Diamond2.png'), Card('Special_2_2', 'assets/diamondsCards/Diamond2.png'),
     Card('Diamond_3_1', 'assets/diamondsCards/Diamond3.png'), Card('Diamond_3_2', 'assets/diamondsCards/Diamond3.png'),
     Card('Diamond_4_1', 'assets/diamondsCards/Diamond4.png'), Card('Diamond_4_2', 'assets/diamondsCards/Diamond4.png'),
     Card('Diamond_5_1', 'assets/diamondsCards/Diamond5.png'), Card('Diamond_5_2', 'assets/diamondsCards/Diamond5.png'),
@@ -58,7 +58,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     Card('Diamond_12_1', 'assets/diamondsCards/Diamond12.png'), Card('Diamond_12_2', 'assets/diamondsCards/Diamond12.png'),
     Card('Diamond_13_1', 'assets/diamondsCards/Diamond13.png'), Card('Diamond_13_2', 'assets/diamondsCards/Diamond13.png'),
     Card('Diamond_14_1', 'assets/diamondsCards/Diamond14.png'), Card('Diamond_14_2', 'assets/diamondsCards/Diamond14.png'),
-    Card('Heart_2_1', 'assets/heartsCards/Heart2.png'), Card('Heart_2_2', 'assets/heartsCards/Heart2.png'),
+    Card('Special_2_1', 'assets/heartsCards/Heart2.png'), Card('Special_2_2', 'assets/heartsCards/Heart2.png'),
     Card('Heart_3_1', 'assets/heartsCards/Heart3.png'), Card('Heart_3_2', 'assets/heartsCards/Heart3.png'),
     Card('Heart_4_1', 'assets/heartsCards/Heart4.png'), Card('Heart_4_2', 'assets/heartsCards/Heart4.png'),
     Card('Heart_5_1', 'assets/heartsCards/Heart5.png'), Card('Heart_5_2', 'assets/heartsCards/Heart5.png'),
@@ -71,8 +71,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     Card('Heart_12_1', 'assets/heartsCards/Heart12.png'), Card('Heart_12_2', 'assets/heartsCards/Heart12.png'),
     Card('Heart_13_1', 'assets/heartsCards/Heart13.png'), Card('Heart_13_2', 'assets/heartsCards/Heart13.png'),
     Card('Heart_14_1', 'assets/heartsCards/Heart14.png'), Card('Heart_14_2', 'assets/heartsCards/Heart14.png'),
-    Card('Joker_1', 'assets/extraCards/Joker.png'), Card('Joker_2', 'assets/extraCards/Joker.png'),
-    Card('Joker_3', 'assets/extraCards/Joker.png'), Card('Joker_4', 'assets/extraCards/Joker.png'),
+    Card('Joker_15_1', 'assets/extraCards/Joker.png'), Card('Joker_15_2', 'assets/extraCards/Joker.png'),
+    Card('Joker_15_3', 'assets/extraCards/Joker.png'), Card('Joker_15_4', 'assets/extraCards/Joker.png'),
   ];
   // List<Card> professional_deck = [
   //   Card('assets/spadesCards/Spade2.png'), Card('assets/spadesCards/Spade3.png'), Card('assets/spadesCards/Spade4.png'),
@@ -104,6 +104,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   double yOffset = 5;
   bool is20CardsInHand = false;
   bool rowsButtonToggle = false;
+  bool sort234Button = true;
+  bool sort432Button = false;
+  bool sortKKKButton = false;
 
   void toggleCard(int index) {
     setState(() {
@@ -160,6 +163,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         String cardId = deck[randomIndex].cardId;
         String imagePath = deck[randomIndex].imagePath;
         player1Cards.add(Card(cardId, imagePath));
+        if (sort234Button == true){
+          sort234(player1Cards);
+        }
+        if (sortKKKButton == true){
+          player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
+        }
         isTapped.add(false);
         deck.removeAt(randomIndex);
         _controller.reset();
@@ -245,30 +254,156 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  // Custom comparator function to sort the cards
-  void sortCards(List<Card> deck) {
+  // Custom comparator function to sort the cards in 234 order
+  void sort234(List<Card?> deck) {
     deck.sort((a, b) {
-      // Define the order of suits and joker cards
+      // Define the order of suits and ranks
       Map<String, int> suitOrder = {
         'Spade': 0,
         'Diamond': 1,
         'Club': 2,
         'Heart': 3,
-        'Joker': 4,
+        'Special': 4,
+        'Joker': 5,
       };
 
-      // Extract the suit and rank from the card name
-      String getSuit(String cardName) {
-        return cardName.split('_')[0];
+      Map<String, int> rankOrder = {
+        '3': 0,
+        '4': 1,
+        '5': 2,
+        '6': 3,
+        '7': 4,
+        '8': 5,
+        '9': 6,
+        '10': 7,
+        '11': 8,
+        '12': 9,
+        '13': 10,
+        '14': 11,
+        '2': 12,
+        '15': 13,
+      };
+
+      String? getSuit(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[0];
+        }
+        return null;
       }
 
-      // Compare the suits and joker cards based on the defined order
-      int suitCompare = suitOrder[getSuit(a.cardId)]! - suitOrder[getSuit(b.cardId)]!;
-      if (suitCompare != 0) {
-        return suitCompare; // Different suits, sort by suit order
+      String? getRank(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[1];
+        }
+        return null;
+      }
+
+      String? suitA = getSuit(a?.cardId);
+      String? suitB = getSuit(b?.cardId);
+      String? rankA = getRank(a?.cardId);
+      String? rankB = getRank(b?.cardId);
+
+      // Check for null values before comparison
+      if (suitA != null && suitB != null && rankA != null && rankB != null) {
+        int suitCompare = suitOrder[suitA]! - suitOrder[suitB]!;
+        int rankCompare = rankOrder[rankA]!.compareTo(rankOrder[rankB]!);
+        if (suitCompare != 0) {
+          return suitCompare;
+        } else {
+          if (rankCompare != 0){
+            return rankCompare;
+          } else {
+            return 0;
+          }
+        }
       } else {
-        // Same suit, compare card names within the same suit
-        return a.cardId.compareTo(b.cardId);
+        // Handle cases where one or both cards have null values
+        if (suitA == null && suitB == null) {
+          return 0; // Both are null, treat as equal
+        } else if (suitA == null) {
+          return 1; // Null suit comes after non-null
+        } else if (suitB == null) {
+          return -1; // Null suit comes before non-null
+        } else {
+          return 0; // Treat as equal
+        }
+      }
+    });
+  }
+
+  // Custom comparator function to sort the cards in 432 order
+  void sort432(List<Card?> deck) {
+    deck.sort((a, b) {
+      // Define the order of suits and ranks
+      Map<String, int> suitOrder = {
+        'Joker': 0,
+        'Special': 1,
+        'Spade': 2,
+        'Diamond': 3,
+        'Club': 4,
+        'Heart': 5,
+      };
+
+      Map<String, int> rankOrder = {
+        '15': 0,
+        '2': 1,
+        '14': 2,
+        '13': 3,
+        '12': 4,
+        '11': 5,
+        '10': 6,
+        '9': 7,
+        '8': 8,
+        '7': 9,
+        '6': 10,
+        '5': 11,
+        '4': 12,
+        '3': 13,
+      };
+
+      String? getSuit(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[0];
+        }
+        return null;
+      }
+
+      String? getRank(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[1];
+        }
+        return null;
+      }
+
+      String? suitA = getSuit(a?.cardId);
+      String? suitB = getSuit(b?.cardId);
+      String? rankA = getRank(a?.cardId);
+      String? rankB = getRank(b?.cardId);
+
+      // Check for null values before comparison
+      if (suitA != null && suitB != null && rankA != null && rankB != null) {
+        int suitCompare = suitOrder[suitA]! - suitOrder[suitB]!;
+        int rankCompare = rankOrder[rankA]!.compareTo(rankOrder[rankB]!);
+        if (suitCompare != 0) {
+          return suitCompare;
+        } else {
+          if (rankCompare != 0){
+            return rankCompare;
+          } else {
+            return 0;
+          }
+        }
+      } else {
+        // Handle cases where one or both cards have null values
+        if (suitA == null && suitB == null) {
+          return 0; // Both are null, treat as equal
+        } else if (suitA == null) {
+          return 1; // Null suit comes after non-null
+        } else if (suitB == null) {
+          return -1; // Null suit comes before non-null
+        } else {
+          return 0; // Treat as equal
+        }
       }
     });
   }
@@ -775,28 +910,67 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                       ),
                     ),
                     SizedBox(height: 0),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            sortCards(player1Cards);
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    Stack(
+                      children: [
+                        Visibility(
+                          visible: sort234Button,
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  sort234Button = false; // Hide 234 button
+                                  sort432Button = true; // Show 432 button
+                                  sortKKKButton = false;
+                                  sort234(player1Cards); // Perform sorting logic for 432
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.zero,
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                              ),
+                              child: Image.asset(
+                                'assets/buttons/sort234off.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          padding: EdgeInsets.zero,
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
                         ),
-                        child: Image.asset(
-                          'assets/buttons/sort234off.png',
-                          fit: BoxFit.cover,
+                        Visibility(
+                          visible: sort432Button,
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  sort234Button = true; // Show 234 button
+                                  sort432Button = false; // Hide 432 button
+                                  sortKKKButton = false;
+                                  sort432(player1Cards); // Perform sorting logic for 234
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                padding: EdgeInsets.zero,
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                              ),
+                              child: Image.asset(
+                                'assets/buttons/sort432off.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     Container(
                       width: 50,
@@ -804,6 +978,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            sortKKKButton = !sortKKKButton;
+                            sort234Button = true;
+                            sort432Button = false;
                             player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
                           });
                         },
