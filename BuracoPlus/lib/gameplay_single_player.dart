@@ -637,7 +637,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
               children: [
                 //Pot starts
                 Container(
-                  width: 60,
+                  width: 50,
                   height: 55,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -645,7 +645,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                   child: Stack(
                     children: [
                       Container(
-                        width: 60,
+                        width: 50,
                         height: 55,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
@@ -660,28 +660,68 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
+                      // Normal stack of cards
                       Stack(
-                        children: List.generate(
-                          pot.length,
-                              (index) => Positioned(
+                        children: [
+                          Positioned(
                             right: 5,
                             top: 5,
-                            child: Image.asset(
-                              pot[index].imagePath,
-                              width: 40,
-                              height: 45,
+                            child: Stack(
+                              children: [
+                                ...List.generate(
+                                  11,
+                                      (index) => Image.asset(
+                                    pot[index].imagePath,
+                                    width: 40,
+                                    height: 45,
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 4,
+                                  child: Image.asset(
+                                    'assets/extraCards/Blue.png',
+                                    fit: BoxFit.fill,
+                                    width: 32,
+                                    height: 45,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 5, top: 5),
-                        child: Image.asset(
-                          'assets/extraCards/Blue.png',
-                          fit: BoxFit.fill,
-                          width: 40,
-                          height: 45,
-                        ),
+                      // Rotated stack of cards
+                      Stack(
+                        children: [
+                          Positioned(
+                            right: 5,
+                            bottom: 5,
+                            child: Transform.rotate(
+                              angle: pi / 2, // Rotate 90 degrees
+                              child: Stack(
+                                children: [
+                                  // Rotated cards
+                                  ...List.generate(
+                                    11,
+                                        (index) => Image.asset(
+                                      pot[index + 11].imagePath, // Start from index 11 for rotated cards
+                                      width: 40,
+                                      height: 45,
+                                    ),
+                                  ),
+                                  // Covering card for the rest of the cards
+                                  Positioned(
+                                    child: Image.asset(
+                                      'assets/extraCards/Blue.png', // Adjust the path to your covering card image
+                                      width: 40,
+                                      height: 45,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
