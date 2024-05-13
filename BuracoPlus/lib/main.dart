@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
@@ -46,10 +48,24 @@ class MainApp extends StatelessWidget {
 class StartApp extends StatelessWidget {
   // Rimuovi il costruttore con languageCode, non è più necessario
   const StartApp({super.key});
+  bool isIOS() {
+    return Platform.isIOS;
+  }
+
+  bool isAndroid() {
+    return Platform.isAndroid;
+  }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+
+    if(isIOS()){
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+    } else if(isAndroid()){
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    } else{
+      SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+    }
 
     // Usa Provider.of o Consumer per accedere a TranslationManager se necessario qui
     final String languageCode =

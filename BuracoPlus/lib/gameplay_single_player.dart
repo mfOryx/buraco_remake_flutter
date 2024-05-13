@@ -112,7 +112,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     setState(() {
       if(isTapped[index] == false){
         isTapped[index] = true;
-        yOffset = isTapped[index] ? -5 : 5;
+        yOffset = isTapped[index] ? MediaQuery.of(context).size.height * -0.015 : MediaQuery.of(context).size.height * 0.015;
       }
       else{
         isTapped[index] = false;
@@ -198,39 +198,41 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       double spaceBetweenCards;
       double leftPosition;
       double topPosition;
+      double screenWidth = MediaQuery.of(context).size.width;
+      double screenHeight = MediaQuery.of(context).size.height;
 
       if (index < splitCut) {
-        containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
-        cardWidth = 50; // Width of each card
+        containerWidth = screenWidth * 0.672; // Width of the container with minus 10 space units to give padding to the right
+        cardWidth = screenWidth * 0.055; // Width of each card
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
-        topPosition = isTapped[index] ? yOffset : 5;
+        leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+        topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         if (rowsButtonToggle){
-          containerWidth = 1220;
-          cardWidth = 50; // Width of each card
+          containerWidth = screenWidth * 1.305;
+          cardWidth = screenWidth * 0.055; // Width of each card
           totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-          leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
-          topPosition = isTapped[index] ? yOffset : 5;
+          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         }
       } else {
         if(index > 18){ is20CardsInHand = true; }
-        containerWidth = 625; // Width of the container with minus 10 space units to give padding to the right
-        cardWidth = 50; // Width of each card
+        containerWidth = screenWidth * 0.672; // Width of the container with minus 10 space units to give padding to the right
+        cardWidth = screenWidth * 0.055; // Width of each card
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
         if (rowsButtonToggle) {
-          containerWidth = (player1Cards.length) % 2 == 0 ? 1220 : 1200; // Width of the container with minus 10 space units to give padding to the right
-          cardWidth = 50; // Width of each card
+          containerWidth = (player1Cards.length) % 2 == 0 ? (screenWidth * 1.305) : (screenWidth * 1.288); // Width of the container with minus 10 space units to give padding to the right
+          cardWidth = screenWidth * 0.055; // Width of each card
           totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
           // For the second row, adjust the index and position
-          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + 5;
-          topPosition = isTapped[index] ? yOffset + 20 : 25; // Adjust the top position for the second row
+          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
+          topPosition = isTapped[index] ? yOffset + (screenHeight * 0.05) : (screenHeight * 0.06); // Adjust the top position for the second row
         } else {
-          leftPosition = (cardWidth + spaceBetweenCards) * index + 5;
-          topPosition = isTapped[index] ? yOffset : 5;
+          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         }
       }
       return AnimatedPositioned(
@@ -247,7 +249,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             player1Cards[index].imagePath,
             fit: BoxFit.fill,
             width: cardWidth,
-            height: 65,
+            height: screenHeight * 0.15,
           ),
         ),
       );
@@ -414,486 +416,57 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     int player2CardsCount = (player2Cards.length).toInt();
     int deckCount = (deck.length).toInt();
     int potCount = (pot.length).toInt();
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: const Color(0xFF344264),
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                //Avatar and Nickname starts
-                const Row(
+        child: SizedBox(
+          height: screenHeight,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
-                    ),
-                    SizedBox(width: 12),
-                    Text(
-                      'ABC XYZ',
-                      style: TextStyle(fontSize: 10, color: Colors.white),
-                    ),
-                  ],
-                ),
-                //Avatar and Nickname ends
-                const SizedBox(width: 12),
-                //Player 2 Hand Container starts
-                Container(
-                  width: 60,
-                  height: 65,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 65,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.white38, width: 1),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.white38,
-                              spreadRadius: -2,
-                              blurRadius: 4,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Stack(
-                        children: List.generate(
-                          player2Cards.length,
-                              (index) => Positioned(
-                            right: 5 + (index * 1),
-                            top: 5,
-                            child: Image.asset(
-                              player2Cards[index].imagePath,
-                              width: 40,
-                              height: 55,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 5, top: 5),
-                        child: Image.asset(
-                          'assets/extraCards/Blue.png',
-                          fit: BoxFit.fill,
-                          width: 40,
-                          height: 55,
-                        ),
-                      ),
-                      Positioned(
-                        top: 32,
-                        left: 13,
-                        child: Container(
-                          width: 20,
-                          height: 20,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: Center(
-                            child: Text(
-                              player2CardsCount.toString(),
-                              style: TextStyle(fontSize: 10, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //Player 2 Hand Container ends
-                const SizedBox(width: 15),
-                //Nickname with Points starts
-                Container(
-                  width: 130,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'ABC XYZ',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          '0/0',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Container(
-                  width: 130,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          'XYZ ABC',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text(
-                          '0/0',
-                          style: TextStyle(fontSize: 10, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //Nickname with Points ends
-              ],
-            ),
-            //Tables starts
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 350,
-                  height: 215,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 2.0),
-                Container(
-                  width: 350,
-                  height: 215,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0),
-                        spreadRadius: 3,
-                        blurRadius: 7,
-                        offset: const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Text(
-                      '',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            //Tables ends
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //Pot starts
-                Container(
-                  width: 50,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 55,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.white38, width: 1),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.white38,
-                              spreadRadius: -2,
-                              blurRadius: 4,
-                              offset: Offset(0, 0),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // Normal stack of cards
-                      Stack(
-                        children: [
-                          Positioned(
-                            right: 5,
-                            top: 5,
-                            child: Stack(
-                              children: [
-                                ...List.generate(
-                                  11,
-                                      (index) => Image.asset(
-                                    pot[index].imagePath,
-                                    width: 40,
-                                    height: 45,
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 4,
-                                  child: Image.asset(
-                                    'assets/extraCards/Blue.png',
-                                    fit: BoxFit.fill,
-                                    width: 32,
-                                    height: 45,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Rotated stack of cards
-                      Stack(
-                        children: [
-                          Positioned(
-                            right: 5,
-                            bottom: 5,
-                            child: Transform.rotate(
-                              angle: pi / 2, // Rotate 90 degrees
-                              child: Stack(
-                                children: [
-                                  // Rotated cards
-                                  ...List.generate(
-                                    11,
-                                        (index) => Image.asset(
-                                      pot[index + 11].imagePath, // Start from index 11 for rotated cards
-                                      width: 40,
-                                      height: 45,
-                                    ),
-                                  ),
-                                  // Covering card for the rest of the cards
-                                  Positioned(
-                                    child: Image.asset(
-                                      'assets/extraCards/Blue.png', // Adjust the path to your covering card image
-                                      width: 40,
-                                      height: 45,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                //Pot ends
-                SizedBox(width: 62),
-                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        //Deck starts
-                        SizedBox(
-                          width: 60,
-                          height: 75,
-                          child: Stack(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  addRandomCard(deck);
-                                  setState(() {
-                                    deckCount = deck.length;
-                                  });
-                                },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 75,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(color: Colors.white38, width: 1),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.white38,
-                                            spreadRadius: -2,
-                                            blurRadius: 4,
-                                            offset: Offset(0, 0),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 5, top: 5),
-                                      child: Image.asset(
-                                        'assets/extraCards/Red.png',
-                                        fit: BoxFit.fill,
-                                        width: 50,
-                                        height: 65,
-                                      ),
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        width: 20,
-                                        height: 20,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            deckCount.toString(),
-                                            style: TextStyle(fontSize: 10, color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        //Deck ends
-                        const SizedBox(width: 5),
-                        //Discard Pile starts
-                        SizedBox(
-                          width: 500,
-                          height: 75,
-                          child: Stack(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  addDiscardPileToHand(discardPile);
-                                },
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(color: Colors.white38, width: 1),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.white38,
-                                            spreadRadius: -2,
-                                            blurRadius: 4,
-                                            offset: Offset(0, 0),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    // Stack(
-                                    //   children: List.generate(discardPile.length, (index) {
-                                    //     return AnimatedPositioned(
-                                    //       duration: Duration(milliseconds: 300),
-                                    //       left: 5 + (index * 10),
-                                    //       top: 5,
-                                    //       child: Image.asset(
-                                    //         discardPile[index].imagePath,
-                                    //         fit: BoxFit.fill,
-                                    //         width: 50,
-                                    //         height: 65,
-                                    //       ),
-                                    //     );
-                                    //   }),
-                                    // ),
-                                    AnimatedBuilder(
-                                      animation: _controller,
-                                      builder: (context, child) {
-                                        return Stack(
-                                          children: List.generate(discardPile.length, (index) {
-                                            // Calculate the animated left position based on index and animation value
-                                            double animatedLeft = 5.0 + (index * 10);
-
-                                            return AnimatedPositioned(
-                                              duration: Duration(milliseconds: 300),
-                                              left: animatedLeft.toDouble(),
-                                              top: 5.0,
-                                              child: Image.asset(
-                                                discardPile[index].imagePath,
-                                                fit: BoxFit.fill,
-                                                width: 50,
-                                                height: 65,
-                                              ),
-                                            );
-                                          }),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        //Discard Pile ends
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Column(
+                        //Avatar and Nickname starts
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             CircleAvatar(
-                              radius: 25,
+                              radius: screenWidth * 0.03,
                               backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
                             ),
-                            SizedBox(width: 12),
+                            SizedBox(width: screenWidth * 0.02),
                             Text(
-                              'XYZ ABC',
-                              style: TextStyle(fontSize: 10, color: Colors.white),
+                              'ABC XYZ',
+                              style: TextStyle(fontSize: screenWidth * 0.01, color: Colors.white),
                             ),
                           ],
                         ),
-                        SizedBox(width: 5,),
-                        // Player 1 Hand Container starts
-                        SizedBox(
-                          width: 635,
-                          height: 75,
+                        //Avatar and Nickname ends
+                        SizedBox(width: screenWidth * 0.02),
+                        //Player 2 Hand Container starts
+                        Container(
+                          width: screenWidth * 0.065,
+                          height: screenHeight * 0.14,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: Stack(
                             children: [
                               Container(
-                                width: 635,
-                                height: 75,
+                                width: screenWidth * 0.065,
+                                height: screenHeight * 0.14,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   border: Border.all(color: Colors.white38, width: 1),
@@ -907,142 +480,586 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   ],
                                 ),
                               ),
-                              // Cards stack
                               Stack(
-                                children: splitInTwoRows(player1Cards.length~/2),
+                                children: List.generate(
+                                  player2Cards.length,
+                                      (index) => Positioned(
+                                    right: (screenWidth * 0.005) + (index * 1),
+                                    top: screenHeight * 0.005,
+                                    child: Image.asset(
+                                      player2Cards[index].imagePath,
+                                      width: screenWidth * 0.04,
+                                      height: screenHeight * 0.135,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(left: 5, top: 5),
+                                child: Image.asset(
+                                  'assets/extraCards/Blue.png',
+                                  fit: BoxFit.fill,
+                                  width: screenWidth * 0.04,
+                                  height: screenHeight * 0.12,
+                                ),
+                              ),
+                              Positioned(
+                                top: 30,
+                                left: 13,
+                                child: Container(
+                                  width: screenWidth * 0.02,
+                                  height: screenHeight * 0.05,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      player2CardsCount.toString(),
+                                      style: TextStyle(fontSize: 10, color: Colors.black),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        // Player 1 Hand Container ends
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      child: Visibility(
-                        visible: is20CardsInHand,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              rowsButtonToggle = !rowsButtonToggle;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: EdgeInsets.zero,
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
+                        //Player 2 Hand Container ends
+                        SizedBox(width: screenWidth * 0.02),
+                        //Nickname with Points starts
+                        Container(
+                          width: screenWidth * 0.15,
+                          height: screenHeight * 0.05,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Image.asset(
-                            'assets/buttons/2rowsoff.png',
-                            fit: BoxFit.cover,
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'ABC XYZ',
+                                  style: TextStyle(fontSize: 10, color: Colors.white),
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  '0/0',
+                                  style: TextStyle(fontSize: 10, color: Colors.white),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 10),
+                        Container(
+                          width: screenWidth * 0.15,
+                          height: screenHeight * 0.05,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  'XYZ ABC',
+                                  style: TextStyle(fontSize: 10, color: Colors.white),
+                                ),
+                              ),
+                              Spacer(),
+                              Padding(
+                                padding: EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  '0/0',
+                                  style: TextStyle(fontSize: 10, color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //Nickname with Points ends
+                      ],
                     ),
-                    SizedBox(height: 0),
-                    Stack(
+                    //Tables starts
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Visibility(
-                          visible: sort234Button,
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  sort234Button = false; // Hide 234 button
-                                  sort432Button = true; // Show 432 button
-                                  sortKKKButton = false;
-                                  sort234(player1Cards); // Perform sorting logic for 432
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: EdgeInsets.zero,
-                                elevation: 0,
-                                backgroundColor: Colors.transparent,
+                        Container(
+                          width: screenWidth * 0.4,
+                          height: screenHeight * 0.52,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
                               ),
-                              child: Image.asset(
-                                'assets/buttons/sort234off.png',
-                                fit: BoxFit.cover,
-                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '',
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                         ),
-                        Visibility(
-                          visible: sort432Button,
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  sort234Button = true; // Show 234 button
-                                  sort432Button = false; // Hide 432 button
-                                  sortKKKButton = false;
-                                  sort432(player1Cards); // Perform sorting logic for 234
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: EdgeInsets.zero,
-                                elevation: 0,
-                                backgroundColor: Colors.transparent,
+                        const SizedBox(width: 2.0),
+                        Container(
+                          width: screenWidth * 0.4,
+                          height: screenHeight * 0.52,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withOpacity(0),
+                                spreadRadius: 3,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3), // changes position of shadow
                               ),
-                              child: Image.asset(
-                                'assets/buttons/sort432off.png',
-                                fit: BoxFit.cover,
-                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '',
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                           ),
                         ),
                       ],
                     ),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            sortKKKButton = !sortKKKButton;
-                            sort234Button = true;
-                            sort432Button = false;
-                            player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: EdgeInsets.zero,
-                          elevation: 0,
-                          backgroundColor: Colors.transparent,
+                    //Tables ends
+                    Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            //Pot starts
+                            Container(
+                              width: screenWidth * 0.05,
+                              height: screenHeight * 0.128,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: screenWidth * 0.05,
+                                    height: screenHeight * 0.128,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(color: Colors.white38, width: 1),
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Colors.white38,
+                                          spreadRadius: -2,
+                                          blurRadius: 4,
+                                          offset: Offset(0, 0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  // Normal stack of cards
+                                  Stack(
+                                    children: [
+                                      Positioned(
+                                        right: screenWidth * 0.005,
+                                        top: screenHeight * 0.012,
+                                        child: Stack(
+                                          children: [
+                                            ...List.generate(
+                                              11,
+                                                  (index) => Image.asset(
+                                                pot[index].imagePath,
+                                                width: screenWidth * 0.042,
+                                                height: screenHeight * 0.105,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              left: screenWidth * 0.003,
+                                              child: Image.asset(
+                                                'assets/extraCards/Blue.png',
+                                                fit: BoxFit.fill,
+                                                width: screenWidth * 0.035,
+                                                height: screenHeight * 0.105,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Rotated stack of cards
+                                  Stack(
+                                    children: [
+                                      Positioned(
+                                        right: screenWidth * 0.008,
+                                        bottom: screenHeight * 0.012,
+                                        child: Transform.rotate(
+                                          angle: pi / 2, // Rotate 90 degrees
+                                          child: Stack(
+                                            children: [
+                                              // Rotated cards
+                                              ...List.generate(
+                                                11,
+                                                    (index) => Image.asset(
+                                                  pot[index + 11].imagePath, // Start from index 11 for rotated cards
+                                                  width: screenWidth * 0.035,
+                                                  height: screenHeight * 0.105,
+                                                ),
+                                              ),
+                                              // Covering card for the rest of the cards
+                                              Positioned(
+                                                child: Image.asset(
+                                                  'assets/extraCards/Blue.png', // Adjust the path to your covering card image
+                                                  width: screenWidth * 0.035,
+                                                  height: screenHeight * 0.105,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //Pot ends
+                            SizedBox(width: screenWidth * 0.1),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    //Deck starts
+                                    SizedBox(
+                                      width: screenWidth * 0.064,
+                                      height: screenHeight * 0.17,
+                                      child: Stack(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              addRandomCard(deck);
+                                              setState(() {
+                                                deckCount = deck.length;
+                                              });
+                                            },
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  width: screenWidth * 0.064,
+                                                  height: screenHeight * 0.17,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5),
+                                                    border: Border.all(color: Colors.white38, width: 1),
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                        color: Colors.white38,
+                                                        spreadRadius: -2,
+                                                        blurRadius: 4,
+                                                        offset: Offset(0, 0),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: EdgeInsets.only(left: 5, top: 5),
+                                                  child: Image.asset(
+                                                    'assets/extraCards/Red.png',
+                                                    fit: BoxFit.fill,
+                                                    width: screenWidth * 0.053,
+                                                    height: screenHeight * 0.147,
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Container(
+                                                    width: screenWidth * 0.05,
+                                                    height: screenHeight * 0.05,
+                                                    decoration: const BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        deckCount.toString(),
+                                                        style: TextStyle(fontSize: 10, color: Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    //Deck ends
+                                    SizedBox(width: screenWidth * 0.005),
+                                    //Discard Pile starts
+                                    SizedBox(
+                                      width: screenWidth * 0.55,
+                                      height: screenHeight * 0.17,
+                                      child: Stack(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              addDiscardPileToHand(discardPile);
+                                            },
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(5),
+                                                    border: Border.all(color: Colors.white38, width: 1),
+                                                    boxShadow: const [
+                                                      BoxShadow(
+                                                        color: Colors.white38,
+                                                        spreadRadius: -2,
+                                                        blurRadius: 4,
+                                                        offset: Offset(0, 0),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                // Stack(
+                                                //   children: List.generate(discardPile.length, (index) {
+                                                //     return AnimatedPositioned(
+                                                //       duration: Duration(milliseconds: 300),
+                                                //       left: 5 + (index * 10),
+                                                //       top: 5,
+                                                //       child: Image.asset(
+                                                //         discardPile[index].imagePath,
+                                                //         fit: BoxFit.fill,
+                                                //         width: 50,
+                                                //         height: 65,
+                                                //       ),
+                                                //     );
+                                                //   }),
+                                                // ),
+                                                AnimatedBuilder(
+                                                  animation: _controller,
+                                                  builder: (context, child) {
+                                                    return Stack(
+                                                      children: List.generate(discardPile.length, (index) {
+                                                        // Calculate the animated left position based on index and animation value
+                                                        double animatedLeft = 5.0 + (index * 10);
+
+                                                        return AnimatedPositioned(
+                                                          duration: Duration(milliseconds: 300),
+                                                          left: animatedLeft.toDouble(),
+                                                          top: screenHeight * 0.01,
+                                                          child: Image.asset(
+                                                            discardPile[index].imagePath,
+                                                            fit: BoxFit.fill,
+                                                            width: screenWidth * 0.055,
+                                                            height: screenHeight * 0.15,
+                                                          ),
+                                                        );
+                                                      }),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    //Discard Pile ends
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: screenWidth * 0.03,
+                                          backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                        ),
+                                        SizedBox(width: screenWidth * 0.012),
+                                        Text(
+                                          'XYZ ABC',
+                                          style: TextStyle(fontSize: 10, color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(width: screenWidth * 0.005),
+                                    // Player 1 Hand Container starts
+                                    SizedBox(
+                                      width: screenWidth * 0.682,
+                                      height: screenHeight * 0.17,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            width: screenWidth * 0.682,
+                                            height: screenHeight * 0.17,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(5),
+                                              border: Border.all(color: Colors.white38, width: 1),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                  color: Colors.white38,
+                                                  spreadRadius: -2,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          // Cards stack
+                                          Stack(
+                                            children: splitInTwoRows(player1Cards.length~/2),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Player 1 Hand Container ends
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: screenWidth * 0.06,
+                                      height: screenHeight * 0.1,
+                                      child: Visibility(
+                                        visible: is20CardsInHand,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              rowsButtonToggle = !rowsButtonToggle;
+                                            });
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            padding: EdgeInsets.zero,
+                                            elevation: 0,
+                                            backgroundColor: Colors.transparent,
+                                          ),
+                                          child: Image.asset(
+                                            'assets/buttons/2rowsoff.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Stack(
+                                      children: [
+                                        Visibility(
+                                          visible: sort234Button,
+                                          child: Container(
+                                            width: screenWidth * 0.06,
+                                            height: screenHeight * 0.1,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  sort234Button = false; // Hide 234 button
+                                                  sort432Button = true; // Show 432 button
+                                                  sortKKKButton = false;
+                                                  sort234(player1Cards); // Perform sorting logic for 432
+                                                });
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                padding: EdgeInsets.zero,
+                                                elevation: 0,
+                                                backgroundColor: Colors.transparent,
+                                              ),
+                                              child: Image.asset(
+                                                'assets/buttons/sort234off.png',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Visibility(
+                                          visible: sort432Button,
+                                          child: Container(
+                                            width: screenWidth * 0.06,
+                                            height: screenHeight * 0.1,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  sort234Button = true; // Show 234 button
+                                                  sort432Button = false; // Hide 432 button
+                                                  sortKKKButton = false;
+                                                  sort432(player1Cards); // Perform sorting logic for 234
+                                                });
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                padding: EdgeInsets.zero,
+                                                elevation: 0,
+                                                backgroundColor: Colors.transparent,
+                                              ),
+                                              child: Image.asset(
+                                                'assets/buttons/sort432off.png',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      width: screenWidth * 0.06,
+                                      height: screenHeight * 0.1,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            sortKKKButton = !sortKKKButton;
+                                            sort234Button = true;
+                                            sort432Button = false;
+                                            player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
+                                          });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          padding: EdgeInsets.zero,
+                                          elevation: 0,
+                                          backgroundColor: Colors.transparent,
+                                        ),
+                                        child: Image.asset(
+                                          'assets/buttons/sortKKKoff.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            ),
+                          ],
                         ),
-                        child: Image.asset(
-                          'assets/buttons/sortKKKoff.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
