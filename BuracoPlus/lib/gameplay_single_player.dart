@@ -2,6 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:buracoplus/blocks/lobby_option_item.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/helpers/modal_helpers.dart';
+import 'package:buracoplus/models/options_model.dart';
+import 'package:buracoplus/providers/theme_provider.dart';
 
 class GameplaySP extends StatefulWidget {
   const GameplaySP({super.key});
@@ -104,9 +110,17 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   double yOffset = 5;
   bool is20CardsInHand = false;
   bool rowsButtonToggle = false;
-  bool sort234Button = true;
+  bool sort234Button = false;
   bool sort432Button = false;
   bool sortKKKButton = false;
+  bool menuButton = false;
+  bool menuExitButton = false;
+  bool menuClubsButton = false;
+  bool menuNoticeButton = false;
+  bool menuMessagesButton = false;
+  bool menuContactsButton = false;
+  bool menuOptionsButton = false;
+  bool menuProfileButton = false;
 
   void toggleCard(int index) {
     setState(() {
@@ -165,6 +179,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         player1Cards.add(Card(cardId, imagePath));
         if (sort234Button == true){
           sort234(player1Cards);
+        }
+        if (sort432Button == true){
+          sort432(player1Cards);
         }
         if (sortKKKButton == true){
           player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
@@ -646,98 +663,134 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            //Pot starts
-                            Container(
-                              width: screenWidth * 0.05,
-                              height: screenHeight * 0.128,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: screenWidth * 0.05,
-                                    height: screenHeight * 0.128,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(color: Colors.white38, width: 1),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Colors.white38,
-                                          spreadRadius: -2,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 0),
-                                        ),
-                                      ],
-                                    ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                //Pot starts
+                                Container(
+                                  width: screenWidth * 0.05,
+                                  height: screenHeight * 0.128,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  // Normal stack of cards
-                                  Stack(
+                                  child: Stack(
                                     children: [
-                                      Positioned(
-                                        right: screenWidth * 0.005,
-                                        top: screenHeight * 0.012,
-                                        child: Stack(
-                                          children: [
-                                            ...List.generate(
-                                              11,
-                                                  (index) => Image.asset(
-                                                pot[index].imagePath,
-                                                width: screenWidth * 0.042,
-                                                height: screenHeight * 0.105,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              left: screenWidth * 0.003,
-                                              child: Image.asset(
-                                                'assets/extraCards/Blue.png',
-                                                fit: BoxFit.fill,
-                                                width: screenWidth * 0.035,
-                                                height: screenHeight * 0.105,
-                                              ),
+                                      Container(
+                                        width: screenWidth * 0.05,
+                                        height: screenHeight * 0.128,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
+                                          border: Border.all(color: Colors.white38, width: 1),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.white38,
+                                              spreadRadius: -2,
+                                              blurRadius: 4,
+                                              offset: Offset(0, 0),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  // Rotated stack of cards
-                                  Stack(
-                                    children: [
-                                      Positioned(
-                                        right: screenWidth * 0.008,
-                                        bottom: screenHeight * 0.012,
-                                        child: Transform.rotate(
-                                          angle: pi / 2, // Rotate 90 degrees
-                                          child: Stack(
-                                            children: [
-                                              // Rotated cards
-                                              ...List.generate(
-                                                11,
-                                                    (index) => Image.asset(
-                                                  pot[index + 11].imagePath, // Start from index 11 for rotated cards
-                                                  width: screenWidth * 0.035,
-                                                  height: screenHeight * 0.105,
+                                      // Normal stack of cards
+                                      Stack(
+                                        children: [
+                                          Positioned(
+                                            right: screenWidth * 0.005,
+                                            top: screenHeight * 0.012,
+                                            child: Stack(
+                                              children: [
+                                                ...List.generate(
+                                                  11,
+                                                      (index) => Image.asset(
+                                                    pot[index].imagePath,
+                                                    width: screenWidth * 0.042,
+                                                    height: screenHeight * 0.105,
+                                                  ),
                                                 ),
-                                              ),
-                                              // Covering card for the rest of the cards
-                                              Positioned(
-                                                child: Image.asset(
-                                                  'assets/extraCards/Blue.png', // Adjust the path to your covering card image
-                                                  width: screenWidth * 0.035,
-                                                  height: screenHeight * 0.105,
+                                                Positioned(
+                                                  left: screenWidth * 0.003,
+                                                  child: Image.asset(
+                                                    'assets/extraCards/Blue.png',
+                                                    fit: BoxFit.fill,
+                                                    width: screenWidth * 0.035,
+                                                    height: screenHeight * 0.105,
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                        ],
+                                      ),
+                                      // Rotated stack of cards
+                                      Stack(
+                                        children: [
+                                          Positioned(
+                                            right: screenWidth * 0.008,
+                                            bottom: screenHeight * 0.012,
+                                            child: Transform.rotate(
+                                              angle: pi / 2, // Rotate 90 degrees
+                                              child: Stack(
+                                                children: [
+                                                  // Rotated cards
+                                                  ...List.generate(
+                                                    11,
+                                                        (index) => Image.asset(
+                                                      pot[index + 11].imagePath,
+                                                      width: screenWidth * 0.035,
+                                                      height: screenHeight * 0.105,
+                                                    ),
+                                                  ),
+                                                  // Covering card for the rest of the cards
+                                                  Positioned(
+                                                    child: Image.asset(
+                                                      'assets/extraCards/Blue.png',
+                                                      width: screenWidth * 0.035,
+                                                      height: screenHeight * 0.105,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                //Pot ends
+                                Positioned(
+                                  top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
+                                  left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
+                                  right: Directionality.of(context) == TextDirection.rtl ? null : 120,
+                                  width: 70,
+                                  height: 70,
+                                  child: Container(
+                                    width: screenWidth * 0.042,
+                                    height: screenHeight * 0.1,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        showOptionsPanel(context);
+                                        setState(() {
+                                          menuButton = !menuButton;
+                                        });
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        padding: EdgeInsets.zero,
+                                        elevation: 0,
+                                        backgroundColor: Colors.transparent,
+                                      ),
+                                      child: Image.asset(
+                                        'assets/buttons/button_25_white.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            //Pot ends
                             SizedBox(width: screenWidth * 0.1),
                             Column(
                               children: [
@@ -955,7 +1008,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             backgroundColor: Colors.transparent,
                                           ),
                                           child: Image.asset(
-                                            'assets/buttons/2rowsoff.png',
+                                            rowsButtonToggle ? 'assets/buttons/2rowson.png' : 'assets/buttons/2rowsoff.png',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -963,6 +1016,32 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                     Stack(
                                       children: [
+                                        Container(
+                                          width: screenWidth * 0.06,
+                                          height: screenHeight * 0.1,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                sort234Button = true; // Hide 234 button
+                                                sort432Button = false; // Show 432 button
+                                                sortKKKButton = false;
+                                                sort234(player1Cards);
+                                              });
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              padding: EdgeInsets.zero,
+                                              elevation: 0,
+                                              backgroundColor: Colors.transparent,
+                                            ),
+                                            child: Image.asset(
+                                              sort234Button ? 'assets/buttons/sort234on.png' : 'assets/buttons/sort234off.png',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
                                         Visibility(
                                           visible: sort234Button,
                                           child: Container(
@@ -971,10 +1050,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  sort234Button = false; // Hide 234 button
-                                                  sort432Button = true; // Show 432 button
+                                                  sort234Button = false; // Show 234 button
+                                                  sort432Button = true; // Hide 432 button
                                                   sortKKKButton = false;
-                                                  sort234(player1Cards); // Perform sorting logic for 432
+                                                  sort432(player1Cards);
                                                 });
                                               },
                                               style: ElevatedButton.styleFrom(
@@ -986,36 +1065,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 backgroundColor: Colors.transparent,
                                               ),
                                               child: Image.asset(
-                                                'assets/buttons/sort234off.png',
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: sort432Button,
-                                          child: Container(
-                                            width: screenWidth * 0.06,
-                                            height: screenHeight * 0.1,
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  sort234Button = true; // Show 234 button
-                                                  sort432Button = false; // Hide 432 button
-                                                  sortKKKButton = false;
-                                                  sort432(player1Cards); // Perform sorting logic for 234
-                                                });
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                ),
-                                                padding: EdgeInsets.zero,
-                                                elevation: 0,
-                                                backgroundColor: Colors.transparent,
-                                              ),
-                                              child: Image.asset(
-                                                'assets/buttons/sort432off.png',
+                                                sort432Button ? 'assets/buttons/sort432on.png' : 'assets/buttons/sort432off.png',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -1030,7 +1080,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         onPressed: () {
                                           setState(() {
                                             sortKKKButton = !sortKKKButton;
-                                            sort234Button = true;
+                                            sort234Button = false;
                                             sort432Button = false;
                                             player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
                                           });
@@ -1044,7 +1094,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           backgroundColor: Colors.transparent,
                                         ),
                                         child: Image.asset(
-                                          'assets/buttons/sortKKKoff.png',
+                                          sortKKKButton ? 'assets/buttons/sortKKKon.png' : 'assets/buttons/sortKKKoff.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -1062,6 +1112,296 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           ),
         ),
       ),
+    );
+  }
+  void showOptionsPanel(BuildContext context) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      ),
+      context: context,
+      builder: (BuildContext sheetContext) {
+        return Consumer<ThemeProvider>(
+          builder: (_, themeProvider, __) {
+            final colors = themeProvider.currentColors;
+
+            return Align(
+              alignment: Alignment.bottomLeft,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                child: Container(
+                  color: colors.popupBackground,
+                  height: MediaQuery.of(sheetContext).size.height < 550
+                      ? MediaQuery.of(sheetContext).size.height - 60
+                      : MediaQuery.of(sheetContext).size.height - 120,
+                  width: MediaQuery.of(sheetContext).size.width * 0.1,
+                  child: Column(
+                    children: [
+                      // Container(
+                      //   color: colors.popupTitleBackground,
+                      //   padding: const EdgeInsets.all(20.0),
+                      //   child: const Row(
+                      //     children: [
+                      //       Icon(Icons.settings, color: Colors.white),
+                      //       SizedBox(width: 10),
+                      //       Text(
+                      //         'Settings',
+                      //         style: TextStyle(
+                      //             fontSize: 24,
+                      //             fontWeight: FontWeight.bold,
+                      //             color: Colors.white),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Expanded(
+                        child: Container(
+                          color: colors.popupExternalBackground,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: colors.popupBackground,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: ListView(
+                                children: _buildOptionGroups(sheetContext)
+                                    .map((group) =>
+                                    _buildGroup(sheetContext, group))
+                                    .toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  List<OptionGroup> _buildOptionGroups(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+
+    return [
+      OptionGroup(
+        title: 'Generale',
+        options: [
+          OptionItem(
+            title: 'Dark Mode',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              themeProvider.toggleTheme();
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Lobby',
+            customWidget: const LobbyOptionItem(),
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Lingua',
+            requireLoggedIn: true,
+            onTap: (context) {
+              ModalHelpers.showLanguagesMenu(context);
+            },
+          ),
+          OptionItem(
+            title: 'Ordinamento manuale',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Ordinamento manuale: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Rotazione carte',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Rotazione carte: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Rotazione carte superiori',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Rotazione carte superiori: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+        ],
+      ),
+      OptionGroup(
+        title: 'Notifiche',
+        options: [
+          OptionItem(
+            title: 'Nuovi messaggi',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Nuovi messaggi: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Richieste di amicizia',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Richieste di amicizia: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Tornei',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Tornei: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+        ],
+      ),
+      OptionGroup(
+        title: 'Suoni',
+        options: [
+          OptionItem(
+            title: 'Suoni di sistema',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Suoni di sistema: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Trillo',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Trillo: $val');
+              }
+            },
+            onTap: (context) {},
+          )
+        ],
+      ),
+      OptionGroup(
+        title: 'Restrizioni',
+        options: [
+          OptionItem(
+            title: 'Richieste di amicizia',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Richieste di amicizia: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Inviti clubs',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Inviti clubs: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+          OptionItem(
+            title: 'Inviti al tavolo',
+            isSwitch: true,
+            switchValue: true,
+            onSwitchChanged: (val) {
+              if (kDebugMode) {
+                print('Switch Inviti al tavolo: $val');
+              }
+            },
+            onTap: (context) {},
+          ),
+        ],
+      ),
+    ];
+  }
+
+  Widget _buildGroup(BuildContext context, OptionGroup group) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final colors = themeProvider.currentColors;
+
+    return ExpansionTile(
+      tilePadding: EdgeInsets.zero,
+      childrenPadding: EdgeInsets.zero,
+      title: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Color.fromRGBO(99, 86, 134, 0.4), width: 0.5)),
+        ),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 24),
+        child: Text(group.title,
+            style: TextStyle(
+                color: colors.optionTextColor, fontWeight: FontWeight.bold)),
+      ),
+      children: group.options
+          .map((option) => _buildOptionItem(context, option))
+          .toList(),
+    );
+  }
+
+  Widget _buildOptionItem(BuildContext context, OptionItem item) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final colors = themeProvider.currentColors;
+    if (item.customWidget != null) {
+      return item
+          .customWidget!; // Restituisce direttamente il widget personalizzato
+    }
+
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Color.fromRGBO(99, 86, 134, 0.4), width: 0.5)),
+        ),
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 16.0),
+        child:
+        Text(item.title, style: TextStyle(color: colors.optionTextColor)),
+      ),
+      trailing: item.isSwitch
+          ? Switch(value: item.switchValue, onChanged: item.onSwitchChanged)
+          : null,
+      onTap: () => item.onTap(context),
     );
   }
 }
