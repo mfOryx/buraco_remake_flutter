@@ -121,6 +121,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   bool menuContactsButton = false;
   bool menuOptionsButton = false;
   bool menuProfileButton = false;
+  bool manualSorting = false;
 
   void toggleCard(int index) {
     setState(() {
@@ -177,14 +178,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         String cardId = deck[randomIndex].cardId;
         String imagePath = deck[randomIndex].imagePath;
         player1Cards.add(Card(cardId, imagePath));
-        if (sort234Button == true){
-          sort234(player1Cards);
-        }
-        if (sort432Button == true){
-          sort432(player1Cards);
-        }
-        if (sortKKKButton == true){
-          player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
+        if (manualSorting == false) {
+          if (sort234Button == true){
+            sort234(player1Cards);
+          }
+          if (sort432Button == true){
+            sort432(player1Cards);
+          }
+          if (sortKKKButton == true){
+            sortKKK(player1Cards);
+          }
         }
         isTapped.add(false);
         deck.removeAt(randomIndex);
@@ -425,6 +428,128 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         }
       }
     });
+  }
+
+  // Custom comparator function to sort the cards in kkk order
+  void sortKKK(List<Card?> deck) {
+    deck.sort((a, b) {
+      // Define the order of suits and ranks
+      Map<String, int> suitOrder = {
+        'Special': 0,
+        'Joker': 1,
+        'Spade': 2,
+        'Diamond': 3,
+        'Club': 4,
+        'Heart': 5,
+      };
+
+      Map<String, int> rankOrder = {
+        '2': 0,
+        '15': 1,
+        '3': 2,
+        '4': 3,
+        '5': 4,
+        '6': 5,
+        '7': 6,
+        '8': 7,
+        '9': 8,
+        '10': 9,
+        '11': 10,
+        '12': 11,
+        '13': 12,
+        '14': 13,
+      };
+
+      String? getSuit(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[0];
+        }
+        return null;
+      }
+
+      String? getRank(String? cardName) {
+        if (cardName != null && cardName.contains('_')) {
+          return cardName.split('_')[1];
+        }
+        return null;
+      }
+
+      String? suitA = getSuit(a?.cardId);
+      String? suitB = getSuit(b?.cardId);
+      String? rankA = getRank(a?.cardId);
+      String? rankB = getRank(b?.cardId);
+
+      // Check for null values before comparison
+      if (suitA != null && suitB != null && rankA != null && rankB != null) {
+        int suitCompare = suitOrder[suitA]! - suitOrder[suitB]!;
+        int rankCompare = rankOrder[rankA]!.compareTo(rankOrder[rankB]!);
+        if (rankCompare != 0) {
+          return rankCompare;
+        } else {
+          if (suitCompare != 0){
+            return suitCompare;
+          } else {
+            return 0;
+          }
+        }
+      } else {
+        // Handle cases where one or both cards have null values
+        if (suitA == null && suitB == null) {
+          return 0; // Both are null, treat as equal
+        } else if (suitA == null) {
+          return 1; // Null suit comes after non-null
+        } else if (suitB == null) {
+          return -1; // Null suit comes before non-null
+        } else {
+          return 0; // Treat as equal
+        }
+      }
+    });
+  }
+
+  void showOptionsPopup(BuildContext context) {
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final Offset offset = button.localToGlobal(Offset.zero);
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Manual Sorting',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      manualSorting = !manualSorting;
+                    });
+                  },
+                  child: Image.asset(
+                    manualSorting ? 'assets/buttons/toggle_on.png' : 'assets/buttons/toggle_off.png',
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    backgroundColor: Colors.transparent,
+                    padding: EdgeInsets.all(8), // Make the button transparent
+                    elevation: 0, // Remove elevation
+                    shadowColor: Colors.transparent,
+                    splashFactory: NoSplash.splashFactory, // Remove splash effect
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -758,37 +883,128 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 //Pot ends
-                                Positioned(
-                                  top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
-                                  left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
-                                  right: Directionality.of(context) == TextDirection.rtl ? null : 120,
-                                  width: 70,
-                                  height: 70,
-                                  child: Container(
-                                    width: screenWidth * 0.042,
-                                    height: screenHeight * 0.1,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        showOptionsPanel(context);
-                                        setState(() {
-                                          menuButton = !menuButton;
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10),
+                                SizedBox(height: screenHeight * 0.02),
+                                //menu start
+                                // Positioned(
+                                //   top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
+                                //   left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
+                                //   right: Directionality.of(context) == TextDirection.rtl ? null : 120,
+                                //   child:
+                                // ),
+                                PopupMenuButton<String>(
+                                  color: Colors.grey.withOpacity(0.8),
+                                  itemBuilder: (BuildContext context) => [
+                                    PopupMenuItem<String>(
+                                      value: 'OPTIONS',
+                                      child: Center(
+                                        child: Container(
+                                          width: screenWidth * 0.07,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/menuIcons/ic_settings.png',
+                                                width: screenWidth * 0.05,
+                                                height: screenHeight * 0.05,
+                                              ),
+                                              SizedBox(height: 4),
+                                              Text(
+                                                'OPTIONS',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        padding: EdgeInsets.zero,
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
                                       ),
-                                      child: Image.asset(
-                                        'assets/buttons/button_25_white.png',
-                                        fit: BoxFit.fill,
+                                    ),
+                                    PopupMenuItem<String>(
+                                      value: 'CLUBS',
+                                      child: Center(
+                                        child: Container(
+                                          width: screenWidth * 0.07,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                'assets/menuIcons/ic_clubs.png',
+                                                width: screenWidth * 0.05,
+                                                height: screenHeight * 0.05,
+                                              ),
+                                              SizedBox(height: 4),
+                                              Text(
+                                                'CLUBS',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ),
+                                    ),
+                                  ],
+                                  onSelected: (String value) {
+                                    // Handle menu item selection here if needed
+                                    print('Selected: $value');
+                                    if (value == 'OPTIONS') {
+                                      // showOptionsPopup(context);
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Manual Sorting',
+                                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        manualSorting = !manualSorting;
+                                                      });
+                                                    },
+                                                    child: Image.asset(
+                                                      manualSorting ? 'assets/buttons/toggle_on.png' : 'assets/buttons/toggle_off.png',
+                                                    ),
+                                                    style: ElevatedButton.styleFrom(
+                                                      shape: CircleBorder(),
+                                                      backgroundColor: Colors.transparent,
+                                                      padding: EdgeInsets.all(8), // Make the button transparent
+                                                      elevation: 0, // Remove elevation
+                                                      shadowColor: Colors.transparent,
+                                                      splashFactory: NoSplash.splashFactory, // Remove splash effect
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: Container(
+                                    width: screenWidth * 0.05,
+                                    height: screenHeight * 0.06,
+                                    child: Image.asset(
+                                      'assets/buttons/button_25_white.png',
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
+                                //menu end
                               ],
                             ),
                             SizedBox(width: screenWidth * 0.1),
@@ -1082,7 +1298,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             sortKKKButton = !sortKKKButton;
                                             sort234Button = false;
                                             sort432Button = false;
-                                            player1Cards.sort((a ,b) => a.cardId.compareTo(b.cardId));
+                                            sortKKK(player1Cards);
                                           });
                                         },
                                         style: ElevatedButton.styleFrom(
@@ -1112,296 +1328,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           ),
         ),
       ),
-    );
-  }
-  void showOptionsPanel(BuildContext context) {
-    showModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-      ),
-      context: context,
-      builder: (BuildContext sheetContext) {
-        return Consumer<ThemeProvider>(
-          builder: (_, themeProvider, __) {
-            final colors = themeProvider.currentColors;
-
-            return Align(
-              alignment: Alignment.bottomLeft,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                child: Container(
-                  color: colors.popupBackground,
-                  height: MediaQuery.of(sheetContext).size.height < 550
-                      ? MediaQuery.of(sheetContext).size.height - 60
-                      : MediaQuery.of(sheetContext).size.height - 120,
-                  width: MediaQuery.of(sheetContext).size.width * 0.1,
-                  child: Column(
-                    children: [
-                      // Container(
-                      //   color: colors.popupTitleBackground,
-                      //   padding: const EdgeInsets.all(20.0),
-                      //   child: const Row(
-                      //     children: [
-                      //       Icon(Icons.settings, color: Colors.white),
-                      //       SizedBox(width: 10),
-                      //       Text(
-                      //         'Settings',
-                      //         style: TextStyle(
-                      //             fontSize: 24,
-                      //             fontWeight: FontWeight.bold,
-                      //             color: Colors.white),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      Expanded(
-                        child: Container(
-                          color: colors.popupExternalBackground,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: colors.popupBackground,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: ListView(
-                                children: _buildOptionGroups(sheetContext)
-                                    .map((group) =>
-                                    _buildGroup(sheetContext, group))
-                                    .toList(),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
-  List<OptionGroup> _buildOptionGroups(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-
-    return [
-      OptionGroup(
-        title: 'Generale',
-        options: [
-          OptionItem(
-            title: 'Dark Mode',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              themeProvider.toggleTheme();
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Lobby',
-            customWidget: const LobbyOptionItem(),
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Lingua',
-            requireLoggedIn: true,
-            onTap: (context) {
-              ModalHelpers.showLanguagesMenu(context);
-            },
-          ),
-          OptionItem(
-            title: 'Ordinamento manuale',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Ordinamento manuale: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Rotazione carte',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Rotazione carte: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Rotazione carte superiori',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Rotazione carte superiori: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-        ],
-      ),
-      OptionGroup(
-        title: 'Notifiche',
-        options: [
-          OptionItem(
-            title: 'Nuovi messaggi',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Nuovi messaggi: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Richieste di amicizia',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Richieste di amicizia: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Tornei',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Tornei: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-        ],
-      ),
-      OptionGroup(
-        title: 'Suoni',
-        options: [
-          OptionItem(
-            title: 'Suoni di sistema',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Suoni di sistema: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Trillo',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Trillo: $val');
-              }
-            },
-            onTap: (context) {},
-          )
-        ],
-      ),
-      OptionGroup(
-        title: 'Restrizioni',
-        options: [
-          OptionItem(
-            title: 'Richieste di amicizia',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Richieste di amicizia: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Inviti clubs',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Inviti clubs: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-          OptionItem(
-            title: 'Inviti al tavolo',
-            isSwitch: true,
-            switchValue: true,
-            onSwitchChanged: (val) {
-              if (kDebugMode) {
-                print('Switch Inviti al tavolo: $val');
-              }
-            },
-            onTap: (context) {},
-          ),
-        ],
-      ),
-    ];
-  }
-
-  Widget _buildGroup(BuildContext context, OptionGroup group) {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    final colors = themeProvider.currentColors;
-
-    return ExpansionTile(
-      tilePadding: EdgeInsets.zero,
-      childrenPadding: EdgeInsets.zero,
-      title: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Color.fromRGBO(99, 86, 134, 0.4), width: 0.5)),
-        ),
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 24),
-        child: Text(group.title,
-            style: TextStyle(
-                color: colors.optionTextColor, fontWeight: FontWeight.bold)),
-      ),
-      children: group.options
-          .map((option) => _buildOptionItem(context, option))
-          .toList(),
-    );
-  }
-
-  Widget _buildOptionItem(BuildContext context, OptionItem item) {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-    final colors = themeProvider.currentColors;
-    if (item.customWidget != null) {
-      return item
-          .customWidget!; // Restituisce direttamente il widget personalizzato
-    }
-
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Color.fromRGBO(99, 86, 134, 0.4), width: 0.5)),
-        ),
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 16.0),
-        child:
-        Text(item.title, style: TextStyle(color: colors.optionTextColor)),
-      ),
-      trailing: item.isSwitch
-          ? Switch(value: item.switchValue, onChanged: item.onSwitchChanged)
-          : null,
-      onTap: () => item.onTap(context),
     );
   }
 }
