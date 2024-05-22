@@ -107,6 +107,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<Card> pot = [];
   List<Card> deck = [];
   List<Card> discardPile = [];
+  List<List<Card>> player1Table = [];
+  List<List<Card>> player2Table = [];
   List<bool> isTapped = [];
   double yOffset = 5;
   bool is20CardsInHand = false;
@@ -123,6 +125,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   bool menuOptionsButton = false;
   bool menuProfileButton = false;
   bool manualSorting = false;
+
 
   void toggleCard(int index) {
     setState(() {
