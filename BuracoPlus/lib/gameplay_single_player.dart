@@ -109,6 +109,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<Card> discardPile = [];
   List<List<Card>> player1Table = [];
   List<List<Card>> player2Table = [];
+  List<Card> cardsToBeAddedInTable = [];
   List<bool> isTapped = [];
   double yOffset = 5;
   bool is20CardsInHand = false;
@@ -211,6 +212,18 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         discardPile.clear();
       }
     });
+  }
+
+  void tableCardsColumn(List<Card> cardsColumn){
+    setState(() {
+      if (cardsColumn.isNotEmpty) {
+        for(int i = 0; i < cardsColumn.length; i++){
+          player1Table[0].add(Card(cardsColumn[i].cardId, cardsColumn[i].imagePath));
+        }
+        cardsColumn.clear();
+      }
+    });
+    //Reminder that add cards to the list by comparing isTapped list with playersCard list
   }
 
   List<Widget> splitInTwoRows(int splitCut){
@@ -699,24 +712,29 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: screenWidth * 0.4,
-                              height: screenHeight * 0.52,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white.withOpacity(0),
-                                    spreadRadius: 3,
-                                    blurRadius: 7,
-                                    offset: const Offset(0, 3),
+                            GestureDetector(
+                              onTap: (){
+                                // tableCardsColumn();
+                              },
+                              child: Container(
+                                width: screenWidth * 0.4,
+                                height: screenHeight * 0.52,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0),
+                                      spreadRadius: 3,
+                                      blurRadius: 7,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    '',
+                                    style: TextStyle(fontSize: 16, color: Colors.white),
                                   ),
-                                ],
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  '',
-                                  style: TextStyle(fontSize: 16, color: Colors.white),
                                 ),
                               ),
                             ),
