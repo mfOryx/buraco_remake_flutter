@@ -4,14 +4,17 @@ import 'dart:io';
 import 'package:buracoplus/common/rotating_loader.dart';
 import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
+import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:buracoplus/common/web_socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:immutable_device_identifier/immutable_device_identifier.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:buracoplus/common/general_functions.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
 class LoginController {
   StreamSubscription? _messagesStreamSubscription;
@@ -22,49 +25,27 @@ class LoginController {
   Map<String, dynamic> _deviceData = <String, dynamic>{};
 
   Future<void> connectToWebSocket() async {
-    WebSocketService().connectionStatus.listen((isConnected) {
-      if (isConnected) {
-        _initWebSocketListeners();
-        onSuccessfulMessage?.call();
-      } else {
-        onError?.call('Impossibile connettersi al WebSocket');
-        RotatingLoader.hideOverlay();
-      }
-    });
-
-    await WebSocketService().connect('ws://15.161.77.214:3003');
-    _initWebSocketListeners();
+    IO.Socket socket = IO.io(
+        'ws://15.160.133.85:3001',
+        OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
+            .build());
   }
 
-  void _initWebSocketListeners() {
-    _messagesStreamSubscription?.cancel();
-
-    _messagesStreamSubscription =
-        WebSocketService().messagesStream.listen((message) {
-      if (message.socketId == '') {
-        if (kDebugMode) {
-          print('oh yes!');
-        }
-      }
-    });
-  }
-
-  void sendLogin(BuildContext context, String username, String password) {
+  Future<void> sendLogin(
+      BuildContext context, String username, String password) async {
     if (username.trim().isEmpty || password.trim().isEmpty) {
       onError?.call('Username o Password vuoti');
       return;
     }
-    RotatingLoader.showOverlay(context);
-    if (!WebSocketService().isConnected) {
-      WebSocketService().connect('ws://15.161.77.214:3003').then((_) {
-        _sendLoginMessage(context, username, password, '');
-      }).catchError((error) {
-        RotatingLoader.hideOverlay();
-        onError?.call('Errore di connessione: $error');
-      });
-    } else {
-      _sendLoginMessage(context, username, password, '');
+    //RotatingLoader.showOverlay(context);
+    await connectToWebSocket();
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    if (!socketService.isConnected()) {
+      socketService.connect();
     }
+
+    socketService.emitWithAck(
+        'loginAction', {'username': username, 'password': password});
   }
 
   Future<void> _sendLoginMessage(BuildContext context, String username,
@@ -181,17 +162,6 @@ class LoginController {
     }
 
     RotatingLoader.showOverlay(context);
-    if (!WebSocketService().isConnected) {
-      WebSocketService().connect('ws://15.161.77.214:3003').then((_) {
-        _sendLoginMessage(context, '', '', playerId);
-      }).catchError((error) {
-        RotatingLoader.hideOverlay();
-        onError?.call('Errore di connessione: $error');
-      });
-    } else {
-      _sendLoginMessage(context, '', '', playerId);
-    }
-    //DE94330A-E9F6-42CD-AE3D-76D8EE32B37E
   }
 
   Future<void> _saveCredentials(

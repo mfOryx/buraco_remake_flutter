@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
+import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
 import 'package:buracoplus/login/views/login.dart';
@@ -58,12 +59,11 @@ class StartApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    if(isIOS()){
+    if (isIOS()) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
-    } else if(isAndroid()){
+    } else if (isAndroid()) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
-    } else{
+    } else {
       SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     }
 
@@ -72,30 +72,36 @@ class StartApp extends StatelessWidget {
         Provider.of<TranslationManager>(context).languageCode;
     final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
-    return MaterialApp(
-      theme: themeProvider.currentTheme, // Usato per la modalità light
-      darkTheme: themeProvider.currentTheme, // Usato per la modalità dark
-      themeMode: themeProvider.isDarkMode
-          ? ThemeMode.dark
-          : ThemeMode.light, // Usa il tema dal provider
-      locale:
-          Locale(languageCode), // Qui utilizzi la lingua dal TranslationManager
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (_) => SocketService('ws://15.160.133.85:3001')),
       ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('it', ''),
-        Locale('es', ''),
-        Locale('pt', ''),
-        Locale('ar', ''),
-      ],
-      routes: {
-        '/': (context) => const Splash(),
-        '/login': (context) => const Login(),
-      },
+      child: MaterialApp(
+        theme: themeProvider.currentTheme, // Usato per la modalità light
+        darkTheme: themeProvider.currentTheme, // Usato per la modalità dark
+        themeMode: themeProvider.isDarkMode
+            ? ThemeMode.dark
+            : ThemeMode.light, // Usa il tema dal provider
+        locale: Locale(
+            languageCode), // Qui utilizzi la lingua dal TranslationManager
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', ''),
+          Locale('it', ''),
+          Locale('es', ''),
+          Locale('pt', ''),
+          Locale('ar', ''),
+        ],
+        routes: {
+          '/': (context) => const Splash(),
+          '/login': (context) => const Login(),
+        },
+      ),
     );
   }
 }

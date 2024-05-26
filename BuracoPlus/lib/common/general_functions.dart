@@ -1,6 +1,4 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> getPublicIP() async {
@@ -15,14 +13,20 @@ Future<String> getPublicIP() async {
       // The request failed with a non-200 code
       // The ipify.org API has a lot of guaranteed uptime
       // promises, so this shouldn't ever actually happen.
-      print(response.statusCode);
-      print(response.body);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
+      if (kDebugMode) {
+        print(response.body);
+      }
       return "";
     }
   } catch (e) {
     // Request failed due to an error, most likely because
     // the phone isn't connected to the internet.
-    print(e);
+    if (kDebugMode) {
+      print(e);
+    }
     return "";
   }
 }

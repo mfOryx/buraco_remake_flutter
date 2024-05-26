@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:buracoplus/create_table_single_player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:buracoplus/blocks/lobby_option_item.dart';
 // import 'package:flutter/foundation.dart';
@@ -23,62 +24,115 @@ class Card {
 }
 
 class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
-
   List<Card> classicDeck = [
-    Card('Special_2_1', 'assets/spadesCards/Spade2.png'), Card('Special_2_2', 'assets/spadesCards/Spade2.png'),
-    Card('Spade_3_1', 'assets/spadesCards/Spade3.png'), Card('Spade_3_2', 'assets/spadesCards/Spade3.png'),
-    Card('Spade_4_1', 'assets/spadesCards/Spade4.png'), Card('Spade_4_2', 'assets/spadesCards/Spade4.png'),
-    Card('Spade_5_1', 'assets/spadesCards/Spade5.png'), Card('Spade_5_2', 'assets/spadesCards/Spade5.png'),
-    Card('Spade_6_1', 'assets/spadesCards/Spade6.png'), Card('Spade_6_2', 'assets/spadesCards/Spade6.png'),
-    Card('Spade_7_1', 'assets/spadesCards/Spade7.png'), Card('Spade_7_2', 'assets/spadesCards/Spade7.png'),
-    Card('Spade_8_1', 'assets/spadesCards/Spade8.png'), Card('Spade_8_2', 'assets/spadesCards/Spade8.png'),
-    Card('Spade_9_1', 'assets/spadesCards/Spade9.png'), Card('Spade_9_2', 'assets/spadesCards/Spade9.png'),
-    Card('Spade_10_1', 'assets/spadesCards/Spade10.png'), Card('Spade_10_2', 'assets/spadesCards/Spade10.png'),
-    Card('Spade_11_1', 'assets/spadesCards/Spade11.png'), Card('Spade_11_2', 'assets/spadesCards/Spade11.png'),
-    Card('Spade_12_1', 'assets/spadesCards/Spade12.png'), Card('Spade_12_2', 'assets/spadesCards/Spade12.png'),
-    Card('Spade_13_1', 'assets/spadesCards/Spade13.png'), Card('Spade_13_2', 'assets/spadesCards/Spade13.png'),
-    Card('Spade_14_1', 'assets/spadesCards/Spade14.png'), Card('Spade_14_2', 'assets/spadesCards/Spade14.png'),
-    Card('Special_2_1', 'assets/clubsCards/Club2.png'), Card('Special_2_2', 'assets/clubsCards/Club2.png'),
-    Card('Club_3_1', 'assets/clubsCards/Club3.png'), Card('Club_3_2', 'assets/clubsCards/Club3.png'),
-    Card('Club_4_1', 'assets/clubsCards/Club4.png'), Card('Club_4_2', 'assets/clubsCards/Club4.png'),
-    Card('Club_5_1', 'assets/clubsCards/Club5.png'), Card('Club_5_2', 'assets/clubsCards/Club5.png'),
-    Card('Club_6_1', 'assets/clubsCards/Club6.png'), Card('Club_6_2', 'assets/clubsCards/Club6.png'),
-    Card('Club_7_1', 'assets/clubsCards/Club7.png'), Card('Club_7_2', 'assets/clubsCards/Club7.png'),
-    Card('Club_8_1', 'assets/clubsCards/Club8.png'), Card('Club_8_2', 'assets/clubsCards/Club8.png'),
-    Card('Club_9_1', 'assets/clubsCards/Club9.png'), Card('Club_9_2', 'assets/clubsCards/Club9.png'),
-    Card('Club_10_1', 'assets/clubsCards/Club10.png'), Card('Club_10_2', 'assets/clubsCards/Club10.png'),
-    Card('Club_11_1', 'assets/clubsCards/Club11.png'), Card('Club_11_2', 'assets/clubsCards/Club11.png'),
-    Card('Club_12_1', 'assets/clubsCards/Club12.png'), Card('Club_12_2', 'assets/clubsCards/Club12.png'),
-    Card('Club_13_1', 'assets/clubsCards/Club13.png'), Card('Club_13_2', 'assets/clubsCards/Club13.png'),
-    Card('Club_14_1', 'assets/clubsCards/Club14.png'), Card('Club_14_2', 'assets/clubsCards/Club14.png'),
-    Card('Special_2_1', 'assets/diamondsCards/Diamond2.png'), Card('Special_2_2', 'assets/diamondsCards/Diamond2.png'),
-    Card('Diamond_3_1', 'assets/diamondsCards/Diamond3.png'), Card('Diamond_3_2', 'assets/diamondsCards/Diamond3.png'),
-    Card('Diamond_4_1', 'assets/diamondsCards/Diamond4.png'), Card('Diamond_4_2', 'assets/diamondsCards/Diamond4.png'),
-    Card('Diamond_5_1', 'assets/diamondsCards/Diamond5.png'), Card('Diamond_5_2', 'assets/diamondsCards/Diamond5.png'),
-    Card('Diamond_6_1', 'assets/diamondsCards/Diamond6.png'), Card('Diamond_6_2', 'assets/diamondsCards/Diamond6.png'),
-    Card('Diamond_7_1', 'assets/diamondsCards/Diamond7.png'), Card('Diamond_7_2', 'assets/diamondsCards/Diamond7.png'),
-    Card('Diamond_8_1', 'assets/diamondsCards/Diamond8.png'), Card('Diamond_8_2', 'assets/diamondsCards/Diamond8.png'),
-    Card('Diamond_9_1', 'assets/diamondsCards/Diamond9.png'), Card('Diamond_9_2', 'assets/diamondsCards/Diamond9.png'),
-    Card('Diamond_10_1', 'assets/diamondsCards/Diamond10.png'), Card('Diamond_10_2', 'assets/diamondsCards/Diamond10.png'),
-    Card('Diamond_11_1', 'assets/diamondsCards/Diamond11.png'), Card('Diamond_11_2', 'assets/diamondsCards/Diamond11.png'),
-    Card('Diamond_12_1', 'assets/diamondsCards/Diamond12.png'), Card('Diamond_12_2', 'assets/diamondsCards/Diamond12.png'),
-    Card('Diamond_13_1', 'assets/diamondsCards/Diamond13.png'), Card('Diamond_13_2', 'assets/diamondsCards/Diamond13.png'),
-    Card('Diamond_14_1', 'assets/diamondsCards/Diamond14.png'), Card('Diamond_14_2', 'assets/diamondsCards/Diamond14.png'),
-    Card('Special_2_1', 'assets/heartsCards/Heart2.png'), Card('Special_2_2', 'assets/heartsCards/Heart2.png'),
-    Card('Heart_3_1', 'assets/heartsCards/Heart3.png'), Card('Heart_3_2', 'assets/heartsCards/Heart3.png'),
-    Card('Heart_4_1', 'assets/heartsCards/Heart4.png'), Card('Heart_4_2', 'assets/heartsCards/Heart4.png'),
-    Card('Heart_5_1', 'assets/heartsCards/Heart5.png'), Card('Heart_5_2', 'assets/heartsCards/Heart5.png'),
-    Card('Heart_6_1', 'assets/heartsCards/Heart6.png'), Card('Heart_6_2', 'assets/heartsCards/Heart6.png'),
-    Card('Heart_7_1', 'assets/heartsCards/Heart7.png'), Card('Heart_7_2', 'assets/heartsCards/Heart7.png'),
-    Card('Heart_8_1', 'assets/heartsCards/Heart8.png'), Card('Heart_8_2', 'assets/heartsCards/Heart8.png'),
-    Card('Heart_9_1', 'assets/heartsCards/Heart9.png'), Card('Heart_9_2', 'assets/heartsCards/Heart9.png'),
-    Card('Heart_10_1', 'assets/heartsCards/Heart10.png'), Card('Heart_10_2', 'assets/heartsCards/Heart10.png'),
-    Card('Heart_11_1', 'assets/heartsCards/Heart11.png'), Card('Heart_11_2', 'assets/heartsCards/Heart11.png'),
-    Card('Heart_12_1', 'assets/heartsCards/Heart12.png'), Card('Heart_12_2', 'assets/heartsCards/Heart12.png'),
-    Card('Heart_13_1', 'assets/heartsCards/Heart13.png'), Card('Heart_13_2', 'assets/heartsCards/Heart13.png'),
-    Card('Heart_14_1', 'assets/heartsCards/Heart14.png'), Card('Heart_14_2', 'assets/heartsCards/Heart14.png'),
-    Card('Joker_15_1', 'assets/extraCards/Joker.png'), Card('Joker_15_2', 'assets/extraCards/Joker.png'),
-    Card('Joker_15_3', 'assets/extraCards/Joker.png'), Card('Joker_15_4', 'assets/extraCards/Joker.png'),
+    Card('Special_2_1', 'assets/spadesCards/Spade2.png'),
+    Card('Special_2_2', 'assets/spadesCards/Spade2.png'),
+    Card('Spade_3_1', 'assets/spadesCards/Spade3.png'),
+    Card('Spade_3_2', 'assets/spadesCards/Spade3.png'),
+    Card('Spade_4_1', 'assets/spadesCards/Spade4.png'),
+    Card('Spade_4_2', 'assets/spadesCards/Spade4.png'),
+    Card('Spade_5_1', 'assets/spadesCards/Spade5.png'),
+    Card('Spade_5_2', 'assets/spadesCards/Spade5.png'),
+    Card('Spade_6_1', 'assets/spadesCards/Spade6.png'),
+    Card('Spade_6_2', 'assets/spadesCards/Spade6.png'),
+    Card('Spade_7_1', 'assets/spadesCards/Spade7.png'),
+    Card('Spade_7_2', 'assets/spadesCards/Spade7.png'),
+    Card('Spade_8_1', 'assets/spadesCards/Spade8.png'),
+    Card('Spade_8_2', 'assets/spadesCards/Spade8.png'),
+    Card('Spade_9_1', 'assets/spadesCards/Spade9.png'),
+    Card('Spade_9_2', 'assets/spadesCards/Spade9.png'),
+    Card('Spade_10_1', 'assets/spadesCards/Spade10.png'),
+    Card('Spade_10_2', 'assets/spadesCards/Spade10.png'),
+    Card('Spade_11_1', 'assets/spadesCards/Spade11.png'),
+    Card('Spade_11_2', 'assets/spadesCards/Spade11.png'),
+    Card('Spade_12_1', 'assets/spadesCards/Spade12.png'),
+    Card('Spade_12_2', 'assets/spadesCards/Spade12.png'),
+    Card('Spade_13_1', 'assets/spadesCards/Spade13.png'),
+    Card('Spade_13_2', 'assets/spadesCards/Spade13.png'),
+    Card('Spade_14_1', 'assets/spadesCards/Spade14.png'),
+    Card('Spade_14_2', 'assets/spadesCards/Spade14.png'),
+    Card('Special_2_1', 'assets/clubsCards/Club2.png'),
+    Card('Special_2_2', 'assets/clubsCards/Club2.png'),
+    Card('Club_3_1', 'assets/clubsCards/Club3.png'),
+    Card('Club_3_2', 'assets/clubsCards/Club3.png'),
+    Card('Club_4_1', 'assets/clubsCards/Club4.png'),
+    Card('Club_4_2', 'assets/clubsCards/Club4.png'),
+    Card('Club_5_1', 'assets/clubsCards/Club5.png'),
+    Card('Club_5_2', 'assets/clubsCards/Club5.png'),
+    Card('Club_6_1', 'assets/clubsCards/Club6.png'),
+    Card('Club_6_2', 'assets/clubsCards/Club6.png'),
+    Card('Club_7_1', 'assets/clubsCards/Club7.png'),
+    Card('Club_7_2', 'assets/clubsCards/Club7.png'),
+    Card('Club_8_1', 'assets/clubsCards/Club8.png'),
+    Card('Club_8_2', 'assets/clubsCards/Club8.png'),
+    Card('Club_9_1', 'assets/clubsCards/Club9.png'),
+    Card('Club_9_2', 'assets/clubsCards/Club9.png'),
+    Card('Club_10_1', 'assets/clubsCards/Club10.png'),
+    Card('Club_10_2', 'assets/clubsCards/Club10.png'),
+    Card('Club_11_1', 'assets/clubsCards/Club11.png'),
+    Card('Club_11_2', 'assets/clubsCards/Club11.png'),
+    Card('Club_12_1', 'assets/clubsCards/Club12.png'),
+    Card('Club_12_2', 'assets/clubsCards/Club12.png'),
+    Card('Club_13_1', 'assets/clubsCards/Club13.png'),
+    Card('Club_13_2', 'assets/clubsCards/Club13.png'),
+    Card('Club_14_1', 'assets/clubsCards/Club14.png'),
+    Card('Club_14_2', 'assets/clubsCards/Club14.png'),
+    Card('Special_2_1', 'assets/diamondsCards/Diamond2.png'),
+    Card('Special_2_2', 'assets/diamondsCards/Diamond2.png'),
+    Card('Diamond_3_1', 'assets/diamondsCards/Diamond3.png'),
+    Card('Diamond_3_2', 'assets/diamondsCards/Diamond3.png'),
+    Card('Diamond_4_1', 'assets/diamondsCards/Diamond4.png'),
+    Card('Diamond_4_2', 'assets/diamondsCards/Diamond4.png'),
+    Card('Diamond_5_1', 'assets/diamondsCards/Diamond5.png'),
+    Card('Diamond_5_2', 'assets/diamondsCards/Diamond5.png'),
+    Card('Diamond_6_1', 'assets/diamondsCards/Diamond6.png'),
+    Card('Diamond_6_2', 'assets/diamondsCards/Diamond6.png'),
+    Card('Diamond_7_1', 'assets/diamondsCards/Diamond7.png'),
+    Card('Diamond_7_2', 'assets/diamondsCards/Diamond7.png'),
+    Card('Diamond_8_1', 'assets/diamondsCards/Diamond8.png'),
+    Card('Diamond_8_2', 'assets/diamondsCards/Diamond8.png'),
+    Card('Diamond_9_1', 'assets/diamondsCards/Diamond9.png'),
+    Card('Diamond_9_2', 'assets/diamondsCards/Diamond9.png'),
+    Card('Diamond_10_1', 'assets/diamondsCards/Diamond10.png'),
+    Card('Diamond_10_2', 'assets/diamondsCards/Diamond10.png'),
+    Card('Diamond_11_1', 'assets/diamondsCards/Diamond11.png'),
+    Card('Diamond_11_2', 'assets/diamondsCards/Diamond11.png'),
+    Card('Diamond_12_1', 'assets/diamondsCards/Diamond12.png'),
+    Card('Diamond_12_2', 'assets/diamondsCards/Diamond12.png'),
+    Card('Diamond_13_1', 'assets/diamondsCards/Diamond13.png'),
+    Card('Diamond_13_2', 'assets/diamondsCards/Diamond13.png'),
+    Card('Diamond_14_1', 'assets/diamondsCards/Diamond14.png'),
+    Card('Diamond_14_2', 'assets/diamondsCards/Diamond14.png'),
+    Card('Special_2_1', 'assets/heartsCards/Heart2.png'),
+    Card('Special_2_2', 'assets/heartsCards/Heart2.png'),
+    Card('Heart_3_1', 'assets/heartsCards/Heart3.png'),
+    Card('Heart_3_2', 'assets/heartsCards/Heart3.png'),
+    Card('Heart_4_1', 'assets/heartsCards/Heart4.png'),
+    Card('Heart_4_2', 'assets/heartsCards/Heart4.png'),
+    Card('Heart_5_1', 'assets/heartsCards/Heart5.png'),
+    Card('Heart_5_2', 'assets/heartsCards/Heart5.png'),
+    Card('Heart_6_1', 'assets/heartsCards/Heart6.png'),
+    Card('Heart_6_2', 'assets/heartsCards/Heart6.png'),
+    Card('Heart_7_1', 'assets/heartsCards/Heart7.png'),
+    Card('Heart_7_2', 'assets/heartsCards/Heart7.png'),
+    Card('Heart_8_1', 'assets/heartsCards/Heart8.png'),
+    Card('Heart_8_2', 'assets/heartsCards/Heart8.png'),
+    Card('Heart_9_1', 'assets/heartsCards/Heart9.png'),
+    Card('Heart_9_2', 'assets/heartsCards/Heart9.png'),
+    Card('Heart_10_1', 'assets/heartsCards/Heart10.png'),
+    Card('Heart_10_2', 'assets/heartsCards/Heart10.png'),
+    Card('Heart_11_1', 'assets/heartsCards/Heart11.png'),
+    Card('Heart_11_2', 'assets/heartsCards/Heart11.png'),
+    Card('Heart_12_1', 'assets/heartsCards/Heart12.png'),
+    Card('Heart_12_2', 'assets/heartsCards/Heart12.png'),
+    Card('Heart_13_1', 'assets/heartsCards/Heart13.png'),
+    Card('Heart_13_2', 'assets/heartsCards/Heart13.png'),
+    Card('Heart_14_1', 'assets/heartsCards/Heart14.png'),
+    Card('Heart_14_2', 'assets/heartsCards/Heart14.png'),
+    Card('Joker_15_1', 'assets/extraCards/Joker.png'),
+    Card('Joker_15_2', 'assets/extraCards/Joker.png'),
+    Card('Joker_15_3', 'assets/extraCards/Joker.png'),
+    Card('Joker_15_4', 'assets/extraCards/Joker.png'),
   ];
   // List<Card> professional_deck = [
   //   Card('assets/spadesCards/Spade2.png'), Card('assets/spadesCards/Spade3.png'), Card('assets/spadesCards/Spade4.png'),
@@ -126,25 +180,28 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   bool menuProfileButton = false;
   bool manualSorting = false;
 
-
   void toggleCard(int index) {
     setState(() {
-      if(isTapped[index] == false){
+      if (isTapped[index] == false) {
         isTapped[index] = true;
-        yOffset = isTapped[index] ? MediaQuery.of(context).size.height * -0.015 : MediaQuery.of(context).size.height * 0.015;
+        yOffset = isTapped[index]
+            ? MediaQuery.of(context).size.height * -0.015
+            : MediaQuery.of(context).size.height * 0.015;
         cardsToBeAddedInTable.add(player1Cards[index]);
-        print(player1Cards[index].cardId);
-        for(int i = 0; i < cardsToBeAddedInTable.length; i++){
-          print(cardsToBeAddedInTable[i].cardId);
+        if (kDebugMode) {
+          print(player1Cards[index].cardId);
         }
-      }
-      else{
+        for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
+          if (kDebugMode) {
+            print(cardsToBeAddedInTable[i].cardId);
+          }
+        }
+      } else {
         isTapped[index] = false;
-        if(cardsToBeAddedInTable.isNotEmpty){
+        if (cardsToBeAddedInTable.isNotEmpty) {
           Card cardToRemove = player1Cards[index];
-          for(int i = 0; i < cardsToBeAddedInTable.length; i++)
-          {
-            if(cardToRemove.cardId == cardsToBeAddedInTable[i].cardId){
+          for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
+            if (cardToRemove.cardId == cardsToBeAddedInTable[i].cardId) {
               cardsToBeAddedInTable.removeAt(i);
             }
           }
@@ -197,13 +254,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         String imagePath = deck[randomIndex].imagePath;
         player1Cards.add(Card(cardId, imagePath));
         if (manualSorting == false) {
-          if (sort234Button == true){
+          if (sort234Button == true) {
             sort234(player1Cards);
           }
-          if (sort432Button == true){
+          if (sort432Button == true) {
             sort432(player1Cards);
           }
-          if (sortKKKButton == true){
+          if (sortKKKButton == true) {
             sortKKK(player1Cards);
           }
         }
@@ -215,22 +272,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  void addDiscardPileToHand(List<Card> discardPile){
+  void addDiscardPileToHand(List<Card> discardPile) {
     setState(() {
       if (discardPile.isNotEmpty) {
-        for(int i = 0; i < discardPile.length; i++){
-          player1Cards.add(Card(discardPile[i].cardId, discardPile[i].imagePath));
+        for (int i = 0; i < discardPile.length; i++) {
+          player1Cards
+              .add(Card(discardPile[i].cardId, discardPile[i].imagePath));
           isTapped.add(false);
         }
         discardPile.clear();
         if (manualSorting == false) {
-          if (sort234Button == true){
+          if (sort234Button == true) {
             sort234(player1Cards);
           }
-          if (sort432Button == true){
+          if (sort432Button == true) {
             sort432(player1Cards);
           }
-          if (sortKKKButton == true){
+          if (sortKKKButton == true) {
             sortKKK(player1Cards);
           }
         }
@@ -238,7 +296,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  void tableCardsColumn(List<Card> cardsColumn){
+  void tableCardsColumn(List<Card> cardsColumn) {
     setState(() {
       if (cardsColumn.isNotEmpty) {
         player1Table.add(cardsColumn);
@@ -247,22 +305,27 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   }
 
   void addToTable() {
-    print("Inside addToTable function");
+    if (kDebugMode) {
+      print("Inside addToTable function");
+    }
     setState(() {
       player1Table.add(List.from(cardsToBeAddedInTable));
       for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
-        print(cardsToBeAddedInTable[i].cardId);
+        if (kDebugMode) {
+          print(cardsToBeAddedInTable[i].cardId);
+        }
       }
       for (int i = 0; i < player1Table[0].length; i++) {
-        print(player1Table[0][i].cardId);
+        if (kDebugMode) {
+          print(player1Table[0][i].cardId);
+        }
       }
       cardsToBeAddedInTable.clear();
     });
   }
 
-  List<Widget> splitInTwoRows(int splitCut){
-    return List.generate(player1Cards.length, (index)
-    {
+  List<Widget> splitInTwoRows(int splitCut) {
+    return List.generate(player1Cards.length, (index) {
       double containerWidth;
       double cardWidth;
       double totalSpaceForCards;
@@ -273,36 +336,52 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       double screenHeight = MediaQuery.of(context).size.height;
 
       if (index < splitCut) {
-        containerWidth = screenWidth * 0.672; // Width of the container with minus 10 space units to give padding to the right
+        containerWidth = screenWidth *
+            0.672; // Width of the container with minus 10 space units to give padding to the right
         cardWidth = screenWidth * 0.055; // Width of each card
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+        leftPosition =
+            (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
         topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-        if (rowsButtonToggle){
+        if (rowsButtonToggle) {
           containerWidth = screenWidth * 1.305;
           cardWidth = screenWidth * 0.055; // Width of each card
-          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          totalSpaceForCards =
+              containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          leftPosition =
+              (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         }
       } else {
-        if(index > 18){ is20CardsInHand = true; }
-        containerWidth = screenWidth * 0.672; // Width of the container with minus 10 space units to give padding to the right
+        if (index > 18) {
+          is20CardsInHand = true;
+        }
+        containerWidth = screenWidth *
+            0.672; // Width of the container with minus 10 space units to give padding to the right
         cardWidth = screenWidth * 0.055; // Width of each card
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
         if (rowsButtonToggle) {
-          containerWidth = (player1Cards.length) % 2 == 0 ? (screenWidth * 1.305) : (screenWidth * 1.288); // Width of the container with minus 10 space units to give padding to the right
+          containerWidth = (player1Cards.length) % 2 == 0
+              ? (screenWidth * 1.305)
+              : (screenWidth *
+                  1.288); // Width of the container with minus 10 space units to give padding to the right
           cardWidth = screenWidth * 0.055; // Width of each card
-          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          totalSpaceForCards =
+              containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
           // For the second row, adjust the index and position
-          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
-          topPosition = isTapped[index] ? yOffset + (screenHeight * 0.05) : (screenHeight * 0.06); // Adjust the top position for the second row
+          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) +
+              (screenWidth * 0.005);
+          topPosition = isTapped[index]
+              ? yOffset + (screenHeight * 0.05)
+              : (screenHeight *
+                  0.06); // Adjust the top position for the second row
         } else {
-          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          leftPosition =
+              (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         }
       }
@@ -383,7 +462,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         if (suitCompare != 0) {
           return suitCompare;
         } else {
-          if (rankCompare != 0){
+          if (rankCompare != 0) {
             return rankCompare;
           } else {
             return 0;
@@ -460,7 +539,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         if (suitCompare != 0) {
           return suitCompare;
         } else {
-          if (rankCompare != 0){
+          if (rankCompare != 0) {
             return rankCompare;
           } else {
             return 0;
@@ -537,7 +616,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         if (rankCompare != 0) {
           return rankCompare;
         } else {
-          if (suitCompare != 0){
+          if (suitCompare != 0) {
             return suitCompare;
           } else {
             return 0;
@@ -560,7 +639,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     int player2CardsCount = (player2Cards.length).toInt();
     int deckCount = (deck.length).toInt();
     // int potCount = (pot.length).toInt();
@@ -594,12 +672,15 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               children: [
                                 CircleAvatar(
                                   radius: screenWidth * 0.03,
-                                  backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                  backgroundImage: const AssetImage(
+                                      'assets/menuIcons/blankAvatar_2.png'),
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
                                 Text(
                                   'ABC XYZ',
-                                  style: TextStyle(fontSize: screenWidth * 0.01, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: screenWidth * 0.01,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
@@ -619,7 +700,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     height: screenHeight * 0.14,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(color: Colors.white38, width: 1),
+                                      border: Border.all(
+                                          color: Colors.white38, width: 1),
                                       boxShadow: const [
                                         BoxShadow(
                                           color: Colors.white38,
@@ -633,8 +715,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   Stack(
                                     children: List.generate(
                                       player2Cards.length,
-                                          (index) => Positioned(
-                                        right: (screenWidth * 0.005) + (index * 1),
+                                      (index) => Positioned(
+                                        right:
+                                            (screenWidth * 0.005) + (index * 1),
                                         top: screenHeight * 0.005,
                                         child: Image.asset(
                                           player2Cards[index].imagePath,
@@ -645,7 +728,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.only(left: 5, top: 5),
+                                    margin:
+                                        const EdgeInsets.only(left: 5, top: 5),
                                     child: Image.asset(
                                       'assets/extraCards/Blue.png',
                                       fit: BoxFit.fill,
@@ -666,7 +750,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       child: Center(
                                         child: Text(
                                           player2CardsCount.toString(),
-                                          style: const TextStyle(fontSize: 10, color: Colors.black),
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.black),
                                         ),
                                       ),
                                     ),
@@ -686,14 +772,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       'ABC XYZ',
-                                      style: TextStyle(fontSize: 10, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white),
                                     ),
                                   ),
                                   Spacer(),
@@ -701,7 +789,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
                                       '0/0',
-                                      style: TextStyle(fontSize: 10, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -717,14 +806,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(left: 8.0),
                                     child: Text(
                                       'XYZ ABC',
-                                      style: TextStyle(fontSize: 10, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white),
                                     ),
                                   ),
                                   Spacer(),
@@ -732,7 +823,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
                                       '0/0',
-                                      style: TextStyle(fontSize: 10, color: Colors.white),
+                                      style: TextStyle(
+                                          fontSize: 10, color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -747,7 +839,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 setState(() {
                                   //tableCardsColumn(cardsToBeAddedInTable);
                                   addToTable();
@@ -757,7 +849,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 width: screenWidth * 0.4,
                                 height: screenHeight * 0.52,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                                  border: Border.all(
+                                      color: Colors.grey.withOpacity(0.2),
+                                      width: 2),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.white.withOpacity(0),
@@ -769,22 +863,27 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 ),
                                 child: Stack(
                                   children: player1Table.isNotEmpty
-                                      ? List.generate(player1Table[0].length, (index) {
-                                    return AnimatedPositioned(
-                                      duration: const Duration(milliseconds: 300),
-                                      left: 5.0,
-                                      top: 5.0 + (index * 10), // Adjust the spacing as needed
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Image.asset(
-                                          player1Table[0][index].imagePath,
-                                          fit: BoxFit.fill,
-                                          width: 55,
-                                          height: 55,
-                                        ),
-                                      ),
-                                    );
-                                  })
+                                      ? List.generate(player1Table[0].length,
+                                          (index) {
+                                          return AnimatedPositioned(
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            left: 5.0,
+                                            top: 5.0 +
+                                                (index *
+                                                    10), // Adjust the spacing as needed
+                                            child: GestureDetector(
+                                              onTap: () {},
+                                              child: Image.asset(
+                                                player1Table[0][index]
+                                                    .imagePath,
+                                                fit: BoxFit.fill,
+                                                width: 55,
+                                                height: 55,
+                                              ),
+                                            ),
+                                          );
+                                        })
                                       : [],
                                 ),
                               ),
@@ -794,7 +893,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               width: screenWidth * 0.4,
                               height: screenHeight * 0.52,
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey.withOpacity(0.2), width: 2),
+                                border: Border.all(
+                                    color: Colors.grey.withOpacity(0.2),
+                                    width: 2),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.white.withOpacity(0),
@@ -807,7 +908,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               child: const Center(
                                 child: Text(
                                   '',
-                                  style: TextStyle(fontSize: 16, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.white),
                                 ),
                               ),
                             ),
@@ -834,8 +936,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           width: screenWidth * 0.05,
                                           height: screenHeight * 0.128,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-                                            border: Border.all(color: Colors.white38, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            border: Border.all(
+                                                color: Colors.white38,
+                                                width: 1),
                                             boxShadow: const [
                                               BoxShadow(
                                                 color: Colors.white38,
@@ -856,10 +961,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 children: [
                                                   ...List.generate(
                                                     11,
-                                                        (index) => Image.asset(
+                                                    (index) => Image.asset(
                                                       pot[index].imagePath,
-                                                      width: screenWidth * 0.042,
-                                                      height: screenHeight * 0.105,
+                                                      width:
+                                                          screenWidth * 0.042,
+                                                      height:
+                                                          screenHeight * 0.105,
                                                     ),
                                                   ),
                                                   Positioned(
@@ -867,8 +974,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     child: Image.asset(
                                                       'assets/extraCards/Blue.png',
                                                       fit: BoxFit.fill,
-                                                      width: screenWidth * 0.035,
-                                                      height: screenHeight * 0.105,
+                                                      width:
+                                                          screenWidth * 0.035,
+                                                      height:
+                                                          screenHeight * 0.105,
                                                     ),
                                                   ),
                                                 ],
@@ -883,24 +992,30 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                               right: screenWidth * 0.008,
                                               bottom: screenHeight * 0.012,
                                               child: Transform.rotate(
-                                                angle: pi / 2, // Rotate 90 degrees
+                                                angle:
+                                                    pi / 2, // Rotate 90 degrees
                                                 child: Stack(
                                                   children: [
                                                     // Rotated cards
                                                     ...List.generate(
                                                       11,
-                                                          (index) => Image.asset(
-                                                        pot[index + 11].imagePath,
-                                                        width: screenWidth * 0.035,
-                                                        height: screenHeight * 0.105,
+                                                      (index) => Image.asset(
+                                                        pot[index + 11]
+                                                            .imagePath,
+                                                        width:
+                                                            screenWidth * 0.035,
+                                                        height: screenHeight *
+                                                            0.105,
                                                       ),
                                                     ),
                                                     // Covering card for the rest of the cards
                                                     Positioned(
                                                       child: Image.asset(
                                                         'assets/extraCards/Blue.png',
-                                                        width: screenWidth * 0.035,
-                                                        height: screenHeight * 0.105,
+                                                        width:
+                                                            screenWidth * 0.035,
+                                                        height: screenHeight *
+                                                            0.105,
                                                       ),
                                                     ),
                                                   ],
@@ -930,15 +1045,19 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/menuIcons/w_profile.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
                                                 const Text(
                                                   'PROFILE',
                                                   textAlign: TextAlign.center,
@@ -947,7 +1066,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -959,15 +1080,21 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
-                                                  menuOptionsButton ? 'assets/menuIcons/ic_settings_selected.png' : 'assets/menuIcons/ic_settings.png',
+                                                  menuOptionsButton
+                                                      ? 'assets/menuIcons/ic_settings_selected.png'
+                                                      : 'assets/menuIcons/ic_settings.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
                                                 const Text(
                                                   'OPTIONS',
                                                   textAlign: TextAlign.center,
@@ -976,7 +1103,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -988,15 +1117,19 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/menuIcons/ic_contacts.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
                                                 const Text(
                                                   'CONTACTS',
                                                   textAlign: TextAlign.center,
@@ -1005,7 +1138,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -1014,19 +1149,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'MESSAGES',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/menuIcons/mail.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
+                                                const Text(
                                                   'MESSAGES',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -1034,7 +1173,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -1043,19 +1184,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'NOTICE',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/menuIcons/w_advice.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
+                                                const Text(
                                                   'NOTICE',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -1063,7 +1208,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -1072,19 +1219,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'CLUBS',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/menuIcons/ic_clubs.png',
                                                   width: screenWidth * 0.06,
                                                   height: screenHeight * 0.06,
                                                 ),
-                                                SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                SizedBox(
+                                                    height:
+                                                        screenHeight * 0.01),
+                                                const Text(
                                                   'CLUBS',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -1092,7 +1243,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     color: Colors.white,
                                                   ),
                                                 ),
-                                                SizedBox(height: screenHeight * 0.02,),
+                                                SizedBox(
+                                                  height: screenHeight * 0.02,
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -1101,11 +1254,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'EXIT',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Image.asset(
                                                   'assets/buttons/button_25_white_exit.png',
@@ -1123,19 +1278,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       print('Selected: $value');
                                       if (value == 'PROFILE') {
                                         setState(() {
-                                          menuProfileButton = !menuProfileButton;
+                                          menuProfileButton =
+                                              !menuProfileButton;
                                         });
                                       } else if (value == 'OPTIONS') {
                                         setState(() {
-                                          menuOptionsButton = !menuOptionsButton;
+                                          menuOptionsButton =
+                                              !menuOptionsButton;
                                         });
                                       } else if (value == 'CONTACTS') {
                                         setState(() {
-                                          menuContactsButton = !menuContactsButton;
+                                          menuContactsButton =
+                                              !menuContactsButton;
                                         });
                                       } else if (value == 'MESSAGES') {
                                         setState(() {
-                                          menuMessagesButton = !menuMessagesButton;
+                                          menuMessagesButton =
+                                              !menuMessagesButton;
                                         });
                                       } else if (value == 'NOTICE') {
                                         setState(() {
@@ -1187,8 +1346,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     width: screenWidth * 0.064,
                                                     height: screenHeight * 0.17,
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(5),
-                                                      border: Border.all(color: Colors.white38, width: 1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors.white38,
+                                                          width: 1),
                                                       boxShadow: const [
                                                         BoxShadow(
                                                           color: Colors.white38,
@@ -1200,26 +1363,34 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                   Container(
-                                                    margin: EdgeInsets.only(left: 5, top: 5),
+                                                    margin: EdgeInsets.only(
+                                                        left: 5, top: 5),
                                                     child: Image.asset(
                                                       'assets/extraCards/Red.png',
                                                       fit: BoxFit.fill,
-                                                      width: screenWidth * 0.053,
-                                                      height: screenHeight * 0.147,
+                                                      width:
+                                                          screenWidth * 0.053,
+                                                      height:
+                                                          screenHeight * 0.147,
                                                     ),
                                                   ),
                                                   Center(
                                                     child: Container(
                                                       width: screenWidth * 0.05,
-                                                      height: screenHeight * 0.05,
-                                                      decoration: const BoxDecoration(
+                                                      height:
+                                                          screenHeight * 0.05,
+                                                      decoration:
+                                                          const BoxDecoration(
                                                         shape: BoxShape.circle,
                                                         color: Colors.white,
                                                       ),
                                                       child: Center(
                                                         child: Text(
                                                           deckCount.toString(),
-                                                          style: TextStyle(fontSize: 10, color: Colors.black),
+                                                          style: TextStyle(
+                                                              fontSize: 10,
+                                                              color:
+                                                                  Colors.black),
                                                         ),
                                                       ),
                                                     ),
@@ -1240,14 +1411,19 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                addDiscardPileToHand(discardPile);
+                                                addDiscardPileToHand(
+                                                    discardPile);
                                               },
                                               child: Stack(
                                                 children: [
                                                   Container(
                                                     decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(5),
-                                                      border: Border.all(color: Colors.white38, width: 1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors.white38,
+                                                          width: 1),
                                                       boxShadow: const [
                                                         BoxShadow(
                                                           color: Colors.white38,
@@ -1277,19 +1453,32 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     animation: _controller,
                                                     builder: (context, child) {
                                                       return Stack(
-                                                        children: List.generate(discardPile.length, (index) {
+                                                        children: List.generate(
+                                                            discardPile.length,
+                                                            (index) {
                                                           // Calculate the animated left position based on index and animation value
-                                                          double animatedLeft = 5.0 + (index * 10);
+                                                          double animatedLeft =
+                                                              5.0 +
+                                                                  (index * 10);
 
                                                           return AnimatedPositioned(
-                                                            duration: Duration(milliseconds: 300),
-                                                            left: animatedLeft.toDouble(),
-                                                            top: screenHeight * 0.01,
+                                                            duration: Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                            left: animatedLeft
+                                                                .toDouble(),
+                                                            top: screenHeight *
+                                                                0.01,
                                                             child: Image.asset(
-                                                              discardPile[index].imagePath,
+                                                              discardPile[index]
+                                                                  .imagePath,
                                                               fit: BoxFit.fill,
-                                                              width: screenWidth * 0.055,
-                                                              height: screenHeight * 0.15,
+                                                              width:
+                                                                  screenWidth *
+                                                                      0.055,
+                                                              height:
+                                                                  screenHeight *
+                                                                      0.15,
                                                             ),
                                                           );
                                                         }),
@@ -1311,12 +1500,15 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         children: [
                                           CircleAvatar(
                                             radius: screenWidth * 0.03,
-                                            backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                            backgroundImage: AssetImage(
+                                                'assets/menuIcons/blankAvatar_2.png'),
                                           ),
                                           SizedBox(width: screenWidth * 0.012),
                                           Text(
                                             'XYZ ABC',
-                                            style: TextStyle(fontSize: 10, color: Colors.white),
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.white),
                                           ),
                                         ],
                                       ),
@@ -1331,8 +1523,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                               width: screenWidth * 0.682,
                                               height: screenHeight * 0.17,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                border: Border.all(color: Colors.white38, width: 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    color: Colors.white38,
+                                                    width: 1),
                                                 boxShadow: const [
                                                   BoxShadow(
                                                     color: Colors.white38,
@@ -1345,7 +1540,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             ),
                                             // Cards stack
                                             Stack(
-                                              children: splitInTwoRows(player1Cards.length~/2),
+                                              children: splitInTwoRows(
+                                                  player1Cards.length ~/ 2),
                                             ),
                                           ],
                                         ),
@@ -1368,19 +1564,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         child: ElevatedButton(
                                           onPressed: () {
                                             setState(() {
-                                              rowsButtonToggle = !rowsButtonToggle;
+                                              rowsButtonToggle =
+                                                  !rowsButtonToggle;
                                             });
                                           },
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
                                             padding: EdgeInsets.zero,
                                             elevation: 0,
                                             backgroundColor: Colors.transparent,
                                           ),
                                           child: Image.asset(
-                                            rowsButtonToggle ? 'assets/buttons/2rowson.png' : 'assets/buttons/2rowsoff.png',
+                                            rowsButtonToggle
+                                                ? 'assets/buttons/2rowson.png'
+                                                : 'assets/buttons/2rowsoff.png',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -1394,22 +1594,28 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           child: ElevatedButton(
                                             onPressed: () {
                                               setState(() {
-                                                sort234Button = true; // Hide 234 button
-                                                sort432Button = false; // Show 432 button
+                                                sort234Button =
+                                                    true; // Hide 234 button
+                                                sort432Button =
+                                                    false; // Show 432 button
                                                 sortKKKButton = false;
                                                 sort234(player1Cards);
                                               });
                                             },
                                             style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(10),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
                                               padding: EdgeInsets.zero,
                                               elevation: 0,
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                             ),
                                             child: Image.asset(
-                                              sort234Button ? 'assets/buttons/sort234on.png' : 'assets/buttons/sort234off.png',
+                                              sort234Button
+                                                  ? 'assets/buttons/sort234on.png'
+                                                  : 'assets/buttons/sort234off.png',
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -1422,22 +1628,28 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  sort234Button = false; // Show 234 button
-                                                  sort432Button = true; // Hide 432 button
+                                                  sort234Button =
+                                                      false; // Show 234 button
+                                                  sort432Button =
+                                                      true; // Hide 432 button
                                                   sortKKKButton = false;
                                                   sort432(player1Cards);
                                                 });
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 padding: EdgeInsets.zero,
                                                 elevation: 0,
-                                                backgroundColor: Colors.transparent,
+                                                backgroundColor:
+                                                    Colors.transparent,
                                               ),
                                               child: Image.asset(
-                                                sort432Button ? 'assets/buttons/sort432on.png' : 'assets/buttons/sort432off.png',
+                                                sort432Button
+                                                    ? 'assets/buttons/sort432on.png'
+                                                    : 'assets/buttons/sort432off.png',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -1459,14 +1671,17 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         },
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
                                           padding: EdgeInsets.zero,
                                           elevation: 0,
                                           backgroundColor: Colors.transparent,
                                         ),
                                         child: Image.asset(
-                                          sortKKKButton ? 'assets/buttons/sortKKKon.png' : 'assets/buttons/sortKKKoff.png',
+                                          sortKKKButton
+                                              ? 'assets/buttons/sortKKKon.png'
+                                              : 'assets/buttons/sortKKKoff.png',
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -1507,7 +1722,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.only(top: screenHeight * 0.03, left: screenWidth * 0.1),
+                        padding: EdgeInsets.only(
+                            top: screenHeight * 0.03, left: screenWidth * 0.1),
                         child: Container(
                           width: screenWidth * 0.3,
                           height: screenHeight * 0.9,
@@ -1537,15 +1753,20 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: screenHeight * 0.01, left: screenWidth * 0.01),
+                                padding: EdgeInsets.only(
+                                    top: screenHeight * 0.01,
+                                    left: screenWidth * 0.01),
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           "MANUAL SORTING",
-                                          style: TextStyle(fontSize: 15, color: Colors.black),
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black),
                                         ),
                                         Spacer(),
                                         ElevatedButton(
@@ -1558,7 +1779,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             elevation: 0.0,
                                           ),
                                           child: Image.asset(
-                                            manualSorting ? 'assets/buttons/toggle_on.png' : 'assets/buttons/toggle_off.png',
+                                            manualSorting
+                                                ? 'assets/buttons/toggle_on.png'
+                                                : 'assets/buttons/toggle_off.png',
                                             width: screenWidth * 0.06,
                                             height: screenHeight * 0.06,
                                           ),
@@ -1617,7 +1840,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                             children: [
                               Text(
                                 "Are you sure you want to exit?",
-                                style: TextStyle(fontSize: 20, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
                               ),
                               Spacer(),
                               Row(
@@ -1642,7 +1866,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     onPressed: () {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => CreateTableSP()),
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CreateTableSP()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(

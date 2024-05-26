@@ -10,16 +10,25 @@ class Splash extends StatefulWidget {
   State<Splash> createState() => _SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashState extends State<Splash> with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
   @override
   void initState() {
     super.initState();
-    startTimer();
+    _controller = AnimationController(vsync: this);
+    _controller.addListener(() {
+      if (_controller.value == 1) {
+        _controller.stop();
+        route();
+      }
+    });
   }
 
-  startTimer() {
-    var duration = const Duration(milliseconds: 1500);
-    return Timer(duration, route);
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   route() {
@@ -49,7 +58,17 @@ class _SplashState extends State<Splash> {
           ),
         ),
         child: Center(
-          child: Lottie.asset('assets/splashScreenAnimation/buraco_logo.json'),
+          child: Lottie.asset(
+            'assets/splashScreenAnimation/buraco_logo.json',
+            controller: _controller,
+            onLoaded: (composition) {
+              // Configure the AnimationController with the duration of the
+              // Lottie file and start the animation.
+              _controller
+                ..duration = composition.duration
+                ..forward();
+            },
+          ),
         ),
       ),
     );

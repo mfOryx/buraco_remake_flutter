@@ -1,5 +1,7 @@
+import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/gameplay_single_player.dart';
+import 'package:provider/provider.dart';
 
 class CreateTableSP extends StatefulWidget {
   const CreateTableSP({super.key});
@@ -117,32 +119,18 @@ class _CreateTableSPState extends State<CreateTableSP> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final colors = themeProvider.currentColors;
+
     return Scaffold(
       body: Center(
         child: Stack(
           children: [
             Container(
-                decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromRGBO(
-                      114, 60, 125, 1.0), // Colore medio lato sinistro
-                  Color.fromRGBO(
-                      141, 107, 147, 1.0), // Colore medio lato superiore
-                  Color.fromRGBO(
-                      96, 132, 166, 1.0), // Colore medio lato inferiore
-                  Color.fromRGBO(88, 104, 147, 1.0), // Colore medio lato destro
-                ],
-                stops: [
-                  0.0,
-                  0.33,
-                  0.66,
-                  1.0
-                ], // Regola questi valori per i tuoi bisogni
+              decoration: BoxDecoration(
+                gradient: colors.gradient,
               ),
-            )),
+            ),
             Positioned(
               top: 10.0,
               right: 70.0,
