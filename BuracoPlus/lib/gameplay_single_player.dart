@@ -1,14 +1,13 @@
 import 'dart:math';
 
 import 'package:buracoplus/create_table_single_player.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:buracoplus/blocks/lobby_option_item.dart';
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
-import 'package:buracoplus/helpers/modal_helpers.dart';
-import 'package:buracoplus/models/options_model.dart';
-import 'package:buracoplus/providers/theme_provider.dart';
+// import 'package:buracoplus/blocks/lobby_option_item.dart';
+// import 'package:flutter/foundation.dart';
+// import 'package:provider/provider.dart';
+// import 'package:buracoplus/helpers/modal_helpers.dart';
+// import 'package:buracoplus/models/options_model.dart';
+// import 'package:buracoplus/providers/theme_provider.dart';
 
 class GameplaySP extends StatefulWidget {
   const GameplaySP({super.key});
@@ -25,7 +24,7 @@ class Card {
 
 class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
-  List<Card> classic_deck = [
+  List<Card> classicDeck = [
     Card('Special_2_1', 'assets/spadesCards/Spade2.png'), Card('Special_2_2', 'assets/spadesCards/Spade2.png'),
     Card('Spade_3_1', 'assets/spadesCards/Spade3.png'), Card('Spade_3_2', 'assets/spadesCards/Spade3.png'),
     Card('Spade_4_1', 'assets/spadesCards/Spade4.png'), Card('Spade_4_2', 'assets/spadesCards/Spade4.png'),
@@ -133,9 +132,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       if(isTapped[index] == false){
         isTapped[index] = true;
         yOffset = isTapped[index] ? MediaQuery.of(context).size.height * -0.015 : MediaQuery.of(context).size.height * 0.015;
+        cardsToBeAddedInTable.add(player1Cards[index]);
+        print(player1Cards[index].cardId);
+        for(int i = 0; i < cardsToBeAddedInTable.length; i++){
+          print(cardsToBeAddedInTable[i].cardId);
+        }
       }
       else{
         isTapped[index] = false;
+        if(cardsToBeAddedInTable.isNotEmpty){
+          Card cardToRemove = player1Cards[index];
+          for(int i = 0; i < cardsToBeAddedInTable.length; i++)
+          {
+            if(cardToRemove.cardId == cardsToBeAddedInTable[i].cardId){
+              cardsToBeAddedInTable.removeAt(i);
+            }
+          }
+        }
       }
     });
   }
@@ -147,21 +160,21 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    classic_deck.shuffle(Random());
-    player1Cards = classic_deck.take(11).toList();
-    player2Cards = classic_deck.skip(11).take(11).toList();
-    pot = classic_deck.skip(22).take(22).toList();
-    discardPile = classic_deck.skip(44).take(1).toList();
-    deck = classic_deck.skip(45).toList();
+    classicDeck.shuffle(Random());
+    player1Cards = classicDeck.take(11).toList();
+    player2Cards = classicDeck.skip(11).take(11).toList();
+    pot = classicDeck.skip(22).take(22).toList();
+    discardPile = classicDeck.skip(44).take(1).toList();
+    deck = classicDeck.skip(45).toList();
     isTapped = List.generate(player1Cards.length, (_) => false);
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
     _animation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(-1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(CurvedAnimation(
       parent: _controller,
       curve: Curves.elasticInOut,
@@ -210,6 +223,17 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           isTapped.add(false);
         }
         discardPile.clear();
+        if (manualSorting == false) {
+          if (sort234Button == true){
+            sort234(player1Cards);
+          }
+          if (sort432Button == true){
+            sort432(player1Cards);
+          }
+          if (sortKKKButton == true){
+            sortKKK(player1Cards);
+          }
+        }
       }
     });
   }
@@ -217,13 +241,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   void tableCardsColumn(List<Card> cardsColumn){
     setState(() {
       if (cardsColumn.isNotEmpty) {
-        for(int i = 0; i < cardsColumn.length; i++){
-          player1Table[0].add(Card(cardsColumn[i].cardId, cardsColumn[i].imagePath));
-        }
-        cardsColumn.clear();
+        player1Table.add(cardsColumn);
       }
     });
-    //Reminder that add cards to the list by comparing isTapped list with playersCard list
+  }
+
+  void addToTable() {
+    print("Inside addToTable function");
+    setState(() {
+      player1Table.add(List.from(cardsToBeAddedInTable));
+      for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
+        print(cardsToBeAddedInTable[i].cardId);
+      }
+      for (int i = 0; i < player1Table[0].length; i++) {
+        print(player1Table[0][i].cardId);
+      }
+      cardsToBeAddedInTable.clear();
+    });
   }
 
   List<Widget> splitInTwoRows(int splitCut){
@@ -273,7 +307,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         }
       }
       return AnimatedPositioned(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         left: leftPosition,
         top: topPosition,
         child: GestureDetector(
@@ -529,7 +563,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
     int player2CardsCount = (player2Cards.length).toInt();
     int deckCount = (deck.length).toInt();
-    int potCount = (pot.length).toInt();
+    // int potCount = (pot.length).toInt();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -560,7 +594,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               children: [
                                 CircleAvatar(
                                   radius: screenWidth * 0.03,
-                                  backgroundImage: AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                  backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
                                 Text(
@@ -611,7 +645,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(left: 5, top: 5),
+                                    margin: const EdgeInsets.only(left: 5, top: 5),
                                     child: Image.asset(
                                       'assets/extraCards/Blue.png',
                                       fit: BoxFit.fill,
@@ -632,7 +666,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       child: Center(
                                         child: Text(
                                           player2CardsCount.toString(),
-                                          style: TextStyle(fontSize: 10, color: Colors.black),
+                                          style: const TextStyle(fontSize: 10, color: Colors.black),
                                         ),
                                       ),
                                     ),
@@ -714,7 +748,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           children: [
                             GestureDetector(
                               onTap: (){
-                                // tableCardsColumn();
+                                setState(() {
+                                  //tableCardsColumn(cardsToBeAddedInTable);
+                                  addToTable();
+                                });
                               },
                               child: Container(
                                 width: screenWidth * 0.4,
@@ -730,11 +767,25 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                   ],
                                 ),
-                                child: const Center(
-                                  child: Text(
-                                    '',
-                                    style: TextStyle(fontSize: 16, color: Colors.white),
-                                  ),
+                                child: Stack(
+                                  children: player1Table.isNotEmpty
+                                      ? List.generate(player1Table[0].length, (index) {
+                                    return AnimatedPositioned(
+                                      duration: const Duration(milliseconds: 300),
+                                      left: 5.0,
+                                      top: 5.0 + (index * 10), // Adjust the spacing as needed
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Image.asset(
+                                          player1Table[0][index].imagePath,
+                                          fit: BoxFit.fill,
+                                          width: 55,
+                                          height: 55,
+                                        ),
+                                      ),
+                                    );
+                                  })
+                                      : [],
                                 ),
                               ),
                             ),
@@ -749,7 +800,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     color: Colors.white.withOpacity(0),
                                     spreadRadius: 3,
                                     blurRadius: 7,
-                                    offset: const Offset(0, 3), // changes position of shadow
+                                    offset: const Offset(0, 3),
                                   ),
                                 ],
                               ),
@@ -876,7 +927,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'PROFILE',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -888,7 +939,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                   height: screenHeight * 0.06,
                                                 ),
                                                 SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                const Text(
                                                   'PROFILE',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -905,7 +956,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'OPTIONS',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -917,7 +968,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                   height: screenHeight * 0.06,
                                                 ),
                                                 SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                const Text(
                                                   'OPTIONS',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -934,7 +985,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       PopupMenuItem<String>(
                                         value: 'CONTACTS',
                                         child: Center(
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.07,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
@@ -946,7 +997,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                   height: screenHeight * 0.06,
                                                 ),
                                                 SizedBox(height: screenHeight * 0.01),
-                                                Text(
+                                                const Text(
                                                   'CONTACTS',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
