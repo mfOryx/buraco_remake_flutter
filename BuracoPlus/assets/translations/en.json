@@ -21,6 +21,7 @@
     "txtPlayGame" : "Play Game",
     "txtPlay" : "Play",
     "txtLogin" : "Login",
+    "txtLOGIN" : "LOGIN",
     "txtPassword" : "Password",
     "txtCPassword" : "Confirm Password:",
     "txtCEmail" : "Confirm Email:",
@@ -603,5 +604,6 @@
     "txWNCLUB_desc" : "This new feature allow players to create their own club and invite all friends to compete against players from other clubs!<br>Club members are recognizable with an icon (if any) under their nickname and within the Player Profile.",
     "txtWNCLUB_CreateAClub" : "Create a club",
     "txtWNCLUB_TheRoles" : "The Roles",
-    "txtWNCLUB_Roles" : "Roles"
+    "txtWNCLUB_Roles" : "Roles",
+    "txtEmailNickname" : "Email or Nickname1"
 }
