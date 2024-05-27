@@ -42,13 +42,13 @@ class ModalHelpers {
               Container(
                 color: colors.popupTitleBackground,
                 padding: const EdgeInsets.all(20.0),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.language, color: Colors.white),
-                    SizedBox(width: 10),
+                    const Icon(Icons.language, color: Colors.white),
+                    const SizedBox(width: 10),
                     Text(
-                      'Languages',
-                      style: TextStyle(
+                      translationManager.translate('txtLanguages'),
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

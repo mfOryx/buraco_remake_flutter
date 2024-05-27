@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'emoji_definition.dart'; // Assicurati di importare il file corretto
+import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -58,8 +60,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return Scaffold(
-      appBar: AppBar(title: const Text("Chat")),
+      appBar: AppBar(title: Text(translationManager.translate('txtChat'))),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -68,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 controller: _controller,
                 maxLines: null,
                 decoration: InputDecoration(
-                  hintText: "Type your message here...",
+                  hintText: translationManager.translate('txtTypeYourMessageHere'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.emoji_emotions_outlined),
                     onPressed: _showEmojiPicker,
@@ -78,7 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           ElevatedButton(
-            child: const Text("Send"),
+            child: Text(translationManager.translate('txtSend')),
             onPressed: () {
               // Logic to send message
               if (kDebugMode) {

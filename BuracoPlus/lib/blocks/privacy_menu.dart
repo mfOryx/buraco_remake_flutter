@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class PrivacyMenu extends StatelessWidget {
   final bool isMenuVisible;
@@ -12,6 +14,7 @@ class PrivacyMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
@@ -30,25 +33,25 @@ class PrivacyMenu extends StatelessWidget {
           child: Column(
             children: [
               ListTile(
-                title: const Text('Privacy Policy'),
+                title: Text(translationManager.translate('txtPrivacyPolicy')),
                 onTap: () => launchURL(
                     Uri.parse('https://www.buraco.plus/privacy_en.pdf')),
               ),
               const Divider(),
               ListTile(
-                title: const Text('Terms and Conditions'),
+                title: Text(translationManager.translate('txtTermsAndConditions')),
                 onTap: () => launchURL(Uri.parse(
                     'https://www.buraco.plus/terms_and_conditions.pdf')),
               ),
               const Divider(),
               ListTile(
-                title: const Text('Terms of Use (EULA)'),
+                title: Text(translationManager.translate('txtTermsOfUse(EULA)')),
                 onTap: () => launchURL(Uri.parse(
                     'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/')),
               ),
               const Divider(),
               ListTile(
-                title: const Text('Ethic Rules'),
+                title: Text(translationManager.translate('txtEthicRules')),
                 onTap: () => launchURL(
                     Uri.parse('https://www.buraco.plus/en/ethic-rules/')),
               ),

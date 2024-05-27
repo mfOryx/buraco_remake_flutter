@@ -1,10 +1,11 @@
 import 'package:buracoplus/blocks/lobby_option_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:buracoplus/helpers/modal_helpers.dart';
 import 'package:buracoplus/models/options_model.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
@@ -13,6 +14,7 @@ class OptionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return Positioned(
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
@@ -26,7 +28,7 @@ class OptionsButton extends StatelessWidget {
             onPressed: () => showOptionsPanel(context),
           ),
           const SizedBox(height: 1),
-          const Text('Settings', style: TextStyle(color: Colors.white)),
+          Text(translationManager.translate('txtSettings').toUpperCase(), style: const TextStyle(color: Colors.white)),
         ],
       ),
     );
@@ -44,6 +46,7 @@ class OptionsButton extends StatelessWidget {
           builder: (_, themeProvider, __) {
             final colors = themeProvider.currentColors;
 
+            final translationManager = Provider.of<TranslationManager>(context);
             return ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
               child: Container(
@@ -57,13 +60,13 @@ class OptionsButton extends StatelessWidget {
                     Container(
                       color: colors.popupTitleBackground,
                       padding: const EdgeInsets.all(20.0),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Icon(Icons.settings, color: Colors.white),
-                          SizedBox(width: 10),
+                          const Icon(Icons.settings, color: Colors.white),
+                          const SizedBox(width: 10),
                           Text(
-                            'Settings',
-                            style: TextStyle(
+                            translationManager.translate('txtSettings').toUpperCase(),
+                            style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
@@ -103,13 +106,14 @@ class OptionsButton extends StatelessWidget {
 
   List<OptionGroup> _buildOptionGroups(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final translationManager = Provider.of<TranslationManager>(context);
 
     return [
       OptionGroup(
-        title: 'Generale',
+        title: translationManager.translate('txtGeneral'),
         options: [
           OptionItem(
-            title: 'Dark Mode',
+            title: translationManager.translate('txtDarkMode'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -118,19 +122,19 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Lobby',
+            title: translationManager.translate('txtLobby'),
             customWidget: const LobbyOptionItem(),
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Lingua',
+            title: translationManager.translate('txtLanguage'),
             requireLoggedIn: true,
             onTap: (context) {
               ModalHelpers.showLanguagesMenu(context);
             },
           ),
           OptionItem(
-            title: 'Ordinamento manuale',
+            title: translationManager.translate('txtManualSorting'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -141,7 +145,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Rotazione carte',
+            title: translationManager.translate('txtCardRotation'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -152,7 +156,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Rotazione carte superiori',
+            title: translationManager.translate('txtTopCardRotation'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -165,10 +169,10 @@ class OptionsButton extends StatelessWidget {
         ],
       ),
       OptionGroup(
-        title: 'Notifiche',
+        title: translationManager.translate('txtNotifications'),
         options: [
           OptionItem(
-            title: 'Nuovi messaggi',
+            title: translationManager.translate('txtNewMessages'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -179,7 +183,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Richieste di amicizia',
+            title: translationManager.translate('txtFriendRequests'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -190,7 +194,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Tornei',
+            title: translationManager.translate('txtTournaments'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -203,10 +207,10 @@ class OptionsButton extends StatelessWidget {
         ],
       ),
       OptionGroup(
-        title: 'Suoni',
+        title: translationManager.translate('txtSounds'),
         options: [
           OptionItem(
-            title: 'Suoni di sistema',
+            title: translationManager.translate('txtSystemSounds'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -217,7 +221,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Trillo',
+            title: translationManager.translate('txtNudge'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -230,10 +234,10 @@ class OptionsButton extends StatelessWidget {
         ],
       ),
       OptionGroup(
-        title: 'Restrizioni',
+        title: translationManager.translate('txtRestrictions'),
         options: [
           OptionItem(
-            title: 'Richieste di amicizia',
+            title: translationManager.translate('txtFriendRequests'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -244,7 +248,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Inviti clubs',
+            title: translationManager.translate('txtClubInvites'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {
@@ -255,7 +259,7 @@ class OptionsButton extends StatelessWidget {
             onTap: (context) {},
           ),
           OptionItem(
-            title: 'Inviti al tavolo',
+            title: translationManager.translate('txtInvitesToTable'),
             isSwitch: true,
             switchValue: true,
             onSwitchChanged: (val) {

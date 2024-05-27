@@ -130,8 +130,8 @@ class _LoginState extends State<Login> {
                                 child: TextField(
                                   controller: _usernameController,
                                   style: const TextStyle(color: Colors.white),
-                                  decoration: const InputDecoration(
-                                    hintText: 'Email or Nickname1',
+                                  decoration: InputDecoration(
+                                    hintText: translationManager.translate('txtEmailNickname'),
                                     hintStyle: TextStyle(color: Colors.white),
                                     prefixIcon: Icon(
                                       Icons.person,
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                                   controller: _passwordController,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                    hintText: 'Password',
+                                    hintText: translationManager.translate('txtPassword'),
                                     hintStyle:
                                         const TextStyle(color: Colors.white),
                                     prefixIcon: const Icon(
@@ -210,9 +210,9 @@ class _LoginState extends State<Login> {
                                         ),
                                       ),
                                     ),
-                                    child: const Text(
-                                      'LOGIN',
-                                      style: TextStyle(
+                                    child: Text(
+                                        translationManager.translate('txtLogin').toUpperCase(),
+                                      style: const TextStyle(
                                         color: Color.fromRGBO(92, 70, 154, 1),
                                       ),
                                     ),
@@ -222,9 +222,9 @@ class _LoginState extends State<Login> {
                               const SizedBox(height: 5),
                               GestureDetector(
                                 onTap: () {},
-                                child: const Text(
-                                  'FORGOT PASSWORD?',
-                                  style: TextStyle(
+                                child: Text(
+                                  translationManager.translate('ForgotPW?'),
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     decoration: TextDecoration.underline,
                                     decorationColor: Colors.white,
@@ -328,7 +328,7 @@ class _LoginState extends State<Login> {
               },
             ),
             Positioned(
-              width: 70,
+              width: 80.0,
               bottom: 40.0,
               right: Directionality.of(context) == TextDirection.rtl
                   ? 40
@@ -355,12 +355,12 @@ class _LoginState extends State<Login> {
                       height: 30,
                     ),
                   ),
-                  const Text('QUIT', style: TextStyle(color: Colors.white)),
+                  Text(translationManager.translate('txtQuit').toUpperCase(), style: const TextStyle(color: Colors.white)),
                 ]),
               ),
             ),
             Positioned(
-              width: 80,
+              width: 80.0,
               bottom: 40.0,
               left: Directionality.of(context) == TextDirection.rtl
                   ? 40
@@ -381,7 +381,7 @@ class _LoginState extends State<Login> {
                 elevation: 0.0,
                 child: Row(
                   children: [
-                    const Text('TRAIN', style: TextStyle(color: Colors.white)),
+                    Text(translationManager.translate('txtTrain').toUpperCase(), style: const TextStyle(color: Colors.white)),
                     Transform.rotate(
                       angle: -1.6,
                       child: Image.asset(

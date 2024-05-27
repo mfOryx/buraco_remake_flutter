@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class PrivacyButton extends StatelessWidget {
   final VoidCallback toggleMenu;
@@ -7,6 +9,7 @@ class PrivacyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return Positioned(
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl ? 40 : null,
@@ -24,7 +27,7 @@ class PrivacyButton extends StatelessWidget {
             onPressed: toggleMenu,
           ),
           const SizedBox(height: 1),
-          const Text('PRIVACY', style: TextStyle(color: Colors.white)),
+          Text(translationManager.translate('txtPrivacy').toUpperCase(), style: TextStyle(color: Colors.white)),
         ],
       ),
     );
