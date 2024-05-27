@@ -1,20 +1,18 @@
+import 'dart:io';
+
 import 'package:buracoplus/blocks/options_button.dart';
 import 'package:buracoplus/blocks/privacy_button.dart';
-import 'package:buracoplus/common/toast_with_button.dart';
+import 'package:buracoplus/blocks/privacy_menu.dart';
 import 'package:buracoplus/common/translation_manager.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:buracoplus/home.dart';
 import 'package:buracoplus/create_table_single_player.dart';
+import 'package:buracoplus/home.dart';
+import 'package:buracoplus/login/controllers/login_controller.dart';
+import 'package:buracoplus/providers/theme_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:io';
-import 'package:buracoplus/login/controllers/login_controller.dart';
-import 'package:buracoplus/blocks/privacy_menu.dart';
-import 'package:provider/provider.dart';
-import 'package:buracoplus/providers/theme_provider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -27,11 +25,8 @@ class _LoginState extends State<Login> {
   late final LoginController _controller;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final bool _isLoggedIn = false;
-  String? _loginError;
-  bool _isObscured = true; // Deve essere una variabile di stato
-  bool isMenuVisible = false; // Stato per la visibilità del menu
-  final bool _isButtonDisabled = false;
+  bool _isObscured = true;
+  bool isMenuVisible = false;
 
   void _toggleMenu() {
     setState(() {
@@ -44,31 +39,14 @@ class _LoginState extends State<Login> {
     super.initState();
     _controller = LoginController()
       ..onError = (message) {
-        // Mostra il toast qui utilizzando il context del widget
-        ToastWithButton.showTopScrollingSnackbar(
-          context,
-          Text(
-            message,
-            style: const TextStyle(color: Colors.black, fontSize: 16.0),
-          ),
-          action: TextButton(
-            onPressed: () {
-              // Azione del pulsante
-            },
-            child: const Text(
-              'Annulla',
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
         );
       }
       ..onSuccessfulMessage = () {
-        // Azione da eseguire in caso di successo
+        Navigator.pushReplacementNamed(context, '/home');
       };
     _checkCredentialsAndAutoLogin();
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   }
 
   void _sendLogin() {
@@ -77,24 +55,17 @@ class _LoginState extends State<Login> {
     _controller.sendLogin(context, username, password);
   }
 
-  void launchURL(Uri url) async {
-    if (!await launchUrl(url)) {
-      throw 'Could not launch $url';
-    }
-  }
-
   Future<void> _checkCredentialsAndAutoLogin() async {
     final prefs = await SharedPreferences.getInstance();
     final playerId = prefs.getString('playerId');
 
     if (playerId != null) {
-      _controller.sendAutoLogin(context, playerId); // Perform auto-login
+      _controller.sendAutoLogin(context, playerId);
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -103,11 +74,8 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    // Accesso al provider del tema
     final themeProvider = Provider.of<ThemeProvider>(context);
-    // Ottieni i colori correnti basati sul tema attivo
     final colors = themeProvider.currentColors;
-
     final translationManager = Provider.of<TranslationManager>(context);
 
     return Scaffold(
@@ -146,15 +114,14 @@ class _LoginState extends State<Login> {
                           width: screenSize.width * 0.4,
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(
-                                  0.3), // Colore con opacità per l'effetto trasparente
+                              color: Colors.white.withOpacity(0.3),
                               borderRadius: BorderRadius.circular(20.0),
                               border: Border.all(color: Colors.white)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                translationManager.translate('hello'),
+                                translationManager.translate("hello"),
                                 style: const TextStyle(color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
@@ -224,8 +191,7 @@ class _LoginState extends State<Login> {
                                           if (states.contains(
                                               MaterialState.pressed)) {
                                             return const BorderSide(
-                                              color: Colors
-                                                  .black, // Colore del bordo quando il bottone è premuto
+                                              color: Colors.black,
                                               width: 1.5,
                                             );
                                           }
@@ -318,8 +284,8 @@ class _LoginState extends State<Login> {
                                 IconButton(
                                   icon: SvgPicture.asset(
                                     'assets/socialMediaIcons/gmail.svg',
-                                    width: 50,
-                                    height: 50,
+                                    width: 40,
+                                    height: 40,
                                   ),
                                   onPressed: () {
                                     Navigator.push(
@@ -355,7 +321,11 @@ class _LoginState extends State<Login> {
             PrivacyButton(toggleMenu: _toggleMenu),
             PrivacyMenu(
               isMenuVisible: isMenuVisible,
-              launchURL: launchUrl,
+              launchURL: (url) async {
+                if (!await launchUrl(url)) {
+                  throw 'Could not launch $url';
+                }
+              },
             ),
             Positioned(
               width: 70,
@@ -371,7 +341,7 @@ class _LoginState extends State<Login> {
               child: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
-                  exit(0);
+                  //exit(0);
                 },
                 backgroundColor: Colors.transparent,
                 splashColor: Colors.transparent,
