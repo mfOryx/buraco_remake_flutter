@@ -24,13 +24,6 @@ class LoginController {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   Map<String, dynamic> _deviceData = <String, dynamic>{};
 
-  Future<void> connectToWebSocket() async {
-    IO.Socket socket = IO.io(
-        'ws://15.160.133.85:3001',
-        OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
-            .build());
-  }
-
   Future<void> sendLogin(
       BuildContext context, String username, String password) async {
     if (username.trim().isEmpty || password.trim().isEmpty) {
@@ -38,14 +31,54 @@ class LoginController {
       return;
     }
     //RotatingLoader.showOverlay(context);
-    await connectToWebSocket();
+    //await connectToWebSocket();
     final socketService = Provider.of<SocketService>(context, listen: false);
     if (!socketService.isConnected()) {
       socketService.connect();
     }
+    final immutableDeviceIdentifierPlugin = ImmutableDeviceIdentifier();
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    // We also handle the message potentially returning null.
+    try {
+      platformVersion = await immutableDeviceIdentifierPlugin.getUniqueId();
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+    if (kDebugMode) {
+      print(platformVersion);
+      print(Platform.operatingSystemVersion);
+      print(Platform.localHostname);
+    }
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    String phoneName = "";
+    String phoneModel = "";
+    if (Platform.isIOS || Platform.isMacOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      phoneName = iosInfo.name;
+      phoneModel = iosInfo.model;
+    }
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      phoneModel = androidInfo.model;
+    }
+    if (Platform.isWindows) {
+      WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+      phoneName = windowsInfo.computerName;
+      phoneModel = windowsInfo.productName;
+    }
 
-    socketService.emitWithAck(
-        'loginAction', {'username': username, 'password': password});
+    String ipAddress = await getPublicIP();
+    socketService.socket.on('connect', (_) {
+      socketService.emitWithAck('loginAction', {
+        'username': username,
+        'password': password,
+        'ip': ipAddress,
+        'uniqueDeviceId': platformVersion,
+        'phoneName': phoneName,
+        'phoneModel': phoneModel
+      });
+    });
   }
 
   Future<void> _sendLoginMessage(BuildContext context, String username,
@@ -70,15 +103,15 @@ class LoginController {
       }
       if (Platform.isIOS) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        print('questo il modello ' + iosInfo.name);
-        print('model ' + iosInfo.model);
-        print('version ' + iosInfo.utsname.version);
+        print('questo il modello ${iosInfo.name}');
+        print('model ${iosInfo.model}');
+        print('version ${iosInfo.utsname.version}');
       }
       if (Platform.isMacOS) {
         IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-        print('questo il modello ' + iosInfo.name);
-        print('model ' + iosInfo.model);
-        print('version ' + iosInfo.utsname.version);
+        print('questo il modello ${iosInfo.name}');
+        print('model ${iosInfo.model}');
+        print('version ${iosInfo.utsname.version}');
       }
     }
     /*

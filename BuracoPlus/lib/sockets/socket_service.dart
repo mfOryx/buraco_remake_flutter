@@ -44,22 +44,26 @@ class SocketService with ChangeNotifier {
 
   void emitWithAck(String event, dynamic data) {
     if (_isConnected) {
-      _socket.emitWithAck(event, data, ack: (dynamic result) {
+      _socket.compress(true).emitWithAck(event, data, ack: (dynamic result) {
         if (kDebugMode) {
           print('ack $result');
         }
         if (result != null) {
           if (kDebugMode) {
             print('from server $result');
+            return result;
           }
         } else {
           if (kDebugMode) {
             print("Null");
           }
+          return null;
         }
       });
     } else {
-      print('Socket is not connected');
+      if (kDebugMode) {
+        print('Socket is not connected');
+      }
     }
   }
 
