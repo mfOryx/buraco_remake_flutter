@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:buracoplus/common/rotating_loader.dart';
-import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
@@ -13,8 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:buracoplus/common/general_functions.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:socket_io_client/socket_io_client.dart';
 
 class LoginController {
   StreamSubscription? _messagesStreamSubscription;
@@ -22,7 +18,6 @@ class LoginController {
   Function(String)? onError;
   TranslationManager? translationManager;
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
 
   Future<void> sendLogin(
       BuildContext context, String username, String password) async {
@@ -44,11 +39,6 @@ class LoginController {
       platformVersion = await immutableDeviceIdentifierPlugin.getUniqueId();
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
-    }
-    if (kDebugMode) {
-      print(platformVersion);
-      print(Platform.operatingSystemVersion);
-      print(Platform.localHostname);
     }
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String phoneName = "";

@@ -1,34 +1,38 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService with ChangeNotifier {
-  late IO.Socket
-      _socket; // Usiamo 'late' perché lo inizializziamo nel metodo 'connect'
+  late io.Socket _socket;
   final String _serverUrl;
   bool _isConnected = false;
 
   SocketService(this._serverUrl);
 
   void connect() {
-    _socket = IO.io(_serverUrl, <String, dynamic>{
+    _socket = io.io(_serverUrl, <String, dynamic>{
       'transports': ['websocket'],
     });
 
     _socket.on('connect', (_) {
-      print('connected');
+      if (kDebugMode) {
+        print('connected');
+      }
       _isConnected = true;
       notifyListeners();
     });
 
     _socket.on('disconnect', (_) {
-      print('disconnected');
+      if (kDebugMode) {
+        print('disconnected');
+      }
       _isConnected = false;
       notifyListeners();
     });
 
     _socket.on('connect_error', (err) {
-      print('Here I am. Connection error: $err');
+      if (kDebugMode) {
+        print('Here I am. Connection error: $err');
+      }
       _isConnected = false;
       notifyListeners();
     });
@@ -38,7 +42,9 @@ class SocketService with ChangeNotifier {
     if (_isConnected) {
       _socket.emit(event, data);
     } else {
-      print('Socket is not connected');
+      if (kDebugMode) {
+        print('Socket is not connected');
+      }
     }
   }
 
@@ -77,5 +83,5 @@ class SocketService with ChangeNotifier {
     return _isConnected;
   }
 
-  IO.Socket get socket => _socket;
+  io.Socket get socket => _socket;
 }

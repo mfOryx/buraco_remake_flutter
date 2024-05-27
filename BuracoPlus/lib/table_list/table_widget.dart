@@ -19,7 +19,7 @@ class TableWidget extends StatelessWidget {
             Player? player =
                 table.players.length > index ? table.players[index] : null;
             return Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 100,
                 child: player != null
                     ? Image.network(player.imageUrl)

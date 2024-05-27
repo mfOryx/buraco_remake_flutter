@@ -1,7 +1,7 @@
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketReceiver {
-  final IO.Socket _socket;
+  final io.Socket _socket;
 
   SocketReceiver(this._socket);
 

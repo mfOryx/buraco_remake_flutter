@@ -1,10 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({Key? key});
+  const Splash({super.key});
 
   @override
   State<Splash> createState() => _SplashState();

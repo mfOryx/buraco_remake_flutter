@@ -1275,7 +1275,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ],
                                     onSelected: (String value) {
                                       // Handle menu item selection here if needed
-                                      print('Selected: $value');
+                                      if (kDebugMode) {
+                                        print('Selected: $value');
+                                      }
                                       if (value == 'PROFILE') {
                                         setState(() {
                                           menuProfileButton =
@@ -1310,7 +1312,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         });
                                       }
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       width: screenWidth * 0.05,
                                       height: screenHeight * 0.06,
                                       child: Image.asset(
@@ -1363,8 +1365,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                   Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 5, top: 5),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 5, top: 5),
                                                     child: Image.asset(
                                                       'assets/extraCards/Red.png',
                                                       fit: BoxFit.fill,
@@ -1387,10 +1390,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                       child: Center(
                                                         child: Text(
                                                           deckCount.toString(),
-                                                          style: TextStyle(
-                                                              fontSize: 10,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 10,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       ),
                                                     ),
@@ -1462,9 +1466,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                                   (index * 10);
 
                                                           return AnimatedPositioned(
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    300),
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        300),
                                                             left: animatedLeft
                                                                 .toDouble(),
                                                             top: screenHeight *
@@ -1500,11 +1505,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         children: [
                                           CircleAvatar(
                                             radius: screenWidth * 0.03,
-                                            backgroundImage: AssetImage(
+                                            backgroundImage: const AssetImage(
                                                 'assets/menuIcons/blankAvatar_2.png'),
                                           ),
                                           SizedBox(width: screenWidth * 0.012),
-                                          Text(
+                                          const Text(
                                             'XYZ ABC',
                                             style: TextStyle(
                                                 fontSize: 10,
@@ -1556,7 +1561,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
+                                    SizedBox(
                                       width: screenWidth * 0.06,
                                       height: screenHeight * 0.1,
                                       child: Visibility(
@@ -1588,7 +1593,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                     Stack(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: screenWidth * 0.06,
                                           height: screenHeight * 0.1,
                                           child: ElevatedButton(
@@ -1622,7 +1627,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         ),
                                         Visibility(
                                           visible: sort234Button,
-                                          child: Container(
+                                          child: SizedBox(
                                             width: screenWidth * 0.06,
                                             height: screenHeight * 0.1,
                                             child: ElevatedButton(
@@ -1657,7 +1662,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: screenWidth * 0.06,
                                       height: screenHeight * 0.1,
                                       child: ElevatedButton(
@@ -1730,7 +1735,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5.0),
-                            boxShadow: [
+                            boxShadow: const [
                               BoxShadow(
                                 color: Colors.black26,
                                 blurRadius: 5,
@@ -1762,13 +1767,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "MANUAL SORTING",
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: Colors.black),
                                         ),
-                                        Spacer(),
+                                        const Spacer(),
                                         ElevatedButton(
                                           onPressed: () {
                                             setState(() {
@@ -1826,7 +1831,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Colors.black26,
                               blurRadius: 5,
@@ -1838,12 +1843,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Are you sure you want to exit?",
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.black),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -1868,7 +1873,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                CreateTableSP()),
+                                                const CreateTableSP()),
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
