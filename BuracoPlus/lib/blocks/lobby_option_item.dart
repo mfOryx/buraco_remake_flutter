@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:buracoplus/helpers/preferences_service.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class LobbyOptionItem extends StatefulWidget {
   const LobbyOptionItem({super.key});
@@ -34,9 +36,10 @@ class _LobbyOptionItemState extends State<LobbyOptionItem> {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      title: const Text('Lobby'),
+      title: Text(translationManager.translate('txtLobby')),
       trailing: DropdownButtonHideUnderline(
         child: DropdownButton<int>(
           borderRadius: BorderRadius.circular(20),
@@ -58,7 +61,7 @@ class _LobbyOptionItemState extends State<LobbyOptionItem> {
                           color: Colors.grey[300]!,
                           width: 1)), // Bordo tra le opzioni
                 ),
-                child: const Text('Classic'),
+                child: Text(translationManager.translate('txtItalian')),
               ),
             ),
             DropdownMenuItem<int>(
@@ -66,7 +69,7 @@ class _LobbyOptionItemState extends State<LobbyOptionItem> {
               child: Container(
                 width: 100,
                 padding: const EdgeInsets.symmetric(vertical: 8),
-                child: const Text('Professional'),
+                child: Text(translationManager.translate('txtProfessional')),
               ),
             ),
           ],

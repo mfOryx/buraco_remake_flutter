@@ -1,35 +1,39 @@
 // options_data.dart
+import 'dart:js';
 import 'package:buracoplus/helpers/modal_helpers.dart';
 import 'package:buracoplus/models/options_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:buracoplus/common/translation_manager.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:provider/provider.dart';
 
 final List<OptionGroup> optionGroups = [
   OptionGroup(
-    title: 'Generale',
+    title: Provider.of<TranslationManager>(context as BuildContext).translate('txtGeneral'),
     options: [
       OptionItem(
-        title: 'Dark Mode',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtDarkMode'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {},
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Lobby',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtLobby'),
         requireLoggedIn: true,
         onTap: (context) {
           ModalHelpers.showLanguagesMenu(context);
         },
       ),
       OptionItem(
-        title: 'Lingua',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtLanguage'),
         requireLoggedIn: true,
         onTap: (context) {
           ModalHelpers.showLanguagesMenu(context);
         },
       ),
       OptionItem(
-        title: 'Ordinamento manuale',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtManualSorting'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -40,7 +44,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Rotazione carte',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtCardRotation'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -51,7 +55,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Rotazione carte superiori',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtTopCardRotation'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -64,10 +68,10 @@ final List<OptionGroup> optionGroups = [
     ],
   ),
   OptionGroup(
-    title: 'Notifiche',
+    title: Provider.of<TranslationManager>(context as BuildContext).translate('txtNotifications'),
     options: [
       OptionItem(
-        title: 'Nuovi messaggi',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtNewMessages'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -78,7 +82,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Richieste di amicizia',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtFriendRequests'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -89,7 +93,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Tornei',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtTournaments'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -102,10 +106,10 @@ final List<OptionGroup> optionGroups = [
     ],
   ),
   OptionGroup(
-    title: 'Suoni',
+    title: Provider.of<TranslationManager>(context as BuildContext).translate('txtSounds'),
     options: [
       OptionItem(
-        title: 'Suoni di sistema',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtSystemSounds'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -116,7 +120,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Trillo',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtNudge'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -129,10 +133,10 @@ final List<OptionGroup> optionGroups = [
     ],
   ),
   OptionGroup(
-    title: 'Restrizioni',
+    title: Provider.of<TranslationManager>(context as BuildContext).translate('txtRestrictions'),
     options: [
       OptionItem(
-        title: 'Richieste di amicizia',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtFriendRequests'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -143,7 +147,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Inviti clubs',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtClubInvites'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
@@ -154,7 +158,7 @@ final List<OptionGroup> optionGroups = [
         onTap: (context) {},
       ),
       OptionItem(
-        title: 'Inviti al tavolo',
+        title: Provider.of<TranslationManager>(context as BuildContext).translate('txtInvitesToTable'),
         isSwitch: true,
         switchValue: true,
         onSwitchChanged: (val) {
