@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
