@@ -19,18 +19,12 @@ class LoginController {
   TranslationManager? translationManager;
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
-  Future<void> sendLogin(
-      BuildContext context, String username, String password) async {
+  void sendLogin(BuildContext context, String username, String password) async {
     if (username.trim().isEmpty || password.trim().isEmpty) {
       onError?.call('Username o Password vuoti');
       return;
     }
     //RotatingLoader.showOverlay(context);
-    //await connectToWebSocket();
-    final socketService = Provider.of<SocketService>(context, listen: false);
-    if (!socketService.isConnected()) {
-      socketService.connect();
-    }
     final immutableDeviceIdentifierPlugin = ImmutableDeviceIdentifier();
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -59,8 +53,11 @@ class LoginController {
     }
 
     String ipAddress = await getPublicIP();
-    socketService.socket.on('connect', (_) {
-      socketService.emitWithAck('loginAction', {
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    if (!socketService.isConnected()) {
+      socketService.connect();
+    } else {
+      final ackResult = await socketService.emitWithAck('loginAction', {
         'username': username,
         'password': password,
         'ip': ipAddress,
@@ -68,6 +65,18 @@ class LoginController {
         'phoneName': phoneName,
         'phoneModel': phoneModel
       });
+      print(ackResult);
+    }
+    socketService.socket.on('connect', (_) async {
+      final ackResult = await socketService.emitWithAck('loginAction', {
+        'username': username,
+        'password': password,
+        'ip': ipAddress,
+        'uniqueDeviceId': platformVersion,
+        'phoneName': phoneName,
+        'phoneModel': phoneModel
+      });
+      print(ackResult);
     });
   }
 

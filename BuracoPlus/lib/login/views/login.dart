@@ -131,9 +131,11 @@ class _LoginState extends State<Login> {
                                   controller: _usernameController,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                    hintText: translationManager.translate('txtEmailNickname'),
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    prefixIcon: Icon(
+                                    hintText: translationManager
+                                        .translate('txtEmailNickname'),
+                                    hintStyle:
+                                        const TextStyle(color: Colors.white),
+                                    prefixIcon: const Icon(
                                       Icons.person,
                                       color: Colors.white,
                                     ),
@@ -148,7 +150,8 @@ class _LoginState extends State<Login> {
                                   controller: _passwordController,
                                   style: const TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                    hintText: translationManager.translate('txtPassword'),
+                                    hintText: translationManager
+                                        .translate('txtPassword'),
                                     hintStyle:
                                         const TextStyle(color: Colors.white),
                                     prefixIcon: const Icon(
@@ -211,7 +214,9 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                     child: Text(
-                                        translationManager.translate('txtLogin').toUpperCase(),
+                                      translationManager
+                                          .translate('txtLogin')
+                                          .toUpperCase(),
                                       style: const TextStyle(
                                         color: Color.fromRGBO(92, 70, 154, 1),
                                       ),
@@ -355,7 +360,8 @@ class _LoginState extends State<Login> {
                       height: 30,
                     ),
                   ),
-                  Text(translationManager.translate('txtQuit').toUpperCase(), style: const TextStyle(color: Colors.white)),
+                  Text(translationManager.translate('txtQuit').toUpperCase(),
+                      style: const TextStyle(color: Colors.white)),
                 ]),
               ),
             ),
@@ -381,7 +387,8 @@ class _LoginState extends State<Login> {
                 elevation: 0.0,
                 child: Row(
                   children: [
-                    Text(translationManager.translate('txtTrain').toUpperCase(), style: const TextStyle(color: Colors.white)),
+                    Text(translationManager.translate('txtTrain').toUpperCase(),
+                        style: const TextStyle(color: Colors.white)),
                     Transform.rotate(
                       angle: -1.6,
                       child: Image.asset(

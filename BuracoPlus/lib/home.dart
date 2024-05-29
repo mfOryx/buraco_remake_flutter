@@ -1,10 +1,12 @@
 import 'dart:io';
-
 import 'package:buracoplus/blocks/privacy_button.dart';
 import 'package:buracoplus/blocks/privacy_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:buracoplus/common/toast_with_button.dart';
+import 'common/translation_manager.dart';
+import 'create_table_single_player.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,6 +19,14 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
   bool isMenuVisible = false;
+
+  bool isIOS() {
+    return Platform.isIOS;
+  }
+
+  bool isAndroid() {
+    return Platform.isAndroid;
+  }
 
   void _toggleMenu() {
     setState(() {
@@ -36,6 +46,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     return MaterialApp(
       home: Scaffold(
         body: GestureDetector(
@@ -96,7 +107,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       top: 10,
                       right: -150,
                       child: Opacity(
-                        opacity: 0.2, // Adjust the opacity value (0.0 to 1.0)
+                        opacity: 0.2,
                         child: Transform.rotate(
                           angle: -0.2,
                           child: Image.asset(
@@ -145,9 +156,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                           ToastWithButton
                                               .showTopScrollingSnackbar(
                                             context,
-                                            const Text(
-                                              'Questo è un messaggio importante!',
-                                              style: TextStyle(
+                                            Text(
+                                              translationManager.translate('txtThisIsAnImportantMessage!'),
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16.0),
                                             ),
@@ -155,18 +166,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                               onPressed: () {
                                                 // Azione del pulsante
                                               },
-                                              child: const Text(
-                                                'Annulla',
-                                                style: TextStyle(
+                                              child: Text(
+                                                translationManager.translate('txtCancel'),
+                                                style: const TextStyle(
                                                     color: Colors.black),
                                               ),
                                             ),
                                           );
                                         },
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
-                                            'Training vs computer',
-                                            style: TextStyle(
+                                            translationManager.translate('txtTrainingVSComputer'),
+                                            style: const TextStyle(
                                               color: Colors.black87,
                                             ),
                                           ),
@@ -200,10 +211,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         onTap: () {
                                           // Handle button press
                                         },
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
-                                            'Multiplayer',
-                                            style: TextStyle(
+                                            translationManager.translate('txtMultiplayer'),
+                                            style: const TextStyle(
                                               color: Colors.black87,
                                             ),
                                           ),
@@ -218,9 +229,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text(
-                                      'Follow us on',
-                                      style: TextStyle(
+                                    Text(
+                                      translationManager.translate('txtFollowUsOn'),
+                                      style: const TextStyle(
                                           color: Colors.white, fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),
@@ -239,9 +250,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       ),
                                     ),
                                     const SizedBox(width: 20),
-                                    const Text(
-                                      'Follow us on',
-                                      style: TextStyle(
+                                    Text(
+                                      translationManager.translate('txtFollowUsOn'),
+                                      style: const TextStyle(
                                           color: Colors.white, fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),
@@ -313,8 +324,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('MESSAGES',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtMessages').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -331,8 +342,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('CONTACTS',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtContacts').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -349,8 +360,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('CLUBS',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtClubs').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -368,8 +379,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('OPTIONS',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtOptions').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -386,8 +397,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('RANKING',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtRankings').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -404,8 +415,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                             width: 25,
                                             height: 25,
                                           ),
-                                          const Text('SHOP',
-                                              style: TextStyle(
+                                          Text(translationManager.translate('txtShop').toUpperCase(),
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10)),
                                         ]),
@@ -491,7 +502,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             Positioned(
               width: 70,
               bottom: 0.0,
-              left: Platform.isMacOS ? 40.0 : 150.0,
+              left: Platform.isMacOS  ? 40.0 : (isIOS() ? 120.0 : 40.0),
               child: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
@@ -509,7 +520,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       height: 30,
                     ),
                   ),
-                  const Text('QUIT', style: TextStyle(color: Colors.white)),
+                  Text(translationManager.translate('txtQuit').toUpperCase(), style: const TextStyle(color: Colors.white)),
                 ]),
               ),
             ),
@@ -519,13 +530,18 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               right: 0.0,
               child: FloatingActionButton(
                 heroTag: null,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CreateTableSP()));
+                },
                 backgroundColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 elevation: 0.0,
                 child: Row(
                   children: [
-                    const Text('TRAIN', style: TextStyle(color: Colors.white)),
+                    Text(translationManager.translate('txtTrain').toUpperCase(), style: const TextStyle(color: Colors.white)),
                     Transform.rotate(
                       angle: -1.6,
                       child: Image.asset(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -48,28 +49,24 @@ class SocketService with ChangeNotifier {
     }
   }
 
-  void emitWithAck(String event, dynamic data) {
+  Future<dynamic> emitWithAck(String event, dynamic data) {
+    final completer = Completer<dynamic>();
+
     if (_isConnected) {
-      _socket.compress(true).emitWithAck(event, data, ack: (dynamic result) {
-        if (kDebugMode) {
-          print('ack $result');
-        }
-        if (result != null) {
-          if (kDebugMode) {
-            print('from server $result');
-            return result;
-          }
-        } else {
-          if (kDebugMode) {
-            print("Null");
-          }
-          return null;
+      _socket.emitWithAck(event, data, ack: (dynamic result) {
+        completer.complete(result);
+      });
+
+      Future.delayed(Duration(seconds: 5), () {
+        if (!completer.isCompleted) {
+          completer
+              .completeError(TimeoutException("Socket operation timed out"));
         }
       });
+
+      return completer.future;
     } else {
-      if (kDebugMode) {
-        print('Socket is not connected');
-      }
+      return Future.error(Exception('Socket is not connected'));
     }
   }
 

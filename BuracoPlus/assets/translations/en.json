@@ -625,5 +625,20 @@
     "txtTermsOfUse(EULA)" : "Terms of Use (EULA)",
     "txtEthicRules" : "Ethic Rules",
     "txtChat" : "Chat",
-    "txtTypeYourMessageHere" : "Type your message here..."
+    "txtTypeYourMessageHere" : "Type your message here...",
+    "txtDirect" : "Direct",
+    "txtIndirect" : "Indirect",
+    "txtMakart" : "Makart",
+    "txtOneHand" : "One Hand",
+    "txtPoints1005" : "1005",
+    "txtPoints1505" : "1505",
+    "txtPoints2000" : "2000",
+    "txtPoints2005" : "2005",
+    "txtThisIsAnImportantMessage!" : "This is an important message!",
+    "txtTrainingVSComputer" : "Training vs computer",
+    "txtShop" : "Shop",
+    "txtMessages" : "Messages",
+    "txtClubs" : "Clubs",
+    "txtContacts" : "Contacts",
+    "txtNotice" : "Notice"
 }

@@ -1,14 +1,14 @@
 import 'dart:math';
-
 import 'package:buracoplus/create_table_single_player.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:buracoplus/blocks/lobby_option_item.dart';
-// import 'package:flutter/foundation.dart';
-// import 'package:provider/provider.dart';
-// import 'package:buracoplus/helpers/modal_helpers.dart';
-// import 'package:buracoplus/models/options_model.dart';
-// import 'package:buracoplus/providers/theme_provider.dart';
+import 'common/translation_manager.dart';
+import 'package:buracoplus/blocks/lobby_option_item.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+import 'package:buracoplus/helpers/modal_helpers.dart';
+import 'package:buracoplus/models/options_model.dart';
+import 'package:buracoplus/providers/theme_provider.dart';
 
 class GameplaySP extends StatefulWidget {
   const GameplaySP({super.key});
@@ -296,12 +296,32 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  void tableCardsColumn(List<Card> cardsColumn) {
-    setState(() {
-      if (cardsColumn.isNotEmpty) {
-        player1Table.add(cardsColumn);
-      }
-    });
+  Stack tableCardsColumnBuild() {
+    return Stack(
+      children: player1Table.isNotEmpty
+          ? List.generate(player1Table[0].length,
+              (index) {
+            return AnimatedPositioned(
+              duration: const Duration(
+                  milliseconds: 300),
+              left: 5.0,
+              top: 5.0 +
+                  (index *
+                      10), // Adjust the spacing as needed
+              child: GestureDetector(
+                onTap: () {},
+                child: Image.asset(
+                  player1Table[0][index]
+                      .imagePath,
+                  fit: BoxFit.fill,
+                  width: 55,
+                  height: 55,
+                ),
+              ),
+            );
+          })
+          : [],
+    );
   }
 
   void addToTable() {
@@ -315,9 +335,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           print(cardsToBeAddedInTable[i].cardId);
         }
       }
-      for (int i = 0; i < player1Table[0].length; i++) {
-        if (kDebugMode) {
-          print(player1Table[0][i].cardId);
+      for(int i = 0; i < player1Table.length; i++){
+        for (int j = 0; j < player1Table[i].length; j++) {
+          if (kDebugMode) {
+            print(player1Table[i][j].cardId);
+          }
         }
       }
       cardsToBeAddedInTable.clear();
@@ -639,6 +661,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final translationManager = Provider.of<TranslationManager>(context);
     int player2CardsCount = (player2Cards.length).toInt();
     int deckCount = (deck.length).toInt();
     // int potCount = (pot.length).toInt();
@@ -677,7 +700,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
                                 Text(
-                                  'ABC XYZ',
+                                  translationManager.translate('ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
                                   style: TextStyle(
                                       fontSize: screenWidth * 0.01,
                                       color: Colors.white),
@@ -770,25 +793,25 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
+                                    padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
-                                      'ABC XYZ',
-                                      style: TextStyle(
+                                      translationManager.translate('ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
+                                      style: const TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
                                   ),
-                                  Spacer(),
-                                  Padding(
+                                  const Spacer(),
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
-                                      '0/0',
+                                      '0/0',// Add the player points instead of 0/0
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -804,25 +827,25 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(5),
                               ),
-                              child: const Row(
+                              child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(left: 8.0),
+                                    padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
-                                      'XYZ ABC',
-                                      style: TextStyle(
+                                      translationManager.translate('XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
+                                      style: const TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
                                   ),
-                                  Spacer(),
-                                  Padding(
+                                  const Spacer(),
+                                  const Padding(
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
-                                      '0/0',
+                                      '0/0',// Add the player points instead of 0/0
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -841,7 +864,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  //tableCardsColumn(cardsToBeAddedInTable);
                                   addToTable();
                                 });
                               },
@@ -861,31 +883,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ),
                                   ],
                                 ),
-                                child: Stack(
-                                  children: player1Table.isNotEmpty
-                                      ? List.generate(player1Table[0].length,
-                                          (index) {
-                                          return AnimatedPositioned(
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            left: 5.0,
-                                            top: 5.0 +
-                                                (index *
-                                                    10), // Adjust the spacing as needed
-                                            child: GestureDetector(
-                                              onTap: () {},
-                                              child: Image.asset(
-                                                player1Table[0][index]
-                                                    .imagePath,
-                                                fit: BoxFit.fill,
-                                                width: 55,
-                                                height: 55,
-                                              ),
-                                            ),
-                                          );
-                                        })
-                                      : [],
-                                ),
+                                child: tableCardsColumnBuild(),
                               ),
                             ),
                             const SizedBox(width: 2.0),
@@ -1058,10 +1056,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'PROFILE',
+                                                Text(
+                                                  translationManager.translate('txtProfile').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1095,10 +1093,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'OPTIONS',
+                                                Text(
+                                                  translationManager.translate('txtOptions').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1130,10 +1128,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'CONTACTS',
+                                                Text(
+                                                  translationManager.translate('txtContacts').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1165,10 +1163,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'MESSAGES',
+                                                Text(
+                                                  translationManager.translate('txtMessages').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1200,10 +1198,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'NOTICE',
+                                                Text(
+                                                  translationManager.translate('txtNotice').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1235,10 +1233,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 SizedBox(
                                                     height:
                                                         screenHeight * 0.01),
-                                                const Text(
-                                                  'CLUBS',
+                                                Text(
+                                                  translationManager.translate('txtClubs').toUpperCase(),
                                                   textAlign: TextAlign.center,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white,
                                                   ),
@@ -1275,9 +1273,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ],
                                     onSelected: (String value) {
                                       // Handle menu item selection here if needed
-                                      if (kDebugMode) {
-                                        print('Selected: $value');
-                                      }
+                                      print('Selected: $value');
                                       if (value == 'PROFILE') {
                                         setState(() {
                                           menuProfileButton =
@@ -1365,9 +1361,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                   Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 5, top: 5),
+                                                    margin: const EdgeInsets.only(
+                                                        left: 5, top: 5),
                                                     child: Image.asset(
                                                       'assets/extraCards/Red.png',
                                                       fit: BoxFit.fill,
@@ -1390,11 +1385,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                       child: Center(
                                                         child: Text(
                                                           deckCount.toString(),
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 10,
-                                                                  color: Colors
-                                                                      .black),
+                                                          style: const TextStyle(
+                                                              fontSize: 10,
+                                                              color:
+                                                                  Colors.black),
                                                         ),
                                                       ),
                                                     ),
@@ -1466,10 +1460,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                                   (index * 10);
 
                                                           return AnimatedPositioned(
-                                                            duration:
-                                                                const Duration(
-                                                                    milliseconds:
-                                                                        300),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    300),
                                                             left: animatedLeft
                                                                 .toDouble(),
                                                             top: screenHeight *
@@ -1509,9 +1502,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                 'assets/menuIcons/blankAvatar_2.png'),
                                           ),
                                           SizedBox(width: screenWidth * 0.012),
-                                          const Text(
-                                            'XYZ ABC',
-                                            style: TextStyle(
+                                          Text(
+                                            translationManager.translate('XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
+                                            style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.white),
                                           ),
@@ -1767,9 +1760,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Text(
-                                          "MANUAL SORTING",
-                                          style: TextStyle(
+                                        Text(
+                                          translationManager.translate('txtManualSorting').toUpperCase(),
+                                          style: const TextStyle(
                                               fontSize: 15,
                                               color: Colors.black),
                                         ),
@@ -1843,10 +1836,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "Are you sure you want to exit?",
+                              Text(
+                                translationManager.translate('txtAreYouSureYouWantToExit'),
                                 style: TextStyle(
-                                    fontSize: 20, color: Colors.black),
+                                    fontSize: screenWidth * 0.02, color: Colors.black),
                               ),
                               const Spacer(),
                               Row(

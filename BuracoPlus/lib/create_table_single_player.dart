@@ -1,7 +1,11 @@
+import 'dart:io';
+import 'package:buracoplus/home.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/gameplay_single_player.dart';
 import 'package:provider/provider.dart';
+import 'package:buracoplus/common/translation_manager.dart';
 
 class CreateTableSP extends StatefulWidget {
   const CreateTableSP({super.key});
@@ -24,6 +28,14 @@ class _CreateTableSPState extends State<CreateTableSP> {
   bool pointsFour = false;
   bool difficultyEasy = true;
   bool difficultyNormal = false;
+
+  bool isIOS() {
+    return Platform.isIOS;
+  }
+
+  bool isAndroid() {
+    return Platform.isAndroid;
+  }
 
   void toggleSelection(String toggleSelected) {
     switch (toggleSelected) {
@@ -121,6 +133,9 @@ class _CreateTableSPState extends State<CreateTableSP> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final colors = themeProvider.currentColors;
+    final translationManager = Provider.of<TranslationManager>(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Center(
@@ -132,11 +147,11 @@ class _CreateTableSPState extends State<CreateTableSP> {
               ),
             ),
             Positioned(
-              top: 10.0,
-              right: 70.0,
+              top: screenHeight * 0.022,
+              right: screenWidth * 0.075,
               child: Container(
-                width: 115,
-                height: 45,
+                width: screenWidth * 0.122,
+                height: screenHeight * 0.105,
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                 ),
@@ -147,38 +162,38 @@ class _CreateTableSPState extends State<CreateTableSP> {
               children: [
                 Image.asset(
                   'assets/logo-and-cards.png',
-                  width: 100,
-                  height: 50,
+                  width: isIOS() ? screenWidth * 0.1 : screenWidth * 0.08,
+                  height: isIOS() ? screenHeight * 0.11 : screenHeight * 0.075,
                 ),
               ],
             )),
             Positioned.fill(
               child: Center(
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 460,
-                    height: 340,
-                    decoration: BoxDecoration(
-                      color:
-                          const Color.fromRGBO(255, 255, 255, 20), // Box color
-                      borderRadius:
-                          BorderRadius.circular(10.0), // Rounded corners
-                    ),
-                    child: Column(
-                      children: [
-                        const Text(
-                          'Game Options',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Container(
+                      width: isIOS() ? screenWidth * 0.5 : screenWidth * 0.53,
+                      height: isIOS() ? screenHeight * 0.8 : screenHeight * 0.87,
+                      decoration: BoxDecoration(
+                        color:
+                            const Color.fromRGBO(255, 255, 255, 20), // Box color
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Rounded corners
+                      ),
+                      child: Column(
+                        children: [
+                        Text(
+                            translationManager.translate('txtGameOptions'),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth * 0.016,
+                                fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(height: 5.0),
+                        SizedBox(height: screenHeight * 0.015),
                         Row(
                           children: [
-                            const SizedBox(width: 20.0),
+                            SizedBox(width: screenWidth * 0.022),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 0.0),
@@ -188,12 +203,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                               ),
                               child: Row(
                                 children: [
-                                  const Text(
-                                    'Buraco Rule',
+                                  Text(
+                                    translationManager.translate('txtBuracoRule'),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 12.0),
+                                        color: Colors.black, fontSize: screenWidth * 0.015),
                                   ),
-                                  const SizedBox(width: 18.0),
+                                  SizedBox(width: screenWidth * 0.019),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -205,7 +220,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -221,12 +236,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              'Classic',
+                                              translationManager.translate('txtItalian'),
                                               style: TextStyle(
                                                 color: classicToggle
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -234,7 +249,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 20.0),
+                                  SizedBox(width: screenWidth * 0.022),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -246,7 +261,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -258,17 +273,16 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
-                                            toggleSelection(
-                                                "professionalToggle");
+                                            toggleSelection("professionalToggle");
                                           },
                                           child: Center(
                                             child: Text(
-                                              'Professional',
+                                              translationManager.translate('txtProfessional'),
                                               style: TextStyle(
                                                 color: professionalToggle
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -281,10 +295,10 @@ class _CreateTableSPState extends State<CreateTableSP> {
                             ),
                           ],
                         ),
-                        SizedBox(height: professionalToggle ? 5.0 : 20.0),
+                        SizedBox(height: professionalToggle ? screenHeight * 0.012 : screenHeight * 0.05),
                         Row(
                           children: [
-                            const SizedBox(width: 20.0),
+                            SizedBox(width: screenWidth * 0.022),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 0.0),
@@ -294,12 +308,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                               ),
                               child: Row(
                                 children: [
-                                  const Text(
-                                    'Players',
+                                  Text(
+                                    translationManager.translate('txtPlayers'),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 12.0),
+                                        color: Colors.black, fontSize: screenWidth * 0.015),
                                   ),
-                                  const SizedBox(width: 46.0),
+                                  SizedBox(width: screenWidth * 0.049),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -311,7 +325,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -327,12 +341,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              '2 Players',
+                                              translationManager.translate('txt2Players'),
                                               style: TextStyle(
                                                 color: twoPlayersToggle
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -340,7 +354,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 20.0),
+                                  SizedBox(width: screenWidth * 0.022),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -352,7 +366,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -364,17 +378,16 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                         fit: BoxFit.fill,
                                         child: InkWell(
                                           onTap: () {
-                                            toggleSelection(
-                                                "fourPlayersToggle");
+                                            toggleSelection("fourPlayersToggle");
                                           },
                                           child: Center(
                                             child: Text(
-                                              '4 Players',
+                                              translationManager.translate('txt4Players'),
                                               style: TextStyle(
                                                 color: fourPlayersToggle
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -391,11 +404,10 @@ class _CreateTableSPState extends State<CreateTableSP> {
                             visible: professionalToggle,
                             child: Column(
                               children: [
-                                SizedBox(
-                                    height: professionalToggle ? 5.0 : 20.0),
+                                SizedBox(height: professionalToggle ? screenHeight * 0.012 : screenHeight * 0.05),
                                 Row(
                                   children: [
-                                    const SizedBox(width: 20.0),
+                                    SizedBox(width: screenHeight * 0.05),
                                     Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 16.0, vertical: 0.0),
@@ -407,13 +419,13 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                       child: Row(
                                         children: [
-                                          const Text(
-                                            'Mode',
+                                          Text(
+                                            translationManager.translate('txtMode'),
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontSize: 12.0),
+                                                fontSize: screenWidth * 0.015),
                                           ),
-                                          const SizedBox(width: 57.0),
+                                          SizedBox(width: screenWidth * 0.06),
                                           ElevatedButtonTheme(
                                             data: ElevatedButtonThemeData(
                                               style: ElevatedButton.styleFrom(
@@ -427,7 +439,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               style: ButtonStyle(
                                                 fixedSize:
                                                     MaterialStateProperty.all(
-                                                        const Size(78, 40)),
+                                                        Size(screenWidth * 0.085, screenHeight * 0.05)),
                                               ),
                                               onPressed: () {},
                                               child: Ink.image(
@@ -439,17 +451,16 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                                 fit: BoxFit.fill,
                                                 child: InkWell(
                                                   onTap: () {
-                                                    toggleSelection(
-                                                        "directToggle");
+                                                    toggleSelection("directToggle");
                                                   },
                                                   child: Center(
                                                     child: Text(
-                                                      'Direct',
+                                                      translationManager.translate('txtDirect'),
                                                       style: TextStyle(
                                                         color: directToggle
                                                             ? Colors.white
                                                             : Colors.black87,
-                                                        fontSize: 12.0,
+                                                        fontSize: screenWidth * 0.015,
                                                       ),
                                                     ),
                                                   ),
@@ -457,7 +468,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 20.0),
+                                          SizedBox(width: screenWidth * 0.022),
                                           ElevatedButtonTheme(
                                             data: ElevatedButtonThemeData(
                                               style: ElevatedButton.styleFrom(
@@ -471,7 +482,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               style: ButtonStyle(
                                                 fixedSize:
                                                     MaterialStateProperty.all(
-                                                        const Size(78, 40)),
+                                                        Size(screenWidth * 0.085, screenHeight * 0.05)),
                                               ),
                                               onPressed: () {},
                                               child: Ink.image(
@@ -483,17 +494,16 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                                 fit: BoxFit.fill,
                                                 child: InkWell(
                                                   onTap: () {
-                                                    toggleSelection(
-                                                        "indirectToggle");
+                                                    toggleSelection("indirectToggle");
                                                   },
                                                   child: Center(
                                                     child: Text(
-                                                      'Indirect',
+                                                      translationManager.translate('txtIndirect'),
                                                       style: TextStyle(
                                                         color: indirectToggle
                                                             ? Colors.white
                                                             : Colors.black87,
-                                                        fontSize: 12.0,
+                                                        fontSize: screenWidth * 0.015,
                                                       ),
                                                     ),
                                                   ),
@@ -501,7 +511,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(width: 15.0),
+                                          SizedBox(width: screenWidth * 0.014),
                                           ElevatedButtonTheme(
                                             data: ElevatedButtonThemeData(
                                               style: ElevatedButton.styleFrom(
@@ -513,15 +523,14 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             ),
                                             child: Row(
                                               children: [
-                                                const Text(
-                                                  'Makart',
+                                                Text(
+                                                  translationManager.translate('txtMakart'),
                                                   style: TextStyle(
                                                     color: Colors.black87,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 12.0,
+                                                    fontSize: screenWidth * 0.015,
                                                   ),
                                                 ),
-                                                const SizedBox(width: 0.0),
                                                 ElevatedButton(
                                                   onPressed: () {},
                                                   child: Stack(
@@ -530,27 +539,26 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                                         image: const AssetImage(
                                                             'assets/buttons/button_22_curved.png'),
                                                         fit: BoxFit.fill,
-                                                        width: 30,
-                                                        height: 30,
+                                                        width: screenWidth * 0.034,
+                                                        height: screenHeight * 0.07,
                                                         child: InkWell(
                                                           onTap: () {
-                                                            toggleSelection(
-                                                                "makartCheckbox");
+                                                            toggleSelection("makartCheckbox");
                                                           },
                                                         ),
                                                       ),
                                                       Positioned(
-                                                        top: 5,
-                                                        right: 0,
-                                                        left: 0,
+                                                        top: screenHeight * 0.01,
+                                                        right: screenWidth * 0.003,
+                                                        left: screenWidth * 0.003,
                                                         child: Ink.image(
                                                           image: makartCheckbox
                                                               ? const AssetImage(
                                                                   'assets/ic_check_gradiant2.png')
                                                               : const AssetImage(
                                                                   'assets/buttons/white_empty.png'),
-                                                          width: 40,
-                                                          height: 20,
+                                                          width: screenWidth * 0.034,
+                                                          height: screenHeight * 0.05,
                                                         ),
                                                       ),
                                                     ],
@@ -566,12 +574,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                 ),
                               ],
                             )),
-                        SizedBox(height: professionalToggle ? 5.0 : 20.0),
+                          SizedBox(height: professionalToggle ? screenHeight * 0.012 : screenHeight * 0.05),
                         Row(
                           children: [
-                            const SizedBox(width: 20.0),
+                            SizedBox(width: screenWidth * 0.022),
                             Container(
-                              width: 420,
+                              width: isIOS() ? screenWidth * 0.4532 : screenWidth * 0.495,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 0.0),
                               decoration: BoxDecoration(
@@ -580,12 +588,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                               ),
                               child: Row(
                                 children: [
-                                  const Text(
-                                    'Points',
+                                  Text(
+                                    translationManager.translate('txtPoints'),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 12.0),
+                                        color: Colors.black, fontSize: screenWidth * 0.015),
                                   ),
-                                  const SizedBox(width: 54.0),
+                                  SizedBox(width: screenWidth * 0.057),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -597,7 +605,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(66.5, 40)),
+                                            Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -613,12 +621,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              'One Hand',
+                                              translationManager.translate('txtOneHand'),
                                               style: TextStyle(
                                                 color: pointsOne
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 11.0,
+                                                fontSize: screenWidth * 0.013,
                                               ),
                                             ),
                                           ),
@@ -626,7 +634,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 10),
+                                  SizedBox(width: isIOS() ? screenWidth * 0.012 : screenWidth * 0.0),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -638,7 +646,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(66.5, 40)),
+                                            Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -654,12 +662,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              classicToggle ? "1005" : "1505",
+                                              classicToggle ? translationManager.translate('txtPoints1005') : translationManager.translate('txtPoints1505'),
                                               style: TextStyle(
                                                 color: pointsTwo
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -667,7 +675,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 10),
+                                  SizedBox(width: isIOS() ? screenWidth * 0.012 : screenWidth * 0.0),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -679,7 +687,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(66.5, 40)),
+                                            Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -695,12 +703,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              classicToggle ? "1505" : "2000",
+                                              classicToggle ? translationManager.translate('txtPoints1505') : translationManager.translate('txtPoints2000'),
                                               style: TextStyle(
                                                 color: pointsThree
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -708,7 +716,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 10),
+                                  SizedBox(width: isIOS() ? screenWidth * 0.012 : screenWidth * 0.0),
                                   Visibility(
                                     visible: classicToggle,
                                     child: ElevatedButtonTheme(
@@ -722,7 +730,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       child: ElevatedButton(
                                         style: ButtonStyle(
                                           fixedSize: MaterialStateProperty.all(
-                                              const Size(66.5, 40)),
+                                              Size(screenWidth * 0.07, screenHeight * 0.05)),
                                         ),
                                         onPressed: () {
                                           // Your onPressed logic here
@@ -744,12 +752,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             },
                                             child: Center(
                                               child: Text(
-                                                "2005",
+                                                translationManager.translate('txtPoints2005'),
                                                 style: TextStyle(
                                                   color: pointsFour
                                                       ? Colors.white
                                                       : Colors.black87,
-                                                  fontSize: 12.0,
+                                                  fontSize: screenWidth * 0.015,
                                                 ),
                                               ),
                                             ),
@@ -763,10 +771,10 @@ class _CreateTableSPState extends State<CreateTableSP> {
                             ),
                           ],
                         ),
-                        SizedBox(height: professionalToggle ? 5.0 : 20.0),
+                          SizedBox(height: professionalToggle ? screenHeight * 0.012 : screenHeight * 0.05),
                         Row(
                           children: [
-                            const SizedBox(width: 20.0),
+                            SizedBox(width: screenWidth * 0.022),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 16.0, vertical: 0.0),
@@ -776,12 +784,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                               ),
                               child: Row(
                                 children: [
-                                  const Text(
-                                    'Difficulty',
+                                  Text(
+                                    translationManager.translate('txtDifficulty'),
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 12.0),
+                                        color: Colors.black, fontSize: screenWidth * 0.015),
                                   ),
-                                  const SizedBox(width: 34.0),
+                                  SizedBox(width: screenWidth * 0.038),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -793,7 +801,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -809,12 +817,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              'Easy',
+                                              translationManager.translate('txtEasy'),
                                               style: TextStyle(
                                                 color: difficultyEasy
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -822,7 +830,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 20.0),
+                                  SizedBox(width: screenWidth * 0.022),
                                   ElevatedButtonTheme(
                                     data: ElevatedButtonThemeData(
                                       style: ElevatedButton.styleFrom(
@@ -834,7 +842,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     child: ElevatedButton(
                                       style: ButtonStyle(
                                         fixedSize: MaterialStateProperty.all(
-                                            const Size(140, 40)),
+                                            Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
                                       child: Ink.image(
@@ -850,12 +858,12 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           },
                                           child: Center(
                                             child: Text(
-                                              'Normal',
+                                              translationManager.translate('txtNormal'),
                                               style: TextStyle(
                                                 color: difficultyNormal
                                                     ? Colors.white
                                                     : Colors.black87,
-                                                fontSize: 12.0,
+                                                fontSize: screenWidth * 0.015,
                                               ),
                                             ),
                                           ),
@@ -868,7 +876,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 5.0),
+                          SizedBox(height: screenHeight * 0.01),
                         ElevatedButtonTheme(
                           data: ElevatedButtonThemeData(
                             style: ElevatedButton.styleFrom(
@@ -880,7 +888,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                           child: ElevatedButton(
                             style: ButtonStyle(
                               fixedSize: MaterialStateProperty.all(
-                                  const Size(150, 40)),
+                                  Size(screenWidth * 0.16, screenHeight * 0.04)),
                             ),
                             onPressed: () {},
                             child: Ink.image(
@@ -895,13 +903,13 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                           builder: (context) =>
                                               const GameplaySP()));
                                 },
-                                child: const Center(
+                                child: Center(
                                   child: Text(
-                                    'PLAY GAME',
+                                    translationManager.translate('txtPlayGame'),
                                     style: TextStyle(
                                       color: Colors.black87,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 12.0,
+                                      fontSize: screenWidth * 0.015,
                                     ),
                                   ),
                                 ),
@@ -921,13 +929,18 @@ class _CreateTableSPState extends State<CreateTableSP> {
       floatingActionButton: Stack(
         children: [
           Positioned(
-            width: 70,
-            bottom: 0.0,
-            left: 100.0,
+            width: screenWidth * 0.08,
+            bottom: screenHeight * 0.001,
+            left: isIOS() ? screenWidth * 0.1 : screenWidth * 0.05,
             child: FloatingActionButton(
               heroTag: null,
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                      const Home()),
+                );
               },
               backgroundColor: Colors.transparent,
               splashColor: Colors.transparent,
@@ -937,18 +950,19 @@ class _CreateTableSPState extends State<CreateTableSP> {
                   angle: 1.6,
                   child: Image.asset(
                     'assets/simple_arrow_down.png',
-                    width: 30,
-                    height: 30,
+                    width: screenWidth * 0.03,
+                    height: screenHeight * 0.07,
                   ),
                 ),
-                const Text('BACK', style: TextStyle(color: Colors.white)),
+                Text(translationManager.translate('txtBack').toUpperCase(), style: const TextStyle(color: Colors.white)),
               ]),
             ),
           ),
           Positioned(
-            width: 50,
-            top: 50.0,
-            right: 55.0,
+            width: screenWidth * 0.055,
+            height: screenHeight * 0.115,
+            top: isIOS() ? screenHeight * 0.115 : screenHeight * 0.068,
+            right: isIOS() ? screenWidth * 0.058 : screenWidth * 0.12,
             child: FloatingActionButton(
               heroTag: null,
               onPressed: () {
@@ -960,22 +974,24 @@ class _CreateTableSPState extends State<CreateTableSP> {
               child: Column(children: [
                 Image.asset(
                   'assets/menuIcons/ic_settings.png',
-                  width: 30,
-                  height: 25,
+                  width: screenWidth * 0.04,
+                  height: screenHeight * 0.06,
                 ),
-                const Text('OPTIONS',
+                Text(translationManager.translate('txtOptions').toUpperCase(),
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold)),
+                        fontSize: screenWidth * 0.011,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
               ]),
             ),
           ),
           Positioned(
-            width: 50,
-            height: 50,
-            top: 50.0,
-            right: 0.0,
+            width: screenWidth * 0.055,
+            height: screenHeight * 0.115,
+            top: isIOS() ? screenHeight * 0.115 : screenHeight * 0.068,
+            right: isIOS() ? screenWidth * 0.0 : screenWidth * 0.06,
             child: FloatingActionButton(
               heroTag: null,
               onPressed: () {
@@ -988,14 +1004,16 @@ class _CreateTableSPState extends State<CreateTableSP> {
                 children: [
                   Image.asset(
                     'assets/menuIcons/ic_rankings.png',
-                    width: 30,
-                    height: 25,
+                    width: screenWidth * 0.04,
+                    height: screenHeight * 0.06,
                   ),
-                  const Text('RANKING',
+                  Text(translationManager.translate('txtRankings').toUpperCase(),
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold)),
+                          fontSize: screenWidth * 0.011,
+                          fontWeight: FontWeight.bold
+                      )
+                  ),
                 ],
               ),
             ),

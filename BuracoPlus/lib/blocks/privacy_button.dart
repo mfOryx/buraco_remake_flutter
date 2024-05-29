@@ -27,7 +27,8 @@ class PrivacyButton extends StatelessWidget {
             onPressed: toggleMenu,
           ),
           const SizedBox(height: 1),
-          Text(translationManager.translate('txtPrivacy').toUpperCase(), style: TextStyle(color: Colors.white)),
+          Text(translationManager.translate('txtPrivacy').toUpperCase(),
+              style: const TextStyle(color: Colors.white)),
         ],
       ),
     );
