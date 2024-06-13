@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 import 'package:buracoplus/create_table_single_player.dart';
 import 'package:flutter/foundation.dart';
@@ -163,6 +164,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<List<Card>> player1Table = [];
   List<List<Card>> player2Table = [];
   List<Card> cardsToBeAddedInTable = [];
+  Row cardsToDisplayInTable = Row();
   List<bool> isTapped = [];
   double yOffset = 5;
   bool is20CardsInHand = false;
@@ -188,14 +190,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             ? MediaQuery.of(context).size.height * -0.015
             : MediaQuery.of(context).size.height * 0.015;
         cardsToBeAddedInTable.add(player1Cards[index]);
-        if (kDebugMode) {
-          print(player1Cards[index].cardId);
-        }
-        for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
-          if (kDebugMode) {
-            print(cardsToBeAddedInTable[i].cardId);
-          }
-        }
       } else {
         isTapped[index] = false;
         if (cardsToBeAddedInTable.isNotEmpty) {
@@ -296,53 +290,133 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  Stack tableCardsColumnBuild() {
-    return Stack(
-      children: player1Table.isNotEmpty
-          ? List.generate(player1Table[0].length,
-              (index) {
-            return AnimatedPositioned(
-              duration: const Duration(
-                  milliseconds: 300),
-              left: 5.0,
-              top: 5.0 +
-                  (index *
-                      10), // Adjust the spacing as needed
-              child: GestureDetector(
-                onTap: () {},
-                child: Image.asset(
-                  player1Table[0][index]
-                      .imagePath,
-                  fit: BoxFit.fill,
-                  width: 55,
-                  height: 55,
-                ),
-              ),
-            );
-          })
-          : [],
+  void addTableCardsColumn() {
+    setState(() {
+      if (kDebugMode) {
+        for(int i=0; i<cardsToBeAddedInTable.length; i++){
+          print(cardsToBeAddedInTable[i].cardId);
+          print(cardsToBeAddedInTable.length);
+        }
+      }
+      if(cardsToBeAddedInTable.isNotEmpty){
+        cardsToDisplayInTable = tableCardsColumnBuild();
+      }
+    });
+  }
+
+  Row tableCardsColumnBuild() {
+    if (kDebugMode) {
+      for(int i=0; i<cardsToBeAddedInTable.length; i++){
+        print(cardsToBeAddedInTable[i].cardId);
+        print(cardsToBeAddedInTable.length);
+      }
+    }
+    return Row(
+      children: List.generate(player1Table.length, (i) {
+        return Flexible(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.5,
+            child: Stack(
+              children: List.generate(player1Table[i].length, (j) {
+                return AnimatedPositioned(
+                  duration: const Duration(milliseconds: 300),
+                  top: 0.0 + (j * 13), // Adjust the spacing as needed
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      player1Table[i][j].imagePath,
+                      fit: BoxFit.fill,
+                      width: MediaQuery.of(context).size.width * 0.05,
+                      height: MediaQuery.of(context).size.height * 0.13,
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+        );
+      })
     );
   }
 
   void addToTable() {
-    if (kDebugMode) {
-      print("Inside addToTable function");
-    }
     setState(() {
       player1Table.add(List.from(cardsToBeAddedInTable));
-      for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
-        if (kDebugMode) {
-          print(cardsToBeAddedInTable[i].cardId);
-        }
-      }
-      for(int i = 0; i < player1Table.length; i++){
-        for (int j = 0; j < player1Table[i].length; j++) {
-          if (kDebugMode) {
-            print(player1Table[i][j].cardId);
+      for(int i = 0; i < cardsToBeAddedInTable.length; i++){
+        for (int j = 0; j < player1Cards.length; j++) {
+          isTapped[j] = false;
+          if ((cardsToBeAddedInTable[i].cardId).compareTo((player1Cards[j].cardId)) == 0) {
+            player1Cards.removeAt(j);
           }
         }
       }
       cardsToBeAddedInTable.clear();
+    });
+  }
+
+  void updatePlayer1Hand(){
+    setState(() {
+      splitInTwoRows(player1Cards.isNotEmpty ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1) : 0);
+    });
+  }
+
+  List<Widget> populatePlayer1Hand() {
+    return List.generate(player1Cards.length, (index) {
+      double containerWidth;
+      double cardWidth;
+      double totalSpaceForCards;
+      double spaceBetweenCards;
+      double leftPosition;
+      double topPosition;
+      double screenWidth = MediaQuery.of(context).size.width;
+      double screenHeight = MediaQuery.of(context).size.height;
+
+      containerWidth = screenWidth * 0.672;
+      cardWidth = screenWidth * 0.055;
+      totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+
+      if (player1Cards.length > 1) {
+        spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+      } else {
+        spaceBetweenCards = 0;
+      }
+
+      leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+      topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+
+      if (rowsButtonToggle) {
+        containerWidth = screenWidth * 1.305;
+        cardWidth = screenWidth * 0.055;
+        totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+
+        if (player1Cards.length > 1) {
+          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+        } else {
+          spaceBetweenCards = 0;
+        }
+
+        leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+        topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+      }
+
+      return AnimatedPositioned(
+        duration: const Duration(milliseconds: 300),
+        left: leftPosition.isFinite ? leftPosition : 5,
+        top: topPosition.isFinite ? topPosition : 5,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              toggleCard(index);
+            });
+          },
+          child: Image.asset(
+            player1Cards[index].imagePath,
+            fit: BoxFit.fill,
+            width: cardWidth,
+            height: screenHeight * 0.15,
+          ),
+        ),
+      );
     });
   }
 
@@ -357,60 +431,88 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       double screenWidth = MediaQuery.of(context).size.width;
       double screenHeight = MediaQuery.of(context).size.height;
 
-      if (index < splitCut) {
-        containerWidth = screenWidth *
-            0.672; // Width of the container with minus 10 space units to give padding to the right
-        cardWidth = screenWidth * 0.055; // Width of each card
+      if(player1Cards.length > 1 && player1Cards.length <= 19){
+        is20CardsInHand = false;
+        rowsButtonToggle = false;
+        containerWidth = screenWidth * 0.672;
+        cardWidth = screenWidth * 0.055;
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        leftPosition =
-            (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
-        topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-        if (rowsButtonToggle) {
-          containerWidth = screenWidth * 1.305;
-          cardWidth = screenWidth * 0.055; // Width of each card
-          totalSpaceForCards =
-              containerWidth - (cardWidth * player1Cards.length);
-          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-          leftPosition =
-              (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+        if(player1Cards.length > 1 && player1Cards.length <= 12){
+          containerWidth = screenWidth * 0.672;
+          cardWidth = screenWidth * 0.055;
+          leftPosition = (cardWidth) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-        }
-      } else {
-        if (index > 18) {
-          is20CardsInHand = true;
-        }
-        containerWidth = screenWidth *
-            0.672; // Width of the container with minus 10 space units to give padding to the right
-        cardWidth = screenWidth * 0.055; // Width of each card
-        totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-        spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        if (rowsButtonToggle) {
-          containerWidth = (player1Cards.length) % 2 == 0
-              ? (screenWidth * 1.305)
-              : (screenWidth *
-                  1.288); // Width of the container with minus 10 space units to give padding to the right
-          cardWidth = screenWidth * 0.055; // Width of each card
-          totalSpaceForCards =
-              containerWidth - (cardWidth * player1Cards.length);
-          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-          // For the second row, adjust the index and position
-          leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) +
-              (screenWidth * 0.005);
-          topPosition = isTapped[index]
-              ? yOffset + (screenHeight * 0.05)
-              : (screenHeight *
-                  0.06); // Adjust the top position for the second row
+        } else if(player1Cards.length >= 13 && player1Cards.length <= 19){
+          is20CardsInHand = false;
+          if (rowsButtonToggle) {
+            containerWidth = screenWidth * 1.305;
+            cardWidth = screenWidth * 0.055;
+            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+          } else {
+            containerWidth = screenWidth * 0.672;
+            cardWidth = screenWidth * 0.055;
+            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+          }
         } else {
-          leftPosition =
-              (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          containerWidth = screenWidth * 0.672;
+          cardWidth = screenWidth * 0.055;
+          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+        }
+      } else{
+        if (index < splitCut) {
+          is20CardsInHand = false;
+          if (rowsButtonToggle) {
+            containerWidth = screenWidth * 1.305;
+            cardWidth = screenWidth * 0.055;
+            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+          } else {
+            containerWidth = screenWidth * 0.672;
+            cardWidth = screenWidth * 0.055;
+            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+          }
+        } else {
+          is20CardsInHand = true;
+          containerWidth = screenWidth * 0.672;
+          cardWidth = screenWidth * 0.055;
+          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
+
+          if (rowsButtonToggle) {
+            containerWidth = (player1Cards.length) % 2 == 0
+                ? (screenWidth * 1.305)
+                : (screenWidth * 1.288);
+            cardWidth = screenWidth * 0.055;
+            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset + (screenHeight * 0.05) : (screenHeight * 0.06);
+          } else {
+            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
+          }
         }
       }
+
       return AnimatedPositioned(
         duration: const Duration(milliseconds: 300),
-        left: leftPosition,
-        top: topPosition,
+        left: leftPosition.isFinite ? leftPosition : 5,
+        top: topPosition.isFinite ? topPosition : 5,
         child: GestureDetector(
           onTap: () {
             setState(() {
@@ -865,6 +967,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                               onTap: () {
                                 setState(() {
                                   addToTable();
+                                  if(cardsToBeAddedInTable.isNotEmpty){
+                                    addTableCardsColumn();
+                                  }
                                 });
                               },
                               child: Container(
@@ -1333,6 +1438,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
+                                                updatePlayer1Hand();
                                                 addRandomCard(deck);
                                                 setState(() {
                                                   deckCount = deck.length;
@@ -1538,8 +1644,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             ),
                                             // Cards stack
                                             Stack(
-                                              children: splitInTwoRows(
-                                                  player1Cards.length ~/ 2),
+                                              children: splitInTwoRows(player1Cards.isNotEmpty ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1) : 0),
+                                              //   children: populatePlayer1Hand(),
                                             ),
                                           ],
                                         ),
