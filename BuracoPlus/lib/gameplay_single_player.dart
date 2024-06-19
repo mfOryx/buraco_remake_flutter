@@ -476,7 +476,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             cardWidth = screenWidth * 0.055;
             totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
             spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           } else {
             containerWidth = screenWidth * 0.672;
@@ -500,7 +500,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             cardWidth = screenWidth * 0.055;
             totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
             spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
+            leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset + (screenHeight * 0.05) : (screenHeight * 0.06);
           } else {
             leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
