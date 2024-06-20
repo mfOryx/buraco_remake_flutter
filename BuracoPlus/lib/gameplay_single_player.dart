@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:math';
 import 'package:buracoplus/create_table_single_player.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'common/translation_manager.dart';
@@ -164,7 +165,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<List<Card>> player1Table = [];
   List<List<Card>> player2Table = [];
   List<Card> cardsToBeAddedInTable = [];
-  Row cardsToDisplayInTable = Row();
+  late Widget cardsToDisplayInTable;
   List<bool> isTapped = [];
   double yOffset = 5;
   bool is20CardsInHand = false;
@@ -293,56 +294,77 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   void addTableCardsColumn() {
     setState(() {
       if (kDebugMode) {
-        for(int i=0; i<cardsToBeAddedInTable.length; i++){
+        for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
           print(cardsToBeAddedInTable[i].cardId);
           print(cardsToBeAddedInTable.length);
         }
       }
-      if(cardsToBeAddedInTable.isNotEmpty){
+      if (cardsToBeAddedInTable.isNotEmpty) {
         cardsToDisplayInTable = tableCardsColumnBuild();
       }
     });
   }
 
-  Row tableCardsColumnBuild() {
+  Widget tableCardsColumnBuild() {
     if (kDebugMode) {
-      for(int i=0; i<cardsToBeAddedInTable.length; i++){
+      for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
         print(cardsToBeAddedInTable[i].cardId);
         print(cardsToBeAddedInTable.length);
       }
     }
-    return Row(
-      children: List.generate(player1Table.length, (i) {
-        return Flexible(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            child: Stack(
-              children: List.generate(player1Table[i].length, (j) {
-                return AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  top: 0.0 + (j * 13), // Adjust the spacing as needed
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Image.asset(
-                      player1Table[i][j].imagePath,
-                      fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.width * 0.05,
-                      height: MediaQuery.of(context).size.height * 0.13,
+    double containerWidth;
+    double cardWidth;
+    double totalSpaceForCards;
+    double spaceBetweenCards;
+    double leftPosition;
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    containerWidth = screenWidth * 1.305;
+    cardWidth = screenWidth * 0.055;
+    totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+    spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
+    // leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+
+
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.height * 0.52,
+      child: Stack(
+        children: List.generate(player1Table.length, (i) {
+          return Positioned(
+            left: screenWidth * 0.05 * i + (screenWidth * 0.005),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.05,
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Stack(
+                children: List.generate(player1Table[i].length, (j) {
+                  return AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    top: 0.0 + (j * 13),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        player1Table[i][j].imagePath,
+                        fit: BoxFit.fill,
+                        width: MediaQuery.of(context).size.width * 0.05,
+                        height: MediaQuery.of(context).size.height * 0.13,
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
-          ),
-        );
-      })
+          );
+        }),
+      ),
     );
   }
 
   void addToTable() {
     setState(() {
       player1Table.add(List.from(cardsToBeAddedInTable));
-      for(int i = 0; i < cardsToBeAddedInTable.length; i++){
+      for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
         for (int j = 0; j < player1Cards.length; j++) {
           isTapped[j] = false;
           if ((cardsToBeAddedInTable[i].cardId).compareTo((player1Cards[j].cardId)) == 0) {
@@ -357,66 +379,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   void updatePlayer1Hand(){
     setState(() {
       splitInTwoRows(player1Cards.isNotEmpty ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1) : 0);
-    });
-  }
-
-  List<Widget> populatePlayer1Hand() {
-    return List.generate(player1Cards.length, (index) {
-      double containerWidth;
-      double cardWidth;
-      double totalSpaceForCards;
-      double spaceBetweenCards;
-      double leftPosition;
-      double topPosition;
-      double screenWidth = MediaQuery.of(context).size.width;
-      double screenHeight = MediaQuery.of(context).size.height;
-
-      containerWidth = screenWidth * 0.672;
-      cardWidth = screenWidth * 0.055;
-      totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-
-      if (player1Cards.length > 1) {
-        spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-      } else {
-        spaceBetweenCards = 0;
-      }
-
-      leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
-      topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-
-      if (rowsButtonToggle) {
-        containerWidth = screenWidth * 1.305;
-        cardWidth = screenWidth * 0.055;
-        totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-
-        if (player1Cards.length > 1) {
-          spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        } else {
-          spaceBetweenCards = 0;
-        }
-
-        leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
-        topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-      }
-
-      return AnimatedPositioned(
-        duration: const Duration(milliseconds: 300),
-        left: leftPosition.isFinite ? leftPosition : 5,
-        top: topPosition.isFinite ? topPosition : 5,
-        child: GestureDetector(
-          onTap: () {
-            setState(() {
-              toggleCard(index);
-            });
-          },
-          child: Image.asset(
-            player1Cards[index].imagePath,
-            fit: BoxFit.fill,
-            width: cardWidth,
-            height: screenHeight * 0.15,
-          ),
-        ),
-      );
     });
   }
 
