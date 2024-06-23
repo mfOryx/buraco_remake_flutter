@@ -306,49 +306,47 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   }
 
   Widget tableCardsColumnBuild() {
-    if (kDebugMode) {
-      for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
-        print(cardsToBeAddedInTable[i].cardId);
-        print(cardsToBeAddedInTable.length);
-      }
-    }
-    double containerWidth;
-    double cardWidth;
-    double totalSpaceForCards;
-    double spaceBetweenCards;
-    double leftPosition;
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    containerWidth = screenWidth * 1.305;
-    cardWidth = screenWidth * 0.055;
-    totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-    spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
-    // leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
-
-
-
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       height: MediaQuery.of(context).size.height * 0.52,
       child: Stack(
         children: List.generate(player1Table.length, (i) {
+          double containerWidth;
+          double cardWidth;
+          double totalSpaceForCards;
+          double spaceBetweenCards;
+          double leftPosition;
+          double screenWidth = MediaQuery.of(context).size.width;
+          double screenHeight = MediaQuery.of(context).size.height;
+          containerWidth = screenWidth * 0.395;
+          cardWidth = screenWidth * 0.05;
+          totalSpaceForCards = containerWidth - (cardWidth * player1Table.length);
+          spaceBetweenCards = totalSpaceForCards / (player1Table.length - 1);
+          leftPosition = player1Table.length <= 7 ? (cardWidth * i) : (cardWidth + spaceBetweenCards) * i;
+
+
           return Positioned(
-            left: screenWidth * 0.05 * i + (screenWidth * 0.005),
+            left: leftPosition.isFinite ? leftPosition : 0,
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.05,
-              height: MediaQuery.of(context).size.height * 0.5,
+              width: screenWidth * 0.05,
+              height: screenHeight * 0.5,
               child: Stack(
                 children: List.generate(player1Table[i].length, (j) {
+                  double containerHeight = screenWidth * 0.4;
+                  double cardHeight = screenHeight * 0.135;
+                  double totalSpaceForCards = containerHeight - (cardHeight * player1Table[i].length);
+                  double spaceBetweenCards = totalSpaceForCards / (player1Table[i].length - 1);
+                  double topPosition = player1Table[i].length <= 6 ? ((cardHeight / 2) * j) : (((cardHeight + spaceBetweenCards)/ 2) * j);
                   return AnimatedPositioned(
                     duration: const Duration(milliseconds: 300),
-                    top: 0.0 + (j * 13),
+                    top: topPosition.isFinite ? topPosition : 0,
                     child: GestureDetector(
                       onTap: () {},
                       child: Image.asset(
                         player1Table[i][j].imagePath,
                         fit: BoxFit.fill,
-                        width: MediaQuery.of(context).size.width * 0.05,
-                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: cardWidth,
+                        height: cardHeight,
                       ),
                     ),
                   );
@@ -927,12 +925,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  addToTable();
-                                  if(cardsToBeAddedInTable.isNotEmpty){
+                                if(cardsToBeAddedInTable.isNotEmpty){
+                                  setState(() {
+                                    addToTable();
                                     addTableCardsColumn();
-                                  }
-                                });
+                                  });
+                                }
                               },
                               child: Container(
                                 width: screenWidth * 0.4,
