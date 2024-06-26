@@ -182,6 +182,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   bool menuOptionsButton = false;
   bool menuProfileButton = false;
   bool manualSorting = false;
+  bool isCardTaken = false;
 
   void toggleCard(int index) {
     setState(() {
@@ -206,11 +207,41 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   }
 
   late AnimationController _controller;
-  late Animation<Offset> _animation;
+  late final List<Animation<Offset>> _animations = [];
 
   @override
   void initState() {
     super.initState();
+
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 2000),
+      vsync: this,
+    );
+
+    // Delay before starting the animation
+    Future.delayed(const Duration(seconds: 1), () {
+      double screenWidth = MediaQuery.of(context).size.width;
+      double screenHeight = MediaQuery.of(context).size.height;
+
+      // Calculate the offset to the bottom-left corner from the center
+      double offsetX = -(screenWidth / 2 - 30);
+      double offsetY = screenHeight / 2 - 50;
+
+      setState(() {
+        for (int i = 0; i < classicDeck.length; i++) {
+          _animations.add(Tween<Offset>(
+            begin: const Offset(0, 0),
+            end: Offset(offsetX + i * 10, offsetY + i * 10), // Adjust increment to avoid overlap
+          ).animate(CurvedAnimation(
+            parent: _controller,
+            curve: Curves.easeInOut,
+          )));
+        }
+      });
+
+      // Start the animation after the delay
+      _controller.forward();
+    });
 
     classicDeck.shuffle(Random());
     player1Cards = classicDeck.take(11).toList();
@@ -219,20 +250,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     discardPile = classicDeck.skip(44).take(1).toList();
     deck = classicDeck.skip(45).toList();
     isTapped = List.generate(player1Cards.length, (_) => false);
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-    _animation = Tween<Offset>(
-      begin: const Offset(-1.0, 0.0),
-      end: const Offset(0.0, 0.0),
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.elasticInOut,
-    ));
-
-    _controller.forward();
   }
 
   @override
@@ -247,7 +264,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         int randomIndex = Random().nextInt(deck.length);
         String cardId = deck[randomIndex].cardId;
         String imagePath = deck[randomIndex].imagePath;
+        isCardTaken = !isCardTaken;
         player1Cards.add(Card(cardId, imagePath));
+        isTapped.add(false);
+        deck.removeAt(randomIndex);
         if (manualSorting == false) {
           if (sort234Button == true) {
             sort234(player1Cards);
@@ -259,31 +279,40 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             sortKKK(player1Cards);
           }
         }
-        isTapped.add(false);
-        deck.removeAt(randomIndex);
         _controller.reset();
         _controller.forward();
       }
     });
   }
 
-  void addDiscardPileToHand(List<Card> discardPile) {
+  void giveOrTakeDiscardPile() {
     setState(() {
-      if (discardPile.isNotEmpty) {
-        for (int i = 0; i < discardPile.length; i++) {
-          player1Cards
-              .add(Card(discardPile[i].cardId, discardPile[i].imagePath));
+      if (isCardTaken) {
+        for (int i = 0; i < player1Cards.length; i++) {
+          if (isTapped[i] == true) {
+            discardPile.add(Card(player1Cards[i].cardId, player1Cards[i].imagePath));
+            isTapped[i] = false;
+            player1Cards.removeAt(i);
+            isTapped.removeAt(i);
+            cardsToBeAddedInTable.clear();
+          }
+        }
+      } else {
+        List<Card> cardsToMove = List.from(discardPile);
+        discardPile.clear();
+        for (int i = 0; i < cardsToMove.length; i++) {
+          player1Cards.add(Card(cardsToMove[i].cardId, cardsToMove[i].imagePath));
           isTapped.add(false);
         }
-        discardPile.clear();
-        if (manualSorting == false) {
-          if (sort234Button == true) {
+
+        if (!manualSorting) {
+          if (sort234Button) {
             sort234(player1Cards);
           }
-          if (sort432Button == true) {
+          if (sort432Button) {
             sort432(player1Cards);
           }
-          if (sortKKKButton == true) {
+          if (sortKKKButton) {
             sortKKK(player1Cards);
           }
         }
@@ -367,6 +396,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           isTapped[j] = false;
           if ((cardsToBeAddedInTable[i].cardId).compareTo((player1Cards[j].cardId)) == 0) {
             player1Cards.removeAt(j);
+            isTapped.removeAt(j);
           }
         }
       }
@@ -472,7 +502,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       return AnimatedPositioned(
         duration: const Duration(milliseconds: 300),
         left: leftPosition.isFinite ? leftPosition : 5,
-        top: topPosition.isFinite ? topPosition : 5,
+        top: topPosition.isFinite ? topPosition : 0,
         child: GestureDetector(
           onTap: () {
             setState(() {
@@ -1092,13 +1122,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   ),
                                   //Pot ends
                                   SizedBox(height: screenHeight * 0.02),
-                                  //menu start
-                                  // Positioned(
-                                  //   top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
-                                  //   left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
-                                  //   right: Directionality.of(context) == TextDirection.rtl ? null : 120,
-                                  //   child:
-                                  // ),
                                   PopupMenuButton<String>(
                                     color: Colors.grey.withOpacity(0.8),
                                     itemBuilder: (BuildContext context) => [
@@ -1475,8 +1498,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                addDiscardPileToHand(
-                                                    discardPile);
+                                                setState(() {
+                                                  giveOrTakeDiscardPile();
+                                                });
                                               },
                                               child: Stack(
                                                 children: [
@@ -1498,51 +1522,28 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                       ],
                                                     ),
                                                   ),
-                                                  // Stack(
-                                                  //   children: List.generate(discardPile.length, (index) {
-                                                  //     return AnimatedPositioned(
-                                                  //       duration: Duration(milliseconds: 300),
-                                                  //       left: 5 + (index * 10),
-                                                  //       top: 5,
-                                                  //       child: Image.asset(
-                                                  //         discardPile[index].imagePath,
-                                                  //         fit: BoxFit.fill,
-                                                  //         width: 50,
-                                                  //         height: 65,
-                                                  //       ),
-                                                  //     );
-                                                  //   }),
-                                                  // ),
                                                   AnimatedBuilder(
                                                     animation: _controller,
                                                     builder: (context, child) {
                                                       return Stack(
-                                                        children: List.generate(
-                                                            discardPile.length,
-                                                            (index) {
+                                                        children: List.generate(discardPile.length, (index) {
                                                           // Calculate the animated left position based on index and animation value
-                                                          double animatedLeft =
-                                                              5.0 +
-                                                                  (index * 10);
-
+                                                          double screenWidth = MediaQuery.of(context).size.width;
+                                                          double screenHeight = MediaQuery.of(context).size.height;
+                                                          double containerWidth = screenWidth * 0.54;
+                                                          double cardWidth = screenWidth * 0.055;
+                                                          double totalSpaceForCards = containerWidth - (cardWidth * discardPile.length);
+                                                          double spaceBetweenCards = totalSpaceForCards / (discardPile.length - 1);
+                                                          double leftPosition = discardPile.length <= 9 ? (cardWidth * index) + (screenWidth * 0.005) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
                                                           return AnimatedPositioned(
-                                                            duration: const Duration(
-                                                                milliseconds:
-                                                                    300),
-                                                            left: animatedLeft
-                                                                .toDouble(),
-                                                            top: screenHeight *
-                                                                0.01,
+                                                            duration: const Duration(milliseconds: 300),
+                                                            left: leftPosition.isFinite ? leftPosition : 5,
+                                                            top: screenHeight * 0.01,
                                                             child: Image.asset(
-                                                              discardPile[index]
-                                                                  .imagePath,
+                                                              discardPile[index].imagePath,
                                                               fit: BoxFit.fill,
-                                                              width:
-                                                                  screenWidth *
-                                                                      0.055,
-                                                              height:
-                                                                  screenHeight *
-                                                                      0.15,
+                                                              width: screenWidth * 0.055,
+                                                              height: screenHeight * 0.15,
                                                             ),
                                                           );
                                                         }),
@@ -1763,6 +1764,63 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
               ),
             ),
           ),
+          //Cards Stack start
+          Stack(
+              children: List.generate(classicDeck.length, (index) {
+                if (index < _animations.length) {
+                  double leftPosition = screenWidth / 2 - 50 + _animations[index].value.dx;
+                  double topPosition = screenHeight / 2 - 50 + _animations[index].value.dy;
+                  // // Calculate center positions
+                  // double centerX = screenWidth / 2 - 50;
+                  // double centerY = screenHeight / 2 - 50;
+                  //
+                  // // Determine the quadrant for the card
+                  // double dx = _animations[index].value.dx;
+                  // double dy = _animations[index].value.dy;
+                  //
+                  // // Top-left
+                  // if (index % 4 == 0) {
+                  //   leftPosition = centerX - dx;
+                  //   topPosition = centerY - dy;
+                  // }
+                  // // Top-right
+                  // else if (index % 4 == 1) {
+                  //   leftPosition = centerX + dx;
+                  //   topPosition = centerY - dy;
+                  // }
+                  // // Bottom-left
+                  // else if (index % 4 == 2) {
+                  //   leftPosition = centerX - dx;
+                  //   topPosition = centerY + dy;
+                  // }
+                  // // Bottom-right
+                  // else if (index % 4 == 3) {
+                  //   leftPosition = centerX + dx;
+                  //   topPosition = centerY + dy;
+                  // }
+                  return AnimatedBuilder(
+                    animation: _animations[index],
+                    builder: (context, child) {
+                      return Positioned(
+                        left: leftPosition,
+                        top: topPosition,
+                        child: child!,
+                      );
+                    },
+                    child: Image.asset(
+                      classicDeck[index].imagePath,
+                      fit: BoxFit.fill,
+                      width: screenWidth * 0.055,
+                      height: screenHeight * 0.15,
+                    ),
+                  );
+                } else {
+                  // Return a placeholder widget if the animation index is out of bounds
+                  return Container();
+                }
+              }),
+          ),
+          //Cards Stack end
           //Options popup start
           Stack(
             children: [
