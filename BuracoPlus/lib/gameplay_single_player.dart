@@ -207,41 +207,32 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   }
 
   late AnimationController _controller;
-  late final List<Animation<Offset>> _animations = [];
+  // late final List<Animation<Offset>> _animations = [];
+  List<Offset> _initialPositions = [];
+  List<Offset> _targetPositions = [];
+  List<bool> _isCardAnimated = [];
+  bool _startAnimation = false;
 
   @override
   void initState() {
     super.initState();
 
+    // Initialize positions and animation state
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _initializePositions();
+    });
+
+    // Delay before starting the animation
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        _startAnimation = true;
+      });
+    });
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
-
-    // Delay before starting the animation
-    Future.delayed(const Duration(seconds: 1), () {
-      double screenWidth = MediaQuery.of(context).size.width;
-      double screenHeight = MediaQuery.of(context).size.height;
-
-      // Calculate the offset to the bottom-left corner from the center
-      double offsetX = -(screenWidth / 2 - 30);
-      double offsetY = screenHeight / 2 - 50;
-
-      setState(() {
-        for (int i = 0; i < classicDeck.length; i++) {
-          _animations.add(Tween<Offset>(
-            begin: const Offset(0, 0),
-            end: Offset(offsetX + i * 10, offsetY + i * 10), // Adjust increment to avoid overlap
-          ).animate(CurvedAnimation(
-            parent: _controller,
-            curve: Curves.easeInOut,
-          )));
-        }
-      });
-
-      // Start the animation after the delay
-      _controller.forward();
-    });
 
     classicDeck.shuffle(Random());
     player1Cards = classicDeck.take(11).toList();
@@ -252,10 +243,26 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     isTapped = List.generate(player1Cards.length, (_) => false);
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _initializePositions() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    // Calculate the target positions for the cards
+    for (int i = 0; i < classicDeck.length; i++) {
+      if(i >= 0 && i <= 10){
+        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(-(screenWidth / 2 - 671) + (i * (screenWidth * 0.055)), (screenHeight / 2 + 146)));
+        _isCardAnimated.add(false);
+      } else if(i >= 11 && i <= 20){
+        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset((screenWidth / 2 - 85) + (i * -1.5), (screenHeight / 2 - 210)));
+        _isCardAnimated.add(false);
+      } else{
+        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _isCardAnimated.add(false);
+      }
+    }
   }
 
   void addRandomCard(List<Card> deck) {
@@ -279,8 +286,6 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             sortKKK(player1Cards);
           }
         }
-        _controller.reset();
-        _controller.forward();
       }
     });
   }
@@ -1522,10 +1527,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                       ],
                                                     ),
                                                   ),
-                                                  AnimatedBuilder(
-                                                    animation: _controller,
-                                                    builder: (context, child) {
-                                                      return Stack(
+                                                  // AnimatedBuilder(
+                                                  //   animation: _controller,
+                                                  //   builder: (context, child) {
+                                                      Stack(
                                                         children: List.generate(discardPile.length, (index) {
                                                           // Calculate the animated left position based on index and animation value
                                                           double screenWidth = MediaQuery.of(context).size.width;
@@ -1547,9 +1552,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                             ),
                                                           );
                                                         }),
-                                                      );
-                                                    },
-                                                  ),
+                                                      ),
+                                                  //   },
+                                                  // ),
                                                 ],
                                               ),
                                             ),
@@ -1766,60 +1771,92 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           ),
           //Cards Stack start
           Stack(
-              children: List.generate(classicDeck.length, (index) {
-                if (index < _animations.length) {
-                  double leftPosition = screenWidth / 2 - 50 + _animations[index].value.dx;
-                  double topPosition = screenHeight / 2 - 50 + _animations[index].value.dy;
-                  // // Calculate center positions
-                  // double centerX = screenWidth / 2 - 50;
-                  // double centerY = screenHeight / 2 - 50;
-                  //
-                  // // Determine the quadrant for the card
-                  // double dx = _animations[index].value.dx;
-                  // double dy = _animations[index].value.dy;
-                  //
-                  // // Top-left
-                  // if (index % 4 == 0) {
-                  //   leftPosition = centerX - dx;
-                  //   topPosition = centerY - dy;
-                  // }
-                  // // Top-right
-                  // else if (index % 4 == 1) {
-                  //   leftPosition = centerX + dx;
-                  //   topPosition = centerY - dy;
-                  // }
-                  // // Bottom-left
-                  // else if (index % 4 == 2) {
-                  //   leftPosition = centerX - dx;
-                  //   topPosition = centerY + dy;
-                  // }
-                  // // Bottom-right
-                  // else if (index % 4 == 3) {
-                  //   leftPosition = centerX + dx;
-                  //   topPosition = centerY + dy;
-                  // }
-                  return AnimatedBuilder(
-                    animation: _animations[index],
-                    builder: (context, child) {
-                      return Positioned(
-                        left: leftPosition,
-                        top: topPosition,
-                        child: child!,
-                      );
-                    },
-                    child: Image.asset(
-                      classicDeck[index].imagePath,
-                      fit: BoxFit.fill,
-                      width: screenWidth * 0.055,
-                      height: screenHeight * 0.15,
-                    ),
-                  );
-                } else {
-                  // Return a placeholder widget if the animation index is out of bounds
-                  return Container();
+            children: List.generate(classicDeck.length, (index) {
+              if(kDebugMode){
+                if(index < 10){
+                  print(index);
+                  print(classicDeck[index].cardId);
                 }
-              }),
+              }
+              Offset initialPosition = _initialPositions.isNotEmpty ? _initialPositions[index] : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
+              Offset targetPosition = _targetPositions.isNotEmpty ? _targetPositions[index] : Offset(0, 0);
+
+              if(kDebugMode){
+                if(index < 10){
+                  print(initialPosition);
+                  print(targetPosition);
+                }
+              }
+
+              return AnimatedPositioned(
+                duration: const Duration(milliseconds: 2000),
+                curve: Curves.easeInOut,
+                left: _startAnimation ? targetPosition.dx : initialPosition.dx,
+                top: _startAnimation ? targetPosition.dy : initialPosition.dy,
+                child: Image.asset(
+                  classicDeck[index].imagePath,
+                  fit: BoxFit.fill,
+                  width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
+                  height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
+                ),
+              );
+            }),
           ),
+          // Stack(
+          //     children: List.generate(classicDeck.length, (index) {
+          //       if (index < _animations.length) {
+          //         double leftPosition = screenWidth / 2 - 50 + _animations[index].value.dx;
+          //         double topPosition = screenHeight / 2 - 50 + _animations[index].value.dy;
+          //         // // Calculate center positions
+          //         // double centerX = screenWidth / 2 - 50;
+          //         // double centerY = screenHeight / 2 - 50;
+          //         //
+          //         // // Determine the quadrant for the card
+          //         // double dx = _animations[index].value.dx;
+          //         // double dy = _animations[index].value.dy;
+          //         //
+          //         // // Top-left
+          //         // if (index % 4 == 0) {
+          //         //   leftPosition = centerX - dx;
+          //         //   topPosition = centerY - dy;
+          //         // }
+          //         // // Top-right
+          //         // else if (index % 4 == 1) {
+          //         //   leftPosition = centerX + dx;
+          //         //   topPosition = centerY - dy;
+          //         // }
+          //         // // Bottom-left
+          //         // else if (index % 4 == 2) {
+          //         //   leftPosition = centerX - dx;
+          //         //   topPosition = centerY + dy;
+          //         // }
+          //         // // Bottom-right
+          //         // else if (index % 4 == 3) {
+          //         //   leftPosition = centerX + dx;
+          //         //   topPosition = centerY + dy;
+          //         // }
+          //         return AnimatedBuilder(
+          //           animation: _animations[index],
+          //           builder: (context, child) {
+          //             return Positioned(
+          //               left: leftPosition,
+          //               top: topPosition,
+          //               child: child!,
+          //             );
+          //           },
+          //           child: Image.asset(
+          //             classicDeck[index].imagePath,
+          //             fit: BoxFit.fill,
+          //             width: screenWidth * 0.055,
+          //             height: screenHeight * 0.15,
+          //           ),
+          //         );
+          //       } else {
+          //         // Return a placeholder widget if the animation index is out of bounds
+          //         return Container();
+          //       }
+          //     }),
+          // ),
           //Cards Stack end
           //Options popup start
           Stack(
