@@ -1,16 +1,9 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'package:buracoplus/create_table_single_player.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'common/translation_manager.dart';
-import 'package:buracoplus/blocks/lobby_option_item.dart';
-import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-import 'package:buracoplus/helpers/modal_helpers.dart';
-import 'package:buracoplus/models/options_model.dart';
-import 'package:buracoplus/providers/theme_provider.dart';
 
 class GameplaySP extends StatefulWidget {
   const GameplaySP({super.key});
@@ -209,9 +202,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   late AnimationController _controller;
   // late final List<Animation<Offset>> _animations = [];
-  List<Offset> _initialPositions = [];
-  List<Offset> _targetPositions = [];
-  List<bool> _isCardAnimated = [];
+  final List<Offset> _initialPositions = [];
+  final List<Offset> _targetPositions = [];
+  final List<bool> _isCardAnimated = [];
   bool _startAnimation = false;
 
   @override
@@ -219,7 +212,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     super.initState();
 
     // Initialize positions and animation state
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _initializePositions();
     });
 
@@ -1782,6 +1775,20 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             children: List.generate(classicDeck.length, (index) {
               if (classicDeck.isEmpty) {
                 return SizedBox.shrink();
+              if(kDebugMode){
+                if(index < 10){
+                  print(index);
+                  print(classicDeck[index].cardId);
+                }
+              }
+              Offset initialPosition = _initialPositions.isNotEmpty ? _initialPositions[index] : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
+              Offset targetPosition = _targetPositions.isNotEmpty ? _targetPositions[index] : const Offset(0, 0);
+
+              if(kDebugMode){
+                if(index < 10){
+                  print(initialPosition);
+                  print(targetPosition);
+                }
               }
 
               Offset initialPosition = _initialPositions.isNotEmpty && index < _initialPositions.length

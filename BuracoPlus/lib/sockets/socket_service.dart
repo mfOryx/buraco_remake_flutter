@@ -57,7 +57,7 @@ class SocketService with ChangeNotifier {
         completer.complete(result);
       });
 
-      Future.delayed(Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5), () {
         if (!completer.isCompleted) {
           completer
               .completeError(TimeoutException("Socket operation timed out"));
