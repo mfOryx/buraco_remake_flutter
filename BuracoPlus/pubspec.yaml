@@ -43,7 +43,6 @@ dependencies:
     sdk: flutter
   rxdart: ^0.28.0
   firebase_messaging: ^15.0.2
-  flutter_stripe: ^10.1.1
   google_fonts: ^6.2.1
   permission_handler: ^11.3.1
   immutable_device_identifier: ^0.0.2

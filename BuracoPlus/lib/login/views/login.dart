@@ -188,11 +188,11 @@ class _LoginState extends State<Login> {
                                           const Color.fromRGBO(92, 70, 154, 1),
                                       backgroundColor: Colors.white,
                                     ).copyWith(
-                                      side: WidgetStateProperty.resolveWith<
+                                      side: MaterialStateProperty.resolveWith<
                                           BorderSide>(
-                                        (Set<WidgetState> states) {
+                                        (Set<MaterialState> states) {
                                           if (states.contains(
-                                              WidgetState.pressed)) {
+                                              MaterialState.pressed)) {
                                             return const BorderSide(
                                               color: Colors.black,
                                               width: 1.5,
@@ -205,7 +205,7 @@ class _LoginState extends State<Login> {
                                           );
                                         },
                                       ),
-                                      shape: WidgetStateProperty.all<
+                                      shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
