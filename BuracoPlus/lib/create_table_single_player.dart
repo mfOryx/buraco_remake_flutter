@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:buracoplus/home.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/gameplay_single_player.dart';
 import 'package:provider/provider.dart';
@@ -219,7 +218,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -260,7 +259,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -324,7 +323,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -365,7 +364,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -438,7 +437,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 fixedSize:
-                                                    MaterialStateProperty.all(
+                                                    WidgetStateProperty.all(
                                                         Size(screenWidth * 0.085, screenHeight * 0.05)),
                                               ),
                                               onPressed: () {},
@@ -481,7 +480,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 fixedSize:
-                                                    MaterialStateProperty.all(
+                                                    WidgetStateProperty.all(
                                                         Size(screenWidth * 0.085, screenHeight * 0.05)),
                                               ),
                                               onPressed: () {},
@@ -604,7 +603,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
@@ -645,7 +644,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
@@ -686,7 +685,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07, screenHeight * 0.05)),
                                       ),
                                       onPressed: () {},
@@ -729,7 +728,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                       child: ElevatedButton(
                                         style: ButtonStyle(
-                                          fixedSize: MaterialStateProperty.all(
+                                          fixedSize: WidgetStateProperty.all(
                                               Size(screenWidth * 0.07, screenHeight * 0.05)),
                                         ),
                                         onPressed: () {
@@ -800,7 +799,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -841,7 +840,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150, screenHeight * 0.04)),
                                       ),
                                       onPressed: () {},
@@ -887,7 +886,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              fixedSize: MaterialStateProperty.all(
+                              fixedSize: WidgetStateProperty.all(
                                   Size(screenWidth * 0.16, screenHeight * 0.04)),
                             ),
                             onPressed: () {},
