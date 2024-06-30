@@ -1775,19 +1775,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
             children: List.generate(classicDeck.length, (index) {
               if (classicDeck.isEmpty) {
                 return SizedBox.shrink();
-              if(kDebugMode){
-                if(index < 10){
+              }
+
+              if (kDebugMode) {
+                if (index < 10) {
                   print(index);
                   print(classicDeck[index].cardId);
-                }
-              }
-              Offset initialPosition = _initialPositions.isNotEmpty ? _initialPositions[index] : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
-              Offset targetPosition = _targetPositions.isNotEmpty ? _targetPositions[index] : const Offset(0, 0);
-
-              if(kDebugMode){
-                if(index < 10){
-                  print(initialPosition);
-                  print(targetPosition);
                 }
               }
 
@@ -1797,15 +1790,22 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
               Offset targetPosition = _targetPositions.isNotEmpty && index < _targetPositions.length
                   ? _targetPositions[index]
-                  : Offset(0, 0);
+                  : const Offset(0, 0);
 
-              return GestureDetector(
-                onTap: () => flipCard(index),
-                child: AnimatedPositioned(
-                  duration: const Duration(milliseconds: 2000),
-                  curve: Curves.easeInOut,
-                  left: _startAnimation ? targetPosition.dx : initialPosition.dx,
-                  top: _startAnimation ? targetPosition.dy : initialPosition.dy,
+              if (kDebugMode) {
+                if (index < 10) {
+                  print(initialPosition);
+                  print(targetPosition);
+                }
+              }
+
+              return AnimatedPositioned(
+                duration: const Duration(milliseconds: 2000),
+                curve: Curves.easeInOut,
+                left: _startAnimation ? targetPosition.dx : initialPosition.dx,
+                top: _startAnimation ? targetPosition.dy : initialPosition.dy,
+                child: GestureDetector(
+                  onTap: () => flipCard(index),
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
                     transitionBuilder: (Widget child, Animation<double> animation) {
@@ -1816,12 +1816,21 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                         builder: (context, child) {
                           final angle = flipAnimation.value * 3.14159;
                           final transform = Matrix4.identity()
-                            ..setEntry(2, 2, 0.001)
+                            ..setEntry(3, 2, 0.001)
                             ..rotateY(angle);
+
+                          // Correct the angle to prevent cards from being upside down
                           return Transform(
                             transform: transform,
                             alignment: Alignment.center,
-                            child: child,
+                            child: flipAnimation.value < 0.5
+                                ? child
+                                : Transform(
+                              transform: Matrix4.identity()
+                                ..rotateY(3.14159), // Rotate the card to correct the upside-down issue
+                              alignment: Alignment.center,
+                              child: child,
+                            ),
                           );
                         },
                       );
