@@ -167,6 +167,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
   List<Card> cardsToBeAddedInTable = [];
   late Widget cardsToDisplayInTable;
   List<bool> isTapped = [];
+  List<bool> isFront = [];
   double yOffset = 5;
   bool is20CardsInHand = false;
   bool rowsButtonToggle = false;
@@ -241,6 +242,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     discardPile = classicDeck.skip(44).take(1).toList();
     deck = classicDeck.skip(45).toList();
     isTapped = List.generate(player1Cards.length, (_) => false);
+    isFront = List.generate(classicDeck.length, (_) => true);
   }
 
   void _initializePositions() {
@@ -263,6 +265,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         _isCardAnimated.add(false);
       }
     }
+  }
+
+  void flipCard(int index) {
+    setState(() {
+      isFront[index] = !isFront[index];
+    });
   }
 
   void addRandomCard(List<Card> deck) {
@@ -1772,36 +1780,101 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           //Cards Stack start
           Stack(
             children: List.generate(classicDeck.length, (index) {
-              if(kDebugMode){
-                if(index < 10){
-                  print(index);
-                  print(classicDeck[index].cardId);
-                }
-              }
-              Offset initialPosition = _initialPositions.isNotEmpty ? _initialPositions[index] : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
-              Offset targetPosition = _targetPositions.isNotEmpty ? _targetPositions[index] : Offset(0, 0);
-
-              if(kDebugMode){
-                if(index < 10){
-                  print(initialPosition);
-                  print(targetPosition);
-                }
+              if (classicDeck.isEmpty) {
+                return SizedBox.shrink();
               }
 
-              return AnimatedPositioned(
-                duration: const Duration(milliseconds: 2000),
-                curve: Curves.easeInOut,
-                left: _startAnimation ? targetPosition.dx : initialPosition.dx,
-                top: _startAnimation ? targetPosition.dy : initialPosition.dy,
-                child: Image.asset(
-                  classicDeck[index].imagePath,
-                  fit: BoxFit.fill,
-                  width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
-                  height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
+              Offset initialPosition = _initialPositions.isNotEmpty && index < _initialPositions.length
+                  ? _initialPositions[index]
+                  : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
+
+              Offset targetPosition = _targetPositions.isNotEmpty && index < _targetPositions.length
+                  ? _targetPositions[index]
+                  : Offset(0, 0);
+
+              return GestureDetector(
+                onTap: () => flipCard(index),
+                child: AnimatedPositioned(
+                  duration: const Duration(milliseconds: 2000),
+                  curve: Curves.easeInOut,
+                  left: _startAnimation ? targetPosition.dx : initialPosition.dx,
+                  top: _startAnimation ? targetPosition.dy : initialPosition.dy,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      final flipAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+                      return AnimatedBuilder(
+                        animation: flipAnimation,
+                        child: child,
+                        builder: (context, child) {
+                          final angle = flipAnimation.value * 3.14159;
+                          final transform = Matrix4.identity()
+                            ..setEntry(2, 2, 0.001)
+                            ..rotateY(angle);
+                          return Transform(
+                            transform: transform,
+                            alignment: Alignment.center,
+                            child: child,
+                          );
+                        },
+                      );
+                    },
+                    child: isFront.isNotEmpty && index < isFront.length && isFront[index]
+                        ? Container(
+                      key: ValueKey(index),
+                      child: Image.asset(
+                        classicDeck[index].imagePath,
+                        fit: BoxFit.fill,
+                        width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
+                        height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
+                      ),
+                    )
+                        : Container(
+                      key: ValueKey(-index),
+                      child: Image.asset(
+                        'assets/extraCards/Blue.png',
+                        fit: BoxFit.fill,
+                        width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
+                        height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
+                      ),
+                    ),
+                  ),
                 ),
               );
             }),
           ),
+          // Stack(
+          //   children: List.generate(classicDeck.length, (index) {
+          //     if(kDebugMode){
+          //       if(index < 10){
+          //         print(index);
+          //         print(classicDeck[index].cardId);
+          //       }
+          //     }
+          //     Offset initialPosition = _initialPositions.isNotEmpty ? _initialPositions[index] : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
+          //     Offset targetPosition = _targetPositions.isNotEmpty ? _targetPositions[index] : Offset(0, 0);
+          //
+          //     if(kDebugMode){
+          //       if(index < 10){
+          //         print(initialPosition);
+          //         print(targetPosition);
+          //       }
+          //     }
+          //
+          //     return AnimatedPositioned(
+          //       duration: const Duration(milliseconds: 2000),
+          //       curve: Curves.easeInOut,
+          //       left: _startAnimation ? targetPosition.dx : initialPosition.dx,
+          //       top: _startAnimation ? targetPosition.dy : initialPosition.dy,
+          //       child: Image.asset(
+          //         classicDeck[index].imagePath,
+          //         fit: BoxFit.fill,
+          //         width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
+          //         height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
+          //       ),
+          //     );
+          //   }),
+          // ),
           // Stack(
           //     children: List.generate(classicDeck.length, (index) {
           //       if (index < _animations.length) {
