@@ -1778,7 +1778,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           Stack(
             children: List.generate(classicDeck.length, (index) {
               if (classicDeck.isEmpty) {
-                return SizedBox.shrink();
+                return const SizedBox.shrink();
               }
 
               if (kDebugMode) {
