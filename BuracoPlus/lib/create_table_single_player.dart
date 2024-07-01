@@ -220,7 +220,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -263,7 +263,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -334,7 +334,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -377,7 +377,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -457,7 +457,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 fixedSize:
-                                                    MaterialStateProperty.all(
+                                                    WidgetStateProperty.all(
                                                         Size(
                                                             screenWidth * 0.085,
                                                             screenHeight *
@@ -507,7 +507,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 fixedSize:
-                                                    MaterialStateProperty.all(
+                                                    WidgetStateProperty.all(
                                                         Size(
                                                             screenWidth * 0.085,
                                                             screenHeight *
@@ -653,7 +653,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07,
                                                 screenHeight * 0.05)),
                                       ),
@@ -699,7 +699,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07,
                                                 screenHeight * 0.05)),
                                       ),
@@ -750,7 +750,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.07,
                                                 screenHeight * 0.05)),
                                       ),
@@ -803,7 +803,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                       ),
                                       child: ElevatedButton(
                                         style: ButtonStyle(
-                                          fixedSize: MaterialStateProperty.all(
+                                          fixedSize: WidgetStateProperty.all(
                                               Size(screenWidth * 0.07,
                                                   screenHeight * 0.05)),
                                         ),
@@ -881,7 +881,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -924,7 +924,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                                     ),
                                     child: ElevatedButton(
                                       style: ButtonStyle(
-                                        fixedSize: MaterialStateProperty.all(
+                                        fixedSize: WidgetStateProperty.all(
                                             Size(screenWidth * 0.150,
                                                 screenHeight * 0.04)),
                                       ),
@@ -972,7 +972,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              fixedSize: MaterialStateProperty.all(Size(
+                              fixedSize: WidgetStateProperty.all(Size(
                                   screenWidth * 0.16, screenHeight * 0.04)),
                             ),
                             onPressed: () {},

@@ -143,7 +143,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   ),
                                   child: ElevatedButton(
                                     style: ButtonStyle(
-                                      fixedSize: MaterialStateProperty.all(
+                                      fixedSize: WidgetStateProperty.all(
                                           const Size(230, 50)),
                                     ),
                                     onPressed: () {},
@@ -202,7 +202,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   ),
                                   child: ElevatedButton(
                                     style: ButtonStyle(
-                                      fixedSize: MaterialStateProperty.all(
+                                      fixedSize: WidgetStateProperty.all(
                                           const Size(230, 50)),
                                     ),
                                     onPressed: () {},
