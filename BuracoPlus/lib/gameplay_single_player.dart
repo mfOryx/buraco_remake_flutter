@@ -248,9 +248,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
         _targetPositions.add(Offset(-(screenWidth / 2 - 671) + (i * (screenWidth * 0.055)), (screenHeight / 2 + 146)));
         _isCardAnimated.add(false);
-      } else if(i >= 11 && i <= 20){
+      } else if(i >= 11 && i <= 21){
         _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
         _targetPositions.add(Offset((screenWidth / 2 - 85) + (i * -1.5), (screenHeight / 2 - 210)));
+        _isCardAnimated.add(false);
+      } else if(i >= 22 && i <= 43){
+        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(-(screenWidth / 2 - 465), (screenHeight / 2 + 100)));
         _isCardAnimated.add(false);
       } else{
         _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
@@ -1804,55 +1808,52 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 curve: Curves.easeInOut,
                 left: _startAnimation ? targetPosition.dx : initialPosition.dx,
                 top: _startAnimation ? targetPosition.dy : initialPosition.dy,
-                child: GestureDetector(
-                  onTap: () => flipCard(index),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 500),
-                    transitionBuilder: (Widget child, Animation<double> animation) {
-                      final flipAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
-                      return AnimatedBuilder(
-                        animation: flipAnimation,
-                        child: child,
-                        builder: (context, child) {
-                          final angle = flipAnimation.value * 3.14159;
-                          final transform = Matrix4.identity()
-                            ..setEntry(3, 2, 0.001)
-                            ..rotateY(angle);
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    final flipAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+                    return AnimatedBuilder(
+                      animation: flipAnimation,
+                      child: child,
+                      builder: (context, child) {
+                        final angle = flipAnimation.value * 3.14159;
+                        final transform = Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(angle);
 
-                          // Correct the angle to prevent cards from being upside down
-                          return Transform(
-                            transform: transform,
+                        // Correct the angle to prevent cards from being upside down
+                        return Transform(
+                          transform: transform,
+                          alignment: Alignment.center,
+                          child: flipAnimation.value < 0.5
+                              ? child
+                              : Transform(
+                            transform: Matrix4.identity()
+                              ..rotateY(3.14159), // Rotate the card to correct the upside-down issue
                             alignment: Alignment.center,
-                            child: flipAnimation.value < 0.5
-                                ? child
-                                : Transform(
-                              transform: Matrix4.identity()
-                                ..rotateY(3.14159), // Rotate the card to correct the upside-down issue
-                              alignment: Alignment.center,
-                              child: child,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: isFront.isNotEmpty && index < isFront.length && isFront[index]
-                        ? Container(
-                      key: ValueKey(index),
-                      child: Image.asset(
-                        classicDeck[index].imagePath,
-                        fit: BoxFit.fill,
-                        width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
-                        height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
-                      ),
-                    )
-                        : Container(
-                      key: ValueKey(-index),
-                      child: Image.asset(
-                        'assets/extraCards/Blue.png',
-                        fit: BoxFit.fill,
-                        width: (index >= 11 && index <= 20) ? screenWidth * 0.04 : screenWidth * 0.055,
-                        height: (index >= 11 && index <= 20) ? screenHeight * 0.12 : screenHeight * 0.15,
-                      ),
+                            child: child,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: isFront.isNotEmpty && index < isFront.length && isFront[index]
+                      ? Container(
+                    key: ValueKey(index),
+                    child: Image.asset(
+                      classicDeck[index].imagePath,
+                      fit: BoxFit.fill,
+                      width: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenWidth * 0.03 : screenWidth * 0.04) : screenWidth * 0.055,
+                      height: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenHeight * 0.1 : screenHeight * 0.12) : screenHeight * 0.15,
+                    ),
+                  )
+                      : Container(
+                    key: ValueKey(-index),
+                    child: Image.asset(
+                      'assets/extraCards/Blue.png',
+                      fit: BoxFit.fill,
+                      width: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenWidth * 0.03 : screenWidth * 0.04) : screenWidth * 0.055,
+                      height: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenHeight * 0.1 : screenHeight * 0.12) : screenHeight * 0.15,
                     ),
                   ),
                 ),
