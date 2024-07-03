@@ -254,19 +254,27 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         _isCardAnimated.add(false);
       } else if(i >= 22 && i <= 43){
         _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(-(screenWidth / 2 - 465), (screenHeight / 2 + 100)));
+        _targetPositions.add(Offset(-(screenWidth / 2 - 472), (screenHeight / 2 + 102)));
+        _isCardAnimated.add(false);
+      } else if(i >= 44 && i <= 44){
+        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(-(screenWidth / 2 - 735), (screenHeight / 2 + 73)));
         _isCardAnimated.add(false);
       } else{
         _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(-(screenWidth / 2 - 670), (screenHeight / 2 + 73)));
         _isCardAnimated.add(false);
       }
     }
   }
 
-  void flipCard(int index) {
+  void flipCard(int index, bool showFront) {
     setState(() {
-      isFront[index] = !isFront[index];
+      if(showFront){
+        isFront[index] = true;
+      } else {
+        isFront[index] = false;
+      }
     });
   }
 
@@ -1803,6 +1811,10 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 }
               }
 
+              if (_startAnimation && index >= 11 && index <= 43 || index >= 45) {
+                flipCard(index, false);
+              }
+
               return AnimatedPositioned(
                 duration: const Duration(milliseconds: 2000),
                 curve: Curves.easeInOut,
@@ -1817,11 +1829,20 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                       child: child,
                       builder: (context, child) {
                         final angle = flipAnimation.value * 3.14159;
-                        final transform = Matrix4.identity()
+                        final transform = (index >= 33 && index <= 43) ?
+                        (
+                            Matrix4.identity()
                           ..setEntry(3, 2, 0.001)
-                          ..rotateY(angle);
+                          ..rotateY(angle)
+                          ..rotateZ(4.7)
+                        )
+                        :
+                        (
+                            Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(angle)
+                        );
 
-                        // Correct the angle to prevent cards from being upside down
                         return Transform(
                           transform: transform,
                           alignment: Alignment.center,
@@ -1843,8 +1864,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                     child: Image.asset(
                       classicDeck[index].imagePath,
                       fit: BoxFit.fill,
-                      width: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenWidth * 0.03 : screenWidth * 0.04) : screenWidth * 0.055,
-                      height: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenHeight * 0.1 : screenHeight * 0.12) : screenHeight * 0.15,
+                      width: (index >= 11 && index <= 21)
+                          ? screenWidth * 0.04
+                          : (index >= 22 && index <= 43)
+                          ? screenWidth * 0.033
+                          : screenWidth * 0.055,
+                      height: (index >= 11 && index <= 21)
+                          ? screenHeight * 0.12
+                          : (index >= 22 && index <= 43)
+                          ? screenHeight * 0.103
+                          : screenHeight * 0.15,
                     ),
                   )
                       : Container(
@@ -1852,8 +1881,16 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                     child: Image.asset(
                       'assets/extraCards/Blue.png',
                       fit: BoxFit.fill,
-                      width: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenWidth * 0.03 : screenWidth * 0.04) : screenWidth * 0.055,
-                      height: (index >= 11 && index <= 21) ? ((index >= 22 && index <= 43) ? screenHeight * 0.1 : screenHeight * 0.12) : screenHeight * 0.15,
+                      width: (index >= 11 && index <= 21)
+                          ? screenWidth * 0.04
+                          : (index >= 22 && index <= 43)
+                          ? screenWidth * 0.033
+                          : screenWidth * 0.055,
+                      height: (index >= 11 && index <= 21)
+                          ? screenHeight * 0.12
+                          : (index >= 22 && index <= 43)
+                          ? screenHeight * 0.103
+                          : screenHeight * 0.15,
                     ),
                   ),
                 ),
