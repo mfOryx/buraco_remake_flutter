@@ -11,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+import 'package:toastification/toastification.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences().loadPreferences();
@@ -34,14 +34,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
-        ChangeNotifierProvider<TranslationManager>.value(
-            value: translationManager),
-      ],
-      child: const StartApp(),
+    return ToastificationWrapper(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
+          ChangeNotifierProvider<TranslationManager>.value(
+              value: translationManager),
+        ],
+        child: const StartApp(),
+      )
     );
+
   }
 }
 
