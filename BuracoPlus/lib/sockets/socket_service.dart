@@ -18,7 +18,7 @@ class SocketService with ChangeNotifier {
    
     _socket = io.io(_serverUrl, <String, dynamic>{
       'transports': ['websocket'],
-     
+      'reconnectionAttempts': 2,
     });
 
     _socket.on('connect', (_) {
