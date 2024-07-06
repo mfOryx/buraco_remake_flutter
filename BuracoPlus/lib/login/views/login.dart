@@ -23,8 +23,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late final LoginController _controller;
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController =
+      TextEditingController(text: 'mark80');
+  final TextEditingController _passwordController =
+      TextEditingController(text: '190880');
   bool _isObscured = true;
   bool isMenuVisible = false;
 
@@ -191,8 +193,8 @@ class _LoginState extends State<Login> {
                                       side: WidgetStateProperty.resolveWith<
                                           BorderSide>(
                                         (Set<WidgetState> states) {
-                                          if (states.contains(
-                                              WidgetState.pressed)) {
+                                          if (states
+                                              .contains(WidgetState.pressed)) {
                                             return const BorderSide(
                                               color: Colors.black,
                                               width: 1.5,

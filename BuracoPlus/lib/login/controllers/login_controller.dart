@@ -1,8 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:buracoplus/common/rotating_loader.dart';
 import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
+import 'package:buracoplus/helpers/user.dart';
+import 'package:buracoplus/lobby.dart';
+import 'package:buracoplus/models/LoggedInPlayer.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -55,9 +60,14 @@ class LoginController {
 
     String ipAddress = await getPublicIP();
     final socketService = Provider.of<SocketService>(context, listen: false);
+
     if (!socketService.isConnected()) {
       socketService.connect();
     } else {
+      // final getAllTables = await socketService.emitWithAck('getAllTables', {});
+
+      // log(json.encode(getAllTables));
+
       final ackResult = await socketService.emitWithAck(
         'loginAction',
         {
@@ -79,6 +89,15 @@ class LoginController {
                 style: TextStyle(color: Colors.black, fontSize: 16.0),
               ),
               Colors.green);
+
+          User? currentUser = User();
+          LoggedInPlayer? currentLoggedInPlayer =
+              currentUser.setLoggedInPlayer(ackResult["playerData"]);
+
+          print(currentLoggedInPlayer?.Id);
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Lobby()));
         } else {
           Toast.showTopScrollingSnackbar(
               context,
@@ -89,48 +108,10 @@ class LoginController {
               ),
               Colors.yellow);
         }
-        print(ackResult);
       } else {
         print('errore ritornato');
       }
     }
-    socketService.socket.on('connect', (_) async {
-      final ackResult = await socketService.emitWithAck(
-        'loginAction',
-        {
-          'username': username,
-          'password': password,
-          'ip': ipAddress,
-          'uniqueDeviceId': platformVersion,
-          'phoneName': phoneName,
-          'phoneModel': phoneModel
-        },
-      );
-      if (ackResult.toString().contains('playerData')) {
-        if (ackResult["playerData"] != null) {
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Login success",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.green);
-        } else {
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Wrong password",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.yellow);
-        }
-        print(ackResult);
-      } else {
-        print('errore ritornato');
-      }
-    });
   }
 
   Future<void> _sendLoginMessage(BuildContext context, String username,
