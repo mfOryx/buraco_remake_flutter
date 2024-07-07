@@ -1,3 +1,4 @@
+import 'package:buracoplus/menu_views/templates/screens/screen_2.dart';
 import 'package:flutter/material.dart'
     show
         BuildContext,
@@ -22,6 +23,9 @@ import 'package:flutter/material.dart'
         TextDecoration,
         TextStyle,
         Widget;
+
+import '../buttons/button.dart';
+import '../buttons/link.dart';
 
 class Screen1 extends StatelessWidget {
   const Screen1({super.key});
