@@ -225,7 +225,6 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                   ),
-                                  // BARRA START
                                   const SizedBox(
                                     width: 10,
                                   ),
@@ -270,14 +269,13 @@ class _LoginState extends State<Login> {
                                     ),
                                     child: Text(
                                       translationManager
-                                          .translate('TEMP')
+                                          .translate('BARRA')
                                           .toUpperCase(),
                                       style: const TextStyle(
                                         color: Color.fromRGBO(92, 70, 154, 1),
                                       ),
                                     ),
                                   ),
-                                  // BARRA END
                                 ],
                               ),
                               const SizedBox(height: 5),

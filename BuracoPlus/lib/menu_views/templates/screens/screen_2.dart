@@ -64,9 +64,6 @@ class Screen2 extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const Screen1(
-                        color1: Colors.green,
-                        color2: Colors.white,
-                        color3: Colors.red,
                       ),
                     ),
                   );

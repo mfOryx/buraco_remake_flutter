@@ -15,7 +15,6 @@ const TextStyle noticesTextStyle = TextStyle(
   wordSpacing: 1,
   decoration: TextDecoration.none,
   backgroundColor: Colors.transparent,
-  //fontFamilyFallback: kDefaultContentInsertionMimeTypes,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
   fontSize: 13,

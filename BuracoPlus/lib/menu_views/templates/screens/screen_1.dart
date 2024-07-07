@@ -30,10 +30,7 @@ import 'package:flutter/material.dart'
 
 class Screen1 extends StatelessWidget {
   const Screen1(
-      {super.key,
-      required Color color1,
-      required Color color2,
-      required Color color3});
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
