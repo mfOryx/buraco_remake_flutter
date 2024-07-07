@@ -4,6 +4,7 @@ import 'package:flutter/material.dart'
         Colors,
         FontStyle,
         FontWeight,
+        LinearGradient,
         Offset,
         Shadow,
         TextDecoration,
@@ -36,11 +37,11 @@ const TextStyle noticesTextStyle = TextStyle(
 //   ],
 // );
 
-// const LinearGradient gradButton1 = LinearGradient(
-//   colors: <Color>[
-//     Colors.red,
-//     Colors.yellow,
-//     Colors.orange,
-//     Colors.deepPurpleAccent,
-//   ],
-// );
+const LinearGradient gradButton1 = LinearGradient(
+  colors: <Color>[
+    Colors.red,
+    Colors.yellow,
+    Colors.orange,
+    Colors.deepPurpleAccent,
+  ],
+);

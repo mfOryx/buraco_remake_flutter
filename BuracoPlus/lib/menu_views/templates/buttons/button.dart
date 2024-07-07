@@ -11,17 +11,17 @@ import 'package:flutter/material.dart'
         Widget;
 
 class GradientTextButton extends StatelessWidget {
-  final LinearGradient custGradiente;
+  final LinearGradient custGradient;
   final custClick;
   final custLongClick;
-  final custTestoBottone;
+  final custButtonText;
   final custIcon;
 
   const GradientTextButton(
-      {required this.custGradiente,
+      {required this.custGradient,
       required this.custClick,
       required this.custLongClick,
-      required this.custTestoBottone,
+      required this.custButtonText, 
       required this.custIcon,
       super.key});
 
@@ -31,7 +31,7 @@ class GradientTextButton extends StatelessWidget {
       height: 50,
       width: 150,
       decoration: BoxDecoration(
-        gradient: custGradiente,
+        gradient: custGradient,
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextButton.icon(
@@ -39,7 +39,7 @@ class GradientTextButton extends StatelessWidget {
         onLongPress: custLongClick,
         icon: custIcon,
         iconAlignment: IconAlignment.start,
-        label: custTestoBottone,
+        label: custButtonText,
       ),
     );
   }

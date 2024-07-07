@@ -1,3 +1,8 @@
+import 'package:buracoplus/menu_views/templates/buttons/button.dart';
+import 'package:buracoplus/menu_views/templates/buttons/link.dart';
+import 'package:buracoplus/menu_views/templates/screens/screen_2.dart';
+import 'package:buracoplus/menu_views/templates/styles/images.dart';
+import 'package:buracoplus/menu_views/variables.dart';
 import 'package:flutter/material.dart'
     show
         BuildContext,
@@ -24,7 +29,11 @@ import 'package:flutter/material.dart'
         Widget;
 
 class Screen1 extends StatelessWidget {
-  const Screen1({super.key});
+  const Screen1(
+      {super.key,
+      required Color color1,
+      required Color color2,
+      required Color color3});
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +44,14 @@ class Screen1 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            ImmagineSfocata(
-              custSfocatura: Colors.white.withOpacity(0.5),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Titolo(
-              custTitolo: 'Pagina 1',
+            NoticesBlend(
+              custNoticesBlend: Colors.white.withOpacity(0.5),
             ),
             const SizedBox(
               height: 30,
             ),
             GradientTextButton(
-              custGradiente: gradButton1,
+              custGradient: gradButton1,
               custClick: () {
                 Navigator.push(
                   context,
@@ -58,19 +61,15 @@ class Screen1 extends StatelessWidget {
                 );
               },
               custLongClick: null,
-              custTestoBottone: const Testo(
-                custTesto: 'Schermo 2',
-              ),
+              custTesto: 'Schermo 2',
+              custButtonText: null,
               custIcon: const Icon(Icons.arrow_forward_ios),
             ),
-            const SizedBox(
-              height: 30,
-            ),
             const GradientTextButton(
-              custGradiente: gradButton2,
+              custGradient: gradButton1,
               custClick: openWebLink,
               custLongClick: openWebLink,
-              custTestoBottone: Text(
+              custButtonText: Text(
                 'clicca sul sito web kernel.org',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -92,6 +91,7 @@ class Screen1 extends StatelessWidget {
                 ),
               ),
               custIcon: null,
+              custTesto: '',
             ),
             const SizedBox(
               height: 30,
