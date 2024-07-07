@@ -231,7 +231,7 @@ class LobbyCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    table?.tableName?.toString() ?? "",
+                    table.tableName?.toString() ?? "",
                     maxLines: 1,
                     textAlign: TextAlign.left,
                     style: const TextStyle(
@@ -243,7 +243,7 @@ class LobbyCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        table?.pointsToWin?.toString() ?? "",
+                        table.pointsToWin?.toString() ?? "",
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                             fontSize: 13,
@@ -294,7 +294,7 @@ class LobbyCard extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 2, bottom: 2),
                 child: Text(
                   chair?.playerId
-                          ?.substring((chair?.playerId?.length ?? 0) - 5) ??
+                          ?.substring((chair.playerId?.length ?? 0) - 5) ??
                       "",
                   style: const TextStyle(color: Colors.white, fontSize: 10),
                 ),

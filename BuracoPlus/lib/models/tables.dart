@@ -112,9 +112,9 @@ class GameTable {
     if (players != null) {
       final v = players;
       final arr0 = [];
-      v!.forEach((v) {
+      for (var v in v!) {
         arr0.add(v!.toJson());
-      });
+      }
       data['players'] = arr0;
     }
     return data;

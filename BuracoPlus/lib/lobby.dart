@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:buracoplus/blocks/lobby-card.dart';
 import 'package:buracoplus/blocks/lobby-user-stats.dart';
 import 'package:buracoplus/helpers/user.dart';
@@ -40,12 +39,12 @@ class _HomeState extends State<Lobby> with SingleTickerProviderStateMixin {
   getTables() async {
     if (socketService.isConnected()) {
       Map<String, dynamic> getAllTables = await socketService.emitWithAck(
-          'getAllTables', {'playerId': currentlyLoggedInPlayer?.Id});
+          'getAllTables', {'playerId': currentlyLoggedInPlayer.Id});
 
-      if (getAllTables != null && getAllTables.containsKey('tablesList')) {
+      if (getAllTables.containsKey('tablesList')) {
         List allTables = getAllTables['tablesList'];
 
-        if (allTables != null && allTables.isNotEmpty) {
+        if (allTables.isNotEmpty) {
           gameTables =
               allTables.map((element) => GameTable.fromJson(element)).toList();
           gameTablesFiltered = gameTables;
@@ -64,7 +63,7 @@ class _HomeState extends State<Lobby> with SingleTickerProviderStateMixin {
     if (socketService.isConnected()) {
       Map<String, dynamic> response =
           await socketService.emitWithAck('sitAtTable', {
-        'playerId': currentlyLoggedInPlayer?.Id,
+        'playerId': currentlyLoggedInPlayer.Id,
         "tableId": tableId,
         "chairId": chairId,
         "ip": ipAddress
@@ -292,7 +291,7 @@ class _HomeState extends State<Lobby> with SingleTickerProviderStateMixin {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
-                                    width: 1, color: Color(0xff786f37)),
+                                    width: 1, color: const Color(0xff786f37)),
                                 gradient: const LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
@@ -652,8 +651,8 @@ class btn extends StatelessWidget {
               end: Alignment.bottomCenter,
               stops: const [0, 0.8, 1.0, 1.0],
               colors: [
-                enabled == true ? Colors.white : Color(0xffd3d5e0),
-                enabled == true ? Colors.white : Color(0xffd3d5e0),
+                enabled == true ? Colors.white : const Color(0xffd3d5e0),
+                enabled == true ? Colors.white : const Color(0xffd3d5e0),
                 const Color(0xffb7b6b5).withOpacity(0.5),
                 const Color(0xffb7b6b5)
               ],

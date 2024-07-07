@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
@@ -100,8 +99,8 @@ void ShowToastMessage(String title, String message, {int duration = 4}) {
     description: Text(message),
     alignment: Alignment.topCenter,
     autoCloseDuration: Duration(seconds: duration),
-    primaryColor: Color(0xff562ea2),
-    foregroundColor: Color(0xff562ea2),
+    primaryColor: const Color(0xff562ea2),
+    foregroundColor: const Color(0xff562ea2),
     borderRadius: BorderRadius.circular(4.0),
     boxShadow: lowModeShadow,
   );
@@ -115,8 +114,8 @@ void ShowErrorMessage(String title, String message, {int duration = 4}) {
     description: Text(message),
     alignment: Alignment.topCenter,
     autoCloseDuration: Duration(seconds: duration),
-    primaryColor: Color(0xffff0000),
-    foregroundColor: Color(0xff2a2525),
+    primaryColor: const Color(0xffff0000),
+    foregroundColor: const Color(0xff2a2525),
     borderRadius: BorderRadius.circular(4.0),
     boxShadow: lowModeShadow,
     showProgressBar: true,
@@ -141,10 +140,10 @@ void ShowToastWithButton(String title, String message,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text(message, style: TextStyle(color: Colors.white)),
+            Text(message, style: const TextStyle(color: Colors.white)),
             const SizedBox(height: 16),
             Row(
               children: [

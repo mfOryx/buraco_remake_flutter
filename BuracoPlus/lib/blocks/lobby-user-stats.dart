@@ -17,7 +17,7 @@ class LobbyUserStats extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              'assets/lobby/${image}',
+              'assets/lobby/$image',
               height: 25,
             ),
             const SizedBox(
