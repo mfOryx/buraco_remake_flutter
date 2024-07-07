@@ -16,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:buracoplus/common/general_functions.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
+import '../../home.dart';
+
 class LoginController {
   StreamSubscription? _messagesStreamSubscription;
   VoidCallback? onSuccessfulMessage;
@@ -95,7 +97,7 @@ class LoginController {
           print(currentLoggedInPlayer?.Id);
 
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Lobby()));
+              context, MaterialPageRoute(builder: (context) => const Home()));
         } else {
           Toast.showTopScrollingSnackbar(
               context,

@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:buracoplus/blocks/privacy_button.dart';
 import 'package:buracoplus/blocks/privacy_menu.dart';
+import 'package:buracoplus/login/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:buracoplus/common/toast_with_button.dart';
 import 'common/translation_manager.dart';
 import 'create_table_single_player.dart';
+import 'lobby.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -212,7 +214,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       fit: BoxFit.fill, // Adjust as needed
                                       child: InkWell(
                                         onTap: () {
-                                          // Handle button press
+                                          Navigator.push(
+                                              context, MaterialPageRoute(builder: (context) => const Lobby()));
                                         },
                                         child: Center(
                                           child: Text(
@@ -530,7 +533,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               child: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
-                  exit(0);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Login()));
                 },
                 backgroundColor: Colors.transparent,
                 splashColor: Colors.transparent,
@@ -549,37 +555,37 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 ]),
               ),
             ),
-            Positioned(
-              width: 80,
-              bottom: 0.0,
-              right: 0.0,
-              child: FloatingActionButton(
-                heroTag: null,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateTableSP()));
-                },
-                backgroundColor: Colors.transparent,
-                splashColor: Colors.transparent,
-                elevation: 0.0,
-                child: Row(
-                  children: [
-                    Text(translationManager.translate('txtTrain').toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
-                    Transform.rotate(
-                      angle: -1.6,
-                      child: Image.asset(
-                        'assets/simple_arrow_down.png',
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Positioned(
+            //   width: 80,
+            //   bottom: 0.0,
+            //   right: 0.0,
+            //   child: FloatingActionButton(
+            //     heroTag: null,
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => const CreateTableSP()));
+            //     },
+            //     backgroundColor: Colors.transparent,
+            //     splashColor: Colors.transparent,
+            //     elevation: 0.0,
+            //     child: Row(
+            //       children: [
+            //         Text(translationManager.translate('txtTrain').toUpperCase(),
+            //             style: const TextStyle(color: Colors.white)),
+            //         Transform.rotate(
+            //           angle: -1.6,
+            //           child: Image.asset(
+            //             'assets/simple_arrow_down.png',
+            //             width: 30,
+            //             height: 30,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
