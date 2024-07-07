@@ -6,6 +6,8 @@ import 'package:buracoplus/gameplay_single_player.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 
+import 'login/views/login.dart';
+
 class CreateTableSP extends StatefulWidget {
   const CreateTableSP({super.key});
 
@@ -1022,7 +1024,7 @@ class _CreateTableSPState extends State<CreateTableSP> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Home()),
+                  MaterialPageRoute(builder: (context) => const Login()),
                 );
               },
               backgroundColor: Colors.transparent,
