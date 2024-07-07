@@ -348,7 +348,7 @@ class _LoginState extends State<Login> {
               child: FloatingActionButton(
                 heroTag: null,
                 onPressed: () {
-                  //exit(0);
+                  exit(0);
                 },
                 backgroundColor: Colors.transparent,
                 splashColor: Colors.transparent,
