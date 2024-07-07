@@ -29,13 +29,13 @@ const TextStyle noticesTextStyle = TextStyle(
   ],
 );
 
-// const LinearGradient gradient1 = LinearGradient(
-//   colors: <Color>[
-//     Colors.green,
-//     Colors.white,
-//     Colors.red,
-//   ],
-// );
+const LinearGradient gradient1 = LinearGradient(
+  colors: <Color>[
+    Colors.green,
+    Colors.white,
+    Colors.red,
+  ],
+);
 
 const LinearGradient gradButton1 = LinearGradient(
   colors: <Color>[

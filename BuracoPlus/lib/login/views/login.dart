@@ -7,6 +7,7 @@ import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/create_table_single_player.dart';
 import 'package:buracoplus/home.dart';
 import 'package:buracoplus/login/controllers/login_controller.dart';
+import 'package:buracoplus/menu_views/notices.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -223,7 +224,60 @@ class _LoginState extends State<Login> {
                                         color: Color.fromRGBO(92, 70, 154, 1),
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  // BARRA START
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const Notices(),
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor:
+                                          const Color.fromRGBO(92, 70, 154, 1),
+                                      backgroundColor: Colors.white,
+                                    ).copyWith(
+                                      side: WidgetStateProperty.resolveWith<
+                                          BorderSide>(
+                                        (Set<WidgetState> states) {
+                                          if (states
+                                              .contains(WidgetState.pressed)) {
+                                            return const BorderSide(
+                                              color: Colors.black,
+                                              width: 1.5,
+                                            );
+                                          }
+                                          return const BorderSide(
+                                            color:
+                                                Color.fromRGBO(92, 70, 154, 1),
+                                            width: 1.5,
+                                          );
+                                        },
+                                      ),
+                                      shape: WidgetStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      translationManager
+                                          .translate('TEMP')
+                                          .toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Color.fromRGBO(92, 70, 154, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  // BARRA END
                                 ],
                               ),
                               const SizedBox(height: 5),

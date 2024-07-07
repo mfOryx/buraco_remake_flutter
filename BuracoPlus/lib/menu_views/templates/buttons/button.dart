@@ -21,9 +21,9 @@ class GradientTextButton extends StatelessWidget {
       {required this.custGradient,
       required this.custClick,
       required this.custLongClick,
-      required this.custButtonText, 
+      required this.custButtonText,
       required this.custIcon,
-      super.key});
+      super.key, required String custTesto});
 
   @override
   Widget build(BuildContext context) {
