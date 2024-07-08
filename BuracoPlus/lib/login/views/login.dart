@@ -228,54 +228,6 @@ class _LoginState extends State<Login> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const Notices(),
-                                        ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor:
-                                          const Color.fromRGBO(92, 70, 154, 1),
-                                      backgroundColor: Colors.white,
-                                    ).copyWith(
-                                      side: WidgetStateProperty.resolveWith<
-                                          BorderSide>(
-                                        (Set<WidgetState> states) {
-                                          if (states
-                                              .contains(WidgetState.pressed)) {
-                                            return const BorderSide(
-                                              color: Colors.black,
-                                              width: 1.5,
-                                            );
-                                          }
-                                          return const BorderSide(
-                                            color:
-                                                Color.fromRGBO(92, 70, 154, 1),
-                                            width: 1.5,
-                                          );
-                                        },
-                                      ),
-                                      shape: WidgetStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      translationManager
-                                          .translate('BARRA')
-                                          .toUpperCase(),
-                                      style: const TextStyle(
-                                        color: Color.fromRGBO(92, 70, 154, 1),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                               const SizedBox(height: 5),
@@ -348,11 +300,58 @@ class _LoginState extends State<Login> {
                                   ),
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const Home()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const Home(),
+                                      ),
+                                    );
                                   },
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const Notices(),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor:
+                                        const Color.fromRGBO(92, 70, 154, 1),
+                                    backgroundColor: Colors.white,
+                                  ).copyWith(
+                                    side: WidgetStateProperty.resolveWith<
+                                        BorderSide>(
+                                      (Set<WidgetState> states) {
+                                        if (states
+                                            .contains(WidgetState.pressed)) {
+                                          return const BorderSide(
+                                            color: Colors.black,
+                                            width: 1.5,
+                                          );
+                                        }
+                                        return const BorderSide(
+                                          color: Color.fromRGBO(92, 70, 154, 1),
+                                          width: 1.5,
+                                        );
+                                      },
+                                    ),
+                                    shape: WidgetStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    translationManager
+                                        .translate('NOTICES')
+                                        .toUpperCase(),
+                                    style: const TextStyle(
+                                      color: Color.fromRGBO(92, 70, 154, 1),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -364,7 +363,6 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-
             Positioned(
               top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
               left: 0,
