@@ -1,4 +1,4 @@
-import 'package:buracoplus/menu_views/main_screen.dart' show MainScreen;
+import 'package:buracoplus/menu_views/notices.dart';
 import 'package:buracoplus/menu_views/templates/buttons/button.dart'
     show GradientTextButton;
 import 'package:buracoplus/menu_views/templates/styles/text.dart' show CustText;
@@ -53,7 +53,7 @@ class Screen2 extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const MainScreen(),
+                      builder: (context) => const Notices(),
                     ),
                   );
                 },
