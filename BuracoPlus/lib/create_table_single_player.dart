@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:buracoplus/home.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/gameplay_single_player.dart';

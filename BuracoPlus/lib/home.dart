@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:buracoplus/common/toast_with_button.dart';
 import 'common/translation_manager.dart';
-import 'create_table_single_player.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

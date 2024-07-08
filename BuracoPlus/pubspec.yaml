@@ -70,6 +70,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/barra_images_temp/
     - assets/translations/
     - assets/google_fonts/
     - assets/spadesCards/

@@ -5,7 +5,6 @@ import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user.dart';
 import 'package:buracoplus/home.dart';
-import 'package:buracoplus/lobby.dart';
 import 'package:buracoplus/models/LoggedInPlayer.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';

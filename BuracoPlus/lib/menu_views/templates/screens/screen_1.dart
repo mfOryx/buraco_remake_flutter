@@ -1,15 +1,20 @@
-import 'package:buracoplus/menu_views/templates/buttons/button.dart';
-import 'package:buracoplus/menu_views/templates/buttons/link.dart';
-import 'package:buracoplus/menu_views/templates/screens/screen_2.dart';
-import 'package:buracoplus/menu_views/templates/styles/images.dart';
-import 'package:buracoplus/menu_views/variables.dart';
+import 'package:buracoplus/menu_views/templates/buttons/button.dart'
+    show GradientTextButton;
+import 'package:buracoplus/menu_views/templates/buttons/link.dart'
+    show openWebLink;
+import 'package:buracoplus/menu_views/templates/screens/screen_2.dart'
+    show Screen2;
+import 'package:buracoplus/menu_views/variables.dart'
+    show gradButton1, gradient1;
 import 'package:flutter/material.dart'
     show
+        BoxDecoration,
         BuildContext,
         Center,
         Color,
         Colors,
         Column,
+        Container,
         FontStyle,
         FontWeight,
         Icon,
@@ -29,24 +34,19 @@ import 'package:flutter/material.dart'
         Widget;
 
 class Screen1 extends StatelessWidget {
-  const Screen1(
-      {super.key});
+  const Screen1({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: gradient1,
+      ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            NoticesBlend(
-              custNoticesBlend: Colors.white.withOpacity(0.5),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
             GradientTextButton(
               custGradient: gradButton1,
               custClick: () {
@@ -57,7 +57,6 @@ class Screen1 extends StatelessWidget {
                   ),
                 );
               },
-              custLongClick: null,
               custTesto: 'Schermo 2',
               custButtonText: null,
               custIcon: const Icon(Icons.arrow_forward_ios),
@@ -65,9 +64,8 @@ class Screen1 extends StatelessWidget {
             const GradientTextButton(
               custGradient: gradButton1,
               custClick: openWebLink,
-              custLongClick: openWebLink,
               custButtonText: Text(
-                'clicca sul sito web kernel.org',
+                'Test link kernel.org',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   letterSpacing: 1,
@@ -87,14 +85,15 @@ class Screen1 extends StatelessWidget {
                   ],
                 ),
               ),
-              custIcon: null,
-              custTesto: '',
+              //custIcon: null,
+              custTesto: '', 
+              custIcon: Icon(Icons.arrow_forward_ios),
             ),
             const SizedBox(
               height: 30,
             ),
             const Text(
-              'prova centratura testo',
+              'Fix it',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 40,

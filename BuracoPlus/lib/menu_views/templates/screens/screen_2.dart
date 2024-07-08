@@ -1,9 +1,10 @@
-
-import 'package:buracoplus/menu_views/templates/buttons/button.dart';
-import 'package:buracoplus/menu_views/templates/screens/screen_1.dart';
-import 'package:buracoplus/menu_views/templates/styles/images.dart';
-import 'package:buracoplus/menu_views/templates/styles/text.dart';
-import 'package:buracoplus/menu_views/variables.dart';
+import 'package:buracoplus/menu_views/templates/buttons/button.dart'
+    show GradientTextButton;
+import 'package:buracoplus/menu_views/templates/screens/screen_1.dart'
+    show Screen1;
+import 'package:buracoplus/menu_views/templates/styles/text.dart' show CustText;
+import 'package:buracoplus/menu_views/variables.dart'
+    show gradButton1, gradient1;
 import 'package:flutter/material.dart'
     show
         BoxDecoration,
@@ -30,8 +31,6 @@ import 'package:flutter/material.dart'
 class Screen2 extends StatelessWidget {
   const Screen2({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,15 +44,6 @@ class Screen2 extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              NoticesBlend(
-                custNoticesBlend: Colors.white.withOpacity(0.2),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
               GradientTextButton(
                 custGradient: gradButton1,
                 custButtonText: const CustText(
@@ -63,13 +53,11 @@ class Screen2 extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Screen1(
-                      ),
+                      builder: (context) => const Screen1(),
                     ),
                   );
                 },
-                custLongClick: null,
-                custIcon: const Icon(Icons.arrow_back_ios), 
+                custIcon: const Icon(Icons.arrow_back_ios),
                 custTesto: '',
               ),
               const SizedBox(

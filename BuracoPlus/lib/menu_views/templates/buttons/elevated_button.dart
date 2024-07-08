@@ -19,9 +19,7 @@ class GradientElevatedButton extends StatelessWidget {
 
   const GradientElevatedButton(
       {required this.custGradiente,
-      required this.custClick,
-      required this.custTesto,
-      super.key});
+      super.key, this.custClick, required this.custTesto});
 
   @override
   Widget build(BuildContext context) {

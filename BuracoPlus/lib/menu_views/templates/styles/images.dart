@@ -16,7 +16,7 @@ class NoticesBlend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'assets/images/changeme.svg',
+      'assets/barra_images_temp/test_image.png',
       width: 350,
       color: custNoticesBlend,
       filterQuality: FilterQuality.high,

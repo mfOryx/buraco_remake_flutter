@@ -13,14 +13,12 @@ import 'package:flutter/material.dart'
 class GradientTextButton extends StatelessWidget {
   final LinearGradient custGradient;
   final custClick;
-  final custLongClick;
   final custButtonText;
   final custIcon;
 
   const GradientTextButton(
       {required this.custGradient,
       required this.custClick,
-      required this.custLongClick,
       required this.custButtonText,
       required this.custIcon,
       super.key, required String custTesto});
@@ -36,7 +34,6 @@ class GradientTextButton extends StatelessWidget {
       ),
       child: TextButton.icon(
         onPressed: custClick,
-        onLongPress: custLongClick,
         icon: custIcon,
         iconAlignment: IconAlignment.start,
         label: custButtonText,
