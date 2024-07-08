@@ -1,7 +1,6 @@
+import 'package:buracoplus/menu_views/main_screen.dart' show MainScreen;
 import 'package:buracoplus/menu_views/templates/buttons/button.dart'
     show GradientTextButton;
-import 'package:buracoplus/menu_views/templates/screens/screen_1.dart'
-    show Screen1;
 import 'package:buracoplus/menu_views/templates/styles/text.dart' show CustText;
 import 'package:buracoplus/menu_views/variables.dart'
     show gradButton1, gradient1;
@@ -47,13 +46,14 @@ class Screen2 extends StatelessWidget {
               GradientTextButton(
                 custGradient: gradButton1,
                 custButtonText: const CustText(
-                  custText: 'Schermo 1',
+                  custText: 'Back to Schermo 1',
+                  textAlign: TextAlign.center,
                 ),
                 custClick: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Screen1(),
+                      builder: (context) => const MainScreen(),
                     ),
                   );
                 },
@@ -64,13 +64,13 @@ class Screen2 extends StatelessWidget {
                 height: 30,
               ),
               const Text(
-                'prova testo',
+                'Test template screen',
                 //style: GoogleFonts.lato(
                 ////style: GoogleFonts.getFont('Lato'),
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 30,
-                  fontStyle: FontStyle.italic,
+                  fontStyle: FontStyle.normal,
                   fontFamily:
                       'assets/fonts/google_fonts/IbarraRealNova-Bold.ttf',
                   //'assets/fonts/google_fonts/IbarraRealNova-BoldItalic.ttf',

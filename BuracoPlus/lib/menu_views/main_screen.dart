@@ -1,9 +1,9 @@
+import 'package:buracoplus/login/views/login.dart';
 import 'package:buracoplus/menu_views/templates/buttons/button.dart'
     show GradientTextButton;
-import 'package:buracoplus/menu_views/templates/buttons/link.dart'
-    show openWebLink;
-import 'package:buracoplus/menu_views/templates/screens/screen_2.dart'
+import 'package:buracoplus/menu_views/templates/screens/screen_template_1.dart'
     show Screen2;
+import 'package:buracoplus/menu_views/templates/styles/text.dart';
 import 'package:buracoplus/menu_views/variables.dart'
     show gradButton1, gradient1;
 import 'package:flutter/material.dart'
@@ -11,7 +11,6 @@ import 'package:flutter/material.dart'
         BoxDecoration,
         BuildContext,
         Center,
-        Color,
         Colors,
         Column,
         Container,
@@ -23,18 +22,15 @@ import 'package:flutter/material.dart'
         MainAxisSize,
         MaterialPageRoute,
         Navigator,
-        Offset,
-        Shadow,
         SizedBox,
         StatelessWidget,
         Text,
         TextAlign,
-        TextDecoration,
         TextStyle,
         Widget;
 
-class Screen1 extends StatelessWidget {
-  const Screen1({super.key});
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,46 +54,40 @@ class Screen1 extends StatelessWidget {
                 );
               },
               custTesto: 'Schermo 2',
-              custButtonText: null,
-              custIcon: const Icon(Icons.arrow_forward_ios),
-            ),
-            const GradientTextButton(
-              custGradient: gradButton1,
-              custClick: openWebLink,
-              custButtonText: Text(
-                'Test link kernel.org',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  letterSpacing: 1,
-                  wordSpacing: 1,
-                  decoration: TextDecoration.underline,
-                  backgroundColor: Colors.transparent,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 12,
-                  color: Color.fromARGB(255, 24, 12, 190),
-                  shadows: <Shadow>[
-                    Shadow(
-                      color: Colors.lightBlueAccent,
-                      offset: Offset(3.0, 1.0),
-                      blurRadius: 9.0,
-                    ),
-                  ],
-                ),
+              custButtonText: const Text(
+                'Schermo 2',
               ),
-              //custIcon: null,
-              custTesto: '', 
-              custIcon: Icon(Icons.arrow_forward_ios),
+              custIcon: const Icon(Icons.arrow_forward_ios),
             ),
             const SizedBox(
               height: 30,
             ),
+            GradientTextButton(
+                custGradient: gradButton1,
+                custButtonText: const CustText(
+                  custText: 'Back to Login Page',
+                  textAlign: TextAlign.center,
+                ),
+                custClick: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ),
+                  );
+                },
+                custIcon: const Icon(Icons.arrow_back_ios),
+                custTesto: '',
+              ),
+            const SizedBox(
+              height: 30,
+            ),
             const Text(
-              'Fix it',
+              'BARRA - IN PROGRESS',
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 40,
-                fontStyle: FontStyle.italic,
+                fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
