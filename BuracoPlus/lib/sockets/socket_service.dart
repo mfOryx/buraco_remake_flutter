@@ -12,7 +12,7 @@ class SocketService with ChangeNotifier {
 
   SocketService(this._serverUrl);
 
-  void connect() {
+  void connect({void Function()? onConnected}) {
     print(_serverUrl);
     
 
@@ -27,6 +27,10 @@ class SocketService with ChangeNotifier {
       }
       _isConnected = true;
       notifyListeners();
+
+      if (onConnected != null) {
+        onConnected();
+      }
     });
 
     _socket.on('disconnect', (_) {
@@ -39,7 +43,7 @@ class SocketService with ChangeNotifier {
 
     _socket.on('connect_error', (err) {
       if (kDebugMode) {
-        print('Here I am. Connection error: $err');
+        print('Connection error: $err');
       }
       _isConnected = false;
       notifyListeners();

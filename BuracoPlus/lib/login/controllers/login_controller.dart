@@ -61,7 +61,7 @@ class LoginController {
     final socketService = Provider.of<SocketService>(context, listen: false);
 
     if (!socketService.isConnected()) {
-      socketService.connect();
+      socketService.connect(onConnected: () => sendLogin(context, username, password));
     } else {
       // final getAllTables = await socketService.emitWithAck('getAllTables', {});
 
