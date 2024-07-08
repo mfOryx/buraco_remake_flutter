@@ -1,51 +1,32 @@
 import 'package:flutter/material.dart'
     show
+        Alignment,
         Color,
         Colors,
         FontStyle,
         FontWeight,
         LinearGradient,
-        Offset,
-        Shadow,
         TextDecoration,
         TextStyle;
 
 const TextStyle noticesTextStyle = TextStyle(
-  letterSpacing: 1,
-  wordSpacing: 1,
+  letterSpacing: 1.5,
   decoration: TextDecoration.none,
   backgroundColor: Colors.transparent,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
-  fontSize: 13,
-  color: Color.fromARGB(255, 3, 110, 8),
-  shadows: <Shadow>[
-    Shadow(
-      color: Colors.lightBlue,
-      offset: Offset(3.0, 1.0),
-      blurRadius: 9.0,
-    ),
-  ],
+  fontSize: 30,
+  color: Colors.white,
 );
 
-const LinearGradient gradient1 = LinearGradient(
-  colors: <Color>[
-    Colors.green,
-    Colors.white,
-    Colors.red,
+const LinearGradient mainGradient = LinearGradient(
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+  colors: [
+    Color.fromRGBO(114, 60, 125, 1.0),
+    Color.fromRGBO(141, 107, 147, 1.0),
+    Color.fromRGBO(96, 132, 166, 1.0),
+    Color.fromRGBO(88, 104, 147, 1.0),
   ],
+  stops: [0.0, 0.33, 0.66, 1.0],
 );
-
-const LinearGradient gradButton1 = LinearGradient(
-  colors: <Color>[
-    Colors.red,
-    Colors.yellow,
-    Colors.orange,
-    Colors.deepPurpleAccent,
-  ],
-);
-
-// var screenSize = MediaQuery.of(context).size;
-// final themeProvider = Provider.of<ThemeProvider>(context);
-// final colors = themeProvider.currentColors;
-// final translationManager = Provider.of<TranslationManager>(context);

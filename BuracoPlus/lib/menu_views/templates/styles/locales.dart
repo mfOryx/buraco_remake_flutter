@@ -12,3 +12,5 @@
         //   Locale('pt', ''),
         //   Locale('ar', ''),
         // ],
+
+        // final translationManager = Provider.of<TranslationManager>(context);

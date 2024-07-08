@@ -4,24 +4,25 @@ import 'package:flutter/material.dart'
         BoxDecoration,
         BuildContext,
         Container,
+        Icon,
         IconAlignment,
         LinearGradient,
         StatelessWidget,
+        Text,
         TextButton,
         Widget;
 
 class GradientTextButton extends StatelessWidget {
   final LinearGradient custGradient;
-  final custClick;
-  final custButtonText;
-  final custIcon;
+  final Text custButtonText;
+  final Icon custIcon;
 
   const GradientTextButton(
       {required this.custGradient,
-      required this.custClick,
       required this.custButtonText,
       required this.custIcon,
-      super.key, required String custTesto});
+      super.key,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,10 @@ class GradientTextButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextButton.icon(
-        onPressed: custClick,
         icon: custIcon,
         iconAlignment: IconAlignment.start,
         label: custButtonText,
+        onPressed: () {},
       ),
     );
   }

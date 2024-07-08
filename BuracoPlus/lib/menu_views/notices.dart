@@ -1,33 +1,10 @@
-import 'package:buracoplus/login/views/login.dart' show Login;
-import 'package:buracoplus/menu_views/templates/buttons/button.dart'
-    show GradientTextButton;
+import 'package:buracoplus/blocks/privacy_button.dart';
+import 'package:buracoplus/blocks/privacy_menu.dart';
 import 'package:buracoplus/menu_views/templates/styles/text.dart' show CustText;
-import 'package:buracoplus/menu_views/variables.dart'
-    show gradButton1, gradient1;
+import 'package:buracoplus/menu_views/variables.dart' show mainGradient;
 import 'package:flutter/material.dart'
-    show
-        BoxDecoration,
-        BuildContext,
-        Center,
-        Colors,
-        Column,
-        Container,
-        FontStyle,
-        FontWeight,
-        Icon,
-        Icons,
-        MainAxisAlignment,
-        MainAxisSize,
-        MaterialPageRoute,
-        Navigator,
-        Scaffold,
-        SizedBox,
-        State,
-        StatefulWidget,
-        Text,
-        TextAlign,
-        TextStyle,
-        Widget;
+    show BlendMode, BoxDecoration, BuildContext, Center, Container, FilterQuality, FloatingActionButton, Image, MainAxisAlignment, MainAxisSize, Navigator, Row, Scaffold, SizedBox, State, StatefulWidget, Widget;
+import 'package:url_launcher/url_launcher.dart';
 
 class Notices extends StatefulWidget {
   const Notices({super.key});
@@ -37,6 +14,7 @@ class Notices extends StatefulWidget {
     return _NoticesState();
   }
 }
+  void _toggleMenu() {}
 
 class _NoticesState extends State<Notices> {
   @override
@@ -44,43 +22,42 @@ class _NoticesState extends State<Notices> {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: gradient1,
+          gradient: mainGradient,
         ),
         child: Center(
-          child: Column(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              GradientTextButton(
-                custGradient: gradButton1,
-                custButtonText: const CustText(
-                  custText: 'Back to Login Page',
-                  textAlign: TextAlign.center,
-                ),
-                custClick: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Login(),
-                    ),
-                  );
-                },
-                custIcon: const Icon(Icons.arrow_back_ios),
-                custTesto: '',
+              const CustText(
+                custText: 'NOTICE',
               ),
+              const PrivacyButton(
+                toggleMenu: _toggleMenu,
+              ),
+              PrivacyMenu(
+              launchURL: (url) async {
+                if (!await launchUrl(url)) {
+                  throw 'Could not launch $url';
+                }
+              }, isMenuVisible: true,
+            ),
               const SizedBox(
-                height: 30,
+                width: 100,
               ),
-              const Text(
-                'BARRA - IN PROGRESS',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 40,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.bold,
+              //ElevatedButton(
+              FloatingActionButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  'assets/ic_check_gradiant2.png',
+                  //color: custNoticesBlend,
+                  filterQuality: FilterQuality.high,
+                  colorBlendMode: BlendMode.dstIn,
+                  width: 20,
+                  height: 20,
                 ),
-                textAlign: TextAlign.center,
-                selectionColor: Colors.red,
               ),
             ],
           ),

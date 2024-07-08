@@ -3,10 +3,11 @@ import 'package:flutter/material.dart'
         BorderRadius,
         BoxDecoration,
         BuildContext,
-        Colors,
         Container,
         ElevatedButton,
+        Image,
         LinearGradient,
+        Navigator,
         SizedBox,
         StatelessWidget,
         Text,
@@ -14,12 +15,12 @@ import 'package:flutter/material.dart'
 
 class GradientElevatedButton extends StatelessWidget {
   final LinearGradient custGradiente;
-  final custClick;
   final Text custTesto;
 
   const GradientElevatedButton(
       {required this.custGradiente,
-      super.key, this.custClick, required this.custTesto});
+      required this.custTesto,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,14 @@ class GradientElevatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: ElevatedButton(
-          onPressed: custClick,
-          style: ElevatedButton.styleFrom(
-            shadowColor: Colors.transparent.withOpacity(0),
-            backgroundColor: Colors.transparent.withOpacity(0),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Image.asset(
+            'assets/ic_check_gradiant2.png',
+            width: 30,
+            height: 30,
           ),
-          child: custTesto,
         ),
       ),
     );
