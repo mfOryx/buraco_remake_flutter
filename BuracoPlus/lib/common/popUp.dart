@@ -11,6 +11,11 @@ class PopUps {
   // - autocloseDuration : [Optional parameter if set to 0 the popup will remain shown unless clicked on ok Button otherwise will wait for given seconds and dismiss]
   // - onPressed : [optional] the function to be executed upon clicking ok button
 
+ //**************** EXAMPLE USAGE ***************************************
+  // PopUps.popUpWarningWithButton("Connection", "Connected sucessfully!",
+  //     autocloseDuration: 5,onPressed: ()=>{
+  //   print("custom on pressed")
+  //     });
 
   static void popUpSucessWithButton(
     String title,
@@ -130,7 +135,7 @@ class PopUps {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Color(0xF0FFED96),
+            color: Color(0xF0FFF4C8),
           ),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(3),
@@ -172,7 +177,7 @@ class PopUps {
     static void popUpSimpleSucess(
         String title,
         String message, {
-          int autocloseDuration = 0,}
+          int autocloseDuration = 4,}
         ){
 
       toastification.show(
@@ -182,11 +187,48 @@ class PopUps {
         title: Text(title),
         description: Text(message),
         alignment: Alignment.topCenter,
-        autoCloseDuration: const Duration(seconds: 4),
+        autoCloseDuration:  Duration(seconds: autocloseDuration),
         borderRadius: BorderRadius.circular(4.0),
       );
 
     }
+
+  static void popUpSimpleWarning(
+      String title,
+      String message, {
+        int autocloseDuration = 4,}
+      ){
+
+    toastification.show(
+
+      type: ToastificationType.warning,
+      style: ToastificationStyle.flatColored,
+      title: Text(title),
+      description: Text(message),
+      alignment: Alignment.topCenter,
+      autoCloseDuration:  Duration(seconds: autocloseDuration),
+      borderRadius: BorderRadius.circular(4.0),
+    );
+
+  }
+
+  static void popUpSimpleError(
+      String title,
+      String message, {
+        int autocloseDuration = 4,}
+      ){
+    toastification.show(
+
+      type: ToastificationType.error,
+      style: ToastificationStyle.flatColored,
+      title: Text(title),
+      description: Text(message),
+      alignment: Alignment.topCenter,
+      autoCloseDuration:  Duration(seconds: autocloseDuration),
+      borderRadius: BorderRadius.circular(4.0),
+    );
+
+  }
 
 
 //Example code of showing the toast of 3 different types with the parameters

@@ -87,23 +87,23 @@ class ModalHelpers {
     return [
       ListTile(
         title: _languageTile('Italian', 'it', translationManager, context),
-        onTap: () => translationManager.changeLanguage('it'),
+        onTap: () { translationManager.changeLanguage('it');},
       ),
       ListTile(
         title: _languageTile('English', 'en', translationManager, context),
-        onTap: () => translationManager.changeLanguage('en'),
+        onTap: () {translationManager.changeLanguage('en');},
       ),
       ListTile(
         title: _languageTile('Spanish', 'es', translationManager, context),
-        onTap: () => translationManager.changeLanguage('es'),
+        onTap: () {translationManager.changeLanguage('es');},
       ),
       ListTile(
         title: _languageTile('Portuguese', 'pt', translationManager, context),
-        onTap: () => translationManager.changeLanguage('pt'),
+        onTap: () {translationManager.changeLanguage('pt');},
       ),
       ListTile(
         title: _languageTile('Arabic', 'ar', translationManager, context),
-        onTap: () => translationManager.changeLanguage('ar'),
+        onTap: () {translationManager.changeLanguage('ar');},
       ),
     ];
   }

@@ -1,4 +1,5 @@
 import 'package:buracoplus/blocks/lobby_option_item.dart';
+import 'package:buracoplus/common/settingsManager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/helpers/modal_helpers.dart';
@@ -107,7 +108,7 @@ class OptionsButton extends StatelessWidget {
   List<OptionGroup> _buildOptionGroups(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     final translationManager = Provider.of<TranslationManager>(context);
-
+     final settingsManager = Provider.of<SettingsManager>(context);
     return [
       OptionGroup(
         title: translationManager.translate('txtGeneral'),
@@ -115,9 +116,10 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtDarkMode'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.darkMode,
             onSwitchChanged: (val) {
               themeProvider.toggleTheme();
+              settingsManager.setDarkMode(val);
             },
             onTap: (context) {},
           ),
@@ -136,8 +138,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtManualSorting'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.manualSorting,
             onSwitchChanged: (val) {
+              settingsManager.setManualSorting(val);
               if (kDebugMode) {
                 print('Switch Ordinamento manuale: $val');
               }
@@ -147,8 +150,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtCardRotation'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.cardRotation,
             onSwitchChanged: (val) {
+              settingsManager.setCardRotation(val);
               if (kDebugMode) {
                 print('Switch Rotazione carte: $val');
               }
@@ -158,8 +162,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtTopCardRotation'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.topCardRotation,
             onSwitchChanged: (val) {
+              settingsManager.setTopCardRotation(val);
               if (kDebugMode) {
                 print('Switch Rotazione carte superiori: $val');
               }
@@ -174,8 +179,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtNewMessages'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.newMessages,
             onSwitchChanged: (val) {
+              settingsManager.setNewMessages(val);
               if (kDebugMode) {
                 print('Switch Nuovi messaggi: $val');
               }
@@ -185,8 +191,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtFriendRequests'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.friendRequestsNotification,
             onSwitchChanged: (val) {
+              settingsManager.setFriendRequestsNotification(val);
               if (kDebugMode) {
                 print('Switch Richieste di amicizia: $val');
               }
@@ -196,8 +203,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtTournaments'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.tournaments,
             onSwitchChanged: (val) {
+              settingsManager.setTournaments(val);
               if (kDebugMode) {
                 print('Switch Tornei: $val');
               }
@@ -212,8 +220,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtSystemSounds'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.systemSounds,
             onSwitchChanged: (val) {
+              settingsManager.setSystemSounds(val);
               if (kDebugMode) {
                 print('Switch Suoni di sistema: $val');
               }
@@ -223,8 +232,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtNudge'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.trill,
             onSwitchChanged: (val) {
+              settingsManager.setTrill(val);
               if (kDebugMode) {
                 print('Switch Trillo: $val');
               }
@@ -239,8 +249,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtFriendRequests'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.friendRequestsRestrictions,
             onSwitchChanged: (val) {
+              settingsManager.setFriendRequestsRestrictions(val);
               if (kDebugMode) {
                 print('Switch Richieste di amicizia: $val');
               }
@@ -250,8 +261,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtClubInvites'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.clubInvites,
             onSwitchChanged: (val) {
+              settingsManager.setClubInvites(val);
               if (kDebugMode) {
                 print('Switch Inviti clubs: $val');
               }
@@ -261,8 +273,9 @@ class OptionsButton extends StatelessWidget {
           OptionItem(
             title: translationManager.translate('txtInvitesToTable'),
             isSwitch: true,
-            switchValue: true,
+            switchValue: settingsManager.invitesToTable,
             onSwitchChanged: (val) {
+              settingsManager.setInvitesToTable(val);
               if (kDebugMode) {
                 print('Switch Inviti al tavolo: $val');
               }

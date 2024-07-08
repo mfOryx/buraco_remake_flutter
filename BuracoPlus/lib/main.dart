@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:buracoplus/common/settingsManager.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:toastification/toastification.dart';
+import 'package:buracoplus/common/settingsManager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences().loadPreferences();
@@ -37,6 +39,7 @@ class MainApp extends StatelessWidget {
     return ToastificationWrapper(
       child: MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (_) => SettingsManager()),
           ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
           ChangeNotifierProvider<TranslationManager>.value(
               value: translationManager),
