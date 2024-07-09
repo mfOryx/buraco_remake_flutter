@@ -8,8 +8,6 @@ import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 
-import '../services/settingsManager_Service.dart';
-
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
 
