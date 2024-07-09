@@ -30,7 +30,7 @@ class PopUps {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Color(0xFFBCFFA5),
+            color: const Color(0xFFBCFFA5),
           ),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(3),
@@ -40,7 +40,7 @@ class PopUps {
               Row(
 
                 children: [
-                  Icon(Icons.check_circle_outline_outlined,color: Color(
+                  const Icon(Icons.check_circle_outline_outlined,color: Color(
                       0xFF1F7900)),
                   Text(title,
                       style: const TextStyle(
@@ -83,7 +83,7 @@ class PopUps {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Color(0xF5FF8484),
+            color: const Color(0xF5FF8484),
           ),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(3),
@@ -93,7 +93,7 @@ class PopUps {
               Row(
 
                 children: [
-                  Icon(Icons.error_outline_sharp,color: Color(0xFF8F0028)),
+                  const Icon(Icons.error_outline_sharp,color: Color(0xFF8F0028)),
                   Text(title,
                       style: const TextStyle(
                           color: Color(0xFF830023), fontWeight: FontWeight.bold)),
@@ -135,7 +135,7 @@ class PopUps {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2),
-            color: Color(0xF0FFF4C8),
+            color: const Color(0xF0FFF4C8),
           ),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(3),
@@ -145,7 +145,7 @@ class PopUps {
               Row(
 
                 children: [
-                  Icon(Icons.warning_amber_rounded,color: Color(0xFFFFAE41)),
+                  const Icon(Icons.warning_amber_rounded,color: Color(0xFFFFAE41)),
                   Text(title,
                       style: const TextStyle(
                           color: Color(0xFF985400), fontWeight: FontWeight.bold)),

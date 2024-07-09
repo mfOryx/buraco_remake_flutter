@@ -259,7 +259,7 @@ class _LoginState extends State<Login> {
                                   'assets/socialMediaIcons/apple.svg',
                                   width: 40,
                                   height: 40,
-                                  color: Colors.white,
+                                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                                 ),
                                 onPressed: () {
                                   Navigator.push(

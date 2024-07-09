@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:buracoplus/common/translation_manager.dart';
-import 'package:buracoplus/helpers/preferences_service.dart'    ;
 
 class SettingsManager with ChangeNotifier
 {
