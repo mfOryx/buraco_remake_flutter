@@ -1,19 +1,75 @@
-import 'dart:io';
-
-import 'package:buracoplus/blocks/options_button.dart';
-import 'package:buracoplus/blocks/privacy_button.dart';
-import 'package:buracoplus/blocks/privacy_menu.dart';
-import 'package:buracoplus/common/translation_manager.dart';
-import 'package:buracoplus/create_table_single_player.dart';
-import 'package:buracoplus/home.dart';
-import 'package:buracoplus/login/controllers/login_controller.dart';
-import 'package:buracoplus/menu_views/notices.dart';
-import 'package:buracoplus/providers/theme_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'dart:io' show Platform, exit;
+import 'package:buracoplus/blocks/options_button.dart' show OptionsButton;
+import 'package:buracoplus/blocks/privacy_button.dart' show PrivacyButton;
+import 'package:buracoplus/blocks/privacy_menu.dart' show PrivacyMenu;
+import 'package:buracoplus/common/translation_manager.dart'
+    show TranslationManager;
+import 'package:buracoplus/create_table_single_player.dart' show CreateTableSP;
+import 'package:buracoplus/home.dart' show Home;
+import 'package:buracoplus/login/controllers/login_controller.dart'
+    show LoginController;
+import 'package:buracoplus/menu_views/blocks/notices_button.dart'
+    show NoticesButton;
+import 'package:buracoplus/providers/theme_provider.dart' show ThemeProvider;
+import 'package:flutter/material.dart'
+    show
+        Align,
+        Alignment,
+        AssetImage,
+        BlendMode,
+        Border,
+        BorderRadius,
+        BorderSide,
+        BoxDecoration,
+        BoxFit,
+        BuildContext,
+        Center,
+        Color,
+        ColorFilter,
+        Colors,
+        Column,
+        Container,
+        DecorationImage,
+        Directionality,
+        EdgeInsets,
+        ElevatedButton,
+        FloatingActionButton,
+        GestureDetector,
+        Icon,
+        IconButton,
+        Icons,
+        Image,
+        InputDecoration,
+        MainAxisAlignment,
+        MaterialPageRoute,
+        MediaQuery,
+        Navigator,
+        Positioned,
+        RoundedRectangleBorder,
+        Row,
+        Scaffold,
+        ScaffoldMessenger,
+        SizedBox,
+        SnackBar,
+        Stack,
+        State,
+        StatefulWidget,
+        Text,
+        TextAlign,
+        TextDecoration,
+        TextDirection,
+        TextEditingController,
+        TextField,
+        TextStyle,
+        Transform,
+        Widget,
+        WidgetState,
+        WidgetStateProperty;
+import 'package:flutter_svg/svg.dart' show SvgPicture;
+import 'package:provider/provider.dart' show Provider;
+import 'package:shared_preferences/shared_preferences.dart'
+    show SharedPreferences;
+import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -102,10 +158,12 @@ class _LoginState extends State<Login> {
                 child: Container(
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image:
-                            AssetImage('assets/spade_transparent_v2.png.webp'),
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.bottomLeft),
+                      image: AssetImage(
+                        'assets/spade_transparent_v2.png.webp',
+                      ),
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.bottomLeft,
+                    ),
                     color: Colors.transparent,
                   ),
                   child: Column(
@@ -117,9 +175,10 @@ class _LoginState extends State<Login> {
                           width: screenSize.width * 0.4,
                           padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(20.0),
-                              border: Border.all(color: Colors.white)),
+                            color: Colors.white.withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.white),
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -162,7 +221,9 @@ class _LoginState extends State<Login> {
                                       color: Colors.white,
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
+                                      vertical: 10,
+                                      horizontal: 10,
+                                    ),
                                     suffixIcon: IconButton(
                                       onPressed: () {
                                         setState(() {
@@ -259,13 +320,18 @@ class _LoginState extends State<Login> {
                                   'assets/socialMediaIcons/apple.svg',
                                   width: 40,
                                   height: 40,
-                                  colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                                  colorFilter: const ColorFilter.mode(
+                                    Colors.white,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
                                 onPressed: () {
                                   Navigator.push(
-                                      this.context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Home()));
+                                    this.context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Home(),
+                                    ),
+                                  );
                                 },
                               ),
                             ]),
@@ -307,52 +373,6 @@ class _LoginState extends State<Login> {
                                     );
                                   },
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const Notices(),
-                                      ),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    foregroundColor:
-                                        const Color.fromRGBO(92, 70, 154, 1),
-                                    backgroundColor: Colors.white,
-                                  ).copyWith(
-                                    side: WidgetStateProperty.resolveWith<
-                                        BorderSide>(
-                                      (Set<WidgetState> states) {
-                                        if (states
-                                            .contains(WidgetState.pressed)) {
-                                          return const BorderSide(
-                                            color: Colors.black,
-                                            width: 1.5,
-                                          );
-                                        }
-                                        return const BorderSide(
-                                          color: Color.fromRGBO(92, 70, 154, 1),
-                                          width: 1.5,
-                                        );
-                                      },
-                                    ),
-                                    shape: WidgetStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    translationManager
-                                        .translate('NOTICES')
-                                        .toUpperCase(),
-                                    style: const TextStyle(
-                                      color: Color.fromRGBO(92, 70, 154, 1),
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           ],
@@ -376,6 +396,7 @@ class _LoginState extends State<Login> {
             OptionsButton(toggleMenu: _toggleMenu),
             //privacy section
             PrivacyButton(toggleMenu: _toggleMenu),
+            NoticesButton(toggleMenu: _toggleMenu),
             PrivacyMenu(
               isMenuVisible: isMenuVisible,
               launchURL: (url) async {
@@ -430,17 +451,23 @@ class _LoginState extends State<Login> {
                 heroTag: null,
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CreateTableSP()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreateTableSP(),
+                    ),
+                  );
                 },
                 backgroundColor: Colors.transparent,
                 splashColor: Colors.transparent,
                 elevation: 0.0,
                 child: Row(
                   children: [
-                    Text(translationManager.translate('txtTrain').toUpperCase(),
-                        style: const TextStyle(color: Colors.white)),
+                    Text(
+                      translationManager.translate('txtTrain').toUpperCase(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                     Transform.rotate(
                       angle: -1.6,
                       child: Image.asset(
