@@ -8,6 +8,8 @@ import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 
+import '../services/settingsManager_Service.dart';
+
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
 
@@ -16,6 +18,13 @@ class OptionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translationManager = Provider.of<TranslationManager>(context);
+    // load the values from shared preferences at start
+    final settingsManager = Provider.of<SettingsManager>(context);
+    settingsManager.loadSettingsFromSharedPreferences();
+   // fetch the settings data from the server
+
+
+
     return Positioned(
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl ? 120 : null,
