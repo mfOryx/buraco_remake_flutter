@@ -13,7 +13,10 @@ import '../services/settingsManager_Service.dart';
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
 
-  const OptionsButton({super.key, required this.toggleMenu});
+  const OptionsButton({
+    required this.toggleMenu,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,8 @@ class OptionsButton extends StatelessWidget {
             onPressed: () => showOptionsPanel(context),
           ),
           const SizedBox(height: 1),
-          Text(translationManager.translate('txtSettings').toUpperCase(), style: const TextStyle(color: Colors.white)),
+          Text(translationManager.translate('txtSettings').toUpperCase(),
+              style: const TextStyle(color: Colors.white)),
         ],
       ),
     );
@@ -75,7 +79,9 @@ class OptionsButton extends StatelessWidget {
                           const Icon(Icons.settings, color: Colors.white),
                           const SizedBox(width: 10),
                           Text(
-                            translationManager.translate('txtSettings').toUpperCase(),
+                            translationManager
+                                .translate('txtSettings')
+                                .toUpperCase(),
                             style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -117,7 +123,7 @@ class OptionsButton extends StatelessWidget {
   List<OptionGroup> _buildOptionGroups(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     final translationManager = Provider.of<TranslationManager>(context);
-     final settingsManager = Provider.of<SettingsManager>(context);
+    final settingsManager = Provider.of<SettingsManager>(context);
     return [
       OptionGroup(
         title: translationManager.translate('txtGeneral'),

@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'package:buracoplus/common/popUp.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
-import 'package:toastification/toastification.dart';
 
 class SocketService with ChangeNotifier {
   late io.Socket _socket;
