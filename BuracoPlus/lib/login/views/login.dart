@@ -394,7 +394,7 @@ class _LoginState extends State<Login> {
             OptionsButton(toggleMenu: _toggleMenu),
             //privacy section
             PrivacyButton(toggleMenu: _toggleMenu),
-            NoticesButton(toggleMenu: _toggleMenu),
+            //NoticesButton(toggleMenu: _toggleMenu),
             PrivacyMenu(
               isMenuVisible: isMenuVisible,
               launchURL: (url) async {
