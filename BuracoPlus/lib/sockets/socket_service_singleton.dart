@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -16,8 +15,9 @@ class SocketServiceSingleton {
   SocketServiceSingleton._internal();
 
   void initSocket(String url) {
-    if(_isConnected)
+    if(_isConnected) {
       return;
+    }
     socket = IO.io(url, IO.OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:buracoplus/sockets/socket_service_singleton.dart';
 
 
 class SettingsManager with ChangeNotifier {
