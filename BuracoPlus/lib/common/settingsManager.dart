@@ -1,16 +1,13 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:buracoplus/sockets/socket_service_singleton.dart';
 
-import 'package:buracoplus/common/translation_manager.dart';
-import 'package:buracoplus/helpers/preferences_service.dart';
-import 'package:http/http.dart' as http;
-
-
-import '../services/settingsManager_Service.dart';
 
 class SettingsManager with ChangeNotifier {
+
+ 
+
   bool _darkMode = false;
   bool _manualSorting = true;
   bool _cardRotation = true;
@@ -210,11 +207,15 @@ class SettingsManager with ChangeNotifier {
         '_friendRequestsRestrictions', friendRequestsRestrictions);
     await prefs.setBool('_clubInvites', clubInvites);
     await prefs.setBool('_invitesToTable', invitesToTable);
-    // Prepare the JSON and send it to the server
-   // String settingJsonString = await prepareAllSettingsInJsonFormat(prefs);
-    // Post the JSON to the server
-    // final SettingsManagerService _settingsManagerService = SettingsManagerService(); // Create an instance
-    // _settingsManagerService.saveSettings(settingJsonString)   ;
+
+    //Prepare the JSON and send it to the server
+   String settingJsonString = await prepareAllSettingsInJsonFormat();
+
+   // Post the JSON to the server
+    //final socketService = Provider.of<SocketService>(context, listen: false);
+
+   //  final SettingsManagerService _settingsManagerService = SettingsManagerService(); // Create an instance
+   //  _settingsManagerService.saveSettings(settingJsonString)   ;
   }
 
 

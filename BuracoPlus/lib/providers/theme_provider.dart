@@ -45,8 +45,8 @@ class ThemeProvider extends ChangeNotifier {
   ThemeColors get currentColors =>
       isDarkMode ? AppColors.darkThemeColors : AppColors.lightThemeColors;
 
-  void toggleTheme() {
-    isDarkMode = !isDarkMode;
+  void toggleTheme([bool? val]) {
+    isDarkMode = val!;
     saveThemePreference();
     notifyListeners();
   }

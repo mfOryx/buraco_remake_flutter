@@ -4,6 +4,7 @@ import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
+import 'package:buracoplus/sockets/socket_service_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
 import 'package:buracoplus/login/views/login.dart';
@@ -35,9 +36,12 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return ToastificationWrapper(
       child: MultiProvider(
         providers: [
+
           ChangeNotifierProvider(create: (_) => SettingsManager()),
           ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
           ChangeNotifierProvider<TranslationManager>.value(
@@ -63,6 +67,9 @@ class StartApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // connecting to websocket at the start of the app before login
+    
+
     if (isIOS()) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     } else if (isAndroid()) {
