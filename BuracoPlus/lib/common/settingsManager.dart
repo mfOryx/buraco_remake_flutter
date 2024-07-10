@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:buracoplus/sockets/SocketEmitKeys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:buracoplus/sockets/socket_service_singleton.dart';
@@ -51,6 +52,7 @@ class SettingsManager with ChangeNotifier {
 
 
  // Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
 
  
   void setDarkMode(bool value) {
@@ -184,10 +186,6 @@ class SettingsManager with ChangeNotifier {
     return jsonEncode(settings);
   }
 
-  //***************************************************************************
-  //***************************************************************************
-  //***************************************************************************
-  //***************************************************************************
 
   //**************************** SAVE SETTINGS DATA IN SHARED PREFERENCE *********************
   void saveSettingsDataInSharedPreferences() async {
@@ -210,13 +208,14 @@ class SettingsManager with ChangeNotifier {
 
     //Prepare the JSON and send it to the server
    String settingJsonString = await prepareAllSettingsInJsonFormat();
-
    // Post the JSON to the server
-    //final socketService = Provider.of<SocketService>(context, listen: false);
-
-   //  final SettingsManagerService _settingsManagerService = SettingsManagerService(); // Create an instance
-   //  _settingsManagerService.saveSettings(settingJsonString)   ;
+    SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
   }
+
+  //***************************************************************************
+  //***************************************************************************
+  //***************************************************************************
+  //***************************************************************************
 
 
   //*************************** Load The data from shared Preferences ********************

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketServiceSingleton {
@@ -42,6 +43,10 @@ class SocketServiceSingleton {
   }
 
   Future<dynamic> emitWithAck(String event, dynamic data) {
+    if(kDebugMode){
+      print("event : "+event+"\n"+" data : "+data);
+
+    }
     final completer = Completer<dynamic>();
 
     if (_isConnected) {

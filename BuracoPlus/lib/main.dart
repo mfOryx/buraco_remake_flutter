@@ -5,6 +5,7 @@ import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:buracoplus/sockets/socket_service_singleton.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
 import 'package:buracoplus/login/views/login.dart';
@@ -25,6 +26,14 @@ void main() async {
   final TranslationManager translationManager =
       TranslationManager(languageCode);
   await translationManager.loadTranslations();
+   //connecting to the socket server singleton in the start of the app..
+  if(!SocketServiceSingleton().isConnected()) {
+    SocketServiceSingleton().initSocket('ws://15.160.133.85:3001');
+  } else{
+    if (kDebugMode) {
+      print("already connected to sockets [main.dart] !!!");
+    }
+  }
 
   runApp(MainApp(translationManager: translationManager));
 }
@@ -36,6 +45,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
 
 
     return ToastificationWrapper(
@@ -67,8 +77,6 @@ class StartApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // connecting to websocket at the start of the app before login
-    
 
     if (isIOS()) {
       SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight]);
