@@ -44,7 +44,7 @@ class SocketServiceSingleton {
 
   Future<dynamic> emitWithAck(String event, dynamic data) {
     if(kDebugMode){
-      print("event : "+event+"\n"+" data : "+data);
+      print("event : $event\n data : "+data);
 
     }
     final completer = Completer<dynamic>();

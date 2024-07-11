@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 
 class NoticesButton extends StatelessWidget {
-  final VoidCallback toggleMenu;
+  final VoidCallback toggleNotices;
 
   const NoticesButton({
-    required this.toggleMenu,
+    required this.toggleNotices,
     super.key,
   });
 
@@ -30,7 +30,7 @@ class NoticesButton extends StatelessWidget {
               foregroundColor: Colors.transparent,
               backgroundColor: Colors.transparent,
             ),
-            onPressed: toggleMenu,
+            onPressed: toggleNotices,
           ),
           const SizedBox(
             height: 1,

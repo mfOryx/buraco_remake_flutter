@@ -10,12 +10,12 @@ import 'package:flutter/material.dart'
         TextStyle;
 
 const TextStyle noticesTextStyle = TextStyle(
-  letterSpacing: 1.5,
+  letterSpacing: 0.2,
   decoration: TextDecoration.none,
   backgroundColor: Colors.transparent,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
-  fontSize: 30,
+  fontSize: 20,
   color: Colors.white,
 );
 
