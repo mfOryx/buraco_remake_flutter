@@ -641,5 +641,9 @@
     "txtMessages" : "Messages",
     "txtClubs" : "Clubs",
     "txtContacts" : "Contacts",
-    "txtNotice" : "Notice"
+    "txtNotice" : "Notice",
+    "txtTurnTime15" : "15",
+    "txtTurnTime30" : "30",
+    "txtTurnTime45" : "45",
+    "txtTurnTime60" : "60"
 }

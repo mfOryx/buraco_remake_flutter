@@ -29,13 +29,13 @@ void main() async {
       TranslationManager(languageCode);
   await translationManager.loadTranslations();
    //connecting to the socket server singleton in the start of the app..
-  if(!SocketServiceSingleton().isConnected()) {
-    SocketServiceSingleton().initSocket('ws://15.160.133.85:3001');
-  } else{
-    if (kDebugMode) {
-      print("already connected to sockets [main.dart] !!!");
-    }
-  }
+  // if(!SocketServiceSingleton().isConnected()) {
+  //   SocketServiceSingleton().initSocket('ws://15.160.133.85:3001');
+  // } else{
+  //   if (kDebugMode) {
+  //     print("already connected to sockets [main.dart] !!!");
+  //   }
+  // }
 
   runApp(MainApp(translationManager: translationManager));
 }
