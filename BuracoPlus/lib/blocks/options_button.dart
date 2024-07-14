@@ -131,8 +131,9 @@ class OptionsButton extends StatelessWidget {
             isSwitch: true,
             switchValue: settingsManager.darkMode,
             onSwitchChanged: (val) {
-              themeProvider.toggleTheme();
               settingsManager.setDarkMode(val);
+              themeProvider.toggleTheme(val);
+
             },
             onTap: (context) {},
           ),

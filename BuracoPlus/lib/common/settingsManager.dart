@@ -3,7 +3,7 @@ import 'package:buracoplus/sockets/SocketEmitKeys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../sockets/socket_service_singleton.dart';
+import '../services/socket_service_singleton.dart';
 
 
 class SettingsManager with ChangeNotifier {
@@ -210,7 +210,7 @@ class SettingsManager with ChangeNotifier {
     //Prepare the JSON and send it to the server
    String settingJsonString = await prepareAllSettingsInJsonFormat();
    // Post the JSON to the server
-    SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
+  //  SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
   }
 
   //***************************************************************************
