@@ -51,7 +51,6 @@ dependencies:
   toastification: 2.0.0
   flutter_jailbreak_detection: ^1.10.0
   unique_identifier: ^0.3.0
-  logger: ^2.3.0 
 
 dev_dependencies:
   flutter_test:

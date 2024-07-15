@@ -2,11 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-
 class SettingsManager with ChangeNotifier {
-
- 
 
   bool _darkMode = false;
   bool _manualSorting = true;
@@ -240,7 +236,9 @@ class SettingsManager with ChangeNotifier {
     _lobbyPreference = (prefs.getInt('lobbyPreference') ?? _lobbyPreference).toString();
     _language = prefs.getString('_languagePreference') ?? _language;
 
-    print(">>loadAndSaveSettingsFromAndToSharedPreferences<<<");
+    if (kDebugMode) {
+      print(">>loadAndSaveSettingsFromAndToSharedPreferences<<<");
+    }
 
     saveSettingsDataInSharedPreferences();
 
@@ -266,7 +264,9 @@ class SettingsManager with ChangeNotifier {
      // if there is no data on the server about settings
      if(dataSavedPreviouslyOnServer == false)
      {
-       print('>>dataSavedPreviouslyOnServer = false<<')   ;
+       if (kDebugMode) {
+         print('>>dataSavedPreviouslyOnServer = false<<')   ;
+       }
        // this function will get the data from shared preferences [if exist] ...
        // otherwise get the default data and store again in shared preferences
        loadAndSaveSettingsFromAndToSharedPreferences();

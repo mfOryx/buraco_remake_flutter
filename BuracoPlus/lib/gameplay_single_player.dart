@@ -1379,7 +1379,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                     ],
                                     onSelected: (String value) {
                                       // Handle menu item selection here if needed
-                                      print('Selected: $value');
+                                      if (kDebugMode) {
+                                        print('Selected: $value');
+                                      }
                                       if (value == 'PROFILE') {
                                         setState(() {
                                           menuProfileButton =

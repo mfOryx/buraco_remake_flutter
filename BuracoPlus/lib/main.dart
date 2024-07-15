@@ -1,11 +1,11 @@
 import 'dart:io' show Platform;
-import 'package:buracoplus/common/popUp.dart' show PopUps;
-import 'package:buracoplus/common/settingsManager.dart' show SettingsManager;
+import 'package:buracoplus/common/pop_up.dart' show PopUps;
+import 'package:buracoplus/common/settings_manager.dart' show SettingsManager;
 import 'package:buracoplus/common/translation_manager.dart'
     show TranslationManager;
 import 'package:buracoplus/helpers/user_preferences.dart' show UserPreferences;
 import 'package:buracoplus/providers/theme_provider.dart' show ThemeProvider;
-import 'package:buracoplus/services/uniqueIdentifier.dart'
+import 'package:buracoplus/services/unique_identifier.dart'
     show UniqueIdentifierService;
 import 'package:buracoplus/sockets/socket_service.dart' show SocketService;
 import 'package:flutter/material.dart'

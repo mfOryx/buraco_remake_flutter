@@ -1,10 +1,11 @@
-import 'package:buracoplus/blocks/lobby-card.dart';
-import 'package:buracoplus/blocks/lobby-user-stats.dart';
+import 'package:buracoplus/blocks/lobby_card.dart';
+import 'package:buracoplus/blocks/lobby_user_stats.dart';
 import 'package:buracoplus/helpers/user.dart';
 import 'package:buracoplus/models/LoggedInPlayer.dart';
 import 'package:buracoplus/models/tables.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:buracoplus/create_table_multi_player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -59,7 +60,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   }
 
   sitAtTable(int chairId, String tableId) async {
-    print('chairId: $chairId, tableId: $tableId');
+    if (kDebugMode) {
+      print('chairId: $chairId, tableId: $tableId');
+    }
     String ipAddress = await getPublicIP();
 
     if (socketService.isConnected()) {
@@ -73,7 +76,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
 
       getTables();
 
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
     }
   }
 
@@ -85,7 +90,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
 
       getTables();
 
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
     }
   }
 
@@ -339,9 +346,15 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                       child: PageView.builder(
                                         itemCount: totalPages, // Number of pages
                                         itemBuilder: (context, pageIndex) {
-                                          print("page $pageIndex");
-                                          print("totalPages $totalPages");
-                                          print("gameTables ${gameTables.length}");
+                                          if (kDebugMode) {
+                                            print("page $pageIndex");
+                                          }
+                                          if (kDebugMode) {
+                                            print("totalPages $totalPages");
+                                          }
+                                          if (kDebugMode) {
+                                            print("gameTables ${gameTables.length}");
+                                          }
                                           int rangeEnd = 0;
                                           int rangeStart = pageIndex * 6;
                                           if (pageIndex == totalPages - 1) {
@@ -355,27 +368,25 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                               .getRange(rangeStart, rangeEnd)
                                               .toList();
 
-                                          return Container(
-                                            child: Wrap(
-                                              runSpacing: 10,
-                                              spacing: 20,
-                                              children: subTable.map((e) {
-                                                return LobbyCard(
-                                                  table: e,
-                                                  currentlyLoggedInPlayerId:
-                                                  currentlyLoggedInPlayer.Id!,
-                                                  callback: (params) {
-                                                    if (params['type'] == "SIT") {
-                                                      sitAtTable(params['chairId'],
-                                                          e.Id.toString());
-                                                    } else if (params['type'] ==
-                                                        "LEAVE_TABLE") {
-                                                      leaveTable(e.Id.toString());
-                                                    }
-                                                  },
-                                                );
-                                              }).toList(),
-                                            ),
+                                          return Wrap(
+                                            runSpacing: 10,
+                                            spacing: 20,
+                                            children: subTable.map((e) {
+                                              return LobbyCard(
+                                                table: e,
+                                                currentlyLoggedInPlayerId:
+                                                currentlyLoggedInPlayer.Id!,
+                                                callback: (params) {
+                                                  if (params['type'] == "SIT") {
+                                                    sitAtTable(params['chairId'],
+                                                        e.Id.toString());
+                                                  } else if (params['type'] ==
+                                                      "LEAVE_TABLE") {
+                                                    leaveTable(e.Id.toString());
+                                                  }
+                                                },
+                                              );
+                                            }).toList(),
                                           );
                                         },
                                       ),

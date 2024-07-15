@@ -28,12 +28,16 @@ class SocketServiceSingleton {
     socket!.connect();
 
     socket!.onConnect((_) {
-      print('[SocketServiceSingleton] -> connected');
+      if (kDebugMode) {
+        print('[SocketServiceSingleton] -> connected');
+      }
       _isConnected = true;
     });
 
     socket!.onDisconnect((_) {
-      print('[SocketServiceSingleton] -> disconnected');
+      if (kDebugMode) {
+        print('[SocketServiceSingleton] -> disconnected');
+      }
       _isConnected = false;
     });
   }

@@ -10,7 +10,9 @@ class SocketService with ChangeNotifier {
   SocketService(this._serverUrl);
 
   void connect({void Function()? onConnected}) {
-    print(_serverUrl);
+    if (kDebugMode) {
+      print(_serverUrl);
+    }
     
 
     _socket = io.io(_serverUrl, <String, dynamic>{

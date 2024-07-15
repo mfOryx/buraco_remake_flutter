@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 
@@ -22,7 +23,9 @@ class UniqueIdentifierService {
     } on PlatformException {
       identifier = 'Failed to get Unique Identifier';
     }
-    print("identifier = $identifier")    ;
+    if (kDebugMode) {
+      print("identifier = $identifier")    ;
+    }
     return   identifier;
 
 

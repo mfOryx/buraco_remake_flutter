@@ -92,7 +92,9 @@ class LoginController {
           LoggedInPlayer? currentLoggedInPlayer =
               currentUser.setLoggedInPlayer(ackResult["playerData"]);
 
-          print(currentLoggedInPlayer?.Id);
+          if (kDebugMode) {
+            print(currentLoggedInPlayer?.Id);
+          }
 
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => const Home()));
@@ -107,7 +109,9 @@ class LoginController {
               Colors.yellow);
         }
       } else {
-        print('errore ritornato');
+        if (kDebugMode) {
+          print('errore ritornato');
+        }
       }
     }
   }
