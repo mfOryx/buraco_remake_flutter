@@ -31,7 +31,7 @@ import 'package:firebase_core/firebase_core.dart' show Firebase;
 import 'firebase_options.dart' show DefaultFirebaseOptions;
 import 'package:toastification/toastification.dart' show ToastificationWrapper;
 //import 'package:flutter_jailbreak_detection/flutter_jailbreak_detection.dart';
-
+import 'package:jailbreak_root_detection/jailbreak_root_detection.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await UserPreferences().loadPreferences();
