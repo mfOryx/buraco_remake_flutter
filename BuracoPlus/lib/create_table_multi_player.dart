@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
@@ -150,8 +149,8 @@ class _CreateTableMPState extends State<CreateTableMP> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    final colors = themeProvider.currentColors;
+    //final themeProvider = Provider.of<ThemeProvider>(context);
+    //final colors = themeProvider.currentColors;
     final translationManager = Provider.of<TranslationManager>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;

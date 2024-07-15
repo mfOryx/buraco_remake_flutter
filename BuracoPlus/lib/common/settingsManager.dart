@@ -206,7 +206,7 @@ class SettingsManager with ChangeNotifier {
     await prefs.setBool('_invitesToTable', invitesToTable);
 
     //Prepare the JSON and send it to the server
-   String settingJsonString = await prepareAllSettingsInJsonFormat();
+   //String settingJsonString = await prepareAllSettingsInJsonFormat();
    // Post the JSON to the server
   //  SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
   }
