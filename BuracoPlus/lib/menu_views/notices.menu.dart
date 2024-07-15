@@ -2,24 +2,6 @@ import 'package:buracoplus/menu_views/buttons/club.button.dart' show ClubButton;
 import 'package:buracoplus/menu_views/buttons/personal_button.dart'
     show PersonalButton;
 import 'package:buracoplus/menu_views/text/titles.dart' show NoticeTitle;
-import 'package:flutter/cupertino.dart'
-    show
-        Alignment,
-        AnimatedPositioned,
-        Border,
-        BorderRadius,
-        BoxDecoration,
-        BuildContext,
-        Color,
-        Container,
-        Curves,
-        EdgeInsets,
-        Icon,
-        LinearGradient,
-        Radius,
-        Row,
-        StatelessWidget,
-        Widget;
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -28,10 +10,12 @@ import 'package:flutter/material.dart'
         BorderRadius,
         BoxDecoration,
         BuildContext,
+        Color,
         Colors,
         Container,
         CrossAxisAlignment,
         Curves,
+        Directionality,
         EdgeInsets,
         FontStyle,
         FontWeight,
@@ -41,12 +25,15 @@ import 'package:flutter/material.dart'
         LinearGradient,
         MainAxisAlignment,
         Material,
+        MediaQuery,
         Positioned,
+        Radius,
         Row,
         Stack,
         StatelessWidget,
         Text,
         TextDecoration,
+        TextDirection,
         TextStyle,
         VoidCallback,
         Widget;
@@ -66,14 +53,24 @@ class NoticesMenu extends StatelessWidget {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
-      right: isNoticesVisible ? 15 : -500,
-      top: 50,
+      //right: isNoticesVisible ? 15 : -500,
+      top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
+      left: Directionality.of(context) == TextDirection.rtl
+          ? isNoticesVisible
+              ? 15
+              : -500
+          : null,
+      right: Directionality.of(context) == TextDirection.rtl
+          ? null
+          : isNoticesVisible
+              ? 15
+              : -500,
       child: Material(
         elevation: 4.0,
         borderRadius: BorderRadius.circular(20.0),
         child: Container(
           width: 400,
-          height: 620,
+          height: 400,
           decoration: BoxDecoration(
             color: const Color.fromARGB(212, 212, 212, 212).withOpacity(0.9),
             borderRadius: BorderRadius.circular(20.0),

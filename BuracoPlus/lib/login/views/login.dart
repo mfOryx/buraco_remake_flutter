@@ -413,7 +413,7 @@ class _LoginState extends State<Login> {
             ),
             NoticesMenu(
               isNoticesVisible: isNoticesVisible,
-              onClose: () {},
+              onClose: _toggleNotices,
             ),
             Positioned(
               width: 80.0,
