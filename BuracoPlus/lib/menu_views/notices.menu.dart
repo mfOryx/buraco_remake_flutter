@@ -1,3 +1,6 @@
+import 'package:buracoplus/menu_views/buttons/club.button.dart' show ClubButton;
+import 'package:buracoplus/menu_views/buttons/personal_button.dart'
+    show PersonalButton;
 import 'package:buracoplus/menu_views/text/titles.dart' show NoticeTitle;
 import 'package:flutter/cupertino.dart'
     show
@@ -13,7 +16,6 @@ import 'package:flutter/cupertino.dart'
         EdgeInsets,
         Icon,
         LinearGradient,
-        MainAxisAlignment,
         Radius,
         Row,
         StatelessWidget,
@@ -31,6 +33,8 @@ import 'package:flutter/material.dart'
         CrossAxisAlignment,
         Curves,
         EdgeInsets,
+        FontStyle,
+        FontWeight,
         Icon,
         IconButton,
         Icons,
@@ -41,15 +45,19 @@ import 'package:flutter/material.dart'
         Row,
         Stack,
         StatelessWidget,
+        Text,
+        TextDecoration,
+        TextStyle,
+        VoidCallback,
         Widget;
 
 class NoticesMenu extends StatelessWidget {
   final bool isNoticesVisible;
-  //final VoidCallback onClose;
+  final VoidCallback onClose;
 
   const NoticesMenu({
     required this.isNoticesVisible,
-    //required this.onClose,
+    required this.onClose,
     super.key,
   });
 
@@ -77,7 +85,12 @@ class NoticesMenu extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 250,
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  top: 15,
+                  right: 15,
+                  bottom: 15,
+                ),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -100,27 +113,78 @@ class NoticesMenu extends StatelessWidget {
                       noticeTitle: 'NOTICE',
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: Colors.white),
-                      onPressed: () {},
-                      //onPressed: vedi come fare
+                      alignment: Alignment.topRight,
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                      padding: const EdgeInsets.only(
+                        left: 40.0,
+                        right: 5.0,
+                        bottom: 15.0,
+                      ),
+                      onPressed: onClose,
                     ),
                   ],
                 ),
               ),
               Positioned(
-                  top: 140,
-                  bottom: 15,
-                  left: 15,
-                  right: 15,
-                  child: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(240, 240, 240, 0.0)
-                          .withOpacity(1.0),
-                      borderRadius: BorderRadius.circular(20.0),
-                      border: const Border(),
+                top: 115,
+                bottom: 11,
+                left: 11,
+                right: 11,
+                child: Container(
+                  padding: const EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(240, 240, 240, 0.0)
+                        .withOpacity(1.0),
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: const Border(),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 60,
+                bottom: 530,
+                left: 28,
+                right: 200,
+                child: PersonalButton(
+                  onTap: () {},
+                  child: const Text(
+                    style: TextStyle(
+                      letterSpacing: 0.2,
+                      decoration: TextDecoration.none,
+                      backgroundColor: Colors.transparent,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                      color: Colors.white,
                     ),
-                  )),
+                    'PERSONAL',
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 60,
+                bottom: 530,
+                left: 200,
+                right: 28,
+                child: ClubButton(
+                  onTap: () {},
+                  child: const Text(
+                    style: TextStyle(
+                      letterSpacing: 0.2,
+                      decoration: TextDecoration.none,
+                      backgroundColor: Colors.transparent,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                    'CLUB',
+                  ),
+                ),
+              ),
             ],
           ),
         ),

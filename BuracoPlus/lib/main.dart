@@ -5,8 +5,6 @@ import 'package:buracoplus/helpers/user_preferences.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 
-import 'package:buracoplus/sockets/socket_service_singleton.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:buracoplus/splash.dart';
