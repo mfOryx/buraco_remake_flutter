@@ -56,7 +56,10 @@ class ThemeProvider extends ChangeNotifier {
     if (prefs.containsKey('isDarkMode')) {
       isDarkMode = prefs.getBool('isDarkMode') ?? false;
     } else {
-      isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
+      if (context.mounted) {
+        isDarkMode =
+            MediaQuery.of(context).platformBrightness == Brightness.dark;
+      }
     }
     notifyListeners();
   }

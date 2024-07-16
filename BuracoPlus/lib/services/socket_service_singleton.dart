@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketServiceSingleton {
-  IO.Socket? socket;
+  io.Socket? socket;
 
   // Singleton pattern
-  static final SocketServiceSingleton _instance = SocketServiceSingleton._internal();
+  static final SocketServiceSingleton _instance =
+      SocketServiceSingleton._internal();
   bool _isConnected = false;
   factory SocketServiceSingleton() {
     return _instance;
@@ -16,14 +17,16 @@ class SocketServiceSingleton {
   SocketServiceSingleton._internal();
 
   void initSocket(String url) {
-    if(_isConnected) {
+    if (_isConnected) {
       return;
     }
-    socket = IO.io(url, IO.OptionBuilder()
-        .setTransports(['websocket'])
-        .disableAutoConnect()
-        .setReconnectionAttempts(2) // Set reconnection attempts limit to 2
-        .build());
+    socket = io.io(
+        url,
+        io.OptionBuilder()
+            .setTransports(['websocket'])
+            .disableAutoConnect()
+            .setReconnectionAttempts(2) // Set reconnection attempts limit to 2
+            .build());
 
     socket!.connect();
 
@@ -47,9 +50,8 @@ class SocketServiceSingleton {
   }
 
   Future<dynamic> emitWithAck(String event, dynamic data) {
-    if(kDebugMode){
-      print("event : $event\n data : "+data);
-
+    if (kDebugMode) {
+      print("event : $event\n data : $data");
     }
     final completer = Completer<dynamic>();
 
@@ -60,14 +62,15 @@ class SocketServiceSingleton {
 
       Future.delayed(const Duration(seconds: 5), () {
         if (!completer.isCompleted) {
-          completer.completeError(
-              TimeoutException("[SocketServiceSingleton] -> Socket operation timed out"));
+          completer.completeError(TimeoutException(
+              "[SocketServiceSingleton] -> Socket operation timed out"));
         }
       });
 
       return completer.future;
     } else {
-      return Future.error(Exception('[SocketServiceSingleton] -> Socket is not connected'));
+      return Future.error(
+          Exception('[SocketServiceSingleton] -> Socket is not connected'));
     }
   }
 

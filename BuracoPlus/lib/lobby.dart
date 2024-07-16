@@ -1,7 +1,7 @@
 import 'package:buracoplus/blocks/lobby_card.dart';
 import 'package:buracoplus/blocks/lobby_user_stats.dart';
 import 'package:buracoplus/helpers/user.dart';
-import 'package:buracoplus/models/LoggedInPlayer.dart';
+import 'package:buracoplus/models/logged_in_player.dart';
 import 'package:buracoplus/models/tables.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:buracoplus/create_table_multi_player.dart';
@@ -21,7 +21,6 @@ class Lobby extends StatefulWidget {
 
 class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
   bool isMenuVisible = false;
   late final socketService;
   int totalPages = 0;
@@ -125,7 +124,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                           141, 107, 147, 1.0), // Colore medio lato superiore
                       Color.fromRGBO(
                           96, 132, 166, 1.0), // Colore medio lato inferiore
-                      Color.fromRGBO(88, 104, 147, 1.0), // Colore medio lato destro
+                      Color.fromRGBO(
+                          88, 104, 147, 1.0), // Colore medio lato destro
                     ],
                     stops: [
                       0.0,
@@ -198,13 +198,16 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                 child: Row(
                                   children: [
                                     LobbyUserStats(
-                                        currentlyLoggedInPlayer.diamonds.toString(),
+                                        currentlyLoggedInPlayer.diamonds
+                                            .toString(),
                                         'diamond-final.png'),
                                     LobbyUserStats(
-                                        currentlyLoggedInPlayer.coins.toString(),
+                                        currentlyLoggedInPlayer.coins
+                                            .toString(),
                                         'BuracoPlusCoin.png'),
                                     LobbyUserStats(
-                                        currentlyLoggedInPlayer.lives.toString(),
+                                        currentlyLoggedInPlayer.lives
+                                            .toString(),
                                         'BuracoPlusLife_big.png'),
                                   ],
                                 ))
@@ -308,7 +311,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                        width: 1, color: const Color(0xff786f37)),
+                                        width: 1,
+                                        color: const Color(0xff786f37)),
                                     gradient: const LinearGradient(
                                       begin: Alignment.centerLeft,
                                       end: Alignment.centerRight,
@@ -342,9 +346,11 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                     Container(
                                       margin: const EdgeInsets.only(top: 10),
                                       height:
-                                      MediaQuery.of(context).size.height * 0.8,
+                                          MediaQuery.of(context).size.height *
+                                              0.8,
                                       child: PageView.builder(
-                                        itemCount: totalPages, // Number of pages
+                                        itemCount:
+                                            totalPages, // Number of pages
                                         itemBuilder: (context, pageIndex) {
                                           if (kDebugMode) {
                                             print("page $pageIndex");
@@ -353,7 +359,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                             print("totalPages $totalPages");
                                           }
                                           if (kDebugMode) {
-                                            print("gameTables ${gameTables.length}");
+                                            print(
+                                                "gameTables ${gameTables.length}");
                                           }
                                           int rangeEnd = 0;
                                           int rangeStart = pageIndex * 6;
@@ -364,9 +371,10 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                           }
 
                                           List<GameTable> subTable =
-                                          gameTablesFiltered
-                                              .getRange(rangeStart, rangeEnd)
-                                              .toList();
+                                              gameTablesFiltered
+                                                  .getRange(
+                                                      rangeStart, rangeEnd)
+                                                  .toList();
 
                                           return Wrap(
                                             runSpacing: 10,
@@ -375,10 +383,11 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                               return LobbyCard(
                                                 table: e,
                                                 currentlyLoggedInPlayerId:
-                                                currentlyLoggedInPlayer.Id!,
+                                                    currentlyLoggedInPlayer.Id!,
                                                 callback: (params) {
                                                   if (params['type'] == "SIT") {
-                                                    sitAtTable(params['chairId'],
+                                                    sitAtTable(
+                                                        params['chairId'],
                                                         e.Id.toString());
                                                   } else if (params['type'] ==
                                                       "LEAVE_TABLE") {
@@ -399,21 +408,24 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                         clipBehavior: Clip.none,
                                         children: [
                                           Container(
-                                            width:
-                                            MediaQuery.of(context).size.width *
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
                                                 0.6,
                                             height: 50,
 
                                             decoration: BoxDecoration(
                                               color: Colors.white.withOpacity(
                                                   0.2), // Imposta un colore con opacità
-                                              borderRadius: const BorderRadius.only(
+                                              borderRadius:
+                                                  const BorderRadius.only(
                                                 topLeft: Radius.circular(
                                                     10), // Angoli arrotondati in alto a sinistra
                                                 topRight: Radius.circular(10),
                                                 bottomLeft: Radius.circular(
                                                     10), // Angoli arrotondati in alto a sinistra
-                                                bottomRight: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
                                               ),
                                             ),
                                             // Imposta un colore con opacità
@@ -422,14 +434,16 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                   5.0), // Aggiungi padding all'interno del Container
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
                                                 children: [
                                                   FloatingActionButton(
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -440,19 +454,23 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       Text(
                                                           translationManager
                                                               .translate(
-                                                              'txtMessages')
+                                                                  'txtMessages')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                   FloatingActionButton(
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -463,19 +481,23 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       Text(
                                                           translationManager
                                                               .translate(
-                                                              'txtContacts')
+                                                                  'txtContacts')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                   FloatingActionButton(
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -485,11 +507,15 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       ),
                                                       Text(
                                                           translationManager
-                                                              .translate('txtClubs')
+                                                              .translate(
+                                                                  'txtClubs')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                   const SizedBox(
@@ -498,8 +524,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -510,19 +537,23 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       Text(
                                                           translationManager
                                                               .translate(
-                                                              'txtOptions')
+                                                                  'txtOptions')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                   FloatingActionButton(
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -533,19 +564,23 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       Text(
                                                           translationManager
                                                               .translate(
-                                                              'txtRankings')
+                                                                  'txtRankings')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                   FloatingActionButton(
                                                     heroTag: null,
                                                     onPressed: () {},
                                                     backgroundColor:
-                                                    Colors.transparent,
-                                                    splashColor: Colors.transparent,
+                                                        Colors.transparent,
+                                                    splashColor:
+                                                        Colors.transparent,
                                                     elevation: 0.0,
                                                     child: Column(children: [
                                                       Image.asset(
@@ -555,11 +590,15 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       ),
                                                       Text(
                                                           translationManager
-                                                              .translate('txtShop')
+                                                              .translate(
+                                                                  'txtShop')
                                                               .toUpperCase(),
-                                                          style: const TextStyle(
-                                                              color: Colors.white,
-                                                              fontSize: 10)),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                      10)),
                                                     ]),
                                                   ),
                                                 ],
@@ -569,18 +608,20 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                           // Pulsante che sporge fuori
                                           Positioned(
                                             top:
-                                            -10, // Metà dell'altezza del FloatingActionButton per farlo sporgere correttamente
-                                            left:
-                                            (MediaQuery.of(context).size.width *
-                                                0.6 -
-                                                70) /
+                                                -10, // Metà dell'altezza del FloatingActionButton per farlo sporgere correttamente
+                                            left: (MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.6 -
+                                                    70) /
                                                 2,
                                             width: 70,
                                             height: 70,
                                             child: FloatingActionButton(
                                               heroTag: null,
                                               onPressed: () {},
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                               splashColor: Colors.transparent,
                                               elevation: 0.0,
                                               child: Container(

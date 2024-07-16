@@ -8,7 +8,7 @@ class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
@@ -71,7 +71,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 controller: _controller,
                 maxLines: null,
                 decoration: InputDecoration(
-                  hintText: translationManager.translate('txtTypeYourMessageHere'),
+                  hintText:
+                      translationManager.translate('txtTypeYourMessageHere'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.emoji_emotions_outlined),
                     onPressed: _showEmojiPicker,

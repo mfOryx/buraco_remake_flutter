@@ -244,25 +244,36 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
     // Calculate the target positions for the cards
     for (int i = 0; i < classicDeck.length; i++) {
-      if(i >= 0 && i <= 10){
-        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(-(screenWidth / 2 - 671) + (i * (screenWidth * 0.055)), (screenHeight / 2 + 146)));
+      if (i >= 0 && i <= 10) {
+        _initialPositions
+            .add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(
+            -(screenWidth / 2 - 671) + (i * (screenWidth * 0.055)),
+            (screenHeight / 2 + 146)));
         _isCardAnimated.add(false);
-      } else if(i >= 11 && i <= 21){
-        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset((screenWidth / 2 - 85) + (i * -1.5), (screenHeight / 2 - 210)));
+      } else if (i >= 11 && i <= 21) {
+        _initialPositions
+            .add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions.add(Offset(
+            (screenWidth / 2 - 85) + (i * -1.5), (screenHeight / 2 - 210)));
         _isCardAnimated.add(false);
-      } else if(i >= 22 && i <= 43){
-        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(-(screenWidth / 2 - 472), (screenHeight / 2 + 102)));
+      } else if (i >= 22 && i <= 43) {
+        _initialPositions
+            .add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions
+            .add(Offset(-(screenWidth / 2 - 472), (screenHeight / 2 + 102)));
         _isCardAnimated.add(false);
-      } else if(i >= 44 && i <= 44){
-        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(-(screenWidth / 2 - 735), (screenHeight / 2 + 73)));
+      } else if (i >= 44 && i <= 44) {
+        _initialPositions
+            .add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions
+            .add(Offset(-(screenWidth / 2 - 735), (screenHeight / 2 + 73)));
         _isCardAnimated.add(false);
-      } else{
-        _initialPositions.add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
-        _targetPositions.add(Offset(-(screenWidth / 2 - 670), (screenHeight / 2 + 73)));
+      } else {
+        _initialPositions
+            .add(Offset(screenWidth / 2 - 25, screenHeight / 2 - 75));
+        _targetPositions
+            .add(Offset(-(screenWidth / 2 - 670), (screenHeight / 2 + 73)));
         _isCardAnimated.add(false);
       }
     }
@@ -270,7 +281,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
 
   void flipCard(int index, bool showFront) {
     setState(() {
-      if(showFront){
+      if (showFront) {
         isFront[index] = true;
       } else {
         isFront[index] = false;
@@ -308,7 +319,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       if (isCardTaken) {
         for (int i = 0; i < player1Cards.length; i++) {
           if (isTapped[i] == true) {
-            discardPile.add(Card(player1Cards[i].cardId, player1Cards[i].imagePath));
+            discardPile
+                .add(Card(player1Cards[i].cardId, player1Cards[i].imagePath));
             isTapped[i] = false;
             player1Cards.removeAt(i);
             isTapped.removeAt(i);
@@ -319,7 +331,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
         List<Card> cardsToMove = List.from(discardPile);
         discardPile.clear();
         for (int i = 0; i < cardsToMove.length; i++) {
-          player1Cards.add(Card(cardsToMove[i].cardId, cardsToMove[i].imagePath));
+          player1Cards
+              .add(Card(cardsToMove[i].cardId, cardsToMove[i].imagePath));
           isTapped.add(false);
         }
 
@@ -367,10 +380,12 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
           double screenHeight = MediaQuery.of(context).size.height;
           containerWidth = screenWidth * 0.395;
           cardWidth = screenWidth * 0.05;
-          totalSpaceForCards = containerWidth - (cardWidth * player1Table.length);
+          totalSpaceForCards =
+              containerWidth - (cardWidth * player1Table.length);
           spaceBetweenCards = totalSpaceForCards / (player1Table.length - 1);
-          leftPosition = player1Table.length <= 7 ? (cardWidth * i) : (cardWidth + spaceBetweenCards) * i;
-
+          leftPosition = player1Table.length <= 7
+              ? (cardWidth * i)
+              : (cardWidth + spaceBetweenCards) * i;
 
           return Positioned(
             left: leftPosition.isFinite ? leftPosition : 0,
@@ -381,9 +396,13 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 children: List.generate(player1Table[i].length, (j) {
                   double containerHeight = screenWidth * 0.4;
                   double cardHeight = screenHeight * 0.135;
-                  double totalSpaceForCards = containerHeight - (cardHeight * player1Table[i].length);
-                  double spaceBetweenCards = totalSpaceForCards / (player1Table[i].length - 1);
-                  double topPosition = player1Table[i].length <= 6 ? ((cardHeight / 2) * j) : (((cardHeight + spaceBetweenCards)/ 2) * j);
+                  double totalSpaceForCards =
+                      containerHeight - (cardHeight * player1Table[i].length);
+                  double spaceBetweenCards =
+                      totalSpaceForCards / (player1Table[i].length - 1);
+                  double topPosition = player1Table[i].length <= 6
+                      ? ((cardHeight / 2) * j)
+                      : (((cardHeight + spaceBetweenCards) / 2) * j);
                   return AnimatedPositioned(
                     duration: const Duration(milliseconds: 300),
                     top: topPosition.isFinite ? topPosition : 0,
@@ -412,7 +431,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       for (int i = 0; i < cardsToBeAddedInTable.length; i++) {
         for (int j = 0; j < player1Cards.length; j++) {
           isTapped[j] = false;
-          if ((cardsToBeAddedInTable[i].cardId).compareTo((player1Cards[j].cardId)) == 0) {
+          if ((cardsToBeAddedInTable[i].cardId)
+                  .compareTo((player1Cards[j].cardId)) ==
+              0) {
             player1Cards.removeAt(j);
             isTapped.removeAt(j);
           }
@@ -422,9 +443,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
     });
   }
 
-  void updatePlayer1Hand(){
+  void updatePlayer1Hand() {
     setState(() {
-      splitInTwoRows(player1Cards.isNotEmpty ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1) : 0);
+      splitInTwoRows(player1Cards.isNotEmpty
+          ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1)
+          : 0);
     });
   }
 
@@ -439,66 +462,83 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
       double screenWidth = MediaQuery.of(context).size.width;
       double screenHeight = MediaQuery.of(context).size.height;
 
-      if(player1Cards.length > 1 && player1Cards.length <= 19){
+      if (player1Cards.length > 1 && player1Cards.length <= 19) {
         is20CardsInHand = false;
         rowsButtonToggle = false;
         containerWidth = screenWidth * 0.672;
         cardWidth = screenWidth * 0.055;
         totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
         spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-        if(player1Cards.length > 1 && player1Cards.length <= 12){
+        if (player1Cards.length > 1 && player1Cards.length <= 12) {
           containerWidth = screenWidth * 0.672;
           cardWidth = screenWidth * 0.055;
           leftPosition = (cardWidth) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
-        } else if(player1Cards.length >= 13 && player1Cards.length <= 19){
+        } else if (player1Cards.length >= 13 && player1Cards.length <= 19) {
           is20CardsInHand = false;
           if (rowsButtonToggle) {
             containerWidth = screenWidth * 1.305;
             cardWidth = screenWidth * 0.055;
-            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            totalSpaceForCards =
+                containerWidth - (cardWidth * player1Cards.length);
             spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            leftPosition =
+                (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           } else {
             containerWidth = screenWidth * 0.672;
             cardWidth = screenWidth * 0.055;
-            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            totalSpaceForCards =
+                containerWidth - (cardWidth * player1Cards.length);
             spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            leftPosition =
+                (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           }
         } else {
           containerWidth = screenWidth * 0.672;
           cardWidth = screenWidth * 0.055;
-          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          totalSpaceForCards =
+              containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-          leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+          leftPosition =
+              (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
           topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
         }
-      } else{
+      } else {
         if (index < splitCut) {
           is20CardsInHand = false;
           if (rowsButtonToggle) {
             containerWidth = screenWidth * 1.305;
             cardWidth = screenWidth * 0.055;
-            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-            spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            totalSpaceForCards =
+                containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = player1Cards.length <= 23
+                ? (totalSpaceForCards / (player1Cards.length - 1)) - 10
+                : totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = player1Cards.length <= 23
+                ? (((cardWidth + spaceBetweenCards) * index +
+                        (screenWidth * 0.005)) +
+                    screenWidth * 0.06)
+                : (cardWidth + spaceBetweenCards) * index +
+                    (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           } else {
             containerWidth = screenWidth * 0.672;
             cardWidth = screenWidth * 0.055;
-            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+            totalSpaceForCards =
+                containerWidth - (cardWidth * player1Cards.length);
             spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            leftPosition =
+                (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           }
         } else {
           is20CardsInHand = true;
           containerWidth = screenWidth * 0.672;
           cardWidth = screenWidth * 0.055;
-          totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
+          totalSpaceForCards =
+              containerWidth - (cardWidth * player1Cards.length);
           spaceBetweenCards = totalSpaceForCards / (player1Cards.length - 1);
 
           if (rowsButtonToggle) {
@@ -506,12 +546,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 ? (screenWidth * 1.305)
                 : (screenWidth * 1.288);
             cardWidth = screenWidth * 0.055;
-            totalSpaceForCards = containerWidth - (cardWidth * player1Cards.length);
-            spaceBetweenCards = player1Cards.length <= 23 ? (totalSpaceForCards / (player1Cards.length - 1)) - 10 : totalSpaceForCards / (player1Cards.length - 1);
-            leftPosition = player1Cards.length <= 23 ? (((cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005)) + screenWidth * 0.06) : (cardWidth + spaceBetweenCards) * (index - splitCut) + (screenWidth * 0.005);
-            topPosition = isTapped[index] ? yOffset + (screenHeight * 0.05) : (screenHeight * 0.06);
+            totalSpaceForCards =
+                containerWidth - (cardWidth * player1Cards.length);
+            spaceBetweenCards = player1Cards.length <= 23
+                ? (totalSpaceForCards / (player1Cards.length - 1)) - 10
+                : totalSpaceForCards / (player1Cards.length - 1);
+            leftPosition = player1Cards.length <= 23
+                ? (((cardWidth + spaceBetweenCards) * (index - splitCut) +
+                        (screenWidth * 0.005)) +
+                    screenWidth * 0.06)
+                : (cardWidth + spaceBetweenCards) * (index - splitCut) +
+                    (screenWidth * 0.005);
+            topPosition = isTapped[index]
+                ? yOffset + (screenHeight * 0.05)
+                : (screenHeight * 0.06);
           } else {
-            leftPosition = (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
+            leftPosition =
+                (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
             topPosition = isTapped[index] ? yOffset : (screenHeight * 0.01);
           }
         }
@@ -810,7 +861,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
                                 Text(
-                                  translationManager.translate('ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
+                                  translationManager.translate(
+                                      'ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
                                   style: TextStyle(
                                       fontSize: screenWidth * 0.01,
                                       color: Colors.white),
@@ -912,7 +964,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
-                                      translationManager.translate('ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
+                                      translationManager.translate(
+                                          'ABC XYZ'), //Replace ABC XYZ with Actual Player Name Later
                                       style: const TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -921,7 +974,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   const Padding(
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
-                                      '0/0',// Add the player points instead of 0/0
+                                      '0/0', // Add the player points instead of 0/0
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -946,7 +999,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
-                                      translationManager.translate('XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
+                                      translationManager.translate(
+                                          'XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
                                       style: const TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -955,7 +1009,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                   const Padding(
                                     padding: EdgeInsets.only(right: 8.0),
                                     child: Text(
-                                      '0/0',// Add the player points instead of 0/0
+                                      '0/0', // Add the player points instead of 0/0
                                       style: TextStyle(
                                           fontSize: 10, color: Colors.white),
                                     ),
@@ -973,7 +1027,7 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                if(cardsToBeAddedInTable.isNotEmpty){
+                                if (cardsToBeAddedInTable.isNotEmpty) {
                                   setState(() {
                                     addToTable();
                                     addTableCardsColumn();
@@ -1163,7 +1217,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtProfile').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtProfile')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1200,7 +1256,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtOptions').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtOptions')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1235,7 +1293,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtContacts').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtContacts')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1270,7 +1330,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtMessages').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtMessages')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1305,7 +1367,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtNotice').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtNotice')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1340,7 +1404,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     height:
                                                         screenHeight * 0.01),
                                                 Text(
-                                                  translationManager.translate('txtClubs').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtClubs')
+                                                      .toUpperCase(),
                                                   textAlign: TextAlign.center,
                                                   style: const TextStyle(
                                                     fontSize: 10,
@@ -1470,8 +1536,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                     ),
                                                   ),
                                                   Container(
-                                                    margin: const EdgeInsets.only(
-                                                        left: 5, top: 5),
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 5, top: 5),
                                                     child: Image.asset(
                                                       'assets/extraCards/Red.png',
                                                       fit: BoxFit.fill,
@@ -1494,10 +1561,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                       child: Center(
                                                         child: Text(
                                                           deckCount.toString(),
-                                                          style: const TextStyle(
-                                                              fontSize: 10,
-                                                              color:
-                                                                  Colors.black),
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 10,
+                                                                  color: Colors
+                                                                      .black),
                                                         ),
                                                       ),
                                                     ),
@@ -1545,29 +1613,69 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                                   // AnimatedBuilder(
                                                   //   animation: _controller,
                                                   //   builder: (context, child) {
-                                                      Stack(
-                                                        children: List.generate(discardPile.length, (index) {
-                                                          // Calculate the animated left position based on index and animation value
-                                                          double screenWidth = MediaQuery.of(context).size.width;
-                                                          double screenHeight = MediaQuery.of(context).size.height;
-                                                          double containerWidth = screenWidth * 0.54;
-                                                          double cardWidth = screenWidth * 0.055;
-                                                          double totalSpaceForCards = containerWidth - (cardWidth * discardPile.length);
-                                                          double spaceBetweenCards = totalSpaceForCards / (discardPile.length - 1);
-                                                          double leftPosition = discardPile.length <= 9 ? (cardWidth * index) + (screenWidth * 0.005) : (cardWidth + spaceBetweenCards) * index + (screenWidth * 0.005);
-                                                          return AnimatedPositioned(
-                                                            duration: const Duration(milliseconds: 300),
-                                                            left: leftPosition.isFinite ? leftPosition : 5,
-                                                            top: screenHeight * 0.01,
-                                                            child: Image.asset(
-                                                              discardPile[index].imagePath,
-                                                              fit: BoxFit.fill,
-                                                              width: screenWidth * 0.055,
-                                                              height: screenHeight * 0.15,
-                                                            ),
-                                                          );
-                                                        }),
-                                                      ),
+                                                  Stack(
+                                                    children: List.generate(
+                                                        discardPile.length,
+                                                        (index) {
+                                                      // Calculate the animated left position based on index and animation value
+                                                      double screenWidth =
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width;
+                                                      double screenHeight =
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .height;
+                                                      double containerWidth =
+                                                          screenWidth * 0.54;
+                                                      double cardWidth =
+                                                          screenWidth * 0.055;
+                                                      double
+                                                          totalSpaceForCards =
+                                                          containerWidth -
+                                                              (cardWidth *
+                                                                  discardPile
+                                                                      .length);
+                                                      double spaceBetweenCards =
+                                                          totalSpaceForCards /
+                                                              (discardPile
+                                                                      .length -
+                                                                  1);
+                                                      double leftPosition =
+                                                          discardPile.length <=
+                                                                  9
+                                                              ? (cardWidth *
+                                                                      index) +
+                                                                  (screenWidth *
+                                                                      0.005)
+                                                              : (cardWidth +
+                                                                          spaceBetweenCards) *
+                                                                      index +
+                                                                  (screenWidth *
+                                                                      0.005);
+                                                      return AnimatedPositioned(
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        left: leftPosition
+                                                                .isFinite
+                                                            ? leftPosition
+                                                            : 5,
+                                                        top:
+                                                            screenHeight * 0.01,
+                                                        child: Image.asset(
+                                                          discardPile[index]
+                                                              .imagePath,
+                                                          fit: BoxFit.fill,
+                                                          width: screenWidth *
+                                                              0.055,
+                                                          height: screenHeight *
+                                                              0.15,
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
                                                   //   },
                                                   // ),
                                                 ],
@@ -1590,7 +1698,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           ),
                                           SizedBox(width: screenWidth * 0.012),
                                           Text(
-                                            translationManager.translate('XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
+                                            translationManager.translate(
+                                                'XYZ ABC'), //Replace XYZ ABC with Actual Player Name Later
                                             style: const TextStyle(
                                                 fontSize: 10,
                                                 color: Colors.white),
@@ -1625,7 +1734,14 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                             ),
                                             // Cards stack
                                             Stack(
-                                              children: splitInTwoRows(player1Cards.isNotEmpty ? (player1Cards.length > 1 ? player1Cards.length ~/ 2 : 1) : 0),
+                                              children: splitInTwoRows(
+                                                  player1Cards.isNotEmpty
+                                                      ? (player1Cards.length > 1
+                                                          ? player1Cards
+                                                                  .length ~/
+                                                              2
+                                                          : 1)
+                                                      : 0),
                                               //   children: populatePlayer1Hand(),
                                             ),
                                           ],
@@ -1798,13 +1914,15 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 }
               }
 
-              Offset initialPosition = _initialPositions.isNotEmpty && index < _initialPositions.length
+              Offset initialPosition = _initialPositions.isNotEmpty &&
+                      index < _initialPositions.length
                   ? _initialPositions[index]
                   : Offset(screenWidth / 2 - 25, screenHeight / 2 - 75);
 
-              Offset targetPosition = _targetPositions.isNotEmpty && index < _targetPositions.length
-                  ? _targetPositions[index]
-                  : const Offset(0, 0);
+              Offset targetPosition =
+                  _targetPositions.isNotEmpty && index < _targetPositions.length
+                      ? _targetPositions[index]
+                      : const Offset(0, 0);
 
               if (kDebugMode) {
                 if (index < 10) {
@@ -1813,7 +1931,8 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 }
               }
 
-              if (_startAnimation && index >= 11 && index <= 43 || index >= 45) {
+              if (_startAnimation && index >= 11 && index <= 43 ||
+                  index >= 45) {
                 flipCard(index, false);
               }
 
@@ -1824,26 +1943,23 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                 top: _startAnimation ? targetPosition.dy : initialPosition.dy,
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 500),
-                  transitionBuilder: (Widget child, Animation<double> animation) {
-                    final flipAnimation = Tween(begin: 0.0, end: 1.0).animate(animation);
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    final flipAnimation =
+                        Tween(begin: 0.0, end: 1.0).animate(animation);
                     return AnimatedBuilder(
                       animation: flipAnimation,
                       child: child,
                       builder: (context, child) {
                         final angle = flipAnimation.value * 3.14159;
-                        final transform = (index >= 33 && index <= 43) ?
-                        (
-                            Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..rotateY(angle)
-                          ..rotateZ(4.7)
-                        )
-                        :
-                        (
-                            Matrix4.identity()
-                          ..setEntry(3, 2, 0.001)
-                          ..rotateY(angle)
-                        );
+                        final transform = (index >= 33 && index <= 43)
+                            ? (Matrix4.identity()
+                              ..setEntry(3, 2, 0.001)
+                              ..rotateY(angle)
+                              ..rotateZ(4.7))
+                            : (Matrix4.identity()
+                              ..setEntry(3, 2, 0.001)
+                              ..rotateY(angle));
 
                         return Transform(
                           transform: transform,
@@ -1851,50 +1967,53 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                           child: flipAnimation.value < 0.5
                               ? child
                               : Transform(
-                            transform: Matrix4.identity()
-                              ..rotateY(3.14159), // Rotate the card to correct the upside-down issue
-                            alignment: Alignment.center,
-                            child: child,
-                          ),
+                                  transform: Matrix4.identity()
+                                    ..rotateY(
+                                        3.14159), // Rotate the card to correct the upside-down issue
+                                  alignment: Alignment.center,
+                                  child: child,
+                                ),
                         );
                       },
                     );
                   },
-                  child: isFront.isNotEmpty && index < isFront.length && isFront[index]
+                  child: isFront.isNotEmpty &&
+                          index < isFront.length &&
+                          isFront[index]
                       ? Container(
-                    key: ValueKey(index),
-                    child: Image.asset(
-                      classicDeck[index].imagePath,
-                      fit: BoxFit.fill,
-                      width: (index >= 11 && index <= 21)
-                          ? screenWidth * 0.04
-                          : (index >= 22 && index <= 43)
-                          ? screenWidth * 0.033
-                          : screenWidth * 0.055,
-                      height: (index >= 11 && index <= 21)
-                          ? screenHeight * 0.12
-                          : (index >= 22 && index <= 43)
-                          ? screenHeight * 0.103
-                          : screenHeight * 0.15,
-                    ),
-                  )
+                          key: ValueKey(index),
+                          child: Image.asset(
+                            classicDeck[index].imagePath,
+                            fit: BoxFit.fill,
+                            width: (index >= 11 && index <= 21)
+                                ? screenWidth * 0.04
+                                : (index >= 22 && index <= 43)
+                                    ? screenWidth * 0.033
+                                    : screenWidth * 0.055,
+                            height: (index >= 11 && index <= 21)
+                                ? screenHeight * 0.12
+                                : (index >= 22 && index <= 43)
+                                    ? screenHeight * 0.103
+                                    : screenHeight * 0.15,
+                          ),
+                        )
                       : Container(
-                    key: ValueKey(-index),
-                    child: Image.asset(
-                      'assets/extraCards/Blue.png',
-                      fit: BoxFit.fill,
-                      width: (index >= 11 && index <= 21)
-                          ? screenWidth * 0.04
-                          : (index >= 22 && index <= 43)
-                          ? screenWidth * 0.033
-                          : screenWidth * 0.055,
-                      height: (index >= 11 && index <= 21)
-                          ? screenHeight * 0.12
-                          : (index >= 22 && index <= 43)
-                          ? screenHeight * 0.103
-                          : screenHeight * 0.15,
-                    ),
-                  ),
+                          key: ValueKey(-index),
+                          child: Image.asset(
+                            'assets/extraCards/Blue.png',
+                            fit: BoxFit.fill,
+                            width: (index >= 11 && index <= 21)
+                                ? screenWidth * 0.04
+                                : (index >= 22 && index <= 43)
+                                    ? screenWidth * 0.033
+                                    : screenWidth * 0.055,
+                            height: (index >= 11 && index <= 21)
+                                ? screenHeight * 0.12
+                                : (index >= 22 && index <= 43)
+                                    ? screenHeight * 0.103
+                                    : screenHeight * 0.15,
+                          ),
+                        ),
                 ),
               );
             }),
@@ -2051,7 +2170,9 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          translationManager.translate('txtManualSorting').toUpperCase(),
+                                          translationManager
+                                              .translate('txtManualSorting')
+                                              .toUpperCase(),
                                           style: const TextStyle(
                                               fontSize: 15,
                                               color: Colors.black),
@@ -2127,9 +2248,11 @@ class _GameplaySPState extends State<GameplaySP> with TickerProviderStateMixin {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                translationManager.translate('txtAreYouSureYouWantToExit'),
+                                translationManager
+                                    .translate('txtAreYouSureYouWantToExit'),
                                 style: TextStyle(
-                                    fontSize: screenWidth * 0.02, color: Colors.black),
+                                    fontSize: screenWidth * 0.02,
+                                    color: Colors.black),
                               ),
                               const Spacer(),
                               Row(

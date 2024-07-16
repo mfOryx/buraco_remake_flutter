@@ -5,7 +5,7 @@ import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user.dart';
 import 'package:buracoplus/home.dart';
-import 'package:buracoplus/models/LoggedInPlayer.dart';
+import 'package:buracoplus/models/logged_in_player.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,8 @@ class LoginController {
     final socketService = Provider.of<SocketService>(context, listen: false);
 
     if (!socketService.isConnected()) {
-      socketService.connect(onConnected: () => sendLogin(context, username, password));
+      socketService.connect(
+          onConnected: () => sendLogin(context, username, password));
     } else {
       // final getAllTables = await socketService.emitWithAck('getAllTables', {});
 
@@ -96,8 +97,10 @@ class LoginController {
             print(currentLoggedInPlayer?.Id);
           }
 
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Home()));
+          if (context.mounted) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Home()));
+          }
         } else {
           Toast.showTopScrollingSnackbar(
               context,
@@ -229,7 +232,7 @@ class LoginController {
       print(platformVersion);
     }
 
-    RotatingLoader.showOverlay(context);
+    if (context.mounted) RotatingLoader.showOverlay(context);
   }
 
   Future<void> _saveCredentials(

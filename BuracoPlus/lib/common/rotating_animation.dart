@@ -6,7 +6,7 @@ class RotatingAnimation extends StatefulWidget {
   const RotatingAnimation({super.key});
 
   @override
-  _RotatingAnimationState createState() => _RotatingAnimationState();
+  State<RotatingAnimation> createState() => _RotatingAnimationState();
 }
 
 class _RotatingAnimationState extends State<RotatingAnimation>

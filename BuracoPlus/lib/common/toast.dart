@@ -31,7 +31,7 @@ class TopScrollingSnackbar extends StatefulWidget {
   });
 
   @override
-  _TopScrollingSnackbarState createState() => _TopScrollingSnackbarState();
+  State<TopScrollingSnackbar> createState() => _TopScrollingSnackbarState();
 }
 
 class _TopScrollingSnackbarState extends State<TopScrollingSnackbar> {

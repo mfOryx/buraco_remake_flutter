@@ -26,7 +26,7 @@ class TopScrollingSnackbar extends StatefulWidget {
       {super.key, required this.message, this.action, required this.onHide});
 
   @override
-  _TopScrollingSnackbarState createState() => _TopScrollingSnackbarState();
+  State<TopScrollingSnackbar> createState() => _TopScrollingSnackbarState();
 }
 
 class _TopScrollingSnackbarState extends State<TopScrollingSnackbar> {

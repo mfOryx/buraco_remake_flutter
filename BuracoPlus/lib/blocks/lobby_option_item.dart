@@ -7,7 +7,7 @@ class LobbyOptionItem extends StatefulWidget {
   const LobbyOptionItem({super.key});
 
   @override
-  _LobbyOptionItemState createState() => _LobbyOptionItemState();
+  State<LobbyOptionItem> createState() => _LobbyOptionItemState();
 }
 
 class _LobbyOptionItemState extends State<LobbyOptionItem> {
