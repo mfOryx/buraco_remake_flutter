@@ -21,6 +21,8 @@ class SettingsManager with ChangeNotifier {
 
   String _language = "en";
 
+  String get language => _language;
+
   bool get darkMode => _darkMode;
 
   bool get manualSorting => _manualSorting;
@@ -118,6 +120,12 @@ class SettingsManager with ChangeNotifier {
 
   void setInvitesToTable(bool value) {
     _invitesToTable = value;
+    saveSettingsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setLanguage(String value) {
+    _language = value;
     saveSettingsDataInSharedPreferences();
     notifyListeners();
   }

@@ -85,14 +85,14 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (jailbroken) {
-        PopUps.popUpWarningWithButton(
-          "Access Denied",
-          "Jailbroken devices are not allowed!",
-          autocloseDuration: 0,
-          onPressed: () {
-            //close the app here...
-          },
-        );
+        // PopUps.popUpWarningWithButton(
+        //   "Access Denied",
+        //   "Jailbroken devices are not allowed!",
+        //   autocloseDuration: 0,
+        //   onPressed: () {
+        //     //close the app here...
+        //   },
+        // );
       }
     });
 
