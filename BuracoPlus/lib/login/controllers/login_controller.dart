@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:buracoplus/common/pop_up.dart';
 import 'package:buracoplus/common/rotating_loader.dart';
-import 'package:buracoplus/common/toast.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user.dart';
 import 'package:buracoplus/home.dart';
@@ -80,14 +80,7 @@ class LoginController {
       );
       if (ackResult.toString().contains('playerData')) {
         if (ackResult["playerData"] != null) {
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Login success",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.green);
+          PopUps.popUpSimpleSucess("", "Login success");
 
           User? currentUser = User();
           LoggedInPlayer? currentLoggedInPlayer =
@@ -102,14 +95,7 @@ class LoginController {
                 context, MaterialPageRoute(builder: (context) => const Home()));
           }
         } else {
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Wrong password",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.yellow);
+          PopUps.popUpSimpleError("", "Wrong password");
         }
       } else {
         if (kDebugMode) {
@@ -165,14 +151,7 @@ class LoginController {
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
           final playerSettings = json.decode(response['player']['userData']);
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Login success",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.green);
+          PopUps.popUpSimpleSucess("", "Login success");
           // Save details in SharedPreferences
           if (kDebugMode) {
             print(playerSettings['PSs'].toString());
@@ -193,14 +172,7 @@ class LoginController {
         RotatingLoader.hideOverlay();
         if (response['socketId'].toString() != '') {
           onSuccessfulMessage?.call(); // Call if login is successful
-          Toast.showTopScrollingSnackbar(
-              context,
-              const Text(
-                "Login success",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black, fontSize: 16.0),
-              ),
-              Colors.green);
+          PopUps.popUpSimpleSucess("", "Login success");
           // Save details in SharedPreferences
           if (kDebugMode) {
             //print(response['player']['userData'].toString());

@@ -219,7 +219,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                         Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            btn('CREATE TABLE', () {
+                            Btn('CREATE TABLE', () {
                               setState(() {
                                 createTablePopup = !createTablePopup;
                               });
@@ -229,19 +229,19 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  btn('Classic', () {}, true),
+                                  Btn('Classic', () {}, true),
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  btn('1vs1', () {}, false),
+                                  Btn('1vs1', () {}, false),
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  btn('2vs2', () {}, false),
+                                  Btn('2vs2', () {}, false),
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  btn('Professional', () {}, false),
+                                  Btn('Professional', () {}, false),
                                 ],
                               ),
                             ),
@@ -715,11 +715,11 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   }
 }
 
-class btn extends StatelessWidget {
+class Btn extends StatelessWidget {
   final String text;
   final Function f;
   final bool enabled;
-  const btn(
+  const Btn(
     this.text,
     this.f,
     this.enabled, {
