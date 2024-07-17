@@ -23,7 +23,7 @@ class TablePlayers {
 }
 
 class GameTable {
-  String? Id;
+  String? id;
   String? tableName;
   int? numberOfPlayers;
   String? password;
@@ -43,7 +43,7 @@ class GameTable {
   List<TablePlayers?>? players;
 
   GameTable({
-    this.Id,
+    this.id,
     this.tableName,
     this.numberOfPlayers,
     this.password,
@@ -63,7 +63,7 @@ class GameTable {
     this.players,
   });
   GameTable.fromJson(Map<String, dynamic> json) {
-    Id = json['_id']?.toString();
+    id = json['_id']?.toString();
     tableName = json['tableName']?.toString();
     numberOfPlayers = int.tryParse(json['numberOfPlayers']?.toString() ?? '');
     password = json['password']?.toString();
@@ -92,7 +92,7 @@ class GameTable {
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['_id'] = Id;
+    data['_id'] = id;
     data['tableName'] = tableName;
     data['numberOfPlayers'] = numberOfPlayers;
     data['password'] = password;

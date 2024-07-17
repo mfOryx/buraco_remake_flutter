@@ -87,7 +87,7 @@ class LoginController {
               currentUser.setLoggedInPlayer(ackResult["playerData"]);
 
           if (kDebugMode) {
-            print(currentLoggedInPlayer?.Id);
+            print(currentLoggedInPlayer?.id);
           }
 
           if (context.mounted) {

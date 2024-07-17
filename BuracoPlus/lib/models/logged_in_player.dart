@@ -207,7 +207,7 @@ class PlayerStatistics {
 class LoggedInPlayer {
   PlayerStatistics? playerStatistics;
   PlayerStatisticsMonthly? playerStatisticsMonthly;
-  String? Id;
+  String? id;
   int? oldId;
   String? playerName;
   String? avatarUrl;
@@ -265,7 +265,7 @@ class LoggedInPlayer {
   LoggedInPlayer({
     this.playerStatistics,
     this.playerStatisticsMonthly,
-    this.Id,
+    this.id,
     this.oldId,
     this.playerName,
     this.avatarUrl,
@@ -329,7 +329,7 @@ class LoggedInPlayer {
             (json['playerStatisticsMonthly'] is Map))
         ? PlayerStatisticsMonthly.fromJson(json['playerStatisticsMonthly'])
         : null;
-    Id = json['_id']?.toString();
+    id = json['_id']?.toString();
     oldId = int.tryParse(json['oldId']?.toString() ?? '');
     playerName = json['playerName']?.toString();
     avatarUrl = json['avatarUrl']?.toString();
@@ -404,7 +404,7 @@ class LoggedInPlayer {
     if (playerStatisticsMonthly != null) {
       data['playerStatisticsMonthly'] = playerStatisticsMonthly!.toJson();
     }
-    data['_id'] = Id;
+    data['_id'] = id;
     data['oldId'] = oldId;
     data['playerName'] = playerName;
     data['avatarUrl'] = avatarUrl;

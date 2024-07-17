@@ -22,7 +22,7 @@ class Lobby extends StatefulWidget {
 class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool isMenuVisible = false;
-  late final socketService;
+  late final socketService = Provider.of<SocketService>(context, listen: false);
   int totalPages = 0;
   List<GameTable> gameTables = [];
   List<GameTable> gameTablesFiltered = [];
@@ -34,14 +34,13 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    socketService = Provider.of<SocketService>(context, listen: false);
     getTables();
   }
 
   getTables() async {
     if (socketService.isConnected()) {
       Map<String, dynamic> getAllTables = await socketService.emitWithAck(
-          'getAllTables', {'playerId': currentlyLoggedInPlayer.Id});
+          'getAllTables', {'playerId': currentlyLoggedInPlayer.id});
 
       if (getAllTables.containsKey('tablesList')) {
         List allTables = getAllTables['tablesList'];
@@ -67,7 +66,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     if (socketService.isConnected()) {
       Map<String, dynamic> response =
           await socketService.emitWithAck('sitAtTable', {
-        'playerId': currentlyLoggedInPlayer.Id,
+        'playerId': currentlyLoggedInPlayer.id,
         "tableId": tableId,
         "chairId": chairId,
         "ip": ipAddress
@@ -85,7 +84,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     if (socketService.isConnected()) {
       Map<String, dynamic> response = await socketService.emitWithAck(
           'leaveTable',
-          {'playerId': currentlyLoggedInPlayer.Id, "tableId": tableId});
+          {'playerId': currentlyLoggedInPlayer.id, "tableId": tableId});
 
       getTables();
 
@@ -383,15 +382,15 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                               return LobbyCard(
                                                 table: e,
                                                 currentlyLoggedInPlayerId:
-                                                    currentlyLoggedInPlayer.Id!,
+                                                    currentlyLoggedInPlayer.id!,
                                                 callback: (params) {
                                                   if (params['type'] == "SIT") {
                                                     sitAtTable(
                                                         params['chairId'],
-                                                        e.Id.toString());
+                                                        e.id.toString());
                                                   } else if (params['type'] ==
                                                       "LEAVE_TABLE") {
-                                                    leaveTable(e.Id.toString());
+                                                    leaveTable(e.id.toString());
                                                   }
                                                 },
                                               );
