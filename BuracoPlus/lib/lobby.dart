@@ -8,7 +8,6 @@ import 'package:buracoplus/create_table_multi_player.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'common/general_functions.dart';
 import 'common/translation_manager.dart';
 
@@ -697,14 +696,6 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void _launchURL(Uri url) async {
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   @override
