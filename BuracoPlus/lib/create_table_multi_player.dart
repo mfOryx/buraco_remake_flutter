@@ -46,16 +46,16 @@ class _CreateTableMPState extends State<CreateTableMP> {
 
     if (iosInfo.model.toLowerCase().contains('ipad')) {
       isIpad = true;
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is an iPad');
       }
     } else if (iosInfo.model.toLowerCase().contains('iphone')) {
       isIphone = true;
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is an iPhone');
       }
     } else {
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is neither iPhone nor iPad');
       }
     }
@@ -215,8 +215,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                   child: Stack(
                     children: [
                       Container(
-                        width: isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
-                        height: isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
+                        width:
+                            isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
+                        height:
+                            isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
@@ -232,14 +234,21 @@ class _CreateTableMPState extends State<CreateTableMP> {
                           ),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.only(left: screenWidth * 0.04, top: screenHeight * 0.01),
+                          padding: EdgeInsets.only(
+                              left: screenWidth * 0.04,
+                              top: screenHeight * 0.01),
                           child: Text(
                             translationManager
-                                .translate('txtCreateTable').toUpperCase(),
+                                .translate('txtCreateTable')
+                                .toUpperCase(),
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: isIpad ? screenWidth * 0.018 : (isIphone ? screenWidth * 0.015 : screenWidth * 0.015),
+                              fontSize: isIpad
+                                  ? screenWidth * 0.018
+                                  : (isIphone
+                                      ? screenWidth * 0.015
+                                      : screenWidth * 0.015),
                             ),
                           ),
                         ),
@@ -247,25 +256,41 @@ class _CreateTableMPState extends State<CreateTableMP> {
                       Align(
                         alignment: Alignment.center,
                         child: Container(
-                          width: isIOS() ? screenWidth * 0.5 : screenWidth * 0.53,
-                          height: isIOS() ? screenHeight * 0.85 : screenHeight * 0.87,
+                          width:
+                              isIOS() ? screenWidth * 0.5 : screenWidth * 0.53,
+                          height: isIOS()
+                              ? screenHeight * 0.85
+                              : screenHeight * 0.87,
                           decoration: BoxDecoration(
-                            color:
-                            const Color.fromRGBO(240, 240, 240, 1), // Box color
-                            borderRadius:
-                            BorderRadius.circular(20.0),
+                            color: const Color.fromRGBO(
+                                240, 240, 240, 1), // Box color
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                           child: Column(
                             children: [
                               SizedBox(height: screenHeight * 0.02),
                               Row(
                                 children: [
-                                  SizedBox(width: screenWidth * 0.022,),
+                                  SizedBox(
+                                    width: screenWidth * 0.022,
+                                  ),
                                   Container(
-                                    padding: isIpad ? const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0) : (isIphone ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0) : const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)),
+                                    padding: isIpad
+                                        ? const EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 15.0)
+                                        : (isIphone
+                                            ? const EdgeInsets.symmetric(
+                                                horizontal: 10.0, vertical: 5.0)
+                                            : const EdgeInsets.symmetric(
+                                                horizontal: 10.0,
+                                                vertical: 5.0)),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: isIpad ? BorderRadius.circular(20.0) : (isIphone ? BorderRadius.circular(8.0) : BorderRadius.circular(8.0)),
+                                      borderRadius: isIpad
+                                          ? BorderRadius.circular(20.0)
+                                          : (isIphone
+                                              ? BorderRadius.circular(8.0)
+                                              : BorderRadius.circular(8.0)),
                                     ),
                                     child: Row(
                                       children: [
@@ -277,19 +302,39 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                             fontSize: screenWidth * 0.013,
                                           ),
                                         ),
-                                        SizedBox(width: isIpad ? screenWidth * 0.04 : (isIphone ? screenWidth * 0.02 : screenWidth * 0.02)),
                                         SizedBox(
-                                          width: isIpad ? screenWidth * 0.130 : (isIphone ? screenWidth * 0.130 : screenWidth * 0.130),
-                                          height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.07),
+                                            width: isIpad
+                                                ? screenWidth * 0.04
+                                                : (isIphone
+                                                    ? screenWidth * 0.02
+                                                    : screenWidth * 0.02)),
+                                        SizedBox(
+                                          width: isIpad
+                                              ? screenWidth * 0.130
+                                              : (isIphone
+                                                  ? screenWidth * 0.130
+                                                  : screenWidth * 0.130),
+                                          height: isIpad
+                                              ? screenHeight * 0.04
+                                              : (isIphone
+                                                  ? screenHeight * 0.05
+                                                  : screenHeight * 0.07),
                                           child: ElevatedButton(
                                             style: ButtonStyle(
                                               shape: WidgetStateProperty.all(
                                                 RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(4.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
                                                 ),
                                               ),
-                                              backgroundColor: WidgetStateProperty.all(
-                                                classicToggle ? const Color.fromRGBO(90, 64, 126, 1) : const Color.fromRGBO(230, 230, 230, 1),
+                                              backgroundColor:
+                                                  WidgetStateProperty.all(
+                                                classicToggle
+                                                    ? const Color.fromRGBO(
+                                                        90, 64, 126, 1)
+                                                    : const Color.fromRGBO(
+                                                        230, 230, 230, 1),
                                               ),
                                               side: WidgetStateProperty.all(
                                                 const BorderSide(
@@ -303,28 +348,48 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                             },
                                             child: Center(
                                               child: Text(
-                                                translationManager.translate('txtItalian'),
+                                                translationManager
+                                                    .translate('txtItalian'),
                                                 style: TextStyle(
-                                                  color: classicToggle ? Colors.white : Colors.black87,
+                                                  color: classicToggle
+                                                      ? Colors.white
+                                                      : Colors.black87,
                                                   fontSize: screenWidth * 0.013,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: screenWidth * 0.01,),
                                         SizedBox(
-                                          width: isIpad ? screenWidth * 0.130 : (isIphone ? screenWidth * 0.130 : screenWidth * 0.130),
-                                          height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.07),
+                                          width: screenWidth * 0.01,
+                                        ),
+                                        SizedBox(
+                                          width: isIpad
+                                              ? screenWidth * 0.130
+                                              : (isIphone
+                                                  ? screenWidth * 0.130
+                                                  : screenWidth * 0.130),
+                                          height: isIpad
+                                              ? screenHeight * 0.04
+                                              : (isIphone
+                                                  ? screenHeight * 0.05
+                                                  : screenHeight * 0.07),
                                           child: ElevatedButton(
                                             style: ButtonStyle(
                                               shape: WidgetStateProperty.all(
                                                 RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(4.0),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          4.0),
                                                 ),
                                               ),
-                                              backgroundColor: WidgetStateProperty.all(
-                                                professionalToggle ? const Color.fromRGBO(90, 64, 126, 1) : const Color.fromRGBO(230, 230, 230, 1),
+                                              backgroundColor:
+                                                  WidgetStateProperty.all(
+                                                professionalToggle
+                                                    ? const Color.fromRGBO(
+                                                        90, 64, 126, 1)
+                                                    : const Color.fromRGBO(
+                                                        230, 230, 230, 1),
                                               ),
                                               side: WidgetStateProperty.all(
                                                 const BorderSide(
@@ -334,13 +399,17 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                               ),
                                             ),
                                             onPressed: () {
-                                              toggleSelection("professionalToggle");
+                                              toggleSelection(
+                                                  "professionalToggle");
                                             },
                                             child: Center(
                                               child: Text(
-                                                translationManager.translate('txtProfessional'),
+                                                translationManager.translate(
+                                                    'txtProfessional'),
                                                 style: TextStyle(
-                                                  color: professionalToggle ? Colors.white : Colors.black87,
+                                                  color: professionalToggle
+                                                      ? Colors.white
+                                                      : Colors.black87,
                                                   fontSize: screenWidth * 0.013,
                                                 ),
                                               ),
@@ -354,42 +423,76 @@ class _CreateTableMPState extends State<CreateTableMP> {
                               ),
                               SizedBox(height: screenHeight * 0.01),
                               Padding(
-                                padding: const EdgeInsets.only(left: 15,),
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                ),
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Row(
                                     children: [
                                       SizedBox(width: screenWidth * 0.01),
                                       SizedBox(
-                                        width: isIpad ? screenWidth * 0.14 : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-                                        height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+                                        width: isIpad
+                                            ? screenWidth * 0.14
+                                            : (isIphone
+                                                ? screenWidth * 0.13
+                                                : screenWidth * 0.13),
+                                        height: isIpad
+                                            ? screenHeight * 0.04
+                                            : (isIphone
+                                                ? screenHeight * 0.05
+                                                : screenHeight * 0.05),
                                         child: ElevatedButton(
                                           style: ButtonStyle(
                                             shape: WidgetStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.only(
-                                                  topLeft: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                  topRight: Radius.circular(0.0),
-                                                  bottomLeft: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                  bottomRight: Radius.circular(0.0),
+                                                  topLeft: isIpad
+                                                      ? const Radius.circular(
+                                                          20.0)
+                                                      : (isIphone
+                                                          ? const Radius
+                                                              .circular(10.0)
+                                                          : const Radius
+                                                              .circular(10.0)),
+                                                  topRight:
+                                                      const Radius.circular(
+                                                          0.0),
+                                                  bottomLeft: isIpad
+                                                      ? const Radius.circular(
+                                                          20.0)
+                                                      : (isIphone
+                                                          ? const Radius
+                                                              .circular(10.0)
+                                                          : const Radius
+                                                              .circular(10.0)),
+                                                  bottomRight:
+                                                      const Radius.circular(
+                                                          0.0),
                                                 ),
                                               ),
                                             ),
-                                            backgroundColor: WidgetStateProperty.all(
-                                              const Color.fromRGBO(83, 32, 95, 1),
+                                            backgroundColor:
+                                                WidgetStateProperty.all(
+                                              const Color.fromRGBO(
+                                                  83, 32, 95, 1),
                                             ),
                                             side: WidgetStateProperty.all(
                                               BorderSide(
-                                                color: Colors.white.withOpacity(0.5),
-                                                width: isIpad ? 3 : (isIphone ? 2 : 2),
+                                                color: Colors.white
+                                                    .withOpacity(0.5),
+                                                width: isIpad
+                                                    ? 3
+                                                    : (isIphone ? 2 : 2),
                                               ),
                                             ),
                                           ),
-                                          onPressed: () {
-                                          },
+                                          onPressed: () {},
                                           child: Center(
                                             child: Text(
-                                              translationManager.translate('txtCancel').toUpperCase(),
+                                              translationManager
+                                                  .translate('txtCancel')
+                                                  .toUpperCase(),
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -400,35 +503,67 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: isIpad ? screenWidth * 0.14 : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-                                        height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+                                        width: isIpad
+                                            ? screenWidth * 0.14
+                                            : (isIphone
+                                                ? screenWidth * 0.13
+                                                : screenWidth * 0.13),
+                                        height: isIpad
+                                            ? screenHeight * 0.04
+                                            : (isIphone
+                                                ? screenHeight * 0.05
+                                                : screenHeight * 0.05),
                                         child: ElevatedButton(
                                           style: ButtonStyle(
                                             shape: WidgetStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(0.0),
-                                                  topRight: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                  bottomLeft: Radius.circular(0.0),
-                                                  bottomRight: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
+                                                  topLeft:
+                                                      const Radius.circular(
+                                                          0.0),
+                                                  topRight: isIpad
+                                                      ? const Radius.circular(
+                                                          20.0)
+                                                      : (isIphone
+                                                          ? const Radius
+                                                              .circular(10.0)
+                                                          : const Radius
+                                                              .circular(10.0)),
+                                                  bottomLeft:
+                                                      const Radius.circular(
+                                                          0.0),
+                                                  bottomRight: isIpad
+                                                      ? const Radius.circular(
+                                                          20.0)
+                                                      : (isIphone
+                                                          ? const Radius
+                                                              .circular(10.0)
+                                                          : const Radius
+                                                              .circular(10.0)),
                                                 ),
                                               ),
                                             ),
-                                            backgroundColor: WidgetStateProperty.all(
-                                              const Color.fromRGBO(83, 32, 95, 1),
+                                            backgroundColor:
+                                                WidgetStateProperty.all(
+                                              const Color.fromRGBO(
+                                                  83, 32, 95, 1),
                                             ),
                                             side: WidgetStateProperty.all(
                                               BorderSide(
-                                                color: Colors.white.withOpacity(0.5),
-                                                width: isIpad ? 3 : (isIphone ? 2 : 2),
+                                                color: Colors.white
+                                                    .withOpacity(0.5),
+                                                width: isIpad
+                                                    ? 3
+                                                    : (isIphone ? 2 : 2),
                                               ),
                                             ),
                                           ),
-                                          onPressed: () {
-                                          },
+                                          onPressed: () {},
                                           child: Center(
                                             child: Text(
-                                              translationManager.translate('txtInviteFriend').toUpperCase(),
+                                              translationManager
+                                                  .translate('txtInviteFriend')
+                                                  .toUpperCase(),
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,

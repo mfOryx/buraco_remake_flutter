@@ -1,6 +1,4 @@
-
 import 'dart:io';
-import 'package:buracoplus/common/custom_switch.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,7 @@ import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import 'common/settings_manager.dart';
-import 'models/options_model.dart';
+
 class Optionsview extends StatefulWidget {
   const Optionsview({super.key});
 
@@ -18,83 +16,81 @@ class Optionsview extends StatefulWidget {
 }
 
 class _OptionsviewState extends State<Optionsview> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     checkDeviceType();
   }
- //############################### STATE VARIABLES
+
+  //############################### STATE VARIABLES
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = true;
   bool isClassicRule = false;
-  int language =0;
+  int language = 0;
   bool isDarkMode = false;
 
   // ################################ HELPERS FUNCTIONS
   bool isIOS() {
     return Platform.isIOS;
   }
+
   bool isAndroid() {
     return Platform.isAndroid;
   }
+
   Future<void> checkDeviceType() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
 
     if (iosInfo.model.toLowerCase().contains('ipad')) {
       isIpad = true;
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is an iPad');
       }
     } else if (iosInfo.model.toLowerCase().contains('iphone')) {
       isIphone = true;
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is an iPhone');
       }
     } else {
-      if(kDebugMode){
+      if (kDebugMode) {
         print('This device is neither iPhone nor iPad');
       }
     }
-    setState(() {
-
-    });
+    setState(() {});
   }
+
   void toggleSelection(String toggleSelected) {
     switch (toggleSelected) {
-
       case "professionalToggle":
-        setState(() {
-
-        });
+        setState(() {});
         return;
       default:
         return;
     }
   }
 
- // ################################ FUNCTIONS ON CLICK/PRESSED/TAP
- void toggleClassicRuleFunction(){
+  // ################################ FUNCTIONS ON CLICK/PRESSED/TAP
+  void toggleClassicRuleFunction() {
     setState(() {
-      isClassicRule=!isClassicRule;
+      isClassicRule = !isClassicRule;
     });
- }
- void changeLanguageFunction(BuildContext context){
+  }
 
-    final translationManager = Provider.of<TranslationManager>(context,listen: false);
+  void changeLanguageFunction(BuildContext context) {
+    final translationManager =
+        Provider.of<TranslationManager>(context, listen: false);
     setState(() {
-
-      if(language<3)
-      language++;
-      else{
+      if (language < 3) {
+        language++;
+      } else {
         language = 0;
       }
     });
 
-    switch(language){
+    switch (language) {
       case 0:
         translationManager.changeLanguage('en');
         break;
@@ -107,18 +103,12 @@ class _OptionsviewState extends State<Optionsview> {
       case 3:
         translationManager.changeLanguage('en');
         break;
-
     }
-
   }
-
-  
-
 
   @override
   Widget build(BuildContext context) {
     final translationManager = Provider.of<TranslationManager>(context);
-    final settingsManager = Provider.of<SettingsManager>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
@@ -126,7 +116,6 @@ class _OptionsviewState extends State<Optionsview> {
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-         
           if (createTablePopup)
             Positioned.fill(
               child: GestureDetector(
@@ -158,8 +147,10 @@ class _OptionsviewState extends State<Optionsview> {
                     child: Stack(
                       children: [
                         Container(
-                          width: isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
-                          height: isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
+                          width:
+                              isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
+                          height:
+                              isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -174,32 +165,47 @@ class _OptionsviewState extends State<Optionsview> {
                               bottom: Radius.elliptical(200, 25),
                             ),
                           ),
-                          child:
-                           Padding(
-                            padding: EdgeInsets.only(left: screenWidth * 0.04, top: screenHeight * 0.01),
-                            child:     Row(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: screenWidth * 0.04,
+                                top: screenHeight * 0.01),
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   translationManager
-                                      .translate('txtOptions').toUpperCase(),
+                                      .translate('txtOptions')
+                                      .toUpperCase(),
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isIpad ? screenWidth * 0.018 : (isIphone ? screenWidth * 0.015 : screenWidth * 0.015),
+                                    fontSize: isIpad
+                                        ? screenWidth * 0.018
+                                        : (isIphone
+                                            ? screenWidth * 0.015
+                                            : screenWidth * 0.015),
                                   ),
                                 ),
-      
-                                   SizedBox(
-                                       height: isIpad ? screenHeight * 0.025 : (isIphone ? screenHeight * 0.025 : screenHeight * 0.025),
-                                       width: isIpad ? screenWidth * 0.038 : (isIphone ? screenWidth * 0.038 : screenWidth * 0.038),
-                                       child: IconButton(
-      
-                                           iconSize: isIpad ? screenWidth * 0.018 : (isIphone ? screenWidth * 0.020 : screenWidth * 0.020),
-      
-                                           onPressed: (){}, icon: Icon(Icons.close))),
-                               
+                                SizedBox(
+                                    height: isIpad
+                                        ? screenHeight * 0.025
+                                        : (isIphone
+                                            ? screenHeight * 0.025
+                                            : screenHeight * 0.025),
+                                    width: isIpad
+                                        ? screenWidth * 0.038
+                                        : (isIphone
+                                            ? screenWidth * 0.038
+                                            : screenWidth * 0.038),
+                                    child: IconButton(
+                                        iconSize: isIpad
+                                            ? screenWidth * 0.018
+                                            : (isIphone
+                                                ? screenWidth * 0.020
+                                                : screenWidth * 0.020),
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.close))),
                               ],
                             ),
                           ),
@@ -209,125 +215,207 @@ class _OptionsviewState extends State<Optionsview> {
                           child: Align(
                             alignment: Alignment.center,
                             child: Container(
-      
-                              width: isIOS() ? screenWidth * 0.5 : screenWidth * 0.53,
-                              height: isIOS() ? screenHeight * 0.85 : screenHeight * 0.87,
+                              width: isIOS()
+                                  ? screenWidth * 0.5
+                                  : screenWidth * 0.53,
+                              height: isIOS()
+                                  ? screenHeight * 0.85
+                                  : screenHeight * 0.87,
                               decoration: BoxDecoration(
-                                color:
-                                const Color.fromRGBO(240, 240, 240, 1), // Box color
-                                borderRadius:
-                                BorderRadius.circular(20.0),
+                                color: const Color.fromRGBO(
+                                    240, 240, 240, 1), // Box color
+                                borderRadius: BorderRadius.circular(20.0),
                               ),
                               child: Column(
                                 children: [
                                   SizedBox(height: screenHeight * 0.02),
-         //************************************** MY CODE **************************************************************
-      
+                                  //************************************** MY CODE **************************************************************
+
                                   //#############################  LOBBY
-                                  LobbyRow(
+                                  lobbyRow(
                                     screenWidth: screenWidth,
                                     isIpad: isIpad,
                                     isIphone: isIphone,
-                                    isClassicRule: isClassicRule ,
-                                    toggleClassicRule:toggleClassicRuleFunction,
+                                    isClassicRule: isClassicRule,
+                                    toggleClassicRule:
+                                        toggleClassicRuleFunction,
                                   ),
                                   //#############################  LANGUAGE
-                                 
-                                  LanguageRow (screenWidth: screenWidth,
-                                    isIpad: isIpad,
-                                    isIphone: isIphone,
-                                      language: language ,
-                                      changeLanguage:()=>changeLanguageFunction(context)),
-      
+
+                                  languageRow(
+                                      screenWidth: screenWidth,
+                                      isIpad: isIpad,
+                                      isIphone: isIphone,
+                                      language: language,
+                                      changeLanguage: () =>
+                                          changeLanguageFunction(context)),
+
                                   //#############################  DARK MODE
-                                  DarkModeRow(
+                                  darkModeRow(
                                     screenWidth: screenWidth,
                                     isIpad: isIpad,
                                     isIphone: isIphone,
-
                                   ),
-      
+
                                   //BOTTOM 2 BUTTONS FAQ AND SUPPORT
                                   Padding(
-                                    padding: const EdgeInsets.only(left: 15,),
+                                    padding: const EdgeInsets.only(
+                                      left: 15,
+                                    ),
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Row(
                                         children: [
                                           SizedBox(width: screenWidth * 0.01),
                                           SizedBox(
-                                            width: isIpad ? screenWidth * 0.14 : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-                                            height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+                                            width: isIpad
+                                                ? screenWidth * 0.14
+                                                : (isIphone
+                                                    ? screenWidth * 0.13
+                                                    : screenWidth * 0.13),
+                                            height: isIpad
+                                                ? screenHeight * 0.04
+                                                : (isIphone
+                                                    ? screenHeight * 0.05
+                                                    : screenHeight * 0.05),
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 shape: WidgetStateProperty.all(
                                                   RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                      topRight: Radius.circular(0.0),
-                                                      bottomLeft: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                      bottomRight: Radius.circular(0.0),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft: isIpad
+                                                          ? const Radius
+                                                              .circular(20.0)
+                                                          : (isIphone
+                                                              ? const Radius
+                                                                  .circular(
+                                                                  10.0)
+                                                              : const Radius
+                                                                  .circular(
+                                                                  10.0)),
+                                                      topRight:
+                                                          const Radius.circular(
+                                                              0.0),
+                                                      bottomLeft: isIpad
+                                                          ? const Radius
+                                                              .circular(20.0)
+                                                          : (isIphone
+                                                              ? const Radius
+                                                                  .circular(
+                                                                  10.0)
+                                                              : const Radius
+                                                                  .circular(
+                                                                  10.0)),
+                                                      bottomRight:
+                                                          const Radius.circular(
+                                                              0.0),
                                                     ),
                                                   ),
                                                 ),
-                                                backgroundColor: WidgetStateProperty.all(
-                                                  const Color.fromRGBO(83, 32, 95, 1),
+                                                backgroundColor:
+                                                    WidgetStateProperty.all(
+                                                  const Color.fromRGBO(
+                                                      83, 32, 95, 1),
                                                 ),
                                                 side: WidgetStateProperty.all(
                                                   BorderSide(
-                                                    color: Colors.white.withOpacity(0.5),
-                                                    width: isIpad ? 3 : (isIphone ? 2 : 2),
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    width: isIpad
+                                                        ? 3
+                                                        : (isIphone ? 2 : 2),
                                                   ),
                                                 ),
                                               ),
-                                              onPressed: () {
-                                              },
+                                              onPressed: () {},
                                               child: Center(
                                                 child: Text(
-                                                  translationManager.translate('txtFaq').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtFaq')
+                                                      .toUpperCase(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: screenWidth * 0.011,
+                                                    fontSize:
+                                                        screenWidth * 0.011,
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: isIpad ? screenWidth * 0.14 : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-                                            height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+                                            width: isIpad
+                                                ? screenWidth * 0.14
+                                                : (isIphone
+                                                    ? screenWidth * 0.13
+                                                    : screenWidth * 0.13),
+                                            height: isIpad
+                                                ? screenHeight * 0.04
+                                                : (isIphone
+                                                    ? screenHeight * 0.05
+                                                    : screenHeight * 0.05),
                                             child: ElevatedButton(
                                               style: ButtonStyle(
                                                 shape: WidgetStateProperty.all(
                                                   RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(0.0),
-                                                      topRight: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
-                                                      bottomLeft: Radius.circular(0.0),
-                                                      bottomRight: isIpad ? Radius.circular(20.0) : (isIphone ? Radius.circular(10.0) : Radius.circular(10.0)),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topLeft:
+                                                          const Radius.circular(
+                                                              0.0),
+                                                      topRight: isIpad
+                                                          ? const Radius
+                                                              .circular(20.0)
+                                                          : (isIphone
+                                                              ? const Radius
+                                                                  .circular(
+                                                                  10.0)
+                                                              : const Radius
+                                                                  .circular(
+                                                                  10.0)),
+                                                      bottomLeft:
+                                                          const Radius.circular(
+                                                              0.0),
+                                                      bottomRight: isIpad
+                                                          ? const Radius
+                                                              .circular(20.0)
+                                                          : (isIphone
+                                                              ? const Radius
+                                                                  .circular(
+                                                                  10.0)
+                                                              : const Radius
+                                                                  .circular(
+                                                                  10.0)),
                                                     ),
                                                   ),
                                                 ),
-                                                backgroundColor: WidgetStateProperty.all(
-                                                  const Color.fromRGBO(83, 32, 95, 1),
+                                                backgroundColor:
+                                                    WidgetStateProperty.all(
+                                                  const Color.fromRGBO(
+                                                      83, 32, 95, 1),
                                                 ),
                                                 side: WidgetStateProperty.all(
                                                   BorderSide(
-                                                    color: Colors.white.withOpacity(0.5),
-                                                    width: isIpad ? 3 : (isIphone ? 2 : 2),
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    width: isIpad
+                                                        ? 3
+                                                        : (isIphone ? 2 : 2),
                                                   ),
                                                 ),
                                               ),
-                                              onPressed: () {
-                                              },
+                                              onPressed: () {},
                                               child: Center(
                                                 child: Text(
-                                                  translationManager.translate('txtSupport').toUpperCase(),
+                                                  translationManager
+                                                      .translate('txtSupport')
+                                                      .toUpperCase(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: screenWidth * 0.0105,
+                                                    fontSize:
+                                                        screenWidth * 0.0105,
                                                   ),
                                                 ),
                                               ),
@@ -354,13 +442,12 @@ class _OptionsviewState extends State<Optionsview> {
     );
   }
 
-  Widget LobbyRow({
-    required double screenWidth,
-    required bool isIpad,
-    required bool isIphone,
-    required bool isClassicRule,
-    required void Function() toggleClassicRule
-  }) {
+  Widget lobbyRow(
+      {required double screenWidth,
+      required bool isIpad,
+      required bool isIphone,
+      required bool isClassicRule,
+      required void Function() toggleClassicRule}) {
     final translationManager = Provider.of<TranslationManager>(context);
     return Row(
       children: [
@@ -372,13 +459,16 @@ class _OptionsviewState extends State<Optionsview> {
           padding: isIpad
               ? const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0)
               : (isIphone
-              ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
-              : const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)),
+                  ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
+                  : const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: isIpad
                 ? BorderRadius.circular(20.0)
-                : (isIphone ? BorderRadius.circular(8.0) : BorderRadius.circular(8.0)),
+                : (isIphone
+                    ? BorderRadius.circular(8.0)
+                    : BorderRadius.circular(8.0)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -410,7 +500,7 @@ class _OptionsviewState extends State<Optionsview> {
                   ),
                   IconButton(
                     onPressed: toggleClassicRule,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.black,
                       size: 10,
@@ -425,15 +515,13 @@ class _OptionsviewState extends State<Optionsview> {
     );
   }
 
-  Widget LanguageRow({
-    required double screenWidth,
-    required bool isIpad,
-    required bool isIphone,
-    required int language,
-    required void Function() changeLanguage
-  }) {
+  Widget languageRow(
+      {required double screenWidth,
+      required bool isIpad,
+      required bool isIphone,
+      required int language,
+      required void Function() changeLanguage}) {
     final translationManager = Provider.of<TranslationManager>(context);
-    final settingsManager = Provider.of<SettingsManager>(context);
     return Row(
       children: [
         SizedBox(width: screenWidth * 0.022),
@@ -444,13 +532,16 @@ class _OptionsviewState extends State<Optionsview> {
           padding: isIpad
               ? const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0)
               : (isIphone
-              ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
-              : const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)),
+                  ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
+                  : const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: isIpad
                 ? BorderRadius.circular(20.0)
-                : (isIphone ? BorderRadius.circular(8.0) : BorderRadius.circular(8.0)),
+                : (isIphone
+                    ? BorderRadius.circular(8.0)
+                    : BorderRadius.circular(8.0)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -479,8 +570,8 @@ class _OptionsviewState extends State<Optionsview> {
                     ),
                   ),
                   IconButton(
-                    onPressed: ()=>changeLanguageFunction(context),
-                    icon: Icon(
+                    onPressed: () => changeLanguageFunction(context),
+                    icon: const Icon(
                       Icons.arrow_forward_ios,
                       color: Colors.black,
                       size: 10,
@@ -495,13 +586,11 @@ class _OptionsviewState extends State<Optionsview> {
     );
   }
 
-  Widget DarkModeRow({
+  Widget darkModeRow({
     required double screenWidth,
     required bool isIpad,
     required bool isIphone,
-   
-  })
-  {
+  }) {
     final translationManager = Provider.of<TranslationManager>(context);
     final settingsManager = Provider.of<SettingsManager>(context);
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -515,13 +604,16 @@ class _OptionsviewState extends State<Optionsview> {
           padding: isIpad
               ? const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0)
               : (isIphone
-              ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
-              : const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)),
+                  ? const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0)
+                  : const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: isIpad
                 ? BorderRadius.circular(20.0)
-                : (isIphone ? BorderRadius.circular(8.0) : BorderRadius.circular(8.0)),
+                : (isIphone
+                    ? BorderRadius.circular(8.0)
+                    : BorderRadius.circular(8.0)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -538,20 +630,18 @@ class _OptionsviewState extends State<Optionsview> {
                     ? screenWidth * 0.04
                     : (isIphone ? screenWidth * 0.02 : screenWidth * 0.02),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Switch(
-                    value: Provider.of<SettingsManager>(context, listen: false).darkMode,
-                onChanged: (bool newValue) {
-                  settingsManager.setDarkMode(!settingsManager.darkMode)     ;
-                  themeProvider.toggleTheme(newValue) ;
-                },
-
-  ),
-                   // add switch here
-                  
+                    value: Provider.of<SettingsManager>(context, listen: false)
+                        .darkMode,
+                    onChanged: (bool newValue) {
+                      settingsManager.setDarkMode(!settingsManager.darkMode);
+                      themeProvider.toggleTheme(newValue);
+                    },
+                  ),
+                  // add switch here
                 ],
               ),
             ],

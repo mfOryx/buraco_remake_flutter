@@ -1,5 +1,4 @@
 import 'dart:io' show Platform;
-import 'package:buracoplus/common/pop_up.dart' show PopUps;
 import 'package:buracoplus/common/settings_manager.dart' show SettingsManager;
 import 'package:buracoplus/common/translation_manager.dart'
     show TranslationManager;

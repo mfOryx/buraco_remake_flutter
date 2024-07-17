@@ -1,6 +1,6 @@
 import 'package:buracoplus/blocks/lobby_option_item.dart';
 import 'package:buracoplus/common/settings_manager.dart';
-import 'package:buracoplus/optionsView.dart';
+import 'package:buracoplus/options_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:buracoplus/helpers/modal_helpers.dart';
@@ -8,7 +8,6 @@ import 'package:buracoplus/models/options_model.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
-
 
 class OptionsButton extends StatelessWidget {
   final VoidCallback toggleMenu;
@@ -25,7 +24,7 @@ class OptionsButton extends StatelessWidget {
     final settingsManager = Provider.of<SettingsManager>(context);
     settingsManager.loadSettingsFromSharedPreferences();
     //load the values from server
-   // SocketServiceSingleton().on(Socketemitkeys.settingsEmit, handleEvent1);
+    // SocketServiceSingleton().on(Socketemitkeys.settingsEmit, handleEvent1);
 
     return Positioned(
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
@@ -37,7 +36,8 @@ class OptionsButton extends StatelessWidget {
         children: [
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.white),
-            onPressed: () => showOptionsView(context),//showOptionsPanel(context),
+            onPressed: () =>
+                showOptionsView(context), //showOptionsPanel(context),
           ),
           const SizedBox(height: 1),
           Text(translationManager.translate('txtSettings').toUpperCase(),
@@ -123,11 +123,10 @@ class OptionsButton extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Optionsview();
+        return const Optionsview();
       },
     );
   }
-
 
   List<OptionGroup> _buildOptionGroups(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -144,7 +143,6 @@ class OptionsButton extends StatelessWidget {
             onSwitchChanged: (val) {
               settingsManager.setDarkMode(val);
               themeProvider.toggleTheme(val);
-
             },
             onTap: (context) {},
           ),
