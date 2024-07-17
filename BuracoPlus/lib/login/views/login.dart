@@ -8,8 +8,8 @@ import 'package:buracoplus/create_table_single_player.dart' show CreateTableSP;
 import 'package:buracoplus/home.dart' show Home;
 import 'package:buracoplus/login/controllers/login_controller.dart'
     show LoginController;
-import 'package:buracoplus/menu_views/buttons/notices_button.dart';
-import 'package:buracoplus/menu_views/notices.menu.dart';
+import 'package:buracoplus/menu_views/notices/buttons/notice_start.dart';
+import 'package:buracoplus/menu_views/notices/notices.menu.dart';
 import 'package:buracoplus/providers/theme_provider.dart' show ThemeProvider;
 import 'package:flutter/material.dart'
     show

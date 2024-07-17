@@ -1,7 +1,6 @@
-import 'package:buracoplus/menu_views/buttons/club.button.dart' show ClubButton;
-import 'package:buracoplus/menu_views/buttons/personal_button.dart'
-    show PersonalButton;
-import 'package:buracoplus/menu_views/text/titles.dart' show NoticeTitle;
+import 'package:buracoplus/menu_views/all_text.dart';
+import 'package:buracoplus/menu_views/notices/buttons/animations.dart';
+import 'package:buracoplus/menu_views/all_variables.dart';
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -18,12 +17,9 @@ import 'package:flutter/material.dart'
         Curves,
         Directionality,
         EdgeInsets,
-        FontStyle,
-        FontWeight,
         Icon,
         IconButton,
         Icons,
-        LinearGradient,
         MainAxisAlignment,
         Material,
         MaterialType,
@@ -33,10 +29,7 @@ import 'package:flutter/material.dart'
         Row,
         Stack,
         StatelessWidget,
-        Text,
-        TextDecoration,
         TextDirection,
-        TextStyle,
         VoidCallback,
         Widget;
 
@@ -96,14 +89,7 @@ class NoticesMenu extends StatelessWidget {
                   bottom: 100,
                 ),
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 90, 110, 150),
-                      Color.fromARGB(255, 115, 70, 130)
-                    ],
-                  ),
+                  gradient: noticeGradient,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(20.0),
                     bottom: Radius.elliptical(160, 10),
@@ -113,8 +99,8 @@ class NoticesMenu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const NoticeTitle(
-                      noticeTitle: 'NOTICE',
+                    const NoticeTextTitle(
+                      noticeText: 'NOTICE',
                     ),
                     IconButton(
                       alignment: Alignment.topRight,
@@ -151,10 +137,11 @@ class NoticesMenu extends StatelessWidget {
                 top: 35,
                 left: 26,
                 right: 163,
-                child: PersonalButton(
+                child: NoticeButton(
                   onTap: () {},
-                  child: const NoticeTitle(
-                    noticeTitle: 'PERSONAL',
+                  //decor: MenuButtonDecor1.getDecoration(_isTapped),
+                  child: const NoticeTextButton(
+                    noticeText: 'PERSONAL',
                   ),
                 ),
               ),
@@ -162,19 +149,11 @@ class NoticesMenu extends StatelessWidget {
                 top: 35,
                 left: 163,
                 right: 26,
-                child: ClubButton(
+                child: NoticeButton(
                   onTap: () {},
-                  child: const Text(
-                    style: TextStyle(
-                      letterSpacing: 0.2,
-                      decoration: TextDecoration.none,
-                      backgroundColor: Colors.transparent,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 11,
-                      color: Colors.white,
-                    ),
-                    'CLUB',
+                  //decor: MenuButtonDecor2.getDecoration(_isTapped),
+                  child: const NoticeTextButton(
+                    noticeText: 'CLUB',
                   ),
                 ),
               ),
