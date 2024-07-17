@@ -1,6 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:buracoplus/common/translation_manager.dart';
+import 'package:flutter/material.dart'
+    show
+        BuildContext,
+        Colors,
+        Column,
+        Directionality,
+        ElevatedButton,
+        Icon,
+        IconButton,
+        Icons,
+        MediaQuery,
+        Positioned,
+        SizedBox,
+        StatelessWidget,
+        Text,
+        TextAlign,
+        TextDirection,
+        TextStyle,
+        VoidCallback,
+        Widget;
+import 'package:provider/provider.dart' show Provider;
+import 'package:buracoplus/common/translation_manager.dart'
+    show TranslationManager;
 
 class NoticesButton extends StatelessWidget {
   final VoidCallback toggleNotices;
@@ -38,7 +58,7 @@ class NoticesButton extends StatelessWidget {
           Text(
             translationManager
                 .translate(
-                  'Notices Barra',
+                  'Notices',
                   //'txtNotices',
                 )
                 .toUpperCase(),

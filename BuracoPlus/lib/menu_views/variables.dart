@@ -15,7 +15,7 @@ const TextStyle noticesTextStyle = TextStyle(
   backgroundColor: Colors.transparent,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
-  fontSize: 20,
+  fontSize: 15,
   color: Colors.white,
 );
 

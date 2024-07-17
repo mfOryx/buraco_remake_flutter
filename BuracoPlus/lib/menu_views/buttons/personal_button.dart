@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'
     show
         AnimatedContainer,
+        BlurStyle,
         BorderRadius,
         BoxDecoration,
         BoxShadow,
@@ -19,10 +20,12 @@ import 'package:flutter/material.dart'
 class PersonalButton extends StatefulWidget {
   final Widget child;
   final VoidCallback onTap;
+  //final TextStyle style;
 
   const PersonalButton({
     required this.child,
     required this.onTap,
+    //required this.style,
     super.key,
   });
 
@@ -55,6 +58,7 @@ class _PersonalButtonState extends State<PersonalButton> {
         });
       },
       child: AnimatedContainer(
+        height: 20,
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: const Color.fromARGB(115, 117, 36, 120),
@@ -67,10 +71,11 @@ class _PersonalButtonState extends State<PersonalButton> {
           boxShadow: _isTapped
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 2.0,
+                    blurRadius: 10.0,
+                    offset: const Offset(0, 0),
+                    blurStyle: BlurStyle.solid,
                   ),
                 ]
               : [],

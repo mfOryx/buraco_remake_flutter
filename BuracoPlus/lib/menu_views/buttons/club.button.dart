@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart'
     show
         AnimatedContainer,
+        BlurStyle,
         BorderRadius,
         BoxDecoration,
         BoxShadow,
@@ -55,6 +56,7 @@ class _FilteredButtonState extends State<ClubButton> {
         });
       },
       child: AnimatedContainer(
+        height: 20,
         duration: const Duration(milliseconds: 100),
         decoration: BoxDecoration(
           color: const Color.fromARGB(115, 59, 6, 61),
@@ -67,10 +69,11 @@ class _FilteredButtonState extends State<ClubButton> {
           boxShadow: _isTapped
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.8),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 2.0,
+                    blurRadius: 10.0,
+                    offset: const Offset(0, 0),
+                    blurStyle: BlurStyle.solid,
                   ),
                 ]
               : [],
