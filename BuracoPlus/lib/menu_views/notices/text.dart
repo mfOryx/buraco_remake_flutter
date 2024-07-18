@@ -1,4 +1,5 @@
-import 'package:buracoplus/menu_views/all_variables.dart';
+import 'package:buracoplus/menu_views/notices/variables.dart'
+    show noticesTextStyle;
 import 'package:flutter/material.dart'
     show BuildContext, StatelessWidget, Text, TextDirection, Widget;
 

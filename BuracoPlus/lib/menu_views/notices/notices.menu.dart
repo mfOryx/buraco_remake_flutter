@@ -1,6 +1,9 @@
-import 'package:buracoplus/menu_views/all_text.dart';
-import 'package:buracoplus/menu_views/notices/buttons/animations.dart';
-import 'package:buracoplus/menu_views/all_variables.dart';
+import 'package:buracoplus/menu_views/notices/text.dart'
+    show NoticeTextButton, NoticeTextTitle;
+import 'package:buracoplus/menu_views/notices/variables.dart'
+    show noticeGradient;
+import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
+    show NoticeLeftButton, NoticeRightButton;
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -133,26 +136,22 @@ class NoticesMenu extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 top: 35,
                 left: 26,
                 right: 163,
-                child: NoticeButton(
-                  onTap: () {},
-                  //decor: MenuButtonDecor1.getDecoration(_isTapped),
-                  child: const NoticeTextButton(
+                child: NoticeLeftButton(
+                  noticeTextButton: NoticeTextButton(
                     noticeText: 'PERSONAL',
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 top: 35,
                 left: 163,
                 right: 26,
-                child: NoticeButton(
-                  onTap: () {},
-                  //decor: MenuButtonDecor2.getDecoration(_isTapped),
-                  child: const NoticeTextButton(
+                child: NoticeRightButton(
+                  noticeTextButton: NoticeTextButton(
                     noticeText: 'CLUB',
                   ),
                 ),
