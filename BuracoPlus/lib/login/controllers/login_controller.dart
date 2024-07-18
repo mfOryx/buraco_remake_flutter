@@ -5,7 +5,7 @@ import 'package:buracoplus/common/rotating_loader.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:buracoplus/helpers/user.dart';
 import 'package:buracoplus/home.dart';
-import 'package:buracoplus/models/LoggedInPlayer.dart';
+import 'package:buracoplus/models/logged_in_player.dart';
 import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

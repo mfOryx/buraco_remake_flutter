@@ -1,4 +1,6 @@
-import 'package:buracoplus/models/LoggedInPlayer.dart';
+
+
+import '../models/logged_in_player.dart';
 
 class User {
   static LoggedInPlayer? loggedInPlayer;

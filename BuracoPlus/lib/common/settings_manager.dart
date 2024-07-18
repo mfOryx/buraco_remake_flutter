@@ -209,6 +209,9 @@ class SettingsManager with ChangeNotifier {
     await prefs.setBool('_clubInvites', clubInvites);
     await prefs.setBool('_invitesToTable', invitesToTable);
 
+    if(kDebugMode){
+      print("Shared Prefrences changed : ");
+    }
     //Prepare the JSON and send it to the server
    //String settingJsonString = await prepareAllSettingsInJsonFormat();
    // Post the JSON to the server
