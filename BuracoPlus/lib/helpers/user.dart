@@ -1,5 +1,3 @@
-
-
 import '../models/logged_in_player.dart';
 
 class User {

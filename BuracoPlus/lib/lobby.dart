@@ -45,6 +45,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   bool turnTimeTwo = false;
   bool turnTimeThree = false;
   bool turnTimeFour = false;
+  bool passwordToggle = false;
+  bool chatToggle = false;
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = false;
@@ -984,6 +986,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                               0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                       shape: WidgetStateProperty
                                                           .all(
                                                         RoundedRectangleBorder(
@@ -1051,6 +1054,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                               0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                       shape: WidgetStateProperty
                                                           .all(
                                                         RoundedRectangleBorder(
@@ -1183,6 +1187,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                               0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                       shape: WidgetStateProperty
                                                           .all(
                                                         RoundedRectangleBorder(
@@ -1252,6 +1257,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                               0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                       shape: WidgetStateProperty
                                                           .all(
                                                         RoundedRectangleBorder(
@@ -1388,6 +1394,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                                 0.07),
                                                     child: ElevatedButton(
                                                       style: ButtonStyle(
+                                                        padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                         shape:
                                                             WidgetStateProperty
                                                                 .all(
@@ -1460,6 +1467,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                                 0.07),
                                                     child: ElevatedButton(
                                                       style: ButtonStyle(
+                                                        padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                         shape:
                                                             WidgetStateProperty
                                                                 .all(
@@ -1572,6 +1580,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                                   ElevatedButton(
                                                                 style:
                                                                     ButtonStyle(
+                                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                                   shape:
                                                                       WidgetStateProperty
                                                                           .all(
@@ -1656,14 +1665,14 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                         height: isIpad
                                             ? (professionalToggle
                                                 ? screenHeight * 0.01
-                                                : screenHeight * 0.02)
+                                                : screenHeight * 0.0)
                                             : (isIphone
                                                 ? (professionalToggle
                                                     ? screenHeight * 0.008
-                                                    : screenHeight * 0.02)
+                                                    : screenHeight * 0.00)
                                                 : (professionalToggle
                                                     ? screenHeight * 0.008
-                                                    : screenHeight * 0.02)),
+                                                    : screenHeight * 0.00)),
                                       ),
                                       Row(
                                         children: [
@@ -1707,19 +1716,19 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                 ),
                                                 SizedBox(
                                                     width: isIpad
-                                                        ? screenWidth * 0.065
+                                                        ? screenWidth * 0.051
                                                         : (isIphone
                                                             ? screenWidth *
-                                                                0.046
+                                                                0.0315
                                                             : screenWidth *
-                                                                0.046)),
+                                                                0.0315)),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? screenWidth * 0.05
+                                                      ? screenWidth * 0.0564
                                                       : (isIphone
-                                                          ? screenWidth * 0.08
+                                                          ? screenWidth * 0.063
                                                           : screenWidth *
-                                                              0.130),
+                                                              0.63),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
                                                       : (isIphone
@@ -1728,6 +1737,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                               0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                                                       shape: WidgetStateProperty
                                                           .all(
                                                         RoundedRectangleBorder(
@@ -1760,26 +1770,254 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                       toggleSelection(
                                                           "turnTimeOne");
                                                     },
-                                                    child: FittedBox(
-                                                      fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      translationManager
+                                                          .translate('txtTurnTime15'),
+                                                      style: TextStyle(
+                                                        color: turnTimeOne
+                                                            ? Colors.white
+                                                            : Colors.black87,
+                                                        fontSize:
+                                                        isIpad
+                                                            ? screenWidth * 0.013
+                                                            : (isIphone
+                                                            ? screenWidth * 0.01
+                                                            : screenWidth *
+                                                            0.01),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.0564
+                                                      : (isIphone
+                                                      ? screenWidth * 0.063
+                                                      : screenWidth *
+                                                      0.063),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty
+                                                          .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      WidgetStateProperty
+                                                          .all(
+                                                        turnTimeTwo
+                                                            ? const Color
+                                                            .fromRGBO(
+                                                            90, 64, 126, 1)
+                                                            : const Color
+                                                            .fromRGBO(230,
+                                                            230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty
+                                                          .all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      toggleSelection(
+                                                          "turnTimeTwo");
+                                                    },
+                                                    child: Center(
                                                       child: Text(
                                                         translationManager
                                                             .translate(
-                                                                'txtTurnTime15'),
+                                                            'txtTurnTime30'),
                                                         style: TextStyle(
-                                                          color: turnTimeOne
+                                                          color: turnTimeTwo
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
-                                                              screenWidth *
-                                                                  0.013,
+                                                          isIpad
+                                                              ? screenWidth * 0.013
+                                                              : (isIphone
+                                                              ? screenWidth * 0.01
+                                                              : screenWidth *
+                                                              0.01),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: screenWidth * 0.01,
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.0564
+                                                      : (isIphone
+                                                      ? screenWidth * 0.063
+                                                      : screenWidth *
+                                                      0.063),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty
+                                                          .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      WidgetStateProperty
+                                                          .all(
+                                                        turnTimeThree
+                                                            ? const Color
+                                                            .fromRGBO(
+                                                            90, 64, 126, 1)
+                                                            : const Color
+                                                            .fromRGBO(230,
+                                                            230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty
+                                                          .all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      toggleSelection(
+                                                          "turnTimeThree");
+                                                    },
+                                                    child: Center(
+                                                      child: Text(
+                                                        translationManager
+                                                            .translate(
+                                                            'txtTurnTime45'),
+                                                        style: TextStyle(
+                                                          color: turnTimeThree
+                                                              ? Colors.white
+                                                              : Colors.black87,
+                                                          fontSize:
+                                                          isIpad
+                                                              ? screenWidth * 0.013
+                                                              : (isIphone
+                                                              ? screenWidth * 0.01
+                                                              : screenWidth *
+                                                              0.01),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.0564
+                                                      : (isIphone
+                                                      ? screenWidth * 0.063
+                                                      : screenWidth *
+                                                      0.063),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty
+                                                          .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      WidgetStateProperty
+                                                          .all(
+                                                        turnTimeFour
+                                                            ? const Color
+                                                            .fromRGBO(
+                                                            90, 64, 126, 1)
+                                                            : const Color
+                                                            .fromRGBO(230,
+                                                            230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty
+                                                          .all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      toggleSelection(
+                                                          "turnTimeFour");
+                                                    },
+                                                    child: Center(
+                                                      child: Text(
+                                                        translationManager
+                                                            .translate(
+                                                            'txtTurnTime60'),
+                                                        style: TextStyle(
+                                                          color: turnTimeFour
+                                                              ? Colors.white
+                                                              : Colors.black87,
+                                                          fontSize:
+                                                          isIpad
+                                                              ? screenWidth * 0.013
+                                                              : (isIphone
+                                                              ? screenWidth * 0.01
+                                                              : screenWidth *
+                                                              0.01),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -1801,267 +2039,334 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                       ),
                                       Row(
                                         children: [
-                                          SizedBox(width: screenWidth * 0.022),
+                                          SizedBox(
+                                            width: screenWidth * 0.022,
+                                          ),
                                           Container(
-                                            padding: const EdgeInsets.symmetric(
+                                            padding: isIpad
+                                                ? const EdgeInsets.symmetric(
+                                                horizontal: 20.0,
+                                                vertical: 15.0)
+                                                : (isIphone
+                                                ? const EdgeInsets
+                                                .symmetric(
                                                 horizontal: 10.0,
-                                                vertical: 0.0),
+                                                vertical: 5.0)
+                                                : const EdgeInsets
+                                                .symmetric(
+                                                horizontal: 10.0,
+                                                vertical: 5.0)),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                              borderRadius: isIpad
+                                                  ? BorderRadius.circular(20.0)
+                                                  : (isIphone
+                                                  ? BorderRadius.circular(
+                                                  8.0)
+                                                  : BorderRadius.circular(
+                                                  8.0)),
                                             ),
                                             child: Row(
                                               children: [
                                                 Text(
                                                   translationManager
-                                                      .translate('txtTurnTime'),
+                                                      .translate('txtPoints'),
                                                   style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize:
-                                                          screenWidth * 0.013),
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                    screenWidth * 0.013,
+                                                  ),
                                                 ),
                                                 SizedBox(
-                                                    width: screenWidth * 0.038),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
+                                                    width: isIpad
+                                                        ? screenWidth * 0.07
+                                                        : (isIphone
+                                                        ? screenWidth *
+                                                        0.0515
+                                                        : screenWidth *
+                                                        0.0515)),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      : (isIphone
+                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.05,
-                                                                  screenHeight *
-                                                                      0.04)),
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty
+                                                          .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      WidgetStateProperty
+                                                          .all(
+                                                        pointsOne
+                                                            ? const Color
+                                                            .fromRGBO(
+                                                            90, 64, 126, 1)
+                                                            : const Color
+                                                            .fromRGBO(230,
+                                                            230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty
+                                                          .all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
                                                     ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: turnTimeOne
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "turnTimeOne");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      "txtTurnTime15"),
-                                                              style: TextStyle(
-                                                                color: turnTimeOne
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                    onPressed: () {
+                                                      toggleSelection(
+                                                          "pointsOne");
+                                                    },
+                                                    child: Text(
+                                                      translationManager
+                                                          .translate('txtOneHand'),
+                                                      style: TextStyle(
+                                                        color: pointsOne
+                                                            ? Colors.white
+                                                            : Colors.black87,
+                                                        fontSize:
+                                                        isIpad
+                                                            ? screenWidth * 0.011
+                                                            : (isIphone
+                                                            ? screenWidth * 0.01
+                                                            : screenWidth *
+                                                            0.01),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      : (isIphone
+                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                  ),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty
+                                                          .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor:
+                                                      WidgetStateProperty
+                                                          .all(
+                                                        pointsTwo
+                                                            ? const Color
+                                                            .fromRGBO(
+                                                            90, 64, 126, 1)
+                                                            : const Color
+                                                            .fromRGBO(230,
+                                                            230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty
+                                                          .all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      toggleSelection(
+                                                          "pointsTwo");
+                                                    },
+                                                    child: Center(
+                                                      child: Text(
+                                                        classicToggle
+                                                            ? translationManager
+                                                            .translate(
+                                                            'txtPoints1005')
+                                                            : translationManager
+                                                            .translate(
+                                                            'txtPoints1505'),
+                                                        style: TextStyle(
+                                                          color: pointsTwo
+                                                              ? Colors.white
+                                                              : Colors.black87,
+                                                          fontSize:
+                                                          isIpad
+                                                              ? screenWidth * 0.013
+                                                              : (isIphone
+                                                              ? screenWidth * 0.01
+                                                              : screenWidth *
+                                                              0.01),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0035),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      : (isIphone
+                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight * 0.07),
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.05,
-                                                                  screenHeight *
-                                                                      0.04)),
+                                                      padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                      shape: WidgetStateProperty.all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(4.0),
+                                                        ),
+                                                      ),
+                                                      backgroundColor: WidgetStateProperty.all(
+                                                        pointsThree
+                                                            ? const Color.fromRGBO(90, 64, 126, 1)
+                                                            : const Color.fromRGBO(230, 230, 230, 1),
+                                                      ),
+                                                      side: WidgetStateProperty.all(
+                                                        const BorderSide(
+                                                          color: Colors.black,
+                                                          width: 0.4,
+                                                        ),
+                                                      ),
                                                     ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: turnTimeTwo
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "turnTimeTwo");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtTurnTime30'),
-                                                              style: TextStyle(
-                                                                color: turnTimeTwo
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
+                                                    onPressed: () {
+                                                      toggleSelection("pointsThree");
+                                                    },
+                                                    child: Center(
+                                                      child: Text(
+                                                        classicToggle
+                                                            ? translationManager.translate('txtPoints1505')
+                                                            : translationManager.translate('txtPoints2000'),
+                                                        style: TextStyle(
+                                                          color: pointsThree ? Colors.white : Colors.black87,
+                                                          fontSize: isIpad
+                                                              ? screenWidth * 0.013
+                                                              : (isIphone ? screenWidth * 0.01 : screenWidth * 0.01),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0035),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.05,
-                                                                  screenHeight *
-                                                                      0.04)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: turnTimeThree
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "turnTimeThree");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtTurnTime45'),
-                                                              style: TextStyle(
-                                                                color: turnTimeThree
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
+                                                Visibility(
+                                                    visible: classicToggle,
+                                                child: SizedBox(
+                                                  width: isIpad
+                                                      ? screenWidth * 0.015
+                                                      : (isIphone
+                                                      ? screenWidth * 0.0065
+                                                      : screenWidth *
+                                                      0.0065),
+                                                ),
+                                                ),
+                                                Visibility(
+                                                  visible: classicToggle,
+                                                  child: SizedBox(
+                                                    width: isIpad
+                                                        ? screenWidth * 0.0564
+                                                        : (isIphone
+                                                        ? screenWidth * 0.063
+                                                        : screenWidth *
+                                                        0.063),
+                                                    height: isIpad
+                                                        ? screenHeight * 0.04
+                                                        : (isIphone
+                                                        ? screenHeight * 0.05
+                                                        : screenHeight *
+                                                        0.07),
+                                                    child: ElevatedButton(
+                                                      style: ButtonStyle(
+                                                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                                                        shape: WidgetStateProperty
+                                                            .all(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                4.0),
+                                                          ),
+                                                        ),
+                                                        backgroundColor:
+                                                        WidgetStateProperty
+                                                            .all(
+                                                          pointsFour
+                                                              ? const Color
+                                                              .fromRGBO(
+                                                              90, 64, 126, 1)
+                                                              : const Color
+                                                              .fromRGBO(230,
+                                                              230, 230, 1),
+                                                        ),
+                                                        side: WidgetStateProperty
+                                                            .all(
+                                                          const BorderSide(
+                                                            color: Colors.black,
+                                                            width: 0.4,
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0035),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.05,
-                                                                  screenHeight *
-                                                                      0.04)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: turnTimeFour
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "turnTimeFour");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtTurnTime60'),
-                                                              style: TextStyle(
-                                                                color: turnTimeFour
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
+                                                      onPressed: () {
+                                                        toggleSelection(
+                                                            "pointsFour");
+                                                      },
+                                                      child: Center(
+                                                        child: Text(
+                                                          translationManager
+                                                              .translate(
+                                                              'txtPoints2005'),
+                                                          style: TextStyle(
+                                                            color: pointsFour
+                                                                ? Colors.white
+                                                                : Colors.black87,
+                                                            fontSize:
+                                                            isIpad
+                                                                ? screenWidth * 0.013
+                                                                : (isIphone
+                                                                ? screenWidth * 0.01
+                                                                : screenWidth *
+                                                                0.01),
                                                           ),
                                                         ),
                                                       ),
@@ -2074,299 +2379,159 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                         ],
                                       ),
                                       SizedBox(
-                                          height: professionalToggle
-                                              ? screenHeight * 0.012
-                                              : screenHeight * 0.05),
+                                        height: isIpad
+                                            ? (professionalToggle
+                                            ? screenHeight * 0.01
+                                            : screenHeight * 0.02)
+                                            : (isIphone
+                                            ? (professionalToggle
+                                            ? screenHeight * 0.008
+                                            : screenHeight * 0.02)
+                                            : (professionalToggle
+                                            ? screenHeight * 0.008
+                                            : screenHeight * 0.02)),
+                                      ),
                                       Row(
                                         children: [
-                                          SizedBox(width: screenWidth * 0.022),
+                                          SizedBox(
+                                            width: screenWidth * 0.022,
+                                          ),
                                           Container(
-                                            width: isIOS()
-                                                ? screenWidth * 0.4532
-                                                : screenWidth * 0.495,
-                                            padding: const EdgeInsets.symmetric(
+                                            padding: isIpad
+                                                ? const EdgeInsets.symmetric(
+                                                horizontal: 20.0,
+                                                vertical: 15.0)
+                                                : (isIphone
+                                                ? const EdgeInsets
+                                                .symmetric(
                                                 horizontal: 10.0,
-                                                vertical: 0.0),
+                                                vertical: 5.0)
+                                                : const EdgeInsets
+                                                .symmetric(
+                                                horizontal: 10.0,
+                                                vertical: 5.0)),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                              borderRadius: isIpad
+                                                  ? BorderRadius.circular(20.0)
+                                                  : (isIphone
+                                                  ? BorderRadius.circular(
+                                                  8.0)
+                                                  : BorderRadius.circular(
+                                                  8.0)),
                                             ),
                                             child: Row(
                                               children: [
                                                 Text(
                                                   translationManager
-                                                      .translate('txtPoints'),
+                                                      .translate('txtPassword'),
                                                   style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize:
-                                                          screenWidth * 0.013),
-                                                ),
-                                                SizedBox(
-                                                    width: screenWidth * 0.058),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsOne
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsOne");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtOneHand'),
-                                                              style: TextStyle(
-                                                                color: pointsOne
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.011,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                    screenWidth * 0.013,
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsTwo
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsTwo");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              classicToggle
-                                                                  ? translationManager
-                                                                      .translate(
-                                                                          'txtPoints1005')
-                                                                  : translationManager
-                                                                      .translate(
-                                                                          'txtPoints1505'),
-                                                              style: TextStyle(
-                                                                color: pointsTwo
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                    width: isIpad
+                                                        ? screenWidth * 0.01
+                                                        : (isIphone
+                                                        ? screenWidth *
+                                                        0.02
+                                                        : screenWidth *
+                                                        0.02)),
                                                 SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
+                                                  width: isIpad
+                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      : (isIphone
+                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsThree
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsThree");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              classicToggle
-                                                                  ? translationManager
-                                                                      .translate(
-                                                                          'txtPoints1505')
-                                                                  : translationManager
-                                                                      .translate(
-                                                                          'txtPoints2000'),
-                                                              style: TextStyle(
-                                                                color: pointsThree
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                Visibility(
-                                                  visible: classicToggle,
-                                                  child: ElevatedButtonTheme(
-                                                    data:
-                                                        ElevatedButtonThemeData(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        elevation: 0.0,
-                                                      ),
-                                                    ),
-                                                    child: ElevatedButton(
-                                                      style: ButtonStyle(
-                                                        fixedSize:
-                                                            WidgetStateProperty
-                                                                .all(Size(
-                                                                    screenWidth *
-                                                                        0.07,
-                                                                    screenHeight *
-                                                                        0.05)),
-                                                      ),
-                                                      onPressed: () {
-                                                        // Your onPressed logic here
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: Transform.scale(
+                                                    scaleX: 0.8,
+                                                    scaleY: 0.7,
+                                                    child: Switch(
+                                                      thumbIcon:
+                                                      WidgetStateProperty.resolveWith<Icon> ((Set < WidgetState > states) {
+                                                        if (states.contains(
+                                                            WidgetState.selected)) {
+                                                          return const Icon(Icons.check);
+                                                        }
+                                                        return const Icon(Icons.close);
                                                       },
-                                                      child: SizedBox(
-                                                        width:
-                                                            screenWidth * 0.06,
-                                                        height:
-                                                            screenHeight * 0.07,
-                                                        child: Ink.image(
-                                                          image: pointsFour
-                                                              ? const AssetImage(
-                                                                  'assets/buttons/button_23_curved.png')
-                                                              : const AssetImage(
-                                                                  'assets/buttons/button_22_curved.png'),
-                                                          fit: BoxFit.fill,
-                                                          width: double
-                                                              .infinity, // Make the image fill the button
-                                                          height: double
-                                                              .infinity, // Make the image fill the button
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              toggleSelection(
-                                                                  "pointsFour");
-                                                            },
-                                                            child: Center(
-                                                              child: Text(
-                                                                translationManager
-                                                                    .translate(
-                                                                        'txtPoints2005'),
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: pointsFour
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black87,
-                                                                  fontSize:
-                                                                      screenWidth *
-                                                                          0.013,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
                                                       ),
+                                                      value: passwordToggle,
+                                                      onChanged: (bool newValue) {
+                                                        setState(() {
+                                                          passwordToggle = !passwordToggle;
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    width: isIpad
+                                                        ? screenWidth * 0.07
+                                                        : (isIphone
+                                                        ? screenWidth *
+                                                        0.02
+                                                        : screenWidth *
+                                                        0.02)
+                                                ),
+                                                Text(
+                                                  translationManager
+                                                      .translate('txtChat'),
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize:
+                                                    screenWidth * 0.013,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    width: isIpad
+                                                        ? screenWidth * 0.01
+                                                        : (isIphone
+                                                        ? screenWidth *
+                                                        0.02
+                                                        : screenWidth *
+                                                        0.02)),
+                                                SizedBox(
+                                                  width: isIpad
+                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      : (isIphone
+                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                  ),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone
+                                                      ? screenHeight * 0.05
+                                                      : screenHeight *
+                                                      0.07),
+                                                  child: Transform.scale(
+                                                    scaleX: 0.8,
+                                                    scaleY: 0.7,
+                                                    child: Switch(
+                                                      thumbIcon:
+                                                      WidgetStateProperty.resolveWith<Icon> ((Set < WidgetState > states) {
+                                                        if (states.contains(
+                                                            WidgetState.selected)) {
+                                                          return const Icon(Icons.check);
+                                                        }
+                                                        return const Icon(Icons.close);
+                                                      },
+                                                      ),
+                                                      value: chatToggle,
+                                                      onChanged: (bool newValue) {
+                                                        setState(() {
+                                                          chatToggle = !chatToggle;
+                                                        });
+                                                      },
                                                     ),
                                                   ),
                                                 ),
@@ -2376,312 +2541,25 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                         ],
                                       ),
                                       SizedBox(
-                                          height: professionalToggle
-                                              ? screenHeight * 0.012
-                                              : screenHeight * 0.05),
-                                      Row(
-                                        children: [
-                                          SizedBox(width: screenWidth * 0.022),
-                                          Container(
-                                            // width: isIOS()
-                                            //     ? screenWidth * 0.4532
-                                            //     : screenWidth * 0.495,
-                                            height: screenHeight * 0.09,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10.0,
-                                                vertical: 0.0),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  translationManager
-                                                      .translate('txtPoints'),
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize:
-                                                          screenWidth * 0.013),
-                                                ),
-                                                SizedBox(
-                                                    width: screenWidth * 0.058),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsOne
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsOne");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtOneHand'),
-                                                              style: TextStyle(
-                                                                color: pointsOne
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.011,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsTwo
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsTwo");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              classicToggle
-                                                                  ? translationManager
-                                                                      .translate(
-                                                                          'txtPoints1005')
-                                                                  : translationManager
-                                                                      .translate(
-                                                                          'txtPoints1505'),
-                                                              style: TextStyle(
-                                                                color: pointsTwo
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                ElevatedButtonTheme(
-                                                  data: ElevatedButtonThemeData(
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      padding: EdgeInsets.zero,
-                                                      elevation: 0.0,
-                                                    ),
-                                                  ),
-                                                  child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                      fixedSize:
-                                                          WidgetStateProperty
-                                                              .all(Size(
-                                                                  screenWidth *
-                                                                      0.07,
-                                                                  screenHeight *
-                                                                      0.05)),
-                                                    ),
-                                                    onPressed: () {},
-                                                    child: SizedBox(
-                                                      width: screenWidth * 0.06,
-                                                      height:
-                                                          screenHeight * 0.07,
-                                                      child: Ink.image(
-                                                        image: pointsThree
-                                                            ? const AssetImage(
-                                                                'assets/buttons/button_23_curved.png')
-                                                            : const AssetImage(
-                                                                'assets/buttons/button_22_curved.png'),
-                                                        fit: BoxFit.fill,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            toggleSelection(
-                                                                "pointsThree");
-                                                          },
-                                                          child: Center(
-                                                            child: Text(
-                                                              classicToggle
-                                                                  ? translationManager
-                                                                      .translate(
-                                                                          'txtPoints1505')
-                                                                  : translationManager
-                                                                      .translate(
-                                                                          'txtPoints2000'),
-                                                              style: TextStyle(
-                                                                color: pointsThree
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black87,
-                                                                fontSize:
-                                                                    screenWidth *
-                                                                        0.013,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    width:
-                                                        screenWidth * 0.0022),
-                                                Visibility(
-                                                  visible: classicToggle,
-                                                  child: ElevatedButtonTheme(
-                                                    data:
-                                                        ElevatedButtonThemeData(
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        elevation: 0.0,
-                                                      ),
-                                                    ),
-                                                    child: ElevatedButton(
-                                                      style: ButtonStyle(
-                                                        fixedSize:
-                                                            WidgetStateProperty
-                                                                .all(Size(
-                                                                    screenWidth *
-                                                                        0.07,
-                                                                    screenHeight *
-                                                                        0.05)),
-                                                      ),
-                                                      onPressed: () {
-                                                        // Your onPressed logic here
-                                                      },
-                                                      child: SizedBox(
-                                                        width:
-                                                            screenWidth * 0.06,
-                                                        height:
-                                                            screenHeight * 0.07,
-                                                        child: Ink.image(
-                                                          image: pointsFour
-                                                              ? const AssetImage(
-                                                                  'assets/buttons/button_23_curved.png')
-                                                              : const AssetImage(
-                                                                  'assets/buttons/button_22_curved.png'),
-                                                          fit: BoxFit.fill,
-                                                          width: double
-                                                              .infinity, // Make the image fill the button
-                                                          height: double
-                                                              .infinity, // Make the image fill the button
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              toggleSelection(
-                                                                  "pointsFour");
-                                                            },
-                                                            child: Center(
-                                                              child: Text(
-                                                                translationManager
-                                                                    .translate(
-                                                                        'txtPoints2005'),
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: pointsFour
-                                                                      ? Colors
-                                                                          .white
-                                                                      : Colors
-                                                                          .black87,
-                                                                  fontSize:
-                                                                      screenWidth *
-                                                                          0.013,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                                        height: isIpad
+                                            ? (professionalToggle
+                                            ? screenHeight * 0.01
+                                            : screenHeight * 0.02)
+                                            : (isIphone
+                                            ? (professionalToggle
+                                            ? screenHeight * 0.01
+                                            : screenHeight * 0.02)
+                                            : (professionalToggle
+                                            ? screenHeight * 0.01
+                                            : screenHeight * 0.02)),
                                       ),
-                                      SizedBox(height: screenHeight * 0.01),
                                       Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 15,
+                                        padding: EdgeInsets.only(
+                                          left: isIpad
+                                              ? screenWidth * 0.02
+                                              : (isIphone
+                                              ? screenWidth * 0.016
+                                              : screenWidth * 0.016),
                                         ),
                                         child: Align(
                                           alignment: Alignment.center,
@@ -2691,10 +2569,10 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                                   width: screenWidth * 0.01),
                                               SizedBox(
                                                 width: isIpad
-                                                    ? screenWidth * 0.14
+                                                    ? screenWidth * 0.13
                                                     : (isIphone
-                                                        ? screenWidth * 0.13
-                                                        : screenWidth * 0.13),
+                                                        ? screenWidth * 0.124
+                                                        : screenWidth * 0.124),
                                                 height: isIpad
                                                     ? screenHeight * 0.04
                                                     : (isIphone
@@ -2776,10 +2654,10 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                               ),
                                               SizedBox(
                                                 width: isIpad
-                                                    ? screenWidth * 0.14
+                                                    ? screenWidth * 0.13
                                                     : (isIphone
-                                                        ? screenWidth * 0.13
-                                                        : screenWidth * 0.13),
+                                                        ? screenWidth * 0.124
+                                                        : screenWidth * 0.124),
                                                 height: isIpad
                                                     ? screenHeight * 0.04
                                                     : (isIphone
@@ -2845,10 +2723,10 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                               ),
                                               SizedBox(
                                                 width: isIpad
-                                                    ? screenWidth * 0.14
+                                                    ? screenWidth * 0.13
                                                     : (isIphone
-                                                        ? screenWidth * 0.13
-                                                        : screenWidth * 0.13),
+                                                        ? screenWidth * 0.124
+                                                        : screenWidth * 0.124),
                                                 height: isIpad
                                                     ? screenHeight * 0.04
                                                     : (isIphone
