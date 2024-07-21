@@ -10,7 +10,7 @@ import 'package:flutter/material.dart'
         Radius;
 
 class MenuButtonDecor {
-  static BoxDecoration getBaseDecoration(
+  static BoxDecoration decorationTemplate(
     bool isTapped,
     Color color,
     BorderRadius borderRadius,
@@ -22,7 +22,7 @@ class MenuButtonDecor {
           ? [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
-                spreadRadius: 2.0,
+                spreadRadius: 0.5,
                 blurRadius: 10.0,
                 offset: const Offset(0, 0),
                 blurStyle: BlurStyle.solid,
@@ -32,8 +32,10 @@ class MenuButtonDecor {
     );
   }
 
-  static BoxDecoration getDecoration1(bool isTapped) {
-    return getBaseDecoration(
+  static BoxDecoration decoration1(
+    bool isTapped,
+  ) {
+    return decorationTemplate(
       isTapped,
       const Color.fromARGB(115, 117, 36, 120),
       const BorderRadius.only(
@@ -45,8 +47,10 @@ class MenuButtonDecor {
     );
   }
 
-  static BoxDecoration getDecoration2(bool isTapped) {
-    return getBaseDecoration(
+  static BoxDecoration decoration2(
+    bool isTapped,
+  ) {
+    return decorationTemplate(
       isTapped,
       const Color.fromARGB(115, 59, 6, 61),
       const BorderRadius.only(

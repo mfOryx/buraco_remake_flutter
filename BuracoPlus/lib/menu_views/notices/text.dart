@@ -1,7 +1,7 @@
 import 'package:buracoplus/menu_views/notices/variables.dart'
     show noticesTextStyle;
 import 'package:flutter/material.dart'
-    show BuildContext, StatelessWidget, Text, TextDirection, Widget;
+    show BuildContext, StatelessWidget, Text, Widget;
 
 class NoticeTextTitle extends StatelessWidget {
   const NoticeTextTitle({
@@ -16,7 +16,6 @@ class NoticeTextTitle extends StatelessWidget {
     return Text(
       noticeText,
       style: noticesTextStyle.copyWith(fontSize: 15.5),
-      textDirection: TextDirection.ltr,
     );
   }
 }
@@ -34,7 +33,6 @@ class NoticeTextButton extends StatelessWidget {
     return Text(
       noticeText,
       style: noticesTextStyle.copyWith(fontSize: 11.5),
-      textDirection: TextDirection.ltr,
     );
   }
 }

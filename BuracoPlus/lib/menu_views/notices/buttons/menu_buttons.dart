@@ -1,22 +1,22 @@
 import 'package:buracoplus/menu_views/notices/buttons/decoration.dart'
     show MenuButtonDecor;
-import 'package:buracoplus/menu_views/notices/buttons/template.dart'
-    show ButtonTemplate;
+import 'package:buracoplus/menu_views/notices/buttons/action.dart'
+    show ButtonAction;
 
-class NoticeLeftButton extends ButtonTemplate {
+class NoticeLeftButton extends ButtonAction {
   const NoticeLeftButton({
     required super.noticeTextButton,
     super.key,
   }) : super(
-          getDecoration: MenuButtonDecor.getDecoration1,
+          getDecoration: MenuButtonDecor.decoration1,
         );
 }
 
-class NoticeRightButton extends ButtonTemplate {
+class NoticeRightButton extends ButtonAction {
   const NoticeRightButton({
     required super.noticeTextButton,
     super.key,
   }) : super(
-          getDecoration: MenuButtonDecor.getDecoration2,
+          getDecoration: MenuButtonDecor.decoration2,
         );
 }

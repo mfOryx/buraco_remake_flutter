@@ -21,7 +21,9 @@ class ButtonAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       height: 20,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(
+        milliseconds: 150,
+      ),
       decoration: boxDecoration,
       child: Center(
         child: text,

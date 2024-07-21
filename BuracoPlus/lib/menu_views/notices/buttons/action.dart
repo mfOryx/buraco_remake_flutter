@@ -9,8 +9,8 @@ import 'package:flutter/material.dart'
         StatefulWidget,
         Widget;
 
-abstract class ButtonTemplate extends StatefulWidget {
-  const ButtonTemplate({
+class ButtonAction extends StatefulWidget {
+  const ButtonAction({
     required this.noticeTextButton,
     required this.getDecoration,
     super.key,
@@ -25,17 +25,34 @@ abstract class ButtonTemplate extends StatefulWidget {
   }
 }
 
-class ButtonTemplateState extends State<ButtonTemplate> {
-  bool _isTapped = false;
+bool _isTapped = false;
+
+class ButtonTemplateState extends State<ButtonAction> {
+  void _handleTap() {
+    setState(
+      () {
+        _isTapped = true;
+      },
+    );
+
+    Future.delayed(
+      const Duration(
+        milliseconds: 100,
+      ),
+      () {
+        setState(
+          () {
+            _isTapped = false;
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isTapped = !_isTapped;
-        });
-      },
+      onTap: _handleTap,
       child: ButtonAnimation(
         boxDecoration: widget.getDecoration(_isTapped),
         text: widget.noticeTextButton,
