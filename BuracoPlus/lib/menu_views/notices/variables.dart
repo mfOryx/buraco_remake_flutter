@@ -9,6 +9,7 @@ import 'package:flutter/material.dart'
         TextBaseline,
         TextDecoration,
         TextStyle;
+import 'package:flutter/widgets.dart';
 
 const LinearGradient noticeGradient = LinearGradient(
   begin: Alignment.topCenter,
@@ -29,4 +30,23 @@ const TextStyle noticesTextStyle = TextStyle(
   fontWeight: FontWeight.normal,
   height: null,
   textBaseline: TextBaseline.alphabetic,
+);
+
+const BoxDecoration menuBorderRadius = BoxDecoration(
+  gradient: noticeGradient,
+  borderRadius: BorderRadius.vertical(
+    top: Radius.circular(20.0),
+    bottom: Radius.elliptical(160, 10),
+  ),
+);
+
+BoxDecoration menuBoxInside = BoxDecoration(
+  border: const Border(
+    top: BorderSide.none,
+    bottom: BorderSide.none,
+    right: BorderSide.none,
+    left: BorderSide.none,
+  ),
+  borderRadius: BorderRadius.circular(20.0),
+  color: const Color.fromRGBO(240, 240, 240, 0.0).withOpacity(1.0),
 );
