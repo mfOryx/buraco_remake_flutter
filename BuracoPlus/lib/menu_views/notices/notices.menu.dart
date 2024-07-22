@@ -66,7 +66,7 @@ class NoticesMenu extends StatelessWidget {
       right: Directionality.of(context) == TextDirection.rtl
           ? null
           : isNoticesVisible
-              ? 33
+              ? 15
               : -500,
       child: Material(
         elevation: 100.0,
