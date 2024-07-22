@@ -650,5 +650,6 @@
     "txtTurnTime15" : "15",
     "txtTurnTime30" : "30",
     "txtTurnTime45" : "45",
-    "txtTurnTime60" : "60"
+    "txtTurnTime60" : "60",
+    "txtStyle" : "Style"
 }
