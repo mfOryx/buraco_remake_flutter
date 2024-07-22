@@ -98,16 +98,16 @@ class _OptionsViewState extends State<OptionsView> {
         translationManager.changeLanguage('en');
         break;
       case 1:
-        translationManager.changeLanguage('en');
+        translationManager.changeLanguage('it');
         break;
       case 2:
-        translationManager.changeLanguage('en');
+        translationManager.changeLanguage('es');
         break;
       case 3:
-        translationManager.changeLanguage('en');
+        translationManager.changeLanguage('pt');
         break;
       case 4:
-        translationManager.changeLanguage('en');
+        translationManager.changeLanguage('ar');
         break;
     }
   }
@@ -180,14 +180,15 @@ class _OptionsViewState extends State<OptionsView> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               
                               children: [
-                                SizedBox(
-                                  width: 70,
-                                  height: 20,
-                                  child:Text(
+                                Padding(
+                                  padding:  EdgeInsets.only(top : isIphone?5:0),
+                                  child: Text(
+
                                     translationManager
                                         .translate('txtOptions')
                                         .toUpperCase(),
                                     style: TextStyle(
+
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: isIpad
@@ -196,35 +197,34 @@ class _OptionsViewState extends State<OptionsView> {
                                           ? screenWidth * 0.015
                                           : screenWidth * 0.015),
                                     ),
-                                  ) ,
+                                  ),
                                 ),
 
-                                SizedBox(
-                                  width: 70,
-                                  height: 20,
-                                  child:IconButton(
-                                      iconSize: isIpad
-                                          ? screenWidth * 0.018
-                                          : (isIphone
-                                          ? screenWidth * 0.020
-                                          : screenWidth * 0.020),
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.close)),
-                                ),
+                                IconButton(
+                                  padding: const EdgeInsets.all(0.0),
+                                  alignment: Alignment.topCenter,
+                                    iconSize: isIpad
+                                        ? screenWidth * 0.020
+                                        : (isIphone
+                                        ? screenWidth * 0.020
+                                        : screenWidth * 0.020),
+                                    onPressed: () {},
+                                    color: Colors.white,
+                                    icon: const Icon(Icons.close)),
                               ],
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 15),
+                          padding:  EdgeInsets.only(top: (isIphone)? 20:15 , bottom:(isIphone)? 5:0),
                           child: Align(
                             alignment: Alignment.center,
                             child: Container(
                               width: isIphone
                                   ? screenWidth * 0.38
                                   : screenWidth * 0.40,
-                              height: isIOS()
-                                  ? screenHeight * 0.85
+                              height: isIphone
+                                  ? screenHeight * 0.82
                                   : screenHeight * 0.87,
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(
@@ -340,14 +340,12 @@ class _OptionsViewState extends State<OptionsView> {
                                         isIphone: isIphone,
                                       ),
                                       (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                      //################################ TRILL ############################################
                                       trillRow(
                                         screenWidth: screenWidth,
                                         isIpad: isIpad,
                                         isIphone: isIphone,
                                       ),
-
-                                      //################################ TRILL ############################################
-
                                     ],
                                   ),
                                 ) ,
@@ -1345,106 +1343,103 @@ class _OptionsViewState extends State<OptionsView> {
     //final settingsManager = Provider.of<SettingsManager>(context);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 15),
-      child: Align(
-        alignment: Alignment.center,
-        child: Row(
-          children: [
-            SizedBox(width: screenWidth * 0.01),
-            SizedBox(
-              width: isIpad
-                  ? screenWidth * 0.14
-                  : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-              height: isIpad
-                  ? screenHeight * 0.04
-                  : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: isIpad
-                            ? const Radius.circular(20.0)
-                            : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
-                        topRight: const Radius.circular(0.0),
-                        bottomLeft: isIpad
-                            ? const Radius.circular(20.0)
-                            : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
-                        bottomRight: const Radius.circular(0.0),
-                      ),
-                    ),
-                  ),
-                  backgroundColor: WidgetStateProperty.all(
-                    const Color.fromRGBO(83, 32, 95, 1),
-                  ),
-                  side: WidgetStateProperty.all(
-                    BorderSide(
-                      color: Colors.white.withOpacity(0.5),
-                      width: isIpad ? 3 : (isIphone ? 2 : 2),
+      padding:  EdgeInsets.only(left:(screenWidth *(0.13))/2),
+      child: Row(
+        children: [
+          SizedBox(width: screenWidth * 0.01),
+          SizedBox(
+            width: isIpad
+                ? screenWidth * 0.14
+                : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
+            height: isIpad
+                ? screenHeight * 0.04
+                : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: isIpad
+                          ? const Radius.circular(20.0)
+                          : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
+                      topRight: const Radius.circular(0.0),
+                      bottomLeft: isIpad
+                          ? const Radius.circular(20.0)
+                          : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
+                      bottomRight: const Radius.circular(0.0),
                     ),
                   ),
                 ),
-                onPressed: () {},
-                child: Center(
-                  child: Text(
-                    translationManager.translate('txtFaq').toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.011,
-                    ),
+                backgroundColor: WidgetStateProperty.all(
+                  const Color.fromRGBO(83, 32, 95, 1),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                    color: Colors.white.withOpacity(0.5),
+                    width: isIpad ? 3 : (isIphone ? 2 : 2),
+                  ),
+                ),
+              ),
+              onPressed: () {},
+              child: Center(
+                child: Text(
+                  translationManager.translate('txtFaq').toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.011,
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              width: isIpad
-                  ? screenWidth * 0.14
-                  : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
-              height: isIpad
-                  ? screenHeight * 0.04
-                  : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(0.0),
-                        topRight: isIpad
-                            ? const Radius.circular(20.0)
-                            : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
-                        bottomLeft: const Radius.circular(0.0),
-                        bottomRight: isIpad
-                            ? const Radius.circular(20.0)
-                            : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
-                      ),
-                    ),
-                  ),
-                  backgroundColor: WidgetStateProperty.all(
-                    const Color.fromRGBO(83, 32, 95, 1),
-                  ),
-                  side: WidgetStateProperty.all(
-                    BorderSide(
-                      color: Colors.white.withOpacity(0.5),
-                      width: isIpad ? 3 : (isIphone ? 2 : 2),
+          ),
+          SizedBox(
+            width: isIpad
+                ? screenWidth * 0.14
+                : (isIphone ? screenWidth * 0.13 : screenWidth * 0.13),
+            height: isIpad
+                ? screenHeight * 0.04
+                : (isIphone ? screenHeight * 0.05 : screenHeight * 0.05),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                shape: WidgetStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(0.0),
+                      topRight: isIpad
+                          ? const Radius.circular(20.0)
+                          : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
+                      bottomLeft: const Radius.circular(0.0),
+                      bottomRight: isIpad
+                          ? const Radius.circular(20.0)
+                          : (isIphone ? const Radius.circular(10.0) : const Radius.circular(10.0)),
                     ),
                   ),
                 ),
-                onPressed: () {},
-                child: Center(
-                  child: Text(
-                    translationManager.translate('txtSupport').toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: screenWidth * 0.0105,
-                    ),
+                backgroundColor: WidgetStateProperty.all(
+                  const Color.fromRGBO(83, 32, 95, 1),
+                ),
+                side: WidgetStateProperty.all(
+                  BorderSide(
+                    color: Colors.white.withOpacity(0.5),
+                    width: isIpad ? 3 : (isIphone ? 2 : 2),
+                  ),
+                ),
+              ),
+              onPressed: () {},
+              child: Center(
+                child: Text(
+                  translationManager.translate('txtSupport').toUpperCase(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenWidth * 0.0105,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
