@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:buracoplus/providers/ranking_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,6 +80,7 @@ class _RankingsViewState extends State<RankingsView> {
   @override
   Widget build(BuildContext context) {
     final translationManager = Provider.of<TranslationManager>(context);
+    final rankingProvider = Provider.of<RankingProvider>(context);
     double screenWidth = MediaQuery
         .of(context)
         .size
@@ -88,196 +90,211 @@ class _RankingsViewState extends State<RankingsView> {
         .size
         .height;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
 
-          Visibility(
-            visible: createTablePopup,
-            child: Padding(
-              padding: EdgeInsets.only(right: (isIpad)?screenWidth * 0.03:0),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  width: isIphone ? screenWidth * 0.37 : screenWidth * 0.44,
-                  height: isIOS() ? screenHeight * 0.95 : screenHeight * 0.87,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    color: const Color.fromRGBO(210, 210, 210, 1.0),
-                  ),
-                  child: Stack(
+            Visibility(
+              visible: createTablePopup,
+              child: Padding(
+                padding: EdgeInsets.only(right: (isIpad)?screenWidth * 0.03:screenWidth * 0.035),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    width: isIphone ? screenWidth * 0.37 : screenWidth * 0.44,
+                    height: isIOS() ? screenHeight * 0.95 : screenHeight * 0.87,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: const Color.fromRGBO(210, 210, 210, 1.0),
+                    ),
+                    child: GestureDetector(
+                      onTap: (){},
+                      child: Stack(
 
-                    children: [
-                      Container(
-                        width:
-                        isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
-                        height:
-                        isIphone ? screenHeight * 0.52 : screenHeight * 0.4,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 90, 110, 150),
-                              Color.fromARGB(255, 115, 70, 130)
-                            ],
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
+                        children: [
+                          Container(
+                            width:
+                            isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
+                            height:
+                            isIphone ? screenHeight * 0.52 : screenHeight * 0.4,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 90, 110, 150),
+                                  Color.fromARGB(255, 115, 70, 130)
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20.0),
+                                bottom: Radius.elliptical(200, 25),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: screenWidth * 0.04,
+                                  top: screenHeight * 0.01),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        top: isIphone ? 5 : 0),
+                                    child: Text(
+
+                                      translationManager
+                                          .translate('txtRankings')
+                                          .toUpperCase(),
+                                      style: TextStyle(
+
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: isIpad
+                                            ? screenWidth * 0.018
+                                            : (isIphone
+                                            ? screenWidth * 0.015
+                                            : screenWidth * 0.015),
+                                      ),
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                      padding: const EdgeInsets.all(0.0),
+                                      alignment: Alignment.topCenter,
+                                      iconSize: isIpad
+                                          ? screenWidth * 0.020
+                                          : (isIphone
+                                          ? screenWidth * 0.020
+                                          : screenWidth * 0.020),
+                                      onPressed: () {
+                                        setState(() {
+                                          createTablePopup = false;
+                                          Navigator.of(context).pop(); // This will hide the dialog
+                                        });
+                                      },
+                                      color: Colors.white,
+                                      icon: const Icon(Icons.close)),
+                                ],
+                              ),
+                            ),
                           ),
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20.0),
-                            bottom: Radius.elliptical(200, 25),
+
+                          //####################################################### 3 CIRCLE AVATARS ########################################
+                          Positioned(
+                            left: (isIphone) ? screenWidth * 0.074 : screenWidth *
+                                0.05,
+                            right: 0,
+                            top: (isIphone) ? 7 : 120,
+                            child: Row(
+                              children: [
+                                circleAvatarWithIcon(
+                                    imageUrl: rankingProvider.top3Rankings[1].avatarUrl,
+                                    radius: 35.0,
+                                    borderWidth: 5.0,
+                                    icon: Icons.looks_two_rounded,
+                                    iconSize: 24.0,
+                                    iconColor: Colors.green,
+                                    playerName: rankingProvider.top3Rankings[1].playerName,
+                                    playerPoints: rankingProvider.top3Rankings[1].playerPoints ,
+                                  crownImageUrl: "assets/crowns/crown_silver.png"
+                                ),
+                                // middle one
+                                circleAvatarWithIcon(
+                                  imageUrl: rankingProvider.top3Rankings[0].avatarUrl,
+                                  radius: 45.0,
+                                  borderWidth: 5.0,
+                                  icon: Icons.looks_one,
+                                  iconSize: 24.0,
+                                  iconColor: Colors.green,
+                                  sizedBoxSize: 210,
+                                  numberOffsetFromBottom: 75,
+                                  crownImagePosition: 66,
+                                    crownImageUrl: "assets/crowns/crown_gold.png" ,
+                                  playerName: rankingProvider.top3Rankings[0].playerName,
+                                  playerPoints: rankingProvider.top3Rankings[0].playerPoints
+                                ),
+                                circleAvatarWithIcon(
+                                  imageUrl: rankingProvider.top3Rankings[2].avatarUrl,
+                                  radius: 35.0,
+                                  borderWidth: 5.0,
+                                  icon: Icons.looks_3,
+                                  iconSize: 24.0,
+                                  iconColor: Colors.green,
+                                    crownImageUrl: "assets/crowns/crown_bronze.png"  ,
+                                  playerPoints: rankingProvider.top3Rankings[2].playerPoints,
+                                  playerName: rankingProvider.top3Rankings[2].playerName
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: screenWidth * 0.04,
-                              top: screenHeight * 0.01),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //####################################################### INNER WHITE DIALOG ####################
+                          Padding(
+                            padding: EdgeInsets.only(top: (isIphone) ? 16 : 15,
+                                bottom: (isIphone) ? 46 : 100),
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
 
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                    top: isIphone ? 5 : 0),
-                                child: Text(
+                              child: Container(
+                               
+                                width: isIphone
+                                    ? screenWidth * 0.34
+                                    : screenWidth * 0.40,
+                                height: isIphone
+                                    ? screenHeight * 0.41
+                                    : screenHeight * 0.50,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(
+                                      240, 240, 240, 1), // Box color
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child:
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 4.0,bottom: 4.0,left: 0,right: 0),
+                                  child: SingleChildScrollView(
 
-                                  translationManager
-                                      .translate('txtRankings')
-                                      .toUpperCase(),
-                                  style: TextStyle(
+                                    child:  SizedBox(
+                                     
+                                      height: isIphone
+                                      ? screenHeight * 0.41
+                                      : screenHeight * 0.55,
 
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isIpad
-                                        ? screenWidth * 0.018
-                                        : (isIphone
-                                        ? screenWidth * 0.015
-                                        : screenWidth * 0.015),
+                                      child: userListItem(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+                                    )
                                   ),
                                 ),
                               ),
-
-                              IconButton(
-                                  padding: const EdgeInsets.all(0.0),
-                                  alignment: Alignment.topCenter,
-                                  iconSize: isIpad
-                                      ? screenWidth * 0.020
-                                      : (isIphone
-                                      ? screenWidth * 0.020
-                                      : screenWidth * 0.020),
-                                  onPressed: () {
-                                    setState(() {
-                                      createTablePopup = false;
-                                    });
-                                  },
-                                  color: Colors.white,
-                                  icon: const Icon(Icons.close)),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //####################################################### 3 CIRCLE AVATARS ########################################
-                      Positioned(
-                        left: (isIphone) ? screenWidth * 0.074 : screenWidth *
-                            0.05,
-                        right: 0,
-                        top: (isIphone) ? 7 : 120,
-                        child: Row(
-                          children: [
-                            circleAvatarWithIcon(
-                                imageUrl: 'https://i.pravatar.cc/300',
-                                radius: 35.0,
-                                borderWidth: 5.0,
-                                icon: Icons.looks_two_rounded,
-                                iconSize: 24.0,
-                                iconColor: Colors.green,
-                                playerName: "SAAD.ALI",
-                                playerPoints: 88988621
-                            ),
-                            // middle one
-                            circleAvatarWithIcon(
-                              imageUrl: 'https://i.pravatar.cc/320',
-                              radius: 45.0,
-                              borderWidth: 5.0,
-                              icon: Icons.looks_one,
-                              iconSize: 24.0,
-                              iconColor: Colors.green,
-                              sizedBoxSize: 210,
-                              numberOffsetFromBottom: 75,
-                              crownImagePosition: 60,
-                            ),
-                            circleAvatarWithIcon(
-                              imageUrl: 'https://i.pravatar.cc/310',
-                              radius: 35.0,
-                              borderWidth: 5.0,
-                              icon: Icons.looks_3,
-                              iconSize: 24.0,
-                              iconColor: Colors.green,
-                            ),
-                          ],
-                        ),
-                      ),
-                      //####################################################### INNER WHITE DIALOG ####################
-                      Padding(
-                        padding: EdgeInsets.only(top: (isIphone) ? 20 : 15,
-                            bottom: (isIphone) ? 42 : 100),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-
-                          child: Container(
-                            width: isIphone
-                                ? screenWidth * 0.35
-                                : screenWidth * 0.40,
-                            height: isIphone
-                                ? screenHeight * 0.42
-                                : screenHeight * 0.50,
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(
-                                  240, 240, 240, 1), // Box color
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0,bottom: 8.0),
-                              child: SingleChildScrollView(
-
-                                child:  SizedBox(
-
-                                  height: isIphone
-                                  ? screenHeight * 0.42
-                                  : screenHeight * 0.55,
-
-                                  child: userListItem(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,playerName: "Player243",playerPoints: 7625356),
-                                )
-
-
-                              ),
                             ),
                           ),
-                        ),
+                          //####################################################### 2 TOP BUTTONS  ########################################
+                          Positioned(
+                              left:(isIphone)? -15:0,
+                              right: 0,
+                              top: (isIphone) ? 40 : 60,
+                              child: topButtons(
+                                context: context,
+                                screenWidth: screenWidth,
+                                screenHeight: screenHeight,
+                                isIpad: isIpad,
+                                isIphone: isIphone,)),
+                          //####################################################### bottom tile  #############
+                          bottomListItem(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,imageUrl: "https://i.pravatar.cc/313",userName: "User3244",points: "67367872"),
+                        ],
                       ),
-                      //####################################################### 2 TOP BUTTONS  ########################################
-                      Positioned(
-                          left:(isIphone)? -15:0,
-                          right: 0,
-                          top: (isIphone) ? 40 : 60,
-                          child: topButtons(
-                            context: context,
-                            screenWidth: screenWidth,
-                            screenHeight: screenHeight,
-                            isIpad: isIpad,
-                            isIphone: isIphone,)),
-                      //####################################################### bottom tile  #############
-                      bottomListItem(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,imageUrl: "https://i.pravatar.cc/313",userName: "User3244",points: "67367872"),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -293,6 +310,7 @@ class _RankingsViewState extends State<RankingsView> {
   }) {
     final translationManager = Provider.of<TranslationManager>(context);
     //final settingsManager = Provider.of<SettingsManager>(context);
+    final rankingProvider = Provider.of<RankingProvider>(context);
 
     return Padding(
       padding: EdgeInsets.only(left: (screenWidth * (0.13)) / 2),
@@ -331,10 +349,12 @@ class _RankingsViewState extends State<RankingsView> {
                 ),
 
               ),
-              onPressed: () {},
+              onPressed: () {
+                rankingProvider.setRule(false)  ;
+              },
               child: Center(
                 child: Text(
-                  translationManager.translate('txtFaq').toUpperCase(),
+                  translationManager.translate('txtClassic').toUpperCase(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -374,17 +394,14 @@ class _RankingsViewState extends State<RankingsView> {
                 backgroundColor: WidgetStateProperty.all(
                   const Color.fromRGBO(255, 255, 255, 0.6),
                 ),
-                // side: WidgetStateProperty.all(
-                //   BorderSide(
-                //     color: Colors.white.withOpacity(0.5),
-                //     width: isIpad ? 3 : (isIphone ? 2 : 2),
-                //   ),
-                // ),
+                
               ),
-              onPressed: () {},
+              onPressed: () {
+                rankingProvider.setRule(true)  ;
+              },
               child: Center(
                 child: Text(
-                  translationManager.translate('txtSupport').toUpperCase(),
+                  translationManager.translate('txtProfessional').toUpperCase(),
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -410,7 +427,7 @@ class _RankingsViewState extends State<RankingsView> {
     double sizedBoxSize = 180,
     String crownImageUrl = "assets/lobby/diamond-final.png",
     double numberOffsetFromBottom = 60,
-    double crownImagePosition = 49,
+    double crownImagePosition = 54,
     String playerName = "User3781",
 
     int playerPoints = 25346262,
@@ -422,13 +439,14 @@ class _RankingsViewState extends State<RankingsView> {
     (isIphone) ? borderWidth = 2.5 : 3;
     return SizedBox(
       height: sizedBoxSize,
+      
       child: Stack(
 
         alignment: (isIphone) ? Alignment.center : Alignment.topCenter,
         children: [
           Container(
 
-            width: (radius * 3.5 + borderWidth * 2) + ((isIphone) ? 6 : 4),
+            width: (radius * 3.5 + borderWidth * 2) + ((isIphone) ? 6 : 12),
             height: (radius * 3 + borderWidth * 2),
             decoration: BoxDecoration(
               //color: Colors.amber,
@@ -462,17 +480,23 @@ class _RankingsViewState extends State<RankingsView> {
           ),
           Positioned(
             top: (isIphone) ? crownImagePosition : 0,
-            left: (isIphone) ? 0 : 0,
+            left: (isIphone) ? 0 :(crownImagePosition >60)?8: 0,
 
             child: Container(
 
-                width: iconSize + 10, // Adjust as needed
-                height: iconSize + 10, // Adjust as needed
+                width: iconSize + 5, // Adjust as needed
+                height: iconSize + 5, // Adjust as needed
                 decoration: const BoxDecoration(
                   color: Colors.transparent,
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(crownImageUrl)
+                child: Transform.rotate(
+                  
+                  angle:(isIphone)?0: -0.2,
+                  child: Image.asset(crownImageUrl,
+                  
+                  ),
+                )
             ),
           ), //CROWN IMAGES
           Positioned(
@@ -508,22 +532,28 @@ class _RankingsViewState extends State<RankingsView> {
     required double screenHeight,
     required bool isIpad,
     required bool isIphone,
-    required String playerName,
-    required int playerPoints,
+    // required String playerName,
+    // required int playerPoints,
+    // required String playerAvatar,
+
   }) {
     //final translationManager = Provider.of<TranslationManager>(context);
     //final settingsManager = Provider.of<SettingsManager>(context);
 
+    final rankingProvider = Provider.of<RankingProvider>(context);
+
     return ListView.builder(
 
-      itemCount: 6,
+      itemCount: rankingProvider.rankingList.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding:  EdgeInsets.only(left:(isIphone)?8:18,right:(isIphone) ?8:18,top: 8),
+          padding:  EdgeInsets.only(left:(isIphone)?0:18,right:(isIphone) ?0:18,top: 8,bottom: 2),
+         // padding: EdgeInsets.zero,
           child: ListTile(
+              
             dense:(isIphone)?true: false,
 
-            trailing: Text(playerPoints.toString() ,
+            trailing: Text(rankingProvider.rankingList[index].playerPoints.toString() ,
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -532,10 +562,11 @@ class _RankingsViewState extends State<RankingsView> {
               ),
             
             leading: SizedBox(
-              width:190,
+              width:(isIpad)?200:195,
+             
               child: Row(
                 children: [
-                  Text("4",
+                  Text(rankingProvider.rankingList[index].playerRank.toString(),
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -551,16 +582,17 @@ class _RankingsViewState extends State<RankingsView> {
                      ),
                      child:  CircleAvatar(
                          radius:(isIphone)?20: 40,
-                       backgroundImage: const NetworkImage('https://i.pravatar.cc/310'),
+                       backgroundImage:  NetworkImage(rankingProvider.rankingList[index].avatarUrl),
                      ),
                    ),
                   (isIphone)?const SizedBox(width: 8,):const SizedBox(width: 0,),
-                  Text(playerName,
-          style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: (isIphone) ? 11 : 18,
+                  Text(rankingProvider.rankingList[index].playerName,
+                   style: TextStyle(
+                   color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                fontSize: (isIphone) ? 12 : 18,
               ),),
+                 
                 ],
               ),
             ),
@@ -585,6 +617,7 @@ class _RankingsViewState extends State<RankingsView> {
   }) {
     //final translationManager = Provider.of<TranslationManager>(context);
     //final settingsManager = Provider.of<SettingsManager>(context);
+    final rankingProvider = Provider.of<RankingProvider>(context);
 
     return
 
@@ -622,7 +655,7 @@ class _RankingsViewState extends State<RankingsView> {
                   //############### SPACE
                   SizedBox(width: (isIphone)?15:12,),
                   //############### RANK No.
-                  Text("01",
+                  Text(rankingProvider.myRanking.playerRank.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -641,14 +674,14 @@ class _RankingsViewState extends State<RankingsView> {
                           228, 180, 255, 0.85), width: 2),
                     ),
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(imageUrl),
+                      backgroundImage: NetworkImage(rankingProvider.myRanking.avatarUrl.toString()),
                       radius:(isIphone)? 15.5:25,
                     ),
                   ) ,
                   //############### SPACE
                   SizedBox(width: (isIphone)?4:4,),
                   //############### USERNAME
-                  Text(userName,
+                  Text(rankingProvider.myRanking.playerName.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -658,7 +691,7 @@ class _RankingsViewState extends State<RankingsView> {
                   //############### SPACE
                   SizedBox(width: (isIphone)?110:230,),
                  //############### POINTS
-                  Text(points,
+                  Text(rankingProvider.myRanking.playerPoints.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

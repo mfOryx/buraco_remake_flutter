@@ -145,10 +145,10 @@ class _LoginState extends State<Login> {
     final translationManager = Provider.of<TranslationManager>(context);
 
     return Scaffold(
-      extendBodyBehindAppBar: true,
+     extendBodyBehindAppBar: true,
       body: Center(
         child: Stack(
-          alignment: Alignment.center,
+         alignment: Alignment.center,
           children: [
             GestureDetector(
               onTap: () {

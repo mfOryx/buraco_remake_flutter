@@ -390,6 +390,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         heroTag: null,
                                         onPressed: () {
                                           showDialog(
+                                            useSafeArea:false,
                                             context: context,
                                             builder: (BuildContext context) {
                                               return const OptionsView();
@@ -418,6 +419,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                         heroTag: null,
                                         onPressed: () {
                                           showDialog(
+                                            useSafeArea:false,
                                             context: context,
                                             builder: (BuildContext context) {
                                               return const RankingsView();

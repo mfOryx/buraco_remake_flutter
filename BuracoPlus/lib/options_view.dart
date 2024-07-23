@@ -118,255 +118,257 @@ class _OptionsViewState extends State<OptionsView> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          if (createTablePopup)
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    createTablePopup = false;
-                  });
-                },
-                child: Container(
-                  color: Colors.black.withOpacity(0.3),
-                ),
-              ),
-            ),
-          Visibility(
-            visible: createTablePopup,
-            child: Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(right: screenWidth * 0.02),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    width: isIphone ? screenWidth * 0.40 : screenWidth * 0.44,
-                    height: isIOS() ? screenHeight * 0.95 : screenHeight * 0.87,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: const Color.fromRGBO(210, 210, 210, 1.0),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width:
-                              isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
-                          height:
-                              isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(255, 90, 110, 150),
-                                Color.fromARGB(255, 115, 70, 130)
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(20.0),
-                              bottom: Radius.elliptical(200, 25),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: screenWidth * 0.04,
-                                top: screenHeight * 0.01),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              
-                              children: [
-                                Padding(
-                                  padding:  EdgeInsets.only(top : isIphone?5:0),
-                                  child: Text(
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).pop(); // This will hide the dialog
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
 
-                                    translationManager
-                                        .translate('txtOptions')
-                                        .toUpperCase(),
-                                    style: TextStyle(
+            Visibility(
+              visible: createTablePopup,
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.only(right: screenWidth * 0.02),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: isIphone ? screenWidth * 0.40 : screenWidth * 0.44,
+                      height: isIOS() ? screenHeight * 0.95 : screenHeight * 0.87,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: const Color.fromRGBO(210, 210, 210, 1.0),
+                      ),
+                      child: GestureDetector(
+                        onTap: (){
+                           // print("asd");
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              width:
+                                  isIOS() ? screenWidth * 0.55 : screenWidth * 0.53,
+                              height:
+                                  isIOS() ? screenHeight * 0.4 : screenHeight * 0.4,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 90, 110, 150),
+                                    Color.fromARGB(255, 115, 70, 130)
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20.0),
+                                  bottom: Radius.elliptical(200, 25),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: screenWidth * 0.04,
+                                    top: screenHeight * 0.01),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: isIpad
-                                          ? screenWidth * 0.018
-                                          : (isIphone
-                                          ? screenWidth * 0.015
-                                          : screenWidth * 0.015),
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(top : isIphone?5:0),
+                                      child: Text(
+
+                                        translationManager
+                                            .translate('txtOptions')
+                                            .toUpperCase(),
+                                        style: TextStyle(
+
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: isIpad
+                                              ? screenWidth * 0.018
+                                              : (isIphone
+                                              ? screenWidth * 0.015
+                                              : screenWidth * 0.015),
+                                        ),
+                                      ),
                                     ),
+
+                                    IconButton(
+                                      padding: const EdgeInsets.all(0.0),
+                                      alignment: Alignment.topCenter,
+                                        iconSize: isIpad
+                                            ? screenWidth * 0.020
+                                            : (isIphone
+                                            ? screenWidth * 0.020
+                                            : screenWidth * 0.020),
+                                        onPressed: () {
+                                          Navigator.of(context).pop(); // This will hide the dialog
+                                        },
+                                        color: Colors.white,
+                                        icon: const Icon(Icons.close)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(top: (isIphone)? 20:15 , bottom:(isIphone)? 5:0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: isIphone
+                                      ? screenWidth * 0.38
+                                      : screenWidth * 0.40,
+                                  height: isIphone
+                                      ? screenHeight * 0.82
+                                      : screenHeight * 0.87,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromRGBO(
+                                        240, 240, 240, 1), // Box color
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  child:
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: SingleChildScrollView(
+
+                                      child:
+
+                                      Column(
+                                        children:
+                                        [
+                                          SizedBox(height: screenHeight * 0.02),
+                                          //************************************** ROWS **************************************************************
+
+                                          //#############################  LOBBY #############################
+                                          lobbyRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                            isClassicRule: isClassicRule,
+                                            toggleClassicRule:
+                                            toggleClassicRuleFunction,
+                                          ),
+                                          //#############################  LANGUAGE  #############################
+                                          languageRow(
+                                              screenWidth: screenWidth,
+                                              isIpad: isIpad,
+                                              isIphone: isIphone,
+                                              language: language,
+                                              changeLanguage: () =>
+                                                  changeLanguageFunction(context)
+                                          ),
+                                          //#############################  DARK MODE #############################
+                                          darkModeRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          //############################## MANUAL SORTING #############################
+                                          (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                          manualSortingRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          //########################## CURVED CARD AKA CARD ROTATION  #################
+                                          (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                          curvedCardsRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          //########################## TOP CARD ROTATION  #############################
+                                          topCardRotationRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          // ############################## DIVIDER ###################################
+                                          divider(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          // ############################## RESTRICTIONS ###################################
+                                          restrictionsRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          // ############################## FRIEND REQUESTS ################################
+
+                                          friendRequestsRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          // ############################## CLUB INVITES ###################################
+                                          (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                          clubInvitesRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          // ############################## INVITES TO TABLE ###################################
+                                          (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                          inVitesToTableRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+
+                                          divider(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          //################################ SOUNDS ############################################
+                                          soundsRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          //################################ SYSTEM ############################################
+                                          systemRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                          (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
+                                          //################################ TRILL ############################################
+                                          trillRow(
+                                            screenWidth: screenWidth,
+                                            isIpad: isIpad,
+                                            isIphone: isIphone,
+                                          ),
+                                        ],
+                                      ),
+                                    ) ,
                                   ),
                                 ),
-
-                                IconButton(
-                                  padding: const EdgeInsets.all(0.0),
-                                  alignment: Alignment.topCenter,
-                                    iconSize: isIpad
-                                        ? screenWidth * 0.020
-                                        : (isIphone
-                                        ? screenWidth * 0.020
-                                        : screenWidth * 0.020),
-                                    onPressed: () {},
-                                    color: Colors.white,
-                                    icon: const Icon(Icons.close)),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding:  EdgeInsets.only(top: (isIphone)? 20:15 , bottom:(isIphone)? 5:0),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              width: isIphone
-                                  ? screenWidth * 0.38
-                                  : screenWidth * 0.40,
-                              height: isIphone
-                                  ? screenHeight * 0.82
-                                  : screenHeight * 0.87,
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(
-                                    240, 240, 240, 1), // Box color
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child:
-                              Padding(
-                                padding: const EdgeInsets.only(top:8.0),
-                                child: SingleChildScrollView(
-
-                                  child:
-
-                                  Column(
-                                    children:
-                                    [
-                                      SizedBox(height: screenHeight * 0.02),
-                                      //************************************** ROWS **************************************************************
-
-                                      //#############################  LOBBY #############################
-                                      lobbyRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                        isClassicRule: isClassicRule,
-                                        toggleClassicRule:
-                                        toggleClassicRuleFunction,
-                                      ),
-                                      //#############################  LANGUAGE  #############################
-                                      languageRow(
-                                          screenWidth: screenWidth,
-                                          isIpad: isIpad,
-                                          isIphone: isIphone,
-                                          language: language,
-                                          changeLanguage: () =>
-                                              changeLanguageFunction(context)
-                                      ),
-                                      //#############################  DARK MODE #############################
-                                      darkModeRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      //############################## MANUAL SORTING #############################
-                                      (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
-                                      manualSortingRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      //########################## CURVED CARD AKA CARD ROTATION  #################
-                                      (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
-                                      curvedCardsRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      //########################## TOP CARD ROTATION  #############################
-                                      topCardRotationRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      // ############################## DIVIDER ###################################
-                                      divider(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      // ############################## RESTRICTIONS ###################################
-                                      restrictionsRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      // ############################## FRIEND REQUESTS ################################
-
-                                      friendRequestsRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      // ############################## CLUB INVITES ###################################
-                                      (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
-                                      clubInvitesRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      // ############################## INVITES TO TABLE ###################################
-                                      (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
-                                      inVitesToTableRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-
-                                      divider(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      //################################ SOUNDS ############################################
-                                      soundsRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      //################################ SYSTEM ############################################
-                                      systemRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                      (isIphone)?const SizedBox(height: 4):  const SizedBox(height: 0)   ,
-                                      //################################ TRILL ############################################
-                                      trillRow(
-                                        screenWidth: screenWidth,
-                                        isIpad: isIpad,
-                                        isIphone: isIphone,
-                                      ),
-                                    ],
-                                  ),
-                                ) ,
                               ),
                             ),
-                          ),
+                            Positioned(
+                                 left:0,
+                                right:0,
+                                bottom: 0,
+                                child: bottomButtons(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,)),
+
+                          ],
                         ),
-                        Positioned(
-                             left:0,
-                            right:0,
-                            bottom: 0,
-                            child: bottomButtons(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,)),
-                        
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
