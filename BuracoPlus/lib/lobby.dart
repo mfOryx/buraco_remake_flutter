@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:buracoplus/blocks/lobby_card.dart';
 import 'package:buracoplus/blocks/lobby_user_stats.dart';
 import 'package:buracoplus/create_table_multi_player.dart';
@@ -26,6 +25,7 @@ class Lobby extends StatefulWidget {
 class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool isMenuVisible = false;
+  bool isNoticesVisible = false; ///// barra
   late final socketService = Provider.of<SocketService>(context, listen: false);
   int totalPages = 0;
   List<GameTable> gameTables = [];
@@ -41,6 +41,15 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     super.initState();
     getTables();
     checkDeviceType();
+  }
+
+  ///// barra
+  void _toggleNotices() {
+    setState(() {
+      isNoticesVisible = !isNoticesVisible;
+      ///// barra (leave it here for now)
+      print(isNoticesVisible.toString());
+    });
   }
 
   bool isIOS() {
@@ -85,9 +94,33 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
               allTables.map((element) => GameTable.fromJson(element)).toList();
           gameTablesFiltered = gameTables;
         }
-        setState(() {
-          totalPages = (gameTablesFiltered.length / 6).ceil();
-        });
+        setState(
+          () {
+            totalPages = (gameTablesFiltered.length / 6).ceil();
+          },
+        );
+      }
+    }
+  }
+
+  ///// barra
+  getPlayerNotifications() async {
+    if (socketService.isConnected()) {
+      Map<String, dynamic> getAllPlayerNotifications = await socketService
+          .emitWithAck('getAllPlayerNotifications',
+              {'playerId': currentlyLoggedInPlayer.id});
+
+      if (getAllPlayerNotifications.containsKey('notificationsList')) {
+        List allNotifications = getAllPlayerNotifications['notificationsList'];
+
+        if (allNotifications.isNotEmpty) {
+          // write response data
+        }
+        setState(
+          () {
+            // write state
+          },
+        );
       }
     }
   }
@@ -132,6 +165,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final translationManager = Provider.of<TranslationManager>(context);
+    ///// barra
     // double screenWidth = MediaQuery.of(context).size.width;
     // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -194,17 +228,33 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                 const SizedBox(
                                   width: 30,
                                 ),
+                                ///// barra
                                 Container(
-                                  padding: const EdgeInsets.all(10),
+                                  height: 44,
+                                  width: 44,
                                   decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.white.withOpacity(0.2),
                                   ),
-                                  child: const Icon(
-                                    Icons.message,
-                                    color: Colors.white,
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.message,
+                                      color: Colors.white,
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.transparent,
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                    onPressed: _toggleNotices,
                                   ),
                                 ),
+                                //NoticesButton(toggleNotices: _toggleNotices),
+                                ///// barra
+                                // NoticesMenu(
+                                //   isNoticesVisible: isNoticesVisible,
+                                //   onClose: _toggleNotices,
+                                // ),
                                 const SizedBox(
                                   width: 30,
                                 ),
@@ -255,7 +305,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                           children: [
                             Btn('CREATE TABLE', () {
                               setState(() {
-                                Provider.of<DialogProvider>(context, listen: false).showCreateTableDialog();
+                                Provider.of<DialogProvider>(context,
+                                        listen: false)
+                                    .showCreateTableDialog();
                               });
                             }, true),
                             Flexible(
@@ -704,8 +756,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                 ),
               ),
             ),
-            CreateTableMP(),
-            InviteFriends(),
+            const CreateTableMP(),
+            const InviteFriends(),
           ],
         ),
       ),
