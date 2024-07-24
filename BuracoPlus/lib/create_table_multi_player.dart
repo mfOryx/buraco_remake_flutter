@@ -229,15 +229,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
       children: [
         Consumer<DialogProvider>(
           builder: (context, dialogProvider, child) {
-            return dialogProvider.isVisible ?
+            return dialogProvider.isCreateTableDialogVisible ?
             Stack(
               children: [
                 Positioned.fill(
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        // createTablePopup = false;
-                        dialogProvider.hideDialog();
+                        dialogProvider.hideCreateTableDialog();
                       });
                     },
                     child: Container(
@@ -323,8 +322,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                         iconSize: isIpad ? screenWidth * 0.022 : (isIphone ? screenWidth * 0.018 : screenWidth * 0.012),
                                         onPressed: () {
                                           setState(() {
-                                            //createTablePopup = false;
-                                            dialogProvider.hideDialog();
+                                            dialogProvider.hideCreateTableDialog();
                                           });
                                         },
                                       ),
@@ -2481,8 +2479,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                   ),
                                                   onPressed: () {
                                                     setState(() {
-                                                      // createTablePopup = false;
-                                                      dialogProvider.hideDialog();
+                                                      dialogProvider.hideCreateTableDialog();
                                                     });
                                                   },
                                                   child: Center(
@@ -2638,7 +2635,9 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                   ),
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Provider.of<DialogProvider>(context, listen: false).showInviteFriendsDialog();
+                                                  },
                                                   child: Center(
                                                     child: Text(
                                                       translationManager

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'common/general_functions.dart';
 import 'common/translation_manager.dart';
+import 'invite_friends.dart';
 
 class Lobby extends StatefulWidget {
   const Lobby({super.key});
@@ -131,8 +132,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final translationManager = Provider.of<TranslationManager>(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: GestureDetector(
         onTap: () {
@@ -254,7 +255,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                           children: [
                             Btn('CREATE TABLE', () {
                               setState(() {
-                                Provider.of<DialogProvider>(context, listen: false).showDialog();
+                                Provider.of<DialogProvider>(context, listen: false).showCreateTableDialog();
                               });
                             }, true),
                             Flexible(
@@ -704,6 +705,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
               ),
             ),
             CreateTableMP(),
+            InviteFriends(),
           ],
         ),
       ),

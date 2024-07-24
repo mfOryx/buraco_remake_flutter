@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 
 class DialogProvider extends ChangeNotifier {
-  bool visible = false;
+  bool isCreateTableVisible = false;
+  bool isInviteFriendsVisible = false;
 
-  bool get isVisible => visible;
+  bool get isCreateTableDialogVisible => isCreateTableVisible;
+  bool get isInviteFriendsDialogVisible => isInviteFriendsVisible;
 
-  void showDialog() {
-    visible = true;
+  void showCreateTableDialog() {
+    isCreateTableVisible = true;
     notifyListeners();
   }
 
-  void hideDialog() {
-    visible = false;
+  void hideCreateTableDialog() {
+    isCreateTableVisible = false;
+    notifyListeners();
+  }
+
+  void showInviteFriendsDialog() {
+    isInviteFriendsVisible = true;
+    notifyListeners();
+  }
+
+  void hideInviteFriendsDialog() {
+    isInviteFriendsVisible = false;
     notifyListeners();
   }
 }
