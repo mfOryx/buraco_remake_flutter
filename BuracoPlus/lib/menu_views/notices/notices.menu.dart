@@ -1,13 +1,15 @@
-import 'package:buracoplus/menu_views/all_text.dart';
-import 'package:buracoplus/menu_views/notices/buttons/animations.dart';
-import 'package:buracoplus/menu_views/all_variables.dart';
+import 'package:buracoplus/menu_views/notices/text.dart'
+    show NoticeTextButton, NoticeTextTitle;
+import 'package:buracoplus/menu_views/notices/variables.dart'
+    show menuBorderRadius, menuBoxInside;
+import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
+    show NoticeLeftButton, NoticeRightButton;
 import 'package:flutter/material.dart'
     show
         Alignment,
         AnimatedPositioned,
         Border,
         BorderRadius,
-        BorderSide,
         BoxDecoration,
         BuildContext,
         Color,
@@ -17,6 +19,7 @@ import 'package:flutter/material.dart'
         Curves,
         Directionality,
         EdgeInsets,
+        Expanded,
         Icon,
         IconButton,
         Icons,
@@ -25,9 +28,9 @@ import 'package:flutter/material.dart'
         MaterialType,
         MediaQuery,
         Positioned,
-        Radius,
         Row,
         Stack,
+        StackFit,
         StatelessWidget,
         TextDirection,
         VoidCallback,
@@ -45,8 +48,11 @@ class NoticesMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const padding1 = 10.0;
+    const padding2 = 30.0;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final topPosition = (screenHeight * 0.15) / 1.8;
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -60,7 +66,7 @@ class NoticesMenu extends StatelessWidget {
       right: Directionality.of(context) == TextDirection.rtl
           ? null
           : isNoticesVisible
-              ? 33
+              ? 15
               : -500,
       child: Material(
         elevation: 100.0,
@@ -79,22 +85,17 @@ class NoticesMenu extends StatelessWidget {
           ),
           child: Stack(
             alignment: Alignment.topCenter,
+            fit: StackFit.loose,
             children: [
               Container(
                 width: double.infinity,
                 height: screenHeight * 0.35,
                 padding: const EdgeInsets.only(
-                  top: 10,
                   left: 10,
+                  top: 10,
                   bottom: 100,
                 ),
-                decoration: const BoxDecoration(
-                  gradient: noticeGradient,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(20.0),
-                    bottom: Radius.elliptical(160, 10),
-                  ),
-                ),
+                decoration: menuBorderRadius,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,53 +109,44 @@ class NoticesMenu extends StatelessWidget {
                         Icons.close,
                         color: Colors.white,
                       ),
-                      padding: const EdgeInsets.only(),
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                      ),
                       onPressed: onClose,
                     ),
                   ],
                 ),
               ),
               Positioned(
-                top: screenHeight * 0.15,
-                bottom: 10,
-                left: 10,
-                right: 10,
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: const Border(
-                      top: BorderSide.none,
-                      bottom: BorderSide.none,
-                      right: BorderSide.none,
-                      left: BorderSide.none,
+                top: topPosition,
+                left: padding2,
+                right: padding2,
+                child: const Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: NoticeLeftButton(
+                        noticeTextButton: NoticeTextButton(
+                          noticeText: 'PERSONAL',
+                        ),
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: const Color.fromRGBO(240, 240, 240, 0.0)
-                        .withOpacity(1.0),
-                  ),
+                    Expanded(
+                      child: NoticeRightButton(
+                        noticeTextButton: NoticeTextButton(
+                          noticeText: 'CLUB',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Positioned(
-                top: 35,
-                left: 26,
-                right: 163,
-                child: NoticeButton(
-                  onTap: () {},
-                  //decor: MenuButtonDecor1.getDecoration(_isTapped),
-                  child: const NoticeTextButton(
-                    noticeText: 'PERSONAL',
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 35,
-                left: 163,
-                right: 26,
-                child: NoticeButton(
-                  onTap: () {},
-                  //decor: MenuButtonDecor2.getDecoration(_isTapped),
-                  child: const NoticeTextButton(
-                    noticeText: 'CLUB',
-                  ),
+                top: screenHeight * 0.15,
+                bottom: padding1,
+                left: padding1,
+                right: padding1,
+                child: Container(
+                  decoration: menuBoxInside,
                 ),
               ),
             ],

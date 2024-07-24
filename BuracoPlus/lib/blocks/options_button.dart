@@ -123,7 +123,7 @@ class OptionsButton extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return const Optionsview();
+        return const OptionsView();
       },
     );
   }

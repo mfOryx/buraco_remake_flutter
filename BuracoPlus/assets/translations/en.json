@@ -613,12 +613,17 @@
     "txtDarkMode" : "Dark Mode",
     "txtCardRotation" : "Card Rotation",
     "txtTopCardRotation" : "Top Card Rotation",
+    "txtTop": "Top",
+    "txtDown": "Down",
     "txtNewMessages" : "New Messages",
     "txtTournaments" : "Tournaments",
     "txtSystemSounds" : "System Sounds",
     "txtRestrictions" : "Restrictions",
+    "txtFriendRequests": "Friend Requests",
     "txtClubInvites" : "Club Invites",
     "txtInvitesToTable" : "Invites To Table",
+    "txtSystem": "System",
+    "txtTrill": "Trill",
     "txtNotices" : "Notices",
     "txtPrivacy" : "Privacy",
     "txtPrivacyPolicy" : "Privacy Policy",
@@ -638,6 +643,7 @@
     "txtThisIsAnImportantMessage!" : "This is an important message!",
     "txtTrainingVSComputer" : "Training vs computer",
     "txtShop" : "Shop",
+    "txtFaq": "FAQ",
     "txtMessages" : "Messages",
     "txtClubs" : "Clubs",
     "txtContacts" : "Contacts",
@@ -645,5 +651,6 @@
     "txtTurnTime15" : "15",
     "txtTurnTime30" : "30",
     "txtTurnTime45" : "45",
-    "txtTurnTime60" : "60"
+    "txtTurnTime60" : "60",
+    "txtStyle" : "Style"
 }

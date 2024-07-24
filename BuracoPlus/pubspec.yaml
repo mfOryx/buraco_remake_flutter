@@ -85,6 +85,10 @@ flutter:
     - assets/splashScreenAnimation/
     - assets/seats/
     - assets/lobby/
+    - assets/tablesImages/
+    - assets/cardImagesFront/
+    - assets/cardImagesBack/
+    - assets/crowns/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

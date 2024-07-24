@@ -3,6 +3,8 @@ import 'package:buracoplus/blocks/privacy_button.dart';
 import 'package:buracoplus/blocks/privacy_menu.dart';
 import 'package:buracoplus/lobby.dart';
 import 'package:buracoplus/login/views/login.dart';
+import 'package:buracoplus/options_view.dart';
+import 'package:buracoplus/rankings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -386,7 +388,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       const SizedBox(height: 45, width: 45),
                                       FloatingActionButton(
                                         heroTag: null,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                            useSafeArea:false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const OptionsView();
+                                            },
+                                          );
+                                        },
                                         backgroundColor: Colors.transparent,
                                         splashColor: Colors.transparent,
                                         elevation: 0.0,
@@ -407,7 +417,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       ),
                                       FloatingActionButton(
                                         heroTag: null,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                            useSafeArea:false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const RankingsView();
+                                            },
+                                          );
+                                        },
                                         backgroundColor: Colors.transparent,
                                         splashColor: Colors.transparent,
                                         elevation: 0.0,
