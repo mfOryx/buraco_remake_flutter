@@ -56,8 +56,8 @@ class NoticesMenu extends StatelessWidget {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      top: MediaQuery.of(context).size.height < 550 ? 15.0 : 20.0,
-      bottom: MediaQuery.of(context).size.height < 550 ? 15.0 : 20.0,
+      top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
+      bottom: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl
           ? isNoticesVisible
               ? 15
@@ -74,7 +74,7 @@ class NoticesMenu extends StatelessWidget {
         borderRadius: BorderRadius.circular(20.0),
         shadowColor: const Color.fromARGB(255, 80, 110, 150),
         child: Container(
-          width: screenWidth * 0.35,
+          width: screenWidth * 0.34,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.white,

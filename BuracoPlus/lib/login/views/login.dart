@@ -8,8 +8,6 @@ import 'package:buracoplus/create_table_single_player.dart' show CreateTableSP;
 import 'package:buracoplus/home.dart' show Home;
 import 'package:buracoplus/login/controllers/login_controller.dart'
     show LoginController;
-import 'package:buracoplus/menu_views/notices/notice_start.dart';
-import 'package:buracoplus/menu_views/notices/notices.menu.dart';
 import 'package:buracoplus/providers/theme_provider.dart' show ThemeProvider;
 import 'package:flutter/material.dart'
     show
@@ -86,17 +84,10 @@ class _LoginState extends State<Login> {
       TextEditingController(text: '190880');
   bool _isObscured = true;
   bool isMenuVisible = false;
-  bool isNoticesVisible = false;
 
   void _toggleMenu() {
     setState(() {
       isMenuVisible = !isMenuVisible;
-    });
-  }
-
-  void _toggleNotices() {
-    setState(() {
-      isNoticesVisible = !isNoticesVisible;
     });
   }
 
@@ -145,10 +136,10 @@ class _LoginState extends State<Login> {
     final translationManager = Provider.of<TranslationManager>(context);
 
     return Scaffold(
-     extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true,
       body: Center(
         child: Stack(
-         alignment: Alignment.center,
+          alignment: Alignment.center,
           children: [
             GestureDetector(
               onTap: () {
@@ -400,7 +391,6 @@ class _LoginState extends State<Login> {
                 height: 60,
               ),
             ),
-            NoticesButton(toggleNotices: _toggleNotices),
             OptionsButton(toggleMenu: _toggleMenu),
             PrivacyButton(toggleMenu: _toggleMenu),
             PrivacyMenu(
@@ -410,10 +400,6 @@ class _LoginState extends State<Login> {
                   throw 'Could not launch $url';
                 }
               },
-            ),
-            NoticesMenu(
-              isNoticesVisible: isNoticesVisible,
-              onClose: _toggleNotices,
             ),
             Positioned(
               width: 80.0,
