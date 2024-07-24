@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:buracoplus/options_supportView.dart';
 import 'package:buracoplus/providers/theme_provider.dart';
 
 import 'package:flutter/foundation.dart';
@@ -1428,7 +1429,16 @@ class _OptionsViewState extends State<OptionsView> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+
+                showDialog(
+                  useSafeArea:false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const OptionsSupportview();
+                  },
+                );
+              },
               child: Center(
                 child: Text(
                   translationManager.translate('txtSupport').toUpperCase(),

@@ -18,7 +18,7 @@ class RankingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
+   // instead of dummy data get the data from api and assign the ranking List only.
   void _initializeDummyData(bool isProfessional) {
    // add dummy data into the list
    if(isProfessional){
