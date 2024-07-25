@@ -652,13 +652,11 @@
     "txtTurnTime45" : "45",
     "txtTurnTime60" : "60",
     "txtStyle" : "Style",
-
     "txtMessageNotSent"  : "Message Not Sent",
     "txtCheckEmailField"  : "Check The Email Field",
     "txtTypeEmailHere"  : "Enter Your Email ..." ,
     "txtTypeMessageHere"  : "Type Message here..." ,
     "txtSupportViewHeading": "Write your query to customer support For Assistance",
-    "txtSupportViewDescription"  : "To get the most from customer service messaging, you need to be clear about why you're offering the option to customers."  
-    
-    
+    "txtSupportViewDescription"  : "To get the most from customer service messaging, you need to be clear about why you're offering the option to customers.",
+    "txtRefresh" : "Refresh"
 }
