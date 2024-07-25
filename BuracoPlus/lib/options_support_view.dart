@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:buracoplus/providers/ranking_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -224,7 +223,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                       height:(isIphone)? 180:540,
                                     //  color: Colors.lightBlueAccent,
                                       child: SingleChildScrollView(
-                                        padding: EdgeInsets.only(top:6,bottom: 6,left: 16,right: 16),
+                                        padding: const EdgeInsets.only(top:6,bottom: 6,left: 16,right: 16),
                                            child: Column(
                                              children: [
 
@@ -277,7 +276,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                                 ),
 
                                                   //color: Colors.amber,
-                                                  child: IconButton(onPressed: () {  }, icon:Icon(Icons.send),
+                                                  child: IconButton(onPressed: () {  }, icon:const Icon(Icons.send),
                                                     iconSize: (isIphone)?16:24,
                                                     color: Colors.black,
 
@@ -289,12 +288,12 @@ class _OptionsSupportview extends State<OptionsSupportview> {
 
                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(70),bottomLeft: Radius.circular(70),topRight: Radius.zero,bottomRight: Radius.circular(70)),
                                             ),
-                                            fillColor: Color.fromRGBO(
+                                            fillColor: const Color.fromRGBO(
                                                 232, 232, 232, 1.0), // Background color inside the text field
                                             filled: true, // Whether the background color is filled
-                                            labelStyle: TextStyle(color: Colors.grey), // Style for the label text
+                                            labelStyle: const TextStyle(color: Colors.grey), // Style for the label text
                                             hintText: 'Type Message here...', // Hint text inside the text field
-                                            hintStyle: TextStyle(color: Colors.grey),
+                                            hintStyle: const TextStyle(color: Colors.grey),
                                             contentPadding: EdgeInsets.symmetric(vertical: (isIphone ? 0.0 : 18.0),horizontal: isIphone?12:18),// Style for the hint text
                                           ),
                                           style:  TextStyle(
@@ -355,7 +354,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                           border: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(70.0),
                                           ),
-                                          fillColor: Color.fromRGBO(
+                                          fillColor: const Color.fromRGBO(
                                               177, 156, 199, 0.5), // Background color inside the text field
                                           filled: true, // Whether the background color is filled
                                           labelStyle: const TextStyle(color: Colors.grey), // Style for the label text
