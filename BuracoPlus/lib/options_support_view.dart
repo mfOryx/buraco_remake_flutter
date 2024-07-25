@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:intl/intl.dart';
+import 'package:buracoplus/common/pop_up.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,43 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     // TODO: implement initState
     super.initState();
     checkDeviceType();
+  }
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _messageInputController = TextEditingController();
+
+  String? _errorText;
+   List<String> messagesList   = [];
+  bool _validateEmail(String value) {
+    // Regular expression for email validation
+    if (value.isEmpty) {
+      setState(() {
+        _errorText = 'Please enter your email';
+      });
+      return false;
+    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+      setState(() {
+        _errorText = 'Please enter a valid email address';
+      });
+      return false;
+    } else {
+      setState(() {
+        _errorText = null;
+      });
+    }
+    return true;
+  }
+
+  void _submitEmail(String value) {
+    _validateEmail(value);
+    if (_errorText == null) {
+      PopUps.popUpSimpleSucess("Message Sent", "Your message has been sent.");
+
+      //_emailController.clear();
+    } else{
+      
+        PopUps.popUpSimpleError("Invalid Email", _errorText.toString());
+    }
   }
 
   //############################### STATE VARIABLES
@@ -69,6 +107,10 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     }
   }
 
+
+  bool isOnlyWhiteSpaces(String input) {
+    return RegExp(r'^\s*$').hasMatch(input);
+  }
   // ################################ FUNCTIONS ON CLICK/PRESSED/TAP
 
 
@@ -225,20 +267,11 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                       child: SingleChildScrollView(
                                         padding: const EdgeInsets.only(top:6,bottom: 6,left: 16,right: 16),
                                            child: Column(
-                                             children: [
+                                             children:messagesList.map((message) {
+                                      return customChip(message: message, avatarText: 'Y',isSent: true);
+                                      }).toList(),
 
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message Received",isSent: false),
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message Received",isSent: false),
-                                               messageItem(message: "message Received",isSent: false),
-                                               messageItem(message: "message Received",isSent: false),
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message sent",isSent: true),
-                                               messageItem(message: "message Received",isSent: false),
-                                             ],
+
                                            ),
                                       ),
                                     ),
@@ -249,6 +282,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                       child: SizedBox(
                                         child:
                                         TextField(
+                                          controller: _messageInputController,
                                           decoration: InputDecoration(
                                             enabledBorder: const OutlineInputBorder(
                                               borderRadius: BorderRadius.only(topLeft: Radius.circular(70),bottomLeft: Radius.circular(70),topRight: Radius.zero,bottomRight: Radius.circular(70)),
@@ -275,8 +309,19 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                                     ),
                                                 ),
 
-                                                  //color: Colors.amber,
-                                                  child: IconButton(onPressed: () {  }, icon:const Icon(Icons.send),
+                                                  //send message button
+                                                  child: IconButton(onPressed: () {
+                                                   // _messageInputController.
+                                                    if( _validateEmail(_emailController.text) ) {
+                                                    if(_messageInputController.text.isNotEmpty && !isOnlyWhiteSpaces(_messageInputController.text) ) {
+                                                      setState(() {
+                                                        messagesList.add(_messageInputController.text.toString());
+                                                      });
+                                                    }
+                                                    }else{
+                                                      PopUps.popUpSimpleError(translationManager.translate("txtMessageNotSent"), translationManager.translate("txtCheckEmailField"));
+                                                    }
+                                                  }, icon:const Icon(Icons.send),
                                                     iconSize: (isIphone)?16:24,
                                                     color: Colors.black,
 
@@ -292,7 +337,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                                 232, 232, 232, 1.0), // Background color inside the text field
                                             filled: true, // Whether the background color is filled
                                             labelStyle: const TextStyle(color: Colors.grey), // Style for the label text
-                                            hintText: 'Type Message here...', // Hint text inside the text field
+                                            hintText: translationManager.translate("txtTypeMessageHere"), // Hint text inside the text field
                                             hintStyle: const TextStyle(color: Colors.grey),
                                             contentPadding: EdgeInsets.symmetric(vertical: (isIphone ? 0.0 : 18.0),horizontal: isIphone?12:18),// Style for the hint text
                                           ),
@@ -332,7 +377,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                           fontWeight: FontWeight.bold,
                                           fontSize:  (isIphone)?screenWidth * 0.0125:screenWidth * 0.0145,
                                         ),
-                                        "Write your query to customer support For Assistance"),
+                                        translationManager.translate("txtSupportViewHeading")
+                                       ),
                                     Text(
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -340,7 +386,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                           fontWeight: FontWeight.w100,
                                           fontSize:  (isIphone)?screenWidth * 0.012:screenWidth * 0.014,
                                         ),
-                                        "To get the most from customer service messaging, you need to be clear about why you're offering the option to customers."),
+                                        translationManager.translate("txtSupportViewDescription")),
 
                                    const SizedBox(
                                      height: 10,
@@ -349,6 +395,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                     SizedBox(
                                       height: isIphone?30:50,
                                       child: TextField(
+                                        controller: _emailController,
+                                        keyboardType: TextInputType.emailAddress,
                                         decoration: InputDecoration(
                                           // Default border around the text field
                                           border: OutlineInputBorder(
@@ -358,16 +406,22 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                               177, 156, 199, 0.5), // Background color inside the text field
                                           filled: true, // Whether the background color is filled
                                           labelStyle: const TextStyle(color: Colors.grey), // Style for the label text
-                                          hintText: 'Type here...', // Hint text inside the text field
-                                          hintStyle: const TextStyle(color: Colors.grey),
+                                          hintText: translationManager.translate("txtTypeEmailHere"), // Hint text inside the text field
+                                          hintStyle: const TextStyle(color: Colors.white),
                                           contentPadding: EdgeInsets.symmetric(vertical: (isIphone ? 8.0 : 14.0),horizontal: isIphone?14:18),// Style for the hint text
                                         ),
+
+                                        onChanged: _validateEmail,
+                                        onSubmitted: _submitEmail,
+                                       // onTap: _emailController.selection = ,
                                         style:  TextStyle(
+                                          color: Colors.white,
                                           fontSize:(isIphone)? 11.0:18, // Text size
                                           fontWeight: FontWeight.normal, // Text weight
                                           fontStyle: FontStyle.normal, // Text style (normal/italic)
                                         ),
-                                        cursorColor: Colors.white70, // Color of the cursor
+                                        cursorColor: Colors.white70,
+
                                       ),
                                     )
                                   ],
@@ -389,18 +443,89 @@ class _OptionsSupportview extends State<OptionsSupportview> {
   }
 
 
-  Widget messageItem({
-    required message ,
-    date = "12/11/2024",
-    isSent = true,
+  
 
-}){
 
-    return
-      Align(
-          alignment: (isSent)?Alignment.topRight : Alignment.topLeft,
-        child: Text(message),
-          );
 
+  Widget customChip({
+    required String message,
+    required String avatarText,
+    String date = "00/00/0000",
+    bool isSent = true,
+    double maxWidth = 220,
+    double avatarRadius = 18,
+    TextStyle? messageTextStyle,
+    Color? sentBackgroundColor,
+    Color? receivedBackgroundColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
+      child: Align(
+        alignment: isSent ? Alignment.topRight : Alignment.topLeft,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: (isIphone)?maxWidth:maxWidth+200),
+          decoration: BoxDecoration(
+            color: isSent
+                ? (sentBackgroundColor ?? Colors.blueAccent)
+                : (receivedBackgroundColor ?? Colors.grey),
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+
+                  Expanded(
+                    child: Text(
+                      message,
+                      style: messageTextStyle ??
+                          TextStyle(
+                            color: Colors.white,
+                            fontSize:(isIphone)?12: 16,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  CircleAvatar(
+                    radius: avatarRadius,
+                    backgroundColor: Colors.white,
+                    child: Text(avatarText ,
+                      style: const TextStyle(
+                          color: Colors.black
+                      ),
+
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:[
+                Text( DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()).toString(),
+                style: TextStyle(
+                  fontSize: isIphone?12:13,
+                  color: const Color.fromRGBO(220, 219, 219, 1.0)
+                ),) ,
+                Text((isSent)?"sent":"received",
+                  style: TextStyle(
+                      fontSize: isIphone?12:13,
+                      color: const Color.fromRGBO(220, 219, 219, 1.0)
+                  ),
+                ),
+                ] ,) ,
+
+
+            ],
+          ),
+        ),
+      ),
+    );
   }
+
 }

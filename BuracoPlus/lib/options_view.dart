@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:buracoplus/options_supportView.dart';
+
 import 'package:buracoplus/providers/theme_provider.dart';
 
 import 'package:flutter/foundation.dart';
@@ -9,6 +9,7 @@ import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import 'common/settings_manager.dart';
+import 'options_support_view.dart';
 
 class OptionsView extends StatefulWidget {
   const OptionsView({super.key});
@@ -1333,7 +1334,6 @@ class _OptionsViewState extends State<OptionsView> {
       ],
     );
   }
-
 
   Widget bottomButtons({
     required BuildContext context,

@@ -344,19 +344,24 @@ class _RankingsViewState extends State<RankingsView> {
                     ),
                   ),
                 ),
-                backgroundColor: WidgetStateProperty.all(
+                backgroundColor: (rankingProvider.isProfessional)?
+                WidgetStateProperty.all(
                   const Color.fromRGBO(255, 255, 255, 0.6),
-                ),
+                ):
+                WidgetStateProperty.all(
+                  const Color.fromRGBO(103, 56, 126, 0.6),
+                )
 
               ),
               onPressed: () {
                 rankingProvider.setRule(false)  ;
+
               },
               child: Center(
                 child: Text(
                   translationManager.translate('txtClassic').toUpperCase(),
                   style: TextStyle(
-                    color: Colors.white,
+                    color: (rankingProvider.isProfessional)?Colors.white:Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: screenWidth * 0.011,
                   ),
@@ -391,7 +396,11 @@ class _RankingsViewState extends State<RankingsView> {
                     ),
                   ),
                 ),
-                backgroundColor: WidgetStateProperty.all(
+                backgroundColor:
+                (rankingProvider.isProfessional)?
+                WidgetStateProperty.all(
+                  const Color.fromRGBO(103, 56, 126, 0.6),
+                ): WidgetStateProperty.all(
                   const Color.fromRGBO(255, 255, 255, 0.6),
                 ),
                 
@@ -403,7 +412,8 @@ class _RankingsViewState extends State<RankingsView> {
                 child: Text(
                   translationManager.translate('txtProfessional').toUpperCase(),
                   style: TextStyle(
-                    color: Colors.white,
+                    //color: Colors.white,
+                    color: (rankingProvider.isProfessional)?Colors.white:Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: screenWidth * 0.0105,
                   ),
