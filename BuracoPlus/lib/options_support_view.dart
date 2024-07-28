@@ -32,11 +32,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
   String? _errorText;
   //####################################  the list of messages /##################################
   //<summary>
-
   // this list contains the messages sent by the user.  To load the conversation between
   //user and the support from the database just get the conversation and put it in the list also
-
-        
   //</summary>
   // bool refers to "isSent" >>>  if the "isSent" is true it mean this message is sent by the user otherwise from the support
   List<Map<bool, String>> messagesList = [
@@ -83,7 +80,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     return true;
   }
 
-  // send the message tpo email or databse here...
+  // send the message tpo email or database here...
   //onclick of send button
   void _submitEmail(String value) {
 

@@ -5,6 +5,7 @@ import 'package:buracoplus/lobby.dart';
 import 'package:buracoplus/login/views/login.dart';
 import 'package:buracoplus/options_view.dart';
 import 'package:buracoplus/rankings_view.dart';
+import 'package:buracoplus/shop.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -446,7 +447,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                       ),
                                       FloatingActionButton(
                                         heroTag: null,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          showDialog(
+                                            useSafeArea:false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return const ShopView();
+                                            },
+                                          );
+                                        },
                                         backgroundColor: Colors.transparent,
                                         splashColor: Colors.transparent,
                                         elevation: 0.0,
