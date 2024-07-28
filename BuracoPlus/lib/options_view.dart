@@ -136,9 +136,12 @@ class _OptionsViewState extends State<OptionsView> {
               child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(right: screenWidth * 0.02),
+                  padding: EdgeInsets.only(
+                      left: screenWidth * 0.02,
+
+                      right: screenWidth * 0.02),
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment:(translationManager.languageCode == "ar")? Alignment.centerLeft:Alignment.centerRight,
                     child: Container(
                       width: isIphone ? screenWidth * 0.40 : screenWidth * 0.44,
                       height: isIOS() ? screenHeight * 0.95 : screenHeight * 0.87,
