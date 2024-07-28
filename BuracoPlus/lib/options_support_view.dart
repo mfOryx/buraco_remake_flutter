@@ -1,8 +1,5 @@
 import 'dart:io';
-
-import 'package:buracoplus/sockets/socket_service.dart';
-import 'package:intl/intl.dart' show DateFormat;
-
+import 'package:intl/intl.dart';
 import 'package:buracoplus/common/pop_up.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -83,12 +80,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
   // send the message tpo email or database here...
   //onclick of send button
   void _submitEmail(String value) {
-
     _validateEmail(value);
     if (_errorText == null) {
-      // sending data to socket
-      late final socketService = Provider.of<SocketService>(context, listen: false);
-      socketService.emitWithAck("supportMessage", {});
       PopUps.popUpSimpleSucess("Message Sent", "Your message has been sent.");
       //_emailController.clear();
     } else {
