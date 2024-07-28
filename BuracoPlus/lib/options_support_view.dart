@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:buracoplus/common/pop_up.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,12 +23,36 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     super.initState();
     checkDeviceType();
   }
-
+   // Email and message textField controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageInputController = TextEditingController();
 
   String? _errorText;
-   List<String> messagesList   = [];
+  //####################################  the list of messages /##################################
+  //<summary>
+            // this list contains the messages sent by the user.  To load the conversation between
+  //user and the support from the database just get the conversation and put it in the list also
+  //</summary>
+  // bool refers to "isSent" >>>  if the "isSent" is true it mean this message is sent by the user otherwise from the support
+  List<Map<bool, String>> messagesList = [
+    {true: "Hi, I am Ali, I need help"},
+    {false: "Hi, we have received your request. Please be patient."},
+    {true: "My game is stuck"},
+    {false: "Hi, it's fixed now."},
+    {true: "I did not get the diamonds after my purchase"},
+    {false: "I'm sorry to hear that. Could you please provide your purchase receipt or transaction ID?"},
+    {true: "Sure, here is my transaction ID: 123456"},
+    {false: "Thank you! We're checking the issue now."},
+    {true: "Okay, please let me know as soon as possible."},
+    {false: "We've verified the purchase. The diamonds should now be credited to your account."},
+    {true: "I just checked, and I received the diamonds. Thank you!"},
+    {false: "You're welcome! Is there anything else we can assist you with?"},
+    {true: "No, that's all for now. Thanks again!"},
+    {false: "Have a great day!"},
+  ];
+
+
+  ///####################################/####################################/###################
   bool _validateEmail(String value) {
     // Regular expression for email validation
     if (value.isEmpty) {
@@ -48,15 +72,14 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     }
     return true;
   }
-
+  // send the message tpo email or databse here...
+  //onclick of send button
   void _submitEmail(String value) {
     _validateEmail(value);
     if (_errorText == null) {
       PopUps.popUpSimpleSucess("Message Sent", "Your message has been sent.");
-
       //_emailController.clear();
     } else{
-      
         PopUps.popUpSimpleError("Invalid Email", _errorText.toString());
     }
   }
@@ -97,24 +120,10 @@ class _OptionsSupportview extends State<OptionsSupportview> {
     setState(() {});
   }
 
-  void toggleSelection(String toggleSelected) {
-    switch (toggleSelected) {
-      case "professionalToggle":
-        setState(() {});
-        return;
-      default:
-        return;
-    }
-  }
-
-
   bool isOnlyWhiteSpaces(String input) {
     return RegExp(r'^\s*$').hasMatch(input);
   }
   // ################################ FUNCTIONS ON CLICK/PRESSED/TAP
-
-
-
   @override
   Widget build(BuildContext context) {
      final translationManager = Provider.of<TranslationManager>(context);
@@ -268,7 +277,10 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                         padding: const EdgeInsets.only(top:6,bottom: 6,left: 16,right: 16),
                                            child: Column(
                                              children:messagesList.map((message) {
-                                      return customChip(message: message, avatarText: 'Y',isSent: true);
+                                               bool isSentFlag = message.keys.first;
+                                               String messageText = message.values.first;
+                                      return  customChip(message: messageText, avatarText: 'Y',isSent: isSentFlag);
+                                        //
                                       }).toList(),
 
 
@@ -315,7 +327,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                                                     if( _validateEmail(_emailController.text) ) {
                                                     if(_messageInputController.text.isNotEmpty && !isOnlyWhiteSpaces(_messageInputController.text) ) {
                                                       setState(() {
-                                                        messagesList.add(_messageInputController.text.toString());
+                                                        messagesList.add({true: _messageInputController.text.toString()});
                                                       });
                                                     }
                                                     }else{
@@ -357,6 +369,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                               ),
                             ),
                           ),
+
+                          
                           //###################################################### Text about support AND Input Field
                           Padding(
                             padding: EdgeInsets.only(top: (isIphone) ? 45 : 75,
@@ -477,7 +491,17 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
 
+                  (!isSent)? CircleAvatar(
+                    radius: avatarRadius,
+                    backgroundColor: Colors.white,
+                    child: Text(avatarText ,
+                      style: const TextStyle(
+                          color: Colors.black
+                      ),
 
+                    ),
+                  ): const SizedBox.shrink(),
+                  const SizedBox(width: 8.0),
                   Expanded(
                     child: Text(
                       message,
@@ -489,7 +513,8 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  CircleAvatar(
+
+                 (isSent)? CircleAvatar(
                     radius: avatarRadius,
                     backgroundColor: Colors.white,
                     child: Text(avatarText ,
@@ -498,7 +523,7 @@ class _OptionsSupportview extends State<OptionsSupportview> {
                       ),
 
                     ),
-                  ),
+                  ):const SizedBox.shrink(),
                 ],
               ),
               const SizedBox(
