@@ -71,21 +71,46 @@ class _ShopViewState extends State<ShopView> {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.blue, // Background color for the TabBar
+                      color: Color.fromRGBO(227, 227, 227, 1.0), // Background color for the TabBar
                       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                     ),
                     child: const TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor: Colors.white60,
                       tabs: [
-                        Tab(icon: Icon(Icons.home), text: 'HOME'),
-                        Tab(icon: Icon(Icons.star), text: 'SUBSCRIPTION'),
-                        Tab(icon: Icon(Icons.currency_bitcoin), text: 'COINS'),
-                        Tab(icon: Icon(Icons.emoji_emotions_rounded), text: 'EMOJIS'),
-                        Tab(icon: Icon(Icons.table_restaurant_rounded), text: 'TABLES'),
-                        Tab(icon: Icon(Icons.card_giftcard_outlined), text: 'CARDS'),
-                        Tab(icon: Icon(Icons.folder_special), text: 'SPECIAL'),
-                        Tab(icon: Icon(Icons.redeem), text: 'REDEEM'),
+                        Tab(
+                          icon: Icon(Icons.home, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('HOME', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.star, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('SUBSCRIPTION', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.currency_bitcoin, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('COINS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.emoji_emotions_rounded, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('EMOJIS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.table_restaurant_rounded, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('TABLES', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.card_giftcard_outlined, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('CARDS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.folder_special, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('SPECIAL', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+                        Tab(
+                          icon: Icon(Icons.redeem, color: Color.fromRGBO(0, 0, 0, 1.0)),
+                          child: Text('REDEEM', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                        ),
+
 
                       ],
                     ),
