@@ -50,7 +50,7 @@ class _ShopViewState extends State<ShopView> {
       backgroundColor: Colors.transparent,
       body: Center(
         child: SizedBox(
-          width: (isIpad)?screenWidth * 0.95:screenWidth * 0.88,
+          width: (isIpad) ? screenWidth * 0.95 : screenWidth * 0.88,
           height: screenHeight * 0.8,
           child: DefaultTabController(
             length: 8, // Number of tabs
@@ -71,69 +71,92 @@ class _ShopViewState extends State<ShopView> {
                 children: <Widget>[
                   Container(
                     decoration: const BoxDecoration(
-                      color: Color.fromRGBO(227, 227, 227, 1.0), // Background color for the TabBar
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      color: Color.fromRGBO(227, 227, 227,
+                          1.0), // Background color for the TabBar
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
                     ),
-                    child:  TabBar(
-                      
+                    child: TabBar(
                       labelColor: Colors.white,
                       unselectedLabelColor: Colors.white60,
                       tabs: [
                         Tab(
-
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('HOME', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('HOME',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_contacts.png",height:(isIphone)?24:32),
-                          child: Text('SUBSCRIPTION', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('SUBSCRIPTION',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('COINS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('COINS',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('EMOJIS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('EMOJIS',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('TABLES', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('TABLES',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('CARDS', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('CARDS',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('SPECIAL', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('SPECIAL',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
-                          child: Text('REDEEM', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
+                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
+                              height: (isIphone) ? 24 : 32),
+                          child: const Text('REDEEM',
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
-
-
                       ],
                     ),
                   ),
                   Expanded(
                     child: Container(
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-                        color: Colors.white, // Background color for the TabBarView
+                        borderRadius:
+                            BorderRadius.vertical(bottom: Radius.circular(20)),
+                        color:
+                            Colors.white, // Background color for the TabBarView
                       ),
                       child: const TabBarView(
                         children: [
-                          Center(child: Text('Home Tab Content Abdullah')),
-                          Center(child: Text('Favorites Tab Content Abdullah')),
-                          Center(child: Text('Settings Tab Content Abdullah')),
-                          Center(child: Text('Home Tab Content Abdullah')),
-                          Center(child: Text('Favorites Tab Content Abdullah')),
-                          Center(child: Text('Settings Tab Content Abdullah')),
-                          Center(child: Text('Home Tab Content Abdullah')),
-                          Center(child: Text('Favorites Tab Content Abdullah')),
-                        
+                          Center(child: Text('Home Tab Content')),
+                          Center(child: Text('Favorites Tab Content')),
+                          Center(child: Text('Settings Tab Content')),
+                          Center(child: Text('Home Tab Content')),
+                          Center(child: Text('Favorites Tab Content')),
+                          Center(child: Text('Settings Tab Content')),
+                          Center(child: Text('Home Tab Content')),
+                          Center(child: Text('Favorites Tab Content')),
                         ],
                       ),
                     ),
