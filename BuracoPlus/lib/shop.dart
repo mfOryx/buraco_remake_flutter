@@ -85,7 +85,7 @@ class _ShopViewState extends State<ShopView> {
                           child: Text('HOME', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
-                          icon:   Image.asset("assets/menuIcons/ic_clubs.png",height:(isIphone)?24:32),
+                          icon:   Image.asset("assets/menuIcons/ic_contacts.png",height:(isIphone)?24:32),
                           child: Text('SUBSCRIPTION', style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1.0))),
                         ),
                         Tab(
@@ -125,14 +125,14 @@ class _ShopViewState extends State<ShopView> {
                       ),
                       child: const TabBarView(
                         children: [
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
-                          Center(child: Text('Settings Tab Content')),
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
-                          Center(child: Text('Settings Tab Content')),
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
+                          Center(child: Text('Home Tab Content Abdullah')),
+                          Center(child: Text('Favorites Tab Content Abdullah')),
+                          Center(child: Text('Settings Tab Content Abdullah')),
+                          Center(child: Text('Home Tab Content Abdullah')),
+                          Center(child: Text('Favorites Tab Content Abdullah')),
+                          Center(child: Text('Settings Tab Content Abdullah')),
+                          Center(child: Text('Home Tab Content Abdullah')),
+                          Center(child: Text('Favorites Tab Content Abdullah')),
                         
                         ],
                       ),
