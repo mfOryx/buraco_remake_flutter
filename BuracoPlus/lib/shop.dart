@@ -2,6 +2,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'VerticalTabBar.dart';
+
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
 
@@ -48,125 +50,9 @@ class _ShopViewState extends State<ShopView> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Center(
-        child: SizedBox(
-          width: (isIpad) ? screenWidth * 0.95 : screenWidth * 0.88,
-          height: screenHeight * 0.8,
-          child: DefaultTabController(
-            length: 8, // Number of tabs
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white, // Background color for the container
-                borderRadius: BorderRadius.circular(20), // Rounded corners
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    spreadRadius: 5,
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(227, 227, 227,
-                          1.0), // Background color for the TabBar
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(20)),
-                    ),
-                    child: TabBar(
-                      labelColor: Colors.white,
-                      unselectedLabelColor: Colors.white60,
-                      tabs: [
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('HOME',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('SUBSCRIPTION',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('COINS',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('EMOJIS',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('TABLES',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('CARDS',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('SPECIAL',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                        Tab(
-                          icon: Image.asset("assets/menuIcons/ic_clubs.png",
-                              height: (isIphone) ? 24 : 32),
-                          child: const Text('REDEEM',
-                              style: TextStyle(
-                                  color: Color.fromRGBO(0, 0, 0, 1.0))),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.vertical(bottom: Radius.circular(20)),
-                        color:
-                            Colors.white, // Background color for the TabBarView
-                      ),
-                      child: const TabBarView(
-                        children: [
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
-                          Center(child: Text('Settings Tab Content')),
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
-                          Center(child: Text('Settings Tab Content')),
-                          Center(child: Text('Home Tab Content')),
-                          Center(child: Text('Favorites Tab Content')),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+      body:  VerticalTabBarExample()
+
+
     );
   }
 }
