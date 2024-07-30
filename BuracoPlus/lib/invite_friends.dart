@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:math' as math;
 
 class InviteFriends extends StatefulWidget {
   const InviteFriends({super.key});
@@ -14,57 +15,19 @@ class InviteFriends extends StatefulWidget {
 }
 
 class _CreateInviteFriends extends State<InviteFriends> {
-  bool classicToggle = false;
-  bool professionalToggle = true;
-  bool twoPlayersToggle = true;
-  bool fourPlayersToggle = false;
-  bool directToggle = true;
-  bool indirectToggle = false;
-  bool makartCheckbox = true;
-  bool pointsOne = true;
-  bool pointsTwo = false;
-  bool pointsThree = false;
-  bool pointsFour = false;
-  bool turnTimeOne = true;
-  bool turnTimeTwo = false;
-  bool turnTimeThree = false;
-  bool turnTimeFour = false;
-  bool passwordToggle = false;
-  bool chatToggle = false;
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = false;
+  bool isLeftChairOccupied = false;
+  bool isRightChairOccupied = false;
+  bool isTopChairOccupied = false;
+  bool isBottomChairOccupied = false;
   String? selectedLevel;
-  final List<String> levels = [
-    "None",
-    "Level 5",
-    "Level 10",
-    "Level 15",
-    "Level 20",
-    "Level 25",
-    "Level 30",
-    "Level 35",
-    "Level 40",
-    "Level 45",
-    "Level 50",
-    "Level 55",
-    "Level 60",
-    "Level 65",
-    "Level 70",
-    "Level 75",
-    "Level 80",
-    "Level 85",
-    "Level 90",
-    "Level 95",
-    "Level 100",
-    "Level 105",
-    "Level 110",
-    "Level 115",
-    "Level 120",
-    "Level 125",
-    "Level 130",
-    "Level 135",
-    "Level 140"
+  final List<String> levels =
+  [
+    "None", "Level 5", "Level 10", "Level 15", "Level 20", "Level 25", "Level 30", "Level 35", "Level 40", "Level 45", "Level 50",
+    "Level 55", "Level 60", "Level 65", "Level 70", "Level 75", "Level 80", "Level 85", "Level 90", "Level 95", "Level 100",
+    "Level 105", "Level 110", "Level 115", "Level 120", "Level 125", "Level 130", "Level 135", "Level 140"
   ];
 
   final PageController frontCardImageController = PageController();
@@ -129,118 +92,6 @@ class _CreateInviteFriends extends State<InviteFriends> {
     }
   }
 
-  void toggleSelection(String toggleSelected) {
-    switch (toggleSelected) {
-      case "classicToggle":
-        setState(() {
-          classicToggle = true;
-          professionalToggle = false;
-        });
-        return;
-      case "professionalToggle":
-        setState(() {
-          professionalToggle = true;
-          classicToggle = false;
-        });
-        return;
-      case "twoPlayersToggle":
-        setState(() {
-          twoPlayersToggle = true;
-          fourPlayersToggle = false;
-        });
-        return;
-      case "fourPlayersToggle":
-        setState(() {
-          fourPlayersToggle = true;
-          twoPlayersToggle = false;
-        });
-        return;
-      case "directToggle":
-        setState(() {
-          directToggle = true;
-          indirectToggle = false;
-        });
-        return;
-      case "indirectToggle":
-        setState(() {
-          indirectToggle = true;
-          directToggle = false;
-        });
-        return;
-      case "makartCheckbox":
-        setState(() {
-          makartCheckbox = !makartCheckbox;
-        });
-        return;
-      case "pointsOne":
-        setState(() {
-          pointsOne = true;
-          pointsTwo = false;
-          pointsThree = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsTwo":
-        setState(() {
-          pointsTwo = true;
-          pointsOne = false;
-          pointsThree = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsThree":
-        setState(() {
-          pointsThree = true;
-          pointsOne = false;
-          pointsTwo = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsFour":
-        setState(() {
-          pointsFour = true;
-          pointsOne = false;
-          pointsTwo = false;
-          pointsThree = false;
-        });
-        return;
-      case "turnTimeOne":
-        setState(() {
-          turnTimeOne = true;
-          turnTimeTwo = false;
-          turnTimeThree = false;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeTwo":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = true;
-          turnTimeThree = false;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeThree":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = false;
-          turnTimeThree = true;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeFour":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = false;
-          turnTimeThree = false;
-          turnTimeFour = true;
-        });
-        return;
-      default:
-        return;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     //final themeProvider = Provider.of<ThemeProvider>(context);
@@ -254,672 +105,986 @@ class _CreateInviteFriends extends State<InviteFriends> {
       children: [
         Consumer<DialogProvider>(
           builder: (context, dialogProvider, child) {
-            return dialogProvider.isInviteFriendsDialogVisible
-                ? Stack(
-                    children: [
-                      Positioned.fill(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              dialogProvider.hideInviteFriendsDialog();
-                            });
-                          },
-                          child: Container(
-                            color: Colors.black.withOpacity(0.3),
-                          ),
+            return dialogProvider.isInviteFriendsDialogVisible ?
+            Stack(
+              children: [
+                Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        dialogProvider.hideInviteFriendsDialog();
+                      });
+                    },
+                    child: Container(
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: screenWidth * 0.03, top: screenHeight * 0.022),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: isIpad
+                            ? screenWidth * 0.48
+                            : (isIphone ? screenWidth * 0.45 : screenWidth * 0.45),
+                        height: isIpad
+                            ? screenHeight * 0.9
+                            : (isIphone ? screenHeight * 0.95 : screenWidth * screenHeight * 0.95),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: const Color.fromRGBO(210, 210, 210, 1.0),
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              right: screenWidth * 0.03,
-                              top: screenHeight * 0.022),
-                          child: Align(
-                            alignment: Alignment.topRight,
-                            child: Container(
+                        child: Stack(
+                          children: [
+                            Container(
                               width: isIpad
-                                  ? screenWidth * 0.48
-                                  : (isIphone
-                                      ? screenWidth * 0.45
-                                      : screenWidth * 0.45),
+                                  ? screenWidth * 0.55
+                                  : (isIphone ? screenWidth * 0.55 : screenWidth * 0.55),
                               height: isIpad
-                                  ? screenHeight * 0.9
-                                  : (isIphone
-                                      ? screenHeight * 0.95
-                                      : screenWidth * screenHeight * 0.95),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: const Color.fromRGBO(210, 210, 210, 1.0),
+                                  ? screenHeight * 0.4
+                                  : (isIphone ? screenHeight * 0.4 : screenWidth * screenHeight * 0.4),
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 90, 110, 150),
+                                    Color.fromARGB(255, 115, 70, 130)
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20.0),
+                                  bottom: Radius.elliptical(200, 25),
+                                ),
                               ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: isIpad
-                                        ? screenWidth * 0.55
-                                        : (isIphone
-                                            ? screenWidth * 0.55
-                                            : screenWidth * 0.55),
-                                    height: isIpad
-                                        ? screenHeight * 0.4
-                                        : (isIphone
-                                            ? screenHeight * 0.4
-                                            : screenWidth * screenHeight * 0.4),
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color.fromARGB(255, 90, 110, 150),
-                                          Color.fromARGB(255, 115, 70, 130)
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                      borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20.0),
-                                        bottom: Radius.elliptical(200, 25),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                        left: screenWidth * 0.03,
-                                        right: isIpad
-                                            ? screenWidth * 0.02
-                                            : (isIphone
-                                                ? screenWidth * 0.01
-                                                : screenWidth * 0.01),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // Top Row
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: screenWidth * 0.03,
+                                  right: isIpad
+                                      ? screenWidth * 0.02
+                                      : (isIphone ? screenWidth * 0.01 : screenWidth * 0.01),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Top Row
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        // Title
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            top: isIpad ? screenHeight * 0.01 : (isIphone ? screenHeight * 0.005 : screenHeight * 0.005),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              // Title
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  top: isIpad
-                                                      ? screenHeight * 0.01
+                                              Text(
+                                                translationManager
+                                                    .translate('txtInviteFriends')
+                                                    .toUpperCase(),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: isIpad
+                                                      ? screenWidth * 0.018
                                                       : (isIphone
-                                                          ? screenHeight * 0.005
-                                                          : screenHeight *
-                                                              0.005),
-                                                ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      translationManager
-                                                          .translate(
-                                                              'txtInviteFriends')
-                                                          .toUpperCase(),
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: isIpad
-                                                            ? screenWidth *
-                                                                0.018
-                                                            : (isIphone
-                                                                ? screenWidth *
-                                                                    0.015
-                                                                : screenWidth *
-                                                                    0.015),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      translationManager.translate(
-                                                          'txtSelectAChairToInviteYourFriend'),
-                                                      style: TextStyle(
-                                                        color: Colors.white
-                                                            .withOpacity(0.5),
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: isIpad
-                                                            ? screenWidth *
-                                                                0.011
-                                                            : (isIphone
-                                                                ? screenWidth *
-                                                                    0.009
-                                                                : screenWidth *
-                                                                    0.009),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                      ? screenWidth * 0.015
+                                                      : screenWidth * 0.015),
                                                 ),
                                               ),
-                                              // Close Button
-                                              IconButton(
-                                                padding: EdgeInsets.only(
-                                                  top: isIpad
-                                                      ? screenHeight * 0.005
+                                              Text(
+                                                translationManager
+                                                    .translate('txtSelectAChairToInviteYourFriend'),
+                                                style: TextStyle(
+                                                  color: Colors.white.withOpacity(0.5),
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: isIpad
+                                                      ? screenWidth * 0.011
                                                       : (isIphone
-                                                          ? screenHeight * 0.0
-                                                          : screenHeight * 0.0),
+                                                      ? screenWidth * 0.009
+                                                      : screenWidth * 0.009),
                                                 ),
-                                                alignment: Alignment.topCenter,
-                                                icon: const Icon(Icons.close,
-                                                    color: Colors.white),
-                                                iconSize: isIpad
-                                                    ? screenWidth * 0.022
-                                                    : (isIphone
-                                                        ? screenWidth * 0.018
-                                                        : screenWidth * 0.012),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    dialogProvider
-                                                        .hideInviteFriendsDialog();
-                                                  });
-                                                },
                                               ),
                                             ],
                                           ),
-                                          // Middle Section
-                                          const Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                // Left Chair
-                                                Stack(
-                                                  children: [
-                                                    // Add your chair widget here
-                                                  ],
-                                                ),
-                                                // Middle Section (Middle Chairs and Table)
-                                                Column(
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        // Add your top middle chair widget here
-                                                      ],
-                                                    ),
-                                                    Stack(
-                                                      children: [
-                                                        // Add your table widget here
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                // Right Chair
-                                                Stack(
-                                                  children: [
-                                                    // Add your right chair widget here
-                                                  ],
-                                                ),
-                                                // Buttons Section
-                                                Column(
-                                                  children: [
-                                                    // Add your buttons widget here
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      bottom: isIpad
-                                          ? screenWidth * 0.02
-                                          : (isIphone
-                                              ? screenWidth * 0.016
-                                              : screenWidth * 0.016),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Container(
-                                        width: isIpad
-                                            ? screenWidth * 0.45
-                                            : (isIphone
-                                                ? screenWidth * 0.425
-                                                : screenWidth * 0.425),
-                                        height: isIpad
-                                            ? screenHeight * 0.55
-                                            : (isIphone
-                                                ? screenHeight * 0.6
-                                                : screenWidth *
-                                                    screenHeight *
-                                                    0.85),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(20.0),
                                         ),
-                                        child: Column(
+                                        // Close Button
+                                        IconButton(
+                                          padding: EdgeInsets.only(
+                                            top: isIpad ? screenHeight * 0.005 : (isIphone ? screenHeight * 0.0 : screenHeight * 0.0),
+                                          ),
+                                          alignment: Alignment.topCenter,
+                                          icon: const Icon(Icons.close, color: Colors.white),
+                                          iconSize: isIpad ? screenWidth * 0.022 : (isIphone ? screenWidth * 0.018 : screenWidth * 0.012),
+                                          onPressed: () {
+                                            setState(() {
+                                              dialogProvider.hideInviteFriendsDialog();
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    // Middle Section
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 40.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                top: isIpad
-                                                    ? screenWidth * 0.015
-                                                    : screenWidth * 0.01,
-                                                bottom: isIpad
-                                                    ? screenWidth * 0.015
-                                                    : screenWidth * 0.001,
-                                              ),
-                                              child: SizedBox(
-                                                width: isIpad
-                                                    ? screenWidth * 0.35
-                                                    : screenWidth * 0.3,
-                                                height: isIpad
-                                                    ? screenHeight * 0.04
-                                                    : screenHeight * 0.06,
-                                                child: DecoratedBox(
-                                                  decoration: BoxDecoration(
-                                                    color: const Color.fromRGBO(
-                                                        83, 32, 95, 1),
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft: isIpad
-                                                          ? const Radius
-                                                              .circular(20.0)
-                                                          : const Radius
-                                                              .circular(12.0),
-                                                      topRight: isIpad
-                                                          ? const Radius
-                                                              .circular(20.0)
-                                                          : const Radius
-                                                              .circular(12.0),
-                                                      bottomLeft: isIpad
-                                                          ? const Radius
-                                                              .circular(20.0)
-                                                          : const Radius
-                                                              .circular(12.0),
-                                                      bottomRight: isIpad
-                                                          ? const Radius
-                                                              .circular(20.0)
-                                                          : const Radius
-                                                              .circular(12.0),
-                                                    ),
-                                                    border: Border.all(
-                                                      color: Colors.white
-                                                          .withOpacity(0.5),
-                                                      width: isIpad ? 3 : 2,
-                                                    ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      translationManager
-                                                          .translate(
-                                                              'txtFriends')
-                                                          .toUpperCase(),
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize:
-                                                            screenWidth * 0.01,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                bottom: isIpad
-                                                    ? screenWidth * 0.02
-                                                    : (isIphone
-                                                        ? screenWidth * 0.016
-                                                        : screenWidth * 0.016),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  SizedBox(
-                                                    width: isIpad
-                                                        ? screenWidth * 0.24
-                                                        : (isIphone
-                                                            ? screenWidth * 0.18
-                                                            : screenWidth *
-                                                                0.02),
-                                                    height: isIpad
-                                                        ? screenHeight * 0.04
-                                                        : (isIphone
-                                                            ? screenHeight *
-                                                                0.06
-                                                            : screenWidth *
-                                                                screenHeight *
-                                                                0.07),
-                                                    child: TextField(
-                                                      maxLines: 1,
-                                                      textAlign: TextAlign.left,
-                                                      cursorHeight: isIpad
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                isLeftChairOccupied
+                                                    ?
+                                                Stack(
+                                                  children: [
+                                                    Image.asset(
+                                                      "assets/seats/sidechairdraft.png",
+                                                      height: isIpad
                                                           ? screenHeight * 0.02
                                                           : (isIphone
-                                                              ? screenHeight *
-                                                                  0.035
-                                                              : screenWidth *
-                                                                  screenHeight *
-                                                                  0.035),
-                                                      cursorColor: Colors.black,
-                                                      decoration:
-                                                          InputDecoration(
-                                                        contentPadding:
-                                                            EdgeInsets.only(
-                                                          left: isIpad
-                                                              ? screenWidth *
-                                                                  0.005
+                                                          ? screenHeight * 0.1
+                                                          : screenHeight * 0.1),
+                                                    ),
+                                                    Positioned(
+                                                      right: isIpad
+                                                          ? screenWidth * 0.02
+                                                          : (isIphone
+                                                          ? screenWidth * 0.015
+                                                          : screenWidth * 0.015),
+                                                      bottom: isIpad
+                                                          ? screenHeight * 0.02
+                                                          : (isIphone
+                                                          ? screenHeight * 0.05
+                                                          : screenHeight * 0.1),
+                                                      child: Container(
+                                                        width: isIpad
+                                                            ? screenWidth * 0.05
+                                                            : (isIphone
+                                                            ? screenWidth * 0.02
+                                                            : screenWidth * 0.02),
+                                                        height: isIpad
+                                                            ? screenHeight * 0.02
+                                                            : (isIphone
+                                                            ? screenHeight * 0.05
+                                                            : screenHeight * 0.05),
+                                                        decoration: const BoxDecoration(
+                                                          color: Color.fromRGBO(83, 32, 95, 1),
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: IconButton(
+                                                          padding: EdgeInsets.zero,
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              isLeftChairOccupied = !isLeftChairOccupied;
+                                                            });
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                          ),
+                                                          iconSize: isIpad
+                                                              ? screenWidth * 0.05
                                                               : (isIphone
-                                                                  ? screenWidth *
-                                                                      0.005
-                                                                  : screenWidth *
-                                                                      0.005),
-                                                        ),
-                                                        hintText: translationManager
-                                                            .translate(
-                                                                'txtSearchAPlayer...'),
-                                                        hintStyle: TextStyle(
-                                                          fontSize:
-                                                              screenWidth *
-                                                                  0.015,
-                                                          color: Colors.white,
-                                                        ),
-                                                        suffixIcon: Icon(
-                                                          Icons.search,
-                                                          color: Colors.white,
-                                                          size: isIpad
-                                                              ? screenWidth *
-                                                                  0.02
-                                                              : (isIphone
-                                                                  ? screenWidth *
-                                                                      0.02
-                                                                  : screenWidth *
-                                                                      0.02),
-                                                        ),
-                                                        filled: true,
-                                                        fillColor: Colors.grey
-                                                            .withOpacity(0.8),
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          borderSide:
-                                                              BorderSide.none,
-                                                        ),
-                                                        enabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          borderSide:
-                                                              BorderSide.none,
-                                                        ),
-                                                        focusedBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          borderSide:
-                                                              BorderSide.none,
-                                                        ),
-                                                        errorBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          borderSide:
-                                                              BorderSide.none,
-                                                        ),
-                                                        disabledBorder:
-                                                            OutlineInputBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          borderSide:
-                                                              BorderSide.none,
+                                                              ? screenWidth * 0.02
+                                                              : screenWidth * 0.02),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      Icons.refresh,
-                                                      size: isIpad
-                                                          ? screenWidth * 0.025
-                                                          : (isIphone
-                                                              ? screenWidth *
-                                                                  0.02
-                                                              : screenWidth *
-                                                                  0.02),
+                                                  ],
+                                                )
+                                                    :
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      isLeftChairOccupied = !isLeftChairOccupied;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: isIpad
+                                                        ? screenWidth * 0.05
+                                                        : (isIphone ? screenWidth * 0.045 : screenWidth * 0.045),
+                                                    height: isIpad
+                                                        ? screenHeight * 0.5
+                                                        : (isIphone ? screenHeight * 0.1095 : screenHeight * 0.1095),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
                                                     ),
-                                                    onPressed: () {},
-                                                  ),
-                                                  Text(
-                                                    translationManager
-                                                        .translate('txtRefresh')
-                                                        .toUpperCase(),
-                                                    style: TextStyle(
-                                                      fontSize: isIpad
-                                                          ? screenWidth * 0.012
-                                                          : (isIphone
-                                                              ? screenWidth *
-                                                                  0.01
-                                                              : screenWidth *
-                                                                  0.01),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: ListView.builder(
-                                                itemCount: 10,
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        vertical: 5.0,
-                                                        horizontal: 50.0),
-                                                    child: Row(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                         Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
                                                             border: Border.all(
-                                                              color: Colors
-                                                                  .black
-                                                                  .withOpacity(
-                                                                      0.1),
-                                                              width: 3.0,
+                                                              color: Colors.black.withOpacity(0.1),
+                                                              width: 1.0,
                                                             ),
                                                           ),
                                                           child: CircleAvatar(
-                                                            radius: isIpad
-                                                                ? screenWidth *
-                                                                    0.03
-                                                                : (isIphone
-                                                                    ? screenWidth *
-                                                                        0.02
-                                                                    : screenWidth *
-                                                                        0.02),
-                                                            backgroundImage:
-                                                                const AssetImage(
-                                                                    'assets/menuIcons/blankAvatar_2.png'),
+                                                            radius: isIpad ? screenWidth * 0.03
+                                                                : (isIphone ? screenWidth * 0.015
+                                                                : screenWidth * 0.015),
+                                                            backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
                                                           ),
                                                         ),
-                                                        SizedBox(
+                                                        Container(
                                                           width: isIpad
-                                                              ? screenWidth *
-                                                                  0.01
-                                                              : (isIphone
-                                                                  ? screenWidth *
-                                                                      0.01
-                                                                  : screenWidth *
-                                                                      0.01),
-                                                        ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                'Player Name',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: isIpad
-                                                                      ? screenWidth *
-                                                                          0.015
-                                                                      : (isIphone
-                                                                          ? screenWidth *
-                                                                              0.012
-                                                                          : screenWidth *
-                                                                              0.012),
-                                                                  color: Colors
-                                                                      .black,
-                                                                ),
-                                                              ),
-                                                              Row(
-                                                                children: [
-                                                                  // SizedBox(width: screenWidth * 0.02),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 5,
-                                                                        bottom:
-                                                                            5),
-                                                                    child:
-                                                                        Container(
-                                                                      height: 2,
-                                                                      width: screenWidth *
-                                                                          0.14,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        gradient:
-                                                                            LinearGradient(
-                                                                          colors: [
-                                                                            Colors.transparent,
-                                                                            Colors.grey.withOpacity(0.3),
-                                                                            Colors.transparent,
-                                                                          ],
-                                                                          stops: const [
-                                                                            0.0,
-                                                                            0.5,
-                                                                            1.0
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: isIpad
-                                                              ? screenWidth *
-                                                                  0.012
-                                                              : (isIphone
-                                                                  ? screenWidth *
-                                                                      0.012
-                                                                  : screenWidth *
-                                                                      0.012),
-                                                        ),
-                                                        SizedBox(
-                                                          width: isIpad
-                                                              ? screenWidth *
-                                                                  0.12
-                                                              : (isIphone
-                                                                  ? screenWidth *
-                                                                      0.1
-                                                                  : screenWidth *
-                                                                      0.1),
+                                                              ? screenWidth * 0.05
+                                                              : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
                                                           height: isIpad
-                                                              ? screenHeight *
-                                                                  0.05
-                                                              : (isIphone
-                                                                  ? screenHeight *
-                                                                      0.07
-                                                                  : screenWidth *
-                                                                      screenHeight *
-                                                                      0.07),
-                                                          child: OutlinedButton(
-                                                            onPressed: () {},
-                                                            style:
-                                                                OutlinedButton
-                                                                    .styleFrom(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              side: const BorderSide(
-                                                                  color: Colors
-                                                                      .black),
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            5.0),
-                                                              ),
-                                                              backgroundColor:
-                                                                  const Color
-                                                                      .fromRGBO(
-                                                                      240,
-                                                                      240,
-                                                                      240,
-                                                                      1),
+                                                              ? screenHeight * 0.5
+                                                              : (isIphone ? screenHeight * 0.035 : screenHeight * 0.035),
+                                                          color: const Color.fromRGBO(8, 39, 76, 1),
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(
+                                                                top: isIpad
+                                                                ? screenHeight * 0.05
+                                                                : (isIphone ? screenHeight * 0.005 : screenHeight * 0.005)
                                                             ),
                                                             child: Text(
-                                                              translationManager
-                                                                  .translate(
-                                                                      'txtInvite')
-                                                                  .toUpperCase(),
+                                                              'ABC',
+                                                              textAlign: TextAlign.center,
                                                               style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
+                                                                color: Colors.white,
                                                                 fontSize: isIpad
-                                                                    ? screenWidth *
-                                                                        0.015
-                                                                    : (isIphone
-                                                                        ? screenWidth *
-                                                                            0.012
-                                                                        : screenWidth *
-                                                                            0.012),
+                                                                    ? screenWidth * 0.01
+                                                                    : (isIphone ? screenWidth * 0.008 : screenWidth * 0.01),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  );
-                                                },
-                                              ),
+                                                  ),
+                                                ),
+                                                //Middle of the Table
+                                                Column(
+                                                  children: [
+                                                    isTopChairOccupied
+                                                        ?
+                                                    Stack(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/seats/f-chairdraft.png",
+                                                          height: isIpad
+                                                              ? screenHeight * 0.02
+                                                              : (isIphone
+                                                              ? screenHeight * 0.08
+                                                              : screenHeight * 0.08),
+                                                        ),
+                                                        Positioned(
+                                                          right: isIpad
+                                                              ? screenWidth * 0.02
+                                                              : (isIphone
+                                                              ? screenWidth * 0.007
+                                                              : screenWidth * 0.007),
+                                                          bottom: isIpad
+                                                              ? screenHeight * 0.02
+                                                              : (isIphone
+                                                              ? screenHeight * 0.032
+                                                              : screenHeight * 0.032),
+                                                          child: Container(
+                                                            width: isIpad
+                                                                ? screenWidth * 0.05
+                                                                : (isIphone
+                                                                ? screenWidth * 0.02
+                                                                : screenWidth * 0.02),
+                                                            height: isIpad
+                                                                ? screenHeight * 0.02
+                                                                : (isIphone
+                                                                ? screenHeight * 0.05
+                                                                : screenHeight * 0.05),
+                                                            decoration: const BoxDecoration(
+                                                              color: Color.fromRGBO(83, 32, 95, 1),
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: IconButton(
+                                                              padding: EdgeInsets.zero,
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  isTopChairOccupied = !isTopChairOccupied;
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.add,
+                                                                color: Colors.white,
+                                                              ),
+                                                              iconSize: isIpad
+                                                                  ? screenWidth * 0.05
+                                                                  : (isIphone
+                                                                  ? screenWidth * 0.02
+                                                                  : screenWidth * 0.02),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                        :
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isTopChairOccupied = !isTopChairOccupied;
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        width: isIpad
+                                                            ? screenWidth * 0.05
+                                                            : (isIphone ? screenWidth * 0.045 : screenWidth * 0.045),
+                                                        height: isIpad
+                                                            ? screenHeight * 0.5
+                                                            : (isIphone ? screenHeight * 0.1095 : screenHeight * 0.1095),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                border: Border.all(
+                                                                  color: Colors.black.withOpacity(0.1),
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                radius: isIpad ? screenWidth * 0.03
+                                                                    : (isIphone ? screenWidth * 0.015
+                                                                    : screenWidth * 0.015),
+                                                                backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: isIpad
+                                                                  ? screenWidth * 0.05
+                                                                  : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
+                                                              height: isIpad
+                                                                  ? screenHeight * 0.5
+                                                                  : (isIphone ? screenHeight * 0.035 : screenHeight * 0.035),
+                                                              color: const Color.fromRGBO(8, 39, 76, 1),
+                                                              child: Padding(
+                                                                padding: EdgeInsets.only(
+                                                                    top: isIpad
+                                                                        ? screenHeight * 0.05
+                                                                        : (isIphone ? screenHeight * 0.005 : screenHeight * 0.005)
+                                                                ),
+                                                                child: Text(
+                                                                  'ABC',
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                    color: Colors.white,
+                                                                    fontSize: isIpad
+                                                                        ? screenWidth * 0.01
+                                                                        : (isIphone ? screenWidth * 0.008 : screenWidth * 0.01),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Image.asset(
+                                                      "assets/seats/tabledraft.png",
+                                                      width: isIpad
+                                                          ? screenWidth * 0.07
+                                                          : (isIphone
+                                                          ? screenWidth * 0.07
+                                                          : screenWidth * 0.07),
+                                                      height: isIpad
+                                                          ? screenHeight * 0.04
+                                                          : (isIphone
+                                                          ? screenHeight * 0.04
+                                                          : screenHeight * 0.04),
+                                                    ),
+                                                    isBottomChairOccupied
+                                                        ?
+                                                    Stack(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/seats/b-chairdraft.png",
+                                                          height: isIpad
+                                                              ? screenHeight * 0.02
+                                                              : (isIphone
+                                                              ? screenHeight * 0.08
+                                                              : screenHeight * 0.08),
+                                                        ),
+                                                        Positioned(
+                                                          right: isIpad
+                                                              ? screenWidth * 0.02
+                                                              : (isIphone
+                                                              ? screenWidth * 0.006
+                                                              : screenWidth * 0.007),
+                                                          bottom: isIpad
+                                                              ? screenHeight * 0.02
+                                                              : (isIphone
+                                                              ? screenHeight * 0.032
+                                                              : screenHeight * 0.032),
+                                                          child: Container(
+                                                            width: isIpad
+                                                                ? screenWidth * 0.05
+                                                                : (isIphone
+                                                                ? screenWidth * 0.02
+                                                                : screenWidth * 0.02),
+                                                            height: isIpad
+                                                                ? screenHeight * 0.02
+                                                                : (isIphone
+                                                                ? screenHeight * 0.05
+                                                                : screenHeight * 0.05),
+                                                            decoration: const BoxDecoration(
+                                                              color: Color.fromRGBO(83, 32, 95, 1),
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: IconButton(
+                                                              padding: EdgeInsets.zero,
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  isBottomChairOccupied = !isBottomChairOccupied;
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.add,
+                                                                color: Colors.white,
+                                                              ),
+                                                              iconSize: isIpad
+                                                                  ? screenWidth * 0.05
+                                                                  : (isIphone
+                                                                  ? screenWidth * 0.02
+                                                                  : screenWidth * 0.02),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                        :
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          isBottomChairOccupied = !isBottomChairOccupied;
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        width: isIpad
+                                                            ? screenWidth * 0.05
+                                                            : (isIphone ? screenWidth * 0.045 : screenWidth * 0.045),
+                                                        height: isIpad
+                                                            ? screenHeight * 0.5
+                                                            : (isIphone ? screenHeight * 0.1095 : screenHeight * 0.1095),
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Container(
+                                                              decoration: BoxDecoration(
+                                                                shape: BoxShape.circle,
+                                                                border: Border.all(
+                                                                  color: Colors.black.withOpacity(0.1),
+                                                                  width: 1.0,
+                                                                ),
+                                                              ),
+                                                              child: CircleAvatar(
+                                                                radius: isIpad ? screenWidth * 0.03
+                                                                    : (isIphone ? screenWidth * 0.015
+                                                                    : screenWidth * 0.015),
+                                                                backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: isIpad
+                                                                  ? screenWidth * 0.05
+                                                                  : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
+                                                              height: isIpad
+                                                                  ? screenHeight * 0.5
+                                                                  : (isIphone ? screenHeight * 0.035 : screenHeight * 0.035),
+                                                              color: const Color.fromRGBO(8, 39, 76, 1),
+                                                              child: Padding(
+                                                                padding: EdgeInsets.only(
+                                                                    top: isIpad
+                                                                        ? screenHeight * 0.05
+                                                                        : (isIphone ? screenHeight * 0.005 : screenHeight * 0.005)
+                                                                ),
+                                                                child: Text(
+                                                                  'ABC',
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                    color: Colors.white,
+                                                                    fontSize: isIpad
+                                                                        ? screenWidth * 0.01
+                                                                        : (isIphone ? screenWidth * 0.008 : screenWidth * 0.01),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                isRightChairOccupied
+                                                    ?
+                                                Stack(
+                                                  children: [
+                                                    Transform(
+                                                      transform: Matrix4.rotationY(3.14159),
+                                                      alignment: Alignment.center,
+                                                      child: Image.asset(
+                                                        "assets/seats/sidechairdraft.png",
+                                                        height: isIpad
+                                                            ? screenHeight * 0.02
+                                                            : (isIphone
+                                                            ? screenHeight * 0.1
+                                                            : screenHeight * 0.1),
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      right: isIpad
+                                                          ? screenWidth * 0.02
+                                                          : (isIphone
+                                                          ? screenWidth * 0.007
+                                                          : screenWidth * 0.015),
+                                                      bottom: isIpad
+                                                          ? screenHeight * 0.02
+                                                          : (isIphone
+                                                          ? screenHeight * 0.05
+                                                          : screenHeight * 0.1),
+                                                      child: Container(
+                                                        width: isIpad
+                                                            ? screenWidth * 0.05
+                                                            : (isIphone
+                                                            ? screenWidth * 0.02
+                                                            : screenWidth * 0.02),
+                                                        height: isIpad
+                                                            ? screenHeight * 0.02
+                                                            : (isIphone
+                                                            ? screenHeight * 0.05
+                                                            : screenHeight * 0.05),
+                                                        decoration: const BoxDecoration(
+                                                          color: Color.fromRGBO(83, 32, 95, 1),
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: IconButton(
+                                                          padding: EdgeInsets.zero,
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              isRightChairOccupied = !isRightChairOccupied;
+                                                            });
+                                                          },
+                                                          icon: const Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                          ),
+                                                          iconSize: isIpad
+                                                              ? screenWidth * 0.05
+                                                              : (isIphone
+                                                              ? screenWidth * 0.02
+                                                              : screenWidth * 0.02),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                    :
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      isRightChairOccupied = !isRightChairOccupied;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: isIpad
+                                                        ? screenWidth * 0.05
+                                                        : (isIphone ? screenWidth * 0.045 : screenWidth * 0.045),
+                                                    height: isIpad
+                                                        ? screenHeight * 0.5
+                                                        : (isIphone ? screenHeight * 0.1095 : screenHeight * 0.1095),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            border: Border.all(
+                                                              color: Colors.black.withOpacity(0.1),
+                                                              width: 1.0,
+                                                            ),
+                                                          ),
+                                                          child: CircleAvatar(
+                                                            radius: isIpad ? screenWidth * 0.03
+                                                                : (isIphone ? screenWidth * 0.015
+                                                                : screenWidth * 0.015),
+                                                            backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: isIpad
+                                                              ? screenWidth * 0.05
+                                                              : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
+                                                          height: isIpad
+                                                              ? screenHeight * 0.5
+                                                              : (isIphone ? screenHeight * 0.035 : screenHeight * 0.035),
+                                                          color: const Color.fromRGBO(8, 39, 76, 1),
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(
+                                                                top: isIpad
+                                                                    ? screenHeight * 0.05
+                                                                    : (isIphone ? screenHeight * 0.005 : screenHeight * 0.005)
+                                                            ),
+                                                            child: Text(
+                                                              'ABC',
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: isIpad
+                                                                    ? screenWidth * 0.01
+                                                                    : (isIphone ? screenWidth * 0.008 : screenWidth * 0.01),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  translationManager
+                                                      .translate('Table of ABC'),
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: isIpad
+                                                        ? screenWidth * 0.011
+                                                        : (isIphone
+                                                        ? screenWidth * 0.01
+                                                        : screenWidth * 0.01),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  translationManager
+                                                      .translate('Classic - 60s - 1005'),
+                                                  style: TextStyle(
+                                                    color: Colors.amber,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: isIpad
+                                                        ? screenWidth * 0.011
+                                                        : (isIphone
+                                                        ? screenWidth * 0.01
+                                                        : screenWidth * 0.01),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: isIpad
+                                                      ? screenHeight * 0.04
+                                                      : (isIphone ? screenHeight * 0.03 : screenHeight * 0.03),
+                                                ),
+                                                SizedBox(
+                                                  width: isIpad ? screenWidth * 0.12
+                                                      : (isIphone ? screenWidth * 0.11
+                                                      : screenWidth * 0.11),
+                                                  height: isIpad
+                                                      ? screenHeight * 0.05
+                                                      : (isIphone ? screenHeight * 0.06 : screenHeight * 0.06),
+                                                  child: OutlinedButton(
+                                                    onPressed: () {},
+                                                    style: OutlinedButton.styleFrom(
+                                                      padding: EdgeInsets.zero,
+                                                      side: const BorderSide(color: Colors.black),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(5.0),
+                                                      ),
+                                                      backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
+                                                    ),
+                                                    child: Text(
+                                                      translationManager.translate('txtOpenTable').toUpperCase(),
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: isIpad ? screenWidth * 0.015
+                                                            : (isIphone ? screenWidth * 0.01
+                                                            : screenWidth * 0.01 ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: isIpad
+                                  ? screenWidth * 0.02
+                                  : (isIphone ? screenWidth * 0.016 : screenWidth * 0.016),),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  width: isIpad
+                                      ? screenWidth * 0.45
+                                      : (isIphone ? screenWidth * 0.425 : screenWidth * 0.425),
+                                  height: isIpad
+                                      ? screenHeight * 0.55
+                                      : (isIphone ? screenHeight * 0.6 : screenHeight * 0.6),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: isIpad ? screenWidth * 0.015 : screenWidth * 0.01,
+                                          bottom: isIpad ? screenWidth * 0.015 : screenWidth * 0.001,
+                                        ),
+                                        child: SizedBox(
+                                          width: isIpad ? screenWidth * 0.35 : screenWidth * 0.3,
+                                          height: isIpad ? screenHeight * 0.04 : screenHeight * 0.06,
+                                          child: DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(83, 32, 95, 1),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: isIpad ? const Radius.circular(20.0) : const Radius.circular(12.0),
+                                                topRight: isIpad ? const Radius.circular(20.0) : const Radius.circular(12.0),
+                                                bottomLeft: isIpad ? const Radius.circular(20.0) : const Radius.circular(12.0),
+                                                bottomRight: isIpad ? const Radius.circular(20.0) : const Radius.circular(12.0),
+                                              ),
+                                              border: Border.all(
+                                                color: Colors.white.withOpacity(0.5),
+                                                width: isIpad ? 3 : 2,
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                translationManager.translate('txtFriends').toUpperCase(),
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: screenWidth * 0.01,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: isIpad ? screenWidth * 0.02 : (isIphone ? screenWidth * 0.016 : screenWidth * 0.016),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                              width: isIpad ? screenWidth * 0.24 : (isIphone ? screenWidth * 0.18 : screenWidth * 0.02),
+                                              height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.06 : screenWidth * screenHeight * 0.07),
+                                              child: TextField(
+                                                maxLines: 1,
+                                                textAlign: TextAlign.left,
+                                                cursorHeight: isIpad ? screenHeight * 0.02 : (isIphone ? screenHeight * 0.035 : screenWidth * screenHeight * 0.035),
+                                                cursorColor: Colors.black,
+                                                decoration: InputDecoration(
+                                                  contentPadding: EdgeInsets.only(
+                                                    left: isIpad ? screenWidth * 0.005 : (isIphone ? screenWidth * 0.005 : screenWidth * 0.005),
+                                                  ),
+                                                  hintText: translationManager.translate('txtSearchAPlayer...'),
+                                                  hintStyle: TextStyle(
+                                                    fontSize: screenWidth * 0.015,
+                                                    color: Colors.white,
+                                                  ),
+                                                  suffixIcon: Icon(
+                                                    Icons.search,
+                                                    color: Colors.white,
+                                                    size: isIpad ? screenWidth * 0.02 : (isIphone ? screenWidth * 0.02 : screenWidth * 0.02),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: Colors.grey.withOpacity(0.8),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  errorBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                  disabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(5.0),
+                                                    borderSide: BorderSide.none,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            IconButton(
+                                              icon: Icon(
+                                                Icons.refresh,
+                                                size: isIpad ? screenWidth * 0.025
+                                                    : (isIphone ? screenWidth * 0.02
+                                                    : screenWidth * 0.02),
+                                              ),
+                                              onPressed: () {},
+                                            ),
+                                            Text(
+                                              translationManager.translate('txtRefresh').toUpperCase(),
+                                              style: TextStyle(
+                                                fontSize: isIpad ? screenWidth * 0.012
+                                                    : (isIphone ? screenWidth * 0.01
+                                                    : screenWidth * 0.01),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: ListView.builder(
+                                          itemCount: 10,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 50.0),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color: Colors.black.withOpacity(0.1),
+                                                        width: 3.0,
+                                                      ),
+                                                    ),
+                                                    child: CircleAvatar(
+                                                      radius: isIpad ? screenWidth * 0.03
+                                                          : (isIphone ? screenWidth * 0.02
+                                                          : screenWidth * 0.02),
+                                                      backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: isIpad ? screenWidth * 0.01
+                                                      : (isIphone ? screenWidth * 0.01
+                                                      : screenWidth * 0.01),
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          'Player Name',
+                                                          style: TextStyle(
+                                                            fontSize: isIpad ? screenWidth * 0.015
+                                                                : (isIphone ? screenWidth * 0.012
+                                                                : screenWidth * 0.012),
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            // SizedBox(width: screenWidth * 0.02),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(top: 5,bottom: 5),
+                                                              child: Container(
+                                                                height: 2,
+                                                                width: screenWidth * 0.14,
+                                                                decoration: BoxDecoration(
+                                                                  gradient: LinearGradient(
+                                                                    colors: [
+                                                                      Colors.transparent,
+                                                                      Colors.grey.withOpacity(0.3),
+                                                                      Colors.transparent,
+                                                                    ],
+                                                                    stops: const [0.0, 0.5, 1.0],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      width: isIpad ? screenWidth * 0.012
+                                                          : (isIphone ? screenWidth * 0.012
+                                                          : screenWidth * 0.012),
+                                                  ),
+                                                  SizedBox(
+                                                    width: isIpad ? screenWidth * 0.12
+                                                        : (isIphone ? screenWidth * 0.1
+                                                        : screenWidth * 0.1),
+                                                    height: isIpad
+                                                        ? screenHeight * 0.05
+                                                        : (isIphone ? screenHeight * 0.07 : screenWidth * screenHeight * 0.07),
+                                                    child: OutlinedButton(
+                                                      onPressed: () {},
+                                                      style: OutlinedButton.styleFrom(
+                                                        padding: EdgeInsets.zero,
+                                                        side: const BorderSide(color: Colors.black),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                        ),
+                                                        backgroundColor: const Color.fromRGBO(240, 240, 240, 1),
+                                                      ),
+                                                      child: Text(
+                                                        translationManager.translate('txtInvite').toUpperCase(),
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: isIpad ? screenWidth * 0.015
+                                                              : (isIphone ? screenWidth * 0.012
+                                                              : screenWidth * 0.012 ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  )
+                    ),
+                  ),
+                ),
+              ],
+            )
                 : const SizedBox.shrink();
           },
         ),
