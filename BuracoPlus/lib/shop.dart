@@ -2,7 +2,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'vertical_tab_bar.dart';
+import 'shop_view.dart';
+
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
@@ -45,9 +46,19 @@ class _ShopViewState extends State<ShopView> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQuery.of(context).size.width;
+    double screenWidth =  MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-    return const Scaffold(
-        backgroundColor: Colors.transparent, body: VerticalTabBarExample());
+
+   
+
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body:  MainShopDialog(isIphone:isIphone,isIpad:isIpad,screenWidth:screenWidth,screenHeight:screenHeight),
+
+
+    );
+
   }
 }
