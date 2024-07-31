@@ -136,7 +136,7 @@ class _MainShopDialogState extends State<MainShopDialog> {
   Widget topBar(){
   return  Container(
     height:90,
-    padding: EdgeInsets.all(0.0),
+    //padding: EdgeInsets.all(0.0),
     decoration: const BoxDecoration(
 
       borderRadius: BorderRadius.only(
@@ -221,50 +221,147 @@ Widget sideBar({required BuildContext context}){
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(height: 160,),
-        gradientButton(
-          imagePath: 'assets/menuIcons/ic_clubs.png', // Replace with your image asset
-          text: 'HOME',
-          onPressed: () {
-            // Define the action for the button
-            _onTabTapped(0);
-          },
+
+       //############################### HOME BUTTON ###############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/menuIcons/ic_clubs.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### SUBSCRIPTION BUTTON ######################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/subscription.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### COINS BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/coins.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### EMOJI BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/emoji.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### TABLES BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/tables.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### CARDS BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/cards.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### SPECIAL BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 8.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/special.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
+        ),
+        //############################### REDEEM BUTTON #############################
+        Padding(
+          padding: const EdgeInsets.only(top:0.0,bottom: 0.0),
+          child: gradientButton(
+            imagePath: 'assets/shop/redeem.png', // Replace with your image asset
+            text: 'HOME',
+            onPressed: () {
+              // Define the action for the button
+              _onTabTapped(0);
+            },
+          ),
         ),
 
-        gradientButton(
-          imagePath: 'assets/menuIcons/ic_clubs.png', // Replace with your image asset
-          text: 'SUBSCRIPTION',
-          onPressed: () {
-            // Define the action for the button
-            _onTabTapped(1);
-          },
-        ),
+
 
         // Add more icons if needed
       ],
     ),
   );
 }
-
+//######################################### Button Gradient Widget ##############
 Widget gradientButton({
     required String imagePath,
     required String text,
     required VoidCallback onPressed,
 }) {
     return Container(
+     
       // padding: EdgeInsets.only(top: 12.0,bottom: 12), // Padding around the button
       child: ElevatedButton(
 
         style: ElevatedButton.styleFrom(
+         
+
+          
           foregroundColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           elevation: 0, // Remove shadow
           side: BorderSide.none, // Remove border
           // Color of the text
           padding: const EdgeInsets.all(0), // Remove default padding
+        ).copyWith(
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.purple.withOpacity(1); // Ripple color when pressed
+              }
+              return null; // Default ripple color if not pressed
+            },
+          ),
+        
         ),
         onPressed: onPressed,
         child: Container(
-          padding: EdgeInsets.all(8),
+          height: 66,
+          padding: EdgeInsets.all(6),
           width:200,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -282,21 +379,23 @@ Widget gradientButton({
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                margin: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: ClipRRect(
                   // borderRadius: BorderRadius.circular(12.0), // Rounded image
                   child: Image.asset(
                     imagePath, // Image path from the function argument
-                    width: 40,
-                    height: 40,
+                    width: 50,
+                    height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
+              SizedBox(width: 6,),
               Text(
                 text, // Text from the function argument
                 style: const TextStyle(
-                  fontSize: 16.0,
+                  color: Colors.white,
+                  fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -308,20 +407,258 @@ Widget gradientButton({
   }}
 
 
+//######################################### SHOP ITEM #####################
+
+Widget shopItem({required double screenWidth,
+  required double screenHeight,
+  required bool isIpad,
+  required bool isIphone,}) {
+
+  double containerWidth,containerHeight,bottomOffset = 60;
+
+  return
+    Transform.scale(
+      scale: 0.90,
+      child: Container(
+      width:containerWidth = 300,
+      height: containerHeight = 230,
+
+
+      decoration: BoxDecoration(
+        color: Colors.deepPurple,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        children: [
+
+
+
+
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              width: containerWidth,
+              height: containerHeight-bottomOffset, // 70% of 300
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Row(
+                  children: [
+                    // Placeholder for the image
+                    Container(
+                      padding: EdgeInsets.only(left: 4.0),
+                      width: 130,                   
+                      height: 130,
+                      color: Colors.white, // Replace with an actual image
+                      child: Image.asset("assets/menuIcons/blankAvatar_2.png"),
+                    ),
+                    const SizedBox(width: 10),
+                   // product name, coins and
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    //  crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        const Text(
+                          'Product Name',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              "assets/shop/coins.png", // Image path from the function argument
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.cover,
+                            ),
+                            const Text(
+                              '8127653611',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        )
+
+
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: ButtonStyle(
+                   // backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(120, 50)),
+                  ),
+                  onPressed: () {
+                    // Action for "Gift" button
+                  },
+                  child: Text(
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      'BUY'),
+                ),//BUY
+                Padding(
+                  padding: EdgeInsets.only(left: 8.0,right: 8.0),
+                  child: Container(
+                    width: 3,
+                    height: 34,
+                    color: Colors.white,
+                  ),
+                )      ,//DIVIDER
+                TextButton(
+                  style: ButtonStyle(
+                    //backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                    fixedSize: MaterialStateProperty.all<Size>(Size(120, 50)),
+                  ),
+                  onPressed: () {
+                    // Action for "Gift" button
+
+                  },
+                  child: Text(
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      'GIFT'),
+                ), //GIFT
+              ],
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 160,
+            right: 0,
+            child: Container(
+
+              height: 30, // 70% of 300
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(0), // No radius for bottom-right corner
+                ),
+              ),
+
+              child :Align(
+                alignment: Alignment.center,
+                child: Text("popular",
+                style: TextStyle(
+
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+                ),
+                ),
+              )
+            ),
+          ),
+
+
+        ],
+      ),
+        ),
+    );
+}
+
   // ################################################################################
   // ###############################   CONTENT WIDGETS    ###########################
   // #################################################################################
 
 
-//######################################### HOME VIEW content ############################
+//######################################### HOME VIEW content ########################
 Widget homeView({required double screenWidth,
   required double screenHeight,
   required bool isIpad,
-  required bool isIphone,}){
+  required bool isIphone,})
+{
+  return  Expanded(
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+           
+          ],
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
 
-  return Expanded(
-    child: Center(
-      child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: shopItem(screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+            ),
+
+          ],
+        ),
+      ],
     ),
   );
 }
@@ -340,93 +677,3 @@ Widget subscriptionView({required double screenWidth,
   );
 }
 
-//
-
-Widget shopItem({required double screenWidth,
-  required double screenHeight,
-  required bool isIpad,
-  required bool isIphone,}) {
-  return Container(
-    width:300,
-    height: 300,
-    decoration: BoxDecoration(
-      color: Colors.deepPurple,
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Stack(
-      children: [
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            width: 300,
-            height: 210, // 70% of 300
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  // Placeholder for the image
-                  Container(
-                    width: 170,
-                    height: 170,
-                    color: Colors.white, // Replace with an actual image
-                    child: Icon(Icons.image),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Title Text',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Subtitle Text',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          left: 0,
-          right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // Action for "Gift" button
-                },
-                child: Text('Gift'),
-              ),
-              SizedBox(width: 10),
-              ElevatedButton(
-                onPressed: () {
-                  // Action for "Products" button
-                },
-                child: Text('Products'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}

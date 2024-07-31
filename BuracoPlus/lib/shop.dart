@@ -49,10 +49,6 @@ class _ShopViewState extends State<ShopView> {
     double screenWidth =  MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-
-   
-
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body:  MainShopDialog(isIphone:isIphone,isIpad:isIpad,screenWidth:screenWidth,screenHeight:screenHeight),
