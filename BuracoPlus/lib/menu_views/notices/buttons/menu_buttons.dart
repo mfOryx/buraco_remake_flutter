@@ -1,22 +1,108 @@
-import 'package:buracoplus/menu_views/notices/buttons/decoration.dart'
-    show MenuButtonDecor;
-import 'package:buracoplus/menu_views/notices/buttons/action.dart'
-    show ButtonAction;
+import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextButton;
+import 'package:flutter/material.dart'
+    show
+        BorderRadius,
+        BuildContext,
+        Color,
+        Colors,
+        EdgeInsets,
+        ElevatedButton,
+        Expanded,
+        MainAxisAlignment,
+        OutlinedBorder,
+        Radius,
+        RoundedRectangleBorder,
+        Row,
+        State,
+        StatefulWidget,
+        Widget;
 
-class NoticeLeftButton extends ButtonAction {
-  const NoticeLeftButton({
-    required super.noticeTextButton,
+class ButtonsNotices extends StatefulWidget {
+  const ButtonsNotices({
     super.key,
-  }) : super(
-          getDecoration: MenuButtonDecor.decoration1,
-        );
+  });
+
+  @override
+  _ButtonsNoticesState createState() {
+    return _ButtonsNoticesState();
+  }
 }
 
-class NoticeRightButton extends ButtonAction {
-  const NoticeRightButton({
-    required super.noticeTextButton,
-    super.key,
-  }) : super(
-          getDecoration: MenuButtonDecor.decoration2,
-        );
+class _ButtonsNoticesState extends State<ButtonsNotices> {
+  bool isFirstButtonSelected = true;
+
+  void _toggleButtons() {
+    setState(() {
+      isFirstButtonSelected = !isFirstButtonSelected;
+    });
+  }
+
+  ElevatedButton _buildButton(
+      String text, bool isSelected, OutlinedBorder? shape) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        foregroundColor: isSelected
+            ? const Color.fromARGB(115, 117, 36, 120)
+            : const Color.fromARGB(115, 59, 6, 61),
+        backgroundColor: isSelected
+            ? const Color.fromARGB(115, 59, 6, 61)
+            : const Color.fromARGB(115, 117, 36, 120),
+        shape: shape,
+        elevation: 10.0,
+        padding: EdgeInsets.zero,
+        shadowColor: Colors.black.withOpacity(
+          isSelected ? 0.9 : 0.2,
+        ),
+      ),
+      onPressed: _toggleButtons,
+      child: NoticeTextButton(
+        noticeText: text,
+      ),
+    );
+  }
+
+  RoundedRectangleBorder _firstButtonShape() {
+    return const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        topRight: Radius.circular(0),
+        bottomLeft: Radius.circular(20.0),
+        bottomRight: Radius.circular(0),
+      ),
+    );
+  }
+
+  RoundedRectangleBorder _secondButtonShape() {
+    return const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(0),
+        topRight: Radius.circular(20.0),
+        bottomLeft: Radius.circular(0),
+        bottomRight: Radius.circular(20.0),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: _buildButton(
+            'PERSONAL',
+            isFirstButtonSelected,
+            _firstButtonShape(),
+          ),
+        ),
+        Expanded(
+          child: _buildButton(
+            'CLUB',
+            !isFirstButtonSelected,
+            _secondButtonShape(),
+          ),
+        ),
+      ],
+    );
+  }
 }

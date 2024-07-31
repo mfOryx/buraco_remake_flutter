@@ -1,9 +1,8 @@
-import 'package:buracoplus/menu_views/notices/text.dart'
-    show NoticeTextButton, NoticeTextTitle;
+import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
+    show ButtonsNotices;
+import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextTitle;
 import 'package:buracoplus/menu_views/notices/variables.dart'
     show menuBorderRadius, menuBoxInside;
-import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
-    show NoticeLeftButton, NoticeRightButton;
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -53,21 +52,24 @@ class NoticesMenu extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final topPosition = (screenHeight * 0.15) / 1.8;
+
     return AnimatedPositioned(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(
+        milliseconds: 300,
+      ),
       curve: Curves.easeInOut,
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       bottom: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl
           ? isNoticesVisible
               ? 15
-              : -500
+              : -screenWidth
           : null,
       right: Directionality.of(context) == TextDirection.rtl
           ? null
           : isNoticesVisible
               ? 15
-              : -500,
+              : -screenWidth,
       child: Material(
         elevation: 100.0,
         type: MaterialType.canvas,
@@ -118,24 +120,14 @@ class NoticesMenu extends StatelessWidget {
                 ),
               ),
               Positioned(
+                height: screenHeight * 0.05,
                 top: topPosition,
                 left: padding2,
                 right: padding2,
                 child: const Row(
                   children: <Widget>[
                     Expanded(
-                      child: NoticeLeftButton(
-                        noticeTextButton: NoticeTextButton(
-                          noticeText: 'PERSONAL',
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: NoticeRightButton(
-                        noticeTextButton: NoticeTextButton(
-                          noticeText: 'CLUB',
-                        ),
-                      ),
+                      child: ButtonsNotices(),
                     ),
                   ],
                 ),

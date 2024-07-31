@@ -1,38 +1,22 @@
-import 'package:flutter/material.dart'
-    show
-        Alignment,
-        Color,
-        Colors,
-        FontStyle,
-        FontWeight,
-        LinearGradient,
-        TextBaseline,
-        TextDecoration,
-        TextStyle;
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-const LinearGradient noticeGradient = LinearGradient(
+const noticeGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
-    Color.fromARGB(255, 90, 110, 150),
-    Color.fromARGB(255, 115, 70, 130)
+    Color(0xFF5A6E96),
+    Color(0xFF734682),
   ],
 );
 
-const TextStyle noticesTextStyle = TextStyle(
+const noticesTextStyle = TextStyle(
   color: Colors.white,
-  backgroundColor: Colors.transparent,
   wordSpacing: 0.0,
   letterSpacing: 0.2,
   decoration: TextDecoration.none,
-  fontStyle: FontStyle.normal,
-  fontWeight: FontWeight.normal,
-  height: null,
-  textBaseline: TextBaseline.alphabetic,
 );
 
-const BoxDecoration menuBorderRadius = BoxDecoration(
+const menuBorderRadius = BoxDecoration(
   gradient: noticeGradient,
   borderRadius: BorderRadius.vertical(
     top: Radius.circular(20.0),
@@ -40,13 +24,8 @@ const BoxDecoration menuBorderRadius = BoxDecoration(
   ),
 );
 
-BoxDecoration menuBoxInside = BoxDecoration(
-  border: const Border(
-    top: BorderSide.none,
-    bottom: BorderSide.none,
-    right: BorderSide.none,
-    left: BorderSide.none,
-  ),
+final menuBoxInside = BoxDecoration(
+  border: Border.all(color: Colors.transparent),
   borderRadius: BorderRadius.circular(20.0),
-  color: const Color.fromRGBO(240, 240, 240, 0.0).withOpacity(1.0),
+  color: const Color(0xFFF0F0F0),
 );
