@@ -3,7 +3,7 @@ import 'package:buracoplus/blocks/lobby_card.dart';
 import 'package:buracoplus/blocks/lobby_user_stats.dart';
 import 'package:buracoplus/create_table_multi_player.dart';
 import 'package:buracoplus/helpers/user.dart';
-import 'package:buracoplus/menu_views/notices/notices.menu.dart';
+import 'package:buracoplus/menu_views/notices/notices_menu.dart';
 import 'package:buracoplus/models/logged_in_player.dart';
 import 'package:buracoplus/models/tables.dart';
 import 'package:buracoplus/providers/dialog_provider.dart';
@@ -250,7 +250,6 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                     onPressed: _toggleNotices,
                                   ),
                                 ),
-                                //NoticesButton(toggleNotices: _toggleNotices),
                                 const SizedBox(
                                   width: 30,
                                 ),
