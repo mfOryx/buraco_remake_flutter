@@ -15,6 +15,7 @@ class InviteFriends extends StatefulWidget {
 }
 
 class _CreateInviteFriends extends State<InviteFriends> {
+
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = false;
@@ -22,6 +23,7 @@ class _CreateInviteFriends extends State<InviteFriends> {
   bool isRightChairOccupied = false;
   bool isTopChairOccupied = false;
   bool isBottomChairOccupied = false;
+
   String? selectedLevel;
   final List<String> levels =
   [
@@ -262,64 +264,6 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                   children: [
                                                     isTopChairOccupied
                                                         ?
-                                                    Stack(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/seats/f-chairdraft.png",
-                                                          height: isIpad
-                                                              ? screenHeight * 0.05
-                                                              : (isIphone
-                                                              ? screenHeight * 0.065
-                                                              : screenHeight * 0.065),
-                                                        ),
-                                                        Positioned(
-                                                          right: isIpad
-                                                              ? screenWidth * 0.005
-                                                              : (isIphone
-                                                              ? screenWidth * 0.006
-                                                              : screenWidth * 0.006),
-                                                          bottom: isIpad
-                                                              ? screenHeight * 0.024
-                                                              : (isIphone
-                                                              ? screenHeight * 0.032
-                                                              : screenHeight * 0.032),
-                                                          child: Container(
-                                                            width: isIpad
-                                                                ? screenWidth * 0.025
-                                                                : (isIphone
-                                                                ? screenWidth * 0.015
-                                                                : screenWidth * 0.015),
-                                                            height: isIpad
-                                                                ? screenHeight * 0.025
-                                                                : (isIphone
-                                                                ? screenHeight * 0.032
-                                                                : screenHeight * 0.032),
-                                                            decoration: const BoxDecoration(
-                                                              color: Color.fromRGBO(83, 32, 95, 1),
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: IconButton(
-                                                              padding: EdgeInsets.zero,
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  isTopChairOccupied = !isTopChairOccupied;
-                                                                });
-                                                              },
-                                                              icon: const Icon(
-                                                                Icons.add,
-                                                                color: Colors.white,
-                                                              ),
-                                                              iconSize: isIpad
-                                                                  ? screenWidth * 0.02
-                                                                  : (isIphone
-                                                                  ? screenWidth * 0.015
-                                                                  : screenWidth * 0.015),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                        :
                                                     GestureDetector(
                                                       onTap: () {
                                                         setState(() {
@@ -377,70 +321,70 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                           ],
                                                         ),
                                                       ),
+                                                    )
+                                                        :
+                                                    Stack(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/seats/f-chairdraft.png",
+                                                          height: isIpad
+                                                              ? screenHeight * 0.05
+                                                              : (isIphone
+                                                              ? screenHeight * 0.065
+                                                              : screenHeight * 0.065),
+                                                        ),
+                                                        Positioned(
+                                                          right: isIpad
+                                                              ? screenWidth * 0.005
+                                                              : (isIphone
+                                                              ? screenWidth * 0.006
+                                                              : screenWidth * 0.006),
+                                                          bottom: isIpad
+                                                              ? screenHeight * 0.024
+                                                              : (isIphone
+                                                              ? screenHeight * 0.032
+                                                              : screenHeight * 0.032),
+                                                          child: Container(
+                                                            width: isIpad
+                                                                ? screenWidth * 0.025
+                                                                : (isIphone
+                                                                ? screenWidth * 0.015
+                                                                : screenWidth * 0.015),
+                                                            height: isIpad
+                                                                ? screenHeight * 0.025
+                                                                : (isIphone
+                                                                ? screenHeight * 0.032
+                                                                : screenHeight * 0.032),
+                                                            decoration: const BoxDecoration(
+                                                              color: Color.fromRGBO(83, 32, 95, 1),
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: IconButton(
+                                                              padding: EdgeInsets.zero,
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  isTopChairOccupied = !isTopChairOccupied;
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.add,
+                                                                color: Colors.white,
+                                                              ),
+                                                              iconSize: isIpad
+                                                                  ? screenWidth * 0.02
+                                                                  : (isIphone
+                                                                  ? screenWidth * 0.015
+                                                                  : screenWidth * 0.015),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                     //Middle of the Table
                                                     Row(
                                                       children: [
                                                         isLeftChairOccupied
                                                             ?
-                                                        Stack(
-                                                          children: [
-                                                            Image.asset(
-                                                              "assets/seats/sidechairdraft.png",
-                                                              height: isIpad
-                                                                  ? screenHeight * 0.05
-                                                                  : (isIphone
-                                                                  ? screenHeight * 0.065
-                                                                  : screenHeight * 0.065),
-                                                            ),
-                                                            Positioned(
-                                                              right: isIpad
-                                                                  ? screenWidth * 0.008
-                                                                  : (isIphone
-                                                                  ? screenWidth * 0.009
-                                                                  : screenWidth * 0.009),
-                                                              bottom: isIpad
-                                                                  ? screenHeight * 0.024
-                                                                  : (isIphone
-                                                                  ? screenHeight * 0.032
-                                                                  : screenHeight * 0.032),
-                                                              child: Container(
-                                                                width: isIpad
-                                                                    ? screenWidth * 0.025
-                                                                    : (isIphone
-                                                                    ? screenWidth * 0.015
-                                                                    : screenWidth * 0.015),
-                                                                height: isIpad
-                                                                    ? screenHeight * 0.025
-                                                                    : (isIphone
-                                                                    ? screenHeight * 0.032
-                                                                    : screenHeight * 0.032),
-                                                                decoration: const BoxDecoration(
-                                                                  color: Color.fromRGBO(83, 32, 95, 1),
-                                                                  shape: BoxShape.circle,
-                                                                ),
-                                                                child: IconButton(
-                                                                  padding: EdgeInsets.zero,
-                                                                  onPressed: () {
-                                                                    setState(() {
-                                                                      isLeftChairOccupied = !isLeftChairOccupied;
-                                                                    });
-                                                                  },
-                                                                  icon: const Icon(
-                                                                    Icons.add,
-                                                                    color: Colors.white,
-                                                                  ),
-                                                                  iconSize: isIpad
-                                                                      ? screenWidth * 0.02
-                                                                      : (isIphone
-                                                                      ? screenWidth * 0.015
-                                                                      : screenWidth * 0.015),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        )
-                                                            :
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
@@ -498,6 +442,64 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                               ],
                                                             ),
                                                           ),
+                                                        )
+                                                            :
+                                                        Stack(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/seats/sidechairdraft.png",
+                                                              height: isIpad
+                                                                  ? screenHeight * 0.05
+                                                                  : (isIphone
+                                                                  ? screenHeight * 0.065
+                                                                  : screenHeight * 0.065),
+                                                            ),
+                                                            Positioned(
+                                                              right: isIpad
+                                                                  ? screenWidth * 0.008
+                                                                  : (isIphone
+                                                                  ? screenWidth * 0.009
+                                                                  : screenWidth * 0.009),
+                                                              bottom: isIpad
+                                                                  ? screenHeight * 0.024
+                                                                  : (isIphone
+                                                                  ? screenHeight * 0.032
+                                                                  : screenHeight * 0.032),
+                                                              child: Container(
+                                                                width: isIpad
+                                                                    ? screenWidth * 0.025
+                                                                    : (isIphone
+                                                                    ? screenWidth * 0.015
+                                                                    : screenWidth * 0.015),
+                                                                height: isIpad
+                                                                    ? screenHeight * 0.025
+                                                                    : (isIphone
+                                                                    ? screenHeight * 0.032
+                                                                    : screenHeight * 0.032),
+                                                                decoration: const BoxDecoration(
+                                                                  color: Color.fromRGBO(83, 32, 95, 1),
+                                                                  shape: BoxShape.circle,
+                                                                ),
+                                                                child: IconButton(
+                                                                  padding: EdgeInsets.zero,
+                                                                  onPressed: () {
+                                                                    setState(() {
+                                                                      isLeftChairOccupied = !isLeftChairOccupied;
+                                                                    });
+                                                                  },
+                                                                  icon: const Icon(
+                                                                    Icons.add,
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  iconSize: isIpad
+                                                                      ? screenWidth * 0.02
+                                                                      : (isIphone
+                                                                      ? screenWidth * 0.015
+                                                                      : screenWidth * 0.015),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                         //Table Image
                                                         Padding(
@@ -564,6 +566,65 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                         ),
                                                         isRightChairOccupied
                                                             ?
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              isRightChairOccupied = !isRightChairOccupied;
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            width: isIpad
+                                                                ? screenWidth * 0.05
+                                                                : (isIphone ? screenWidth * 0.035 : screenWidth * 0.035),
+                                                            height: isIpad
+                                                                ? screenHeight * 0.0775
+                                                                : (isIphone ? screenHeight * 0.067 : screenHeight * 0.067),
+                                                            decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                Container(
+                                                                  decoration: BoxDecoration(
+                                                                    shape: BoxShape.circle,
+                                                                    border: Border.all(
+                                                                      color: Colors.black.withOpacity(0.1),
+                                                                      width: 1.0,
+                                                                    ),
+                                                                  ),
+                                                                  child: CircleAvatar(
+                                                                    radius: isIpad ? screenWidth * 0.02
+                                                                        : (isIphone ? screenWidth * 0.008
+                                                                        : screenWidth * 0.008),
+                                                                    backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: isIpad
+                                                                      ? screenWidth * 0.05
+                                                                      : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
+                                                                  height: isIpad
+                                                                      ? screenHeight * 0.02
+                                                                      : (isIphone ? screenHeight * 0.023 : screenHeight * 0.023),
+                                                                  color: const Color.fromRGBO(8, 39, 76, 1),
+                                                                  child: Text(
+                                                                    'ABC',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      color: Colors.white,
+                                                                      fontSize: isIpad
+                                                                          ? screenWidth * 0.01
+                                                                          : (isIphone ? screenWidth * 0.008 : screenWidth * 0.008),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )
+                                                            :
                                                         Stack(
                                                           children: [
                                                             Transform(
@@ -624,128 +685,11 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                               ),
                                                             ),
                                                           ],
-                                                        )
-                                                            :
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              isRightChairOccupied = !isRightChairOccupied;
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                            width: isIpad
-                                                                ? screenWidth * 0.05
-                                                                : (isIphone ? screenWidth * 0.035 : screenWidth * 0.035),
-                                                            height: isIpad
-                                                                ? screenHeight * 0.0775
-                                                                : (isIphone ? screenHeight * 0.067 : screenHeight * 0.067),
-                                                            decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              border: Border.all(color: const Color.fromRGBO(83, 32, 95, 1)),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                              children: [
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                    shape: BoxShape.circle,
-                                                                    border: Border.all(
-                                                                      color: Colors.black.withOpacity(0.1),
-                                                                      width: 1.0,
-                                                                    ),
-                                                                  ),
-                                                                  child: CircleAvatar(
-                                                                    radius: isIpad ? screenWidth * 0.02
-                                                                        : (isIphone ? screenWidth * 0.008
-                                                                        : screenWidth * 0.008),
-                                                                    backgroundImage: const AssetImage('assets/menuIcons/blankAvatar_2.png'),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: isIpad
-                                                                      ? screenWidth * 0.05
-                                                                      : (isIphone ? screenWidth * 0.05 : screenWidth * 0.05),
-                                                                  height: isIpad
-                                                                      ? screenHeight * 0.02
-                                                                      : (isIphone ? screenHeight * 0.023 : screenHeight * 0.023),
-                                                                  color: const Color.fromRGBO(8, 39, 76, 1),
-                                                                  child: Text(
-                                                                    'ABC',
-                                                                    textAlign: TextAlign.center,
-                                                                    style: TextStyle(
-                                                                      color: Colors.white,
-                                                                      fontSize: isIpad
-                                                                          ? screenWidth * 0.01
-                                                                          : (isIphone ? screenWidth * 0.008 : screenWidth * 0.008),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
                                                         ),
                                                       ],
                                                     ),
                                                     isBottomChairOccupied
                                                         ?
-                                                    Stack(
-                                                      children: [
-                                                        Image.asset(
-                                                          "assets/seats/b-chairdraft.png",
-                                                          height: isIpad
-                                                              ? screenHeight * 0.05
-                                                              : (isIphone
-                                                              ? screenHeight * 0.065
-                                                              : screenHeight * 0.065),
-                                                        ),
-                                                        Positioned(
-                                                          right: isIpad
-                                                              ? screenWidth * 0.004
-                                                              : (isIphone
-                                                              ? screenWidth * 0.005
-                                                              : screenWidth * 0.005),
-                                                          bottom: isIpad
-                                                              ? screenHeight * 0.024
-                                                              : (isIphone
-                                                              ? screenHeight * 0.032
-                                                              : screenHeight * 0.032),
-                                                          child: Container(
-                                                            width: isIpad
-                                                                ? screenWidth * 0.025
-                                                                : (isIphone
-                                                                ? screenWidth * 0.015
-                                                                : screenWidth * 0.015),
-                                                            height: isIpad
-                                                                ? screenHeight * 0.025
-                                                                : (isIphone
-                                                                ? screenHeight * 0.032
-                                                                : screenHeight * 0.032),
-                                                            decoration: const BoxDecoration(
-                                                              color: Color.fromRGBO(83, 32, 95, 1),
-                                                              shape: BoxShape.circle,
-                                                            ),
-                                                            child: IconButton(
-                                                              padding: EdgeInsets.zero,
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  isBottomChairOccupied = !isBottomChairOccupied;
-                                                                });
-                                                              },
-                                                              icon: const Icon(
-                                                                Icons.add,
-                                                                color: Colors.white,
-                                                              ),
-                                                              iconSize: isIpad
-                                                                  ? screenWidth * 0.02
-                                                                  : (isIphone
-                                                                  ? screenWidth * 0.015
-                                                                  : screenWidth * 0.015),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                        :
                                                     GestureDetector(
                                                       onTap: () {
                                                         setState(() {
@@ -803,6 +747,64 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                           ],
                                                         ),
                                                       ),
+                                                    )
+                                                        :
+                                                    Stack(
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/seats/b-chairdraft.png",
+                                                          height: isIpad
+                                                              ? screenHeight * 0.05
+                                                              : (isIphone
+                                                              ? screenHeight * 0.065
+                                                              : screenHeight * 0.065),
+                                                        ),
+                                                        Positioned(
+                                                          right: isIpad
+                                                              ? screenWidth * 0.004
+                                                              : (isIphone
+                                                              ? screenWidth * 0.005
+                                                              : screenWidth * 0.005),
+                                                          bottom: isIpad
+                                                              ? screenHeight * 0.024
+                                                              : (isIphone
+                                                              ? screenHeight * 0.032
+                                                              : screenHeight * 0.032),
+                                                          child: Container(
+                                                            width: isIpad
+                                                                ? screenWidth * 0.025
+                                                                : (isIphone
+                                                                ? screenWidth * 0.015
+                                                                : screenWidth * 0.015),
+                                                            height: isIpad
+                                                                ? screenHeight * 0.025
+                                                                : (isIphone
+                                                                ? screenHeight * 0.032
+                                                                : screenHeight * 0.032),
+                                                            decoration: const BoxDecoration(
+                                                              color: Color.fromRGBO(83, 32, 95, 1),
+                                                              shape: BoxShape.circle,
+                                                            ),
+                                                            child: IconButton(
+                                                              padding: EdgeInsets.zero,
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  isBottomChairOccupied = !isBottomChairOccupied;
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                Icons.add,
+                                                                color: Colors.white,
+                                                              ),
+                                                              iconSize: isIpad
+                                                                  ? screenWidth * 0.02
+                                                                  : (isIphone
+                                                                  ? screenWidth * 0.015
+                                                                  : screenWidth * 0.015),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
