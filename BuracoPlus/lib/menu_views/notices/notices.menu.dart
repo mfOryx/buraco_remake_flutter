@@ -1,5 +1,7 @@
 import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
     show ButtonsNotices;
+import 'package:buracoplus/menu_views/notices/messages_list.dart'
+    show InfiniteScrollNotices;
 import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextTitle;
 import 'package:buracoplus/menu_views/notices/variables.dart'
     show menuBorderRadius, menuBoxInside;
@@ -139,6 +141,24 @@ class NoticesMenu extends StatelessWidget {
                 right: padding1,
                 child: Container(
                   decoration: menuBoxInside,
+                  child: const InfiniteScrollNotices(),
+                  // child: ListView(
+                  //   scrollDirection: Axis.vertical,
+                  //   children: [
+                  //     itemList(
+                  //       'Notices 1',
+                  //       const Color.fromARGB(255, 200, 214, 237),
+                  //     ),
+                  //     itemList(
+                  //       'Notices 2',
+                  //       const Color.fromARGB(255, 255, 255, 255),
+                  //     ),
+                  //     itemList(
+                  //       'Notices 3',
+                  //       const Color.fromARGB(255, 215, 215, 215),
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               ),
             ],
