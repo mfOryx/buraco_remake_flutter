@@ -13,45 +13,46 @@ class ShopView extends StatefulWidget {
 }
 
 class _ShopViewState extends State<ShopView> {
-  bool isIphone = false;
-  bool isIpad = false;
+
 
   @override
   void initState() {
     super.initState();
-    checkDeviceType();
+    // checkDeviceType();
   }
-
-  Future<void> checkDeviceType() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-
-    if (iosInfo.model.toLowerCase().contains('ipad')) {
-      isIpad = true;
-      if (kDebugMode) {
-        print('This device is an iPad');
-      }
-    } else if (iosInfo.model.toLowerCase().contains('iphone')) {
-      isIphone = true;
-      if (kDebugMode) {
-        print('This device is an iPhone');
-      }
-    } else {
-      if (kDebugMode) {
-        print('This device is neither iPhone nor iPad');
-      }
-    }
-    setState(() {});
-  }
+  // bool isIphone = false;
+  // bool isIpad = false;
+  //
+  // Future<void> checkDeviceType() async {
+  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //   IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+  //
+  //   if (iosInfo.model.toLowerCase().contains('ipad')) {
+  //     isIpad = true;
+  //     if (kDebugMode) {
+  //       print('This device is an iPad');
+  //     }
+  //   } else if (iosInfo.model.toLowerCase().contains('iphone')) {
+  //     isIphone = true;
+  //     if (kDebugMode) {
+  //       print('This device is an iPhone');
+  //     }
+  //   } else {
+  //     if (kDebugMode) {
+  //       print('This device is neither iPhone nor iPad');
+  //     }
+  //   }
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth =  MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth =  MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body:  MainShopDialog(isIphone:isIphone,isIpad:isIpad,screenWidth:screenWidth,screenHeight:screenHeight),
+      body:  MainShopDialog(),
 
 
     );
