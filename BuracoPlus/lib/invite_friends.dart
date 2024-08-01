@@ -502,16 +502,50 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                         //Table Image
                                                         Padding(
                                                           padding: EdgeInsets.only(
-                                                            top: isIpad
+                                                            top: isTopChairOccupied
+                                                                ? (isIpad
+                                                                ? screenHeight * 0.03
+                                                                : (isIphone
+                                                                ? screenHeight * 0.005
+                                                                : screenHeight * 0.005))
+                                                                : (isIpad
                                                                 ? screenHeight * 0.008
                                                                 : (isIphone
                                                                 ? screenHeight * 0.0
-                                                                : screenHeight * 0.0),
-                                                            bottom: isIpad
-                                                                ? screenHeight * 0.008
+                                                                : screenHeight * 0.0)),
+                                                            bottom: isBottomChairOccupied
+                                                                ? (isIpad
+                                                                ? screenHeight * 0.015
                                                                 : (isIphone
                                                                 ? screenHeight * 0.0
-                                                                : screenHeight * 0.0),
+                                                                : screenHeight * 0.0))
+                                                                : (isIpad
+                                                                ? screenHeight * 0.01
+                                                                : (isIphone
+                                                                ? screenHeight * 0.0
+                                                                : screenHeight * 0.0)),
+                                                            left: isLeftChairOccupied
+                                                                ? (isIpad
+                                                                ? screenWidth * 0.015
+                                                                : (isIphone
+                                                                ? screenWidth * 0.008
+                                                                : screenWidth * 0.008))
+                                                                : (isIpad
+                                                                ? screenWidth * 0.0
+                                                                : (isIphone
+                                                                ? screenWidth * 0.0
+                                                                : screenWidth * 0.0)),
+                                                            right: isRightChairOccupied
+                                                                ? (isIpad
+                                                                ? screenWidth * 0.015
+                                                                : (isIphone
+                                                                ? screenWidth * 0.008
+                                                                : screenWidth * 0.008))
+                                                                : (isIpad
+                                                                ? screenWidth * 0.0
+                                                                : (isIphone
+                                                                ? screenWidth * 0.0
+                                                                : screenWidth * 0.0)),
                                                           ),
                                                           child:
                                                             Image.asset(
