@@ -40,10 +40,12 @@ import 'package:flutter/material.dart'
 class NoticesMenu extends StatelessWidget {
   final bool isNoticesVisible;
   final VoidCallback onClose;
+  final List noticeList;
 
   const NoticesMenu({
     required this.isNoticesVisible,
     required this.onClose,
+    required this.noticeList,
     super.key,
   });
 
@@ -141,24 +143,9 @@ class NoticesMenu extends StatelessWidget {
                 right: padding1,
                 child: Container(
                   decoration: menuBoxInside,
-                  child: const InfiniteScrollNotices(),
-                  // child: ListView(
-                  //   scrollDirection: Axis.vertical,
-                  //   children: [
-                  //     itemList(
-                  //       'Notices 1',
-                  //       const Color.fromARGB(255, 200, 214, 237),
-                  //     ),
-                  //     itemList(
-                  //       'Notices 2',
-                  //       const Color.fromARGB(255, 255, 255, 255),
-                  //     ),
-                  //     itemList(
-                  //       'Notices 3',
-                  //       const Color.fromARGB(255, 215, 215, 215),
-                  //     ),
-                  //   ],
-                  // ),
+                  child: InfiniteScrollNotices(
+                    getNotices: noticeList,
+                  ),
                 ),
               ),
             ],

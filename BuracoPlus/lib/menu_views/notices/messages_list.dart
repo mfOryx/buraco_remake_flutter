@@ -1,27 +1,10 @@
-import 'package:flutter/material.dart'
-    show
-        BorderRadius,
-        BoxDecoration,
-        BuildContext,
-        Center,
-        Color,
-        Colors,
-        Container,
-        Curves,
-        EdgeInsets,
-        GestureDetector,
-        ListView,
-        ScrollController,
-        State,
-        StatefulWidget,
-        Text,
-        TextStyle,
-        Widget;
-import 'package:web_socket_channel/web_socket_channel.dart'
-    show WebSocketChannel;
+import 'package:flutter/material.dart';
 
 class InfiniteScrollNotices extends StatefulWidget {
+  final List getNotices;
+
   const InfiniteScrollNotices({
+    required this.getNotices,
     super.key,
   });
 
@@ -32,124 +15,67 @@ class InfiniteScrollNotices extends StatefulWidget {
 }
 
 class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
-  final List<Message> _messages = [];
   final ScrollController _scrollController = ScrollController();
-  late WebSocketChannel _channel;
+  late List _notices;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    _connectToWebSocket();
+    _notices = List.from(widget.getNotices);
+    _scrollController.addListener(_onScroll);
   }
 
-  void _connectToWebSocket() {
-    _channel = WebSocketChannel.connect(
-      Uri.parse(
-        'ws://15.160.133.85:3001',
-      ),
-    );
-    _channel.stream.listen((message) {
-      setState(() {
-        _messages.insert(
-          0,
-          Message(
-            text: message,
-            isRead: false,
-            isNew: true,
-          ),
-        );
-      });
-      _scrollToTop();
-    });
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
-  void _scrollToTop() {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
+  void _onScroll() {
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
+        !_isLoading) {
+      _loadMoreNotices();
     }
   }
 
-  Color _getMessageColor(Message message) {
-    if (message.isNew) {
-      return const Color.fromARGB(255, 200, 214, 237);
-    } else if (!message.isRead) {
-      return const Color.fromARGB(255, 255, 255, 255);
-    } else {
-      return const Color.fromARGB(255, 215, 215, 215);
-    }
-  }
-
-  void _onMessageTap(int index) {
+  Future<void> _loadMoreNotices() async {
     setState(() {
-      if (_messages[index].isNew) {
-        _messages[index].isNew = false;
-      } else {
-        _messages[index].isRead = true;
-      }
+      _isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+    List newNotices =
+        List.generate(10, (index) => 'Notice ${_notices.length + index + 1}');
+
+    setState(() {
+      _notices.addAll(newNotices);
+      _isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      controller: _scrollController,
-      itemCount: _messages.length,
-      reverse: true,
-      itemBuilder: (
-        context,
-        index,
-      ) {
-        return GestureDetector(
-          onTap: () => _onMessageTap(index),
-          child: _buildListItem(_messages[index]),
-        );
-      },
-    );
-  }
-
-  Widget _buildListItem(Message message) {
-    return Container(
-      height: 80,
-      margin: const EdgeInsets.symmetric(
-        vertical: 3,
-        horizontal: 10,
-      ),
-      decoration: BoxDecoration(
-        color: _getMessageColor(message),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: Text(
-          message.text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 15,
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            controller: _scrollController,
+            itemCount: _notices.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(_notices[index]),
+              );
+            },
           ),
         ),
-      ),
+        if (_isLoading)
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: CircularProgressIndicator(),
+          ),
+      ],
     );
   }
-
-  @override
-  void dispose() {
-    _channel.sink.close();
-    _scrollController.dispose();
-    super.dispose();
-  }
-}
-
-class Message {
-  final String text;
-  bool isRead;
-  bool isNew;
-
-  Message({
-    required this.text,
-    this.isRead = false,
-    this.isNew = true,
-  });
 }

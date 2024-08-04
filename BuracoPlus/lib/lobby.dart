@@ -26,7 +26,12 @@ class Lobby extends StatefulWidget {
 class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool isMenuVisible = false;
-  bool isNoticesVisible = false; ///// barra
+
+  // Barra
+  bool isNoticesVisible = false;
+  late List<dynamic> _noticeList = [];
+  // Barra
+
   late final socketService = Provider.of<SocketService>(context, listen: false);
   int totalPages = 0;
   List<GameTable> gameTables = [];
@@ -44,7 +49,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     checkDeviceType();
   }
 
-  ///// barra
+  // Barra
   void _toggleNotices() {
     setState(() {
       isNoticesVisible = !isNoticesVisible;
@@ -53,6 +58,27 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
       }
     });
   }
+
+  getPlayerNotifications() async {
+    if (socketService.isConnected()) {
+      Map<String, dynamic> getAllPlayerNotifications = await socketService
+          .emitWithAck('getAllPlayerNotifications',
+              {'playerId': currentlyLoggedInPlayer.id});
+
+      if (getAllPlayerNotifications.containsKey('notificationsList')) {
+        List allNotifications = getAllPlayerNotifications['notificationsList'];
+        if (allNotifications.isNotEmpty) {
+          _noticeList = allNotifications;
+        }
+        setState(
+          () {
+            totalPages = (_noticeList.length / 6).ceil();
+          },
+        );
+      }
+    }
+  }
+  // Barra
 
   bool isIOS() {
     return Platform.isIOS;
@@ -99,28 +125,6 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
         setState(
           () {
             totalPages = (gameTablesFiltered.length / 6).ceil();
-          },
-        );
-      }
-    }
-  }
-
-  ///// barra
-  getPlayerNotifications() async {
-    if (socketService.isConnected()) {
-      Map<String, dynamic> getAllPlayerNotifications = await socketService
-          .emitWithAck('getAllPlayerNotifications',
-              {'playerId': currentlyLoggedInPlayer.id});
-
-      if (getAllPlayerNotifications.containsKey('notificationsList')) {
-        List allNotifications = getAllPlayerNotifications['notificationsList'];
-
-        if (allNotifications.isNotEmpty) {
-          // write response data
-        }
-        setState(
-          () {
-            // write state
           },
         );
       }
@@ -229,7 +233,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                ///// barra
+                                // Barra
                                 Container(
                                   height: 44,
                                   width: 44,
@@ -250,6 +254,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                     onPressed: _toggleNotices,
                                   ),
                                 ),
+                                // Barra
                                 const SizedBox(
                                   width: 30,
                                 ),
@@ -753,11 +758,13 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
               ),
             ),
             const CreateTableMP(),
-            ///// barra
+            // Barra
             NoticesMenu(
               isNoticesVisible: isNoticesVisible,
               onClose: _toggleNotices,
+              noticeList: _noticeList,
             ),
+            // Barra
             const InviteFriends(),
           ],
         ),
