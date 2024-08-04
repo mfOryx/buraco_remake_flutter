@@ -1,9 +1,5 @@
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'shop_view.dart';
-
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
@@ -13,8 +9,6 @@ class ShopView extends StatefulWidget {
 }
 
 class _ShopViewState extends State<ShopView> {
-
-
   @override
   void initState() {
     super.initState();
@@ -52,10 +46,7 @@ class _ShopViewState extends State<ShopView> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body:  MainShopDialog(),
-
-
+      body: MainShopDialog(),
     );
-
   }
 }
