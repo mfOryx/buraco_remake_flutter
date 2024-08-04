@@ -3,6 +3,7 @@ import 'package:buracoplus/common/settings_manager.dart' show SettingsManager;
 import 'package:buracoplus/common/translation_manager.dart'
     show TranslationManager;
 import 'package:buracoplus/helpers/user_preferences.dart' show UserPreferences;
+import 'package:buracoplus/providers/create_table_provider.dart';
 import 'package:buracoplus/providers/dialog_provider.dart';
 import 'package:buracoplus/providers/ranking_provider.dart';
 import 'package:buracoplus/providers/theme_provider.dart' show ThemeProvider;
@@ -74,12 +75,7 @@ void main() async {
   //   }
   // }
 
-  runApp(
-      ChangeNotifierProvider(
-        create: (_) => DialogProvider(),
-        child: MainApp(translationManager: translationManager,)
-      ),
-  );
+  runApp(MainApp(translationManager: translationManager,));
 }
 
 class MainApp extends StatelessWidget {
@@ -107,9 +103,10 @@ class MainApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => SettingsManager()),
         ChangeNotifierProvider(create: (_) => RankingProvider()),
+        ChangeNotifierProvider(create: (_) => DialogProvider()),
+        ChangeNotifierProvider(create: (_) => CreateTableProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
-        ChangeNotifierProvider<TranslationManager>.value(
-            value: translationManager),
+        ChangeNotifierProvider<TranslationManager>.value(value: translationManager),
       ],
       child: const StartApp(),
     ));

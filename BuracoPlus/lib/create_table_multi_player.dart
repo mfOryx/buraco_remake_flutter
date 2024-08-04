@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:buracoplus/providers/create_table_provider.dart';
 import 'package:buracoplus/providers/dialog_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
   int currentTableImage = 0;
 
   final List<String> tableImagePaths = [
-    'assets/tablesImages/shop_table_black.png',
+    'assets/tablesImages/table_blue.png',
     'assets/tablesImages/shop_table_champagne.png',
     'assets/tablesImages/shop_table_emerald.png',
     'assets/tablesImages/shop_table_green.png',
@@ -60,7 +61,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
     'assets/tablesImages/shop_table_petrol.png',
     'assets/tablesImages/shop_table_red_risess.png',
     'assets/tablesImages/shop_table_teal.png',
-    'assets/tablesImages/table_blue.png',
+    'assets/tablesImages/shop_table_black.png',
   ];
 
   final List<String> cardImageFrontPaths = [
@@ -104,122 +105,9 @@ class _CreateTableMPState extends State<CreateTableMP> {
     }
   }
 
-  void toggleSelection(String toggleSelected) {
-    switch (toggleSelected) {
-      case "classicToggle":
-        setState(() {
-          classicToggle = true;
-          professionalToggle = false;
-        });
-        return;
-      case "professionalToggle":
-        setState(() {
-          professionalToggle = true;
-          classicToggle = false;
-        });
-        return;
-      case "twoPlayersToggle":
-        setState(() {
-          twoPlayersToggle = true;
-          fourPlayersToggle = false;
-        });
-        return;
-      case "fourPlayersToggle":
-        setState(() {
-          fourPlayersToggle = true;
-          twoPlayersToggle = false;
-        });
-        return;
-      case "directToggle":
-        setState(() {
-          directToggle = true;
-          indirectToggle = false;
-        });
-        return;
-      case "indirectToggle":
-        setState(() {
-          indirectToggle = true;
-          directToggle = false;
-        });
-        return;
-      case "makartCheckbox":
-        setState(() {
-          makartCheckbox = !makartCheckbox;
-        });
-        return;
-      case "pointsOne":
-        setState(() {
-          pointsOne = true;
-          pointsTwo = false;
-          pointsThree = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsTwo":
-        setState(() {
-          pointsTwo = true;
-          pointsOne = false;
-          pointsThree = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsThree":
-        setState(() {
-          pointsThree = true;
-          pointsOne = false;
-          pointsTwo = false;
-          pointsFour = false;
-        });
-        return;
-      case "pointsFour":
-        setState(() {
-          pointsFour = true;
-          pointsOne = false;
-          pointsTwo = false;
-          pointsThree = false;
-        });
-        return;
-      case "turnTimeOne":
-        setState(() {
-          turnTimeOne = true;
-          turnTimeTwo = false;
-          turnTimeThree = false;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeTwo":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = true;
-          turnTimeThree = false;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeThree":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = false;
-          turnTimeThree = true;
-          turnTimeFour = false;
-        });
-        return;
-      case "turnTimeFour":
-        setState(() {
-          turnTimeOne = false;
-          turnTimeTwo = false;
-          turnTimeThree = false;
-          turnTimeFour = true;
-        });
-        return;
-      default:
-        return;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    //final themeProvider = Provider.of<ThemeProvider>(context);
-    //final colors = themeProvider.currentColors;
+    final createTableManager = Provider.of<CreateTableProvider>(context);
     final translationManager = Provider.of<TranslationManager>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -426,7 +314,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        classicToggle
+                                                        createTableManager.getClassicToggle
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -443,8 +331,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
-                                                          "classicToggle");
+                                                      createTableManager.toggleSelection("classicToggle");
                                                     },
                                                     child: Center(
                                                       child: Text(
@@ -452,7 +339,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             .translate(
                                                             'txtItalian'),
                                                         style: TextStyle(
-                                                          color: classicToggle
+                                                          color: createTableManager.getClassicToggle
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
@@ -494,7 +381,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        professionalToggle
+                                                        createTableManager.getProfessionalToggle
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -511,7 +398,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "professionalToggle");
                                                     },
                                                     child: Center(
@@ -521,7 +408,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             'txtProfessional'),
                                                         style: TextStyle(
                                                           color:
-                                                          professionalToggle
+                                                          createTableManager.getProfessionalToggle
                                                               ? Colors.white
                                                               : Colors
                                                               .black87,
@@ -540,14 +427,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.02)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)),
                                       ),
@@ -627,7 +514,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        twoPlayersToggle
+                                                        createTableManager.getTwoPlayersToggle
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -644,7 +531,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "twoPlayersToggle");
                                                     },
                                                     child: Center(
@@ -654,7 +541,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             'txt2Players'),
                                                         style: TextStyle(
                                                           color:
-                                                          twoPlayersToggle
+                                                          createTableManager.getTwoPlayersToggle
                                                               ? Colors.white
                                                               : Colors
                                                               .black87,
@@ -697,7 +584,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        fourPlayersToggle
+                                                        createTableManager.getFourPlayersToggle
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -714,7 +601,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "fourPlayersToggle");
                                                     },
                                                     child: Center(
@@ -724,7 +611,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             'txt4Players'),
                                                         style: TextStyle(
                                                           color:
-                                                          fourPlayersToggle
+                                                          createTableManager.getFourPlayersToggle
                                                               ? Colors.white
                                                               : Colors
                                                               .black87,
@@ -743,19 +630,19 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.02)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)),
                                       ),
                                       Visibility(
-                                        visible: professionalToggle,
+                                        visible: createTableManager.getProfessionalToggle,
                                         child: Row(
                                           children: [
                                             SizedBox(
@@ -835,7 +722,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         backgroundColor:
                                                         WidgetStateProperty
                                                             .all(
-                                                          directToggle
+                                                          createTableManager.getDirectToggle
                                                               ? const Color
                                                               .fromRGBO(90,
                                                               64, 126, 1)
@@ -853,7 +740,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        toggleSelection(
+                                                        createTableManager.toggleSelection(
                                                             "directToggle");
                                                       },
                                                       child: FittedBox(
@@ -863,7 +750,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                               .translate(
                                                               'txtDirect'),
                                                           style: TextStyle(
-                                                            color: directToggle
+                                                            color: createTableManager.getDirectToggle
                                                                 ? Colors.white
                                                                 : Colors
                                                                 .black87,
@@ -908,7 +795,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         backgroundColor:
                                                         WidgetStateProperty
                                                             .all(
-                                                          indirectToggle
+                                                          createTableManager.getIndirectToggle
                                                               ? const Color
                                                               .fromRGBO(90,
                                                               64, 126, 1)
@@ -926,7 +813,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        toggleSelection(
+                                                        createTableManager.toggleSelection(
                                                             "indirectToggle");
                                                       },
                                                       child: FittedBox(
@@ -936,7 +823,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                               .translate(
                                                               'txtIndirect'),
                                                           style: TextStyle(
-                                                            color: indirectToggle
+                                                            color: createTableManager.getIndirectToggle
                                                                 ? Colors.white
                                                                 : Colors
                                                                 .black87,
@@ -1045,7 +932,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                     Ink.image(
                                                                       // image: const AssetImage(
                                                                       //     'assets/buttons/button_22_curved.png'),
-                                                                      image: makartCheckbox
+                                                                      image: createTableManager.getMakartCheckbox
                                                                           ? const AssetImage(
                                                                           'assets/ic_check_gradiant2.png')
                                                                           : const AssetImage(
@@ -1068,7 +955,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                       InkWell(
                                                                         onTap:
                                                                             () {
-                                                                          toggleSelection(
+                                                                              createTableManager.toggleSelection(
                                                                               "makartCheckbox");
                                                                         },
                                                                       ),
@@ -1090,14 +977,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.0)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.00)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.00)),
                                       ),
@@ -1177,7 +1064,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        turnTimeOne
+                                                        createTableManager.getTurnTimeOne
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1194,14 +1081,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "turnTimeOne");
                                                     },
                                                     child: Text(
                                                       translationManager
                                                           .translate('txtTurnTime15'),
                                                       style: TextStyle(
-                                                        color: turnTimeOne
+                                                        color: createTableManager.getTurnTimeOne
                                                             ? Colors.white
                                                             : Colors.black87,
                                                         fontSize:
@@ -1251,7 +1138,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        turnTimeTwo
+                                                        createTableManager.getTurnTimeTwo
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1268,7 +1155,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "turnTimeTwo");
                                                     },
                                                     child: Center(
@@ -1277,7 +1164,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             .translate(
                                                             'txtTurnTime30'),
                                                         style: TextStyle(
-                                                          color: turnTimeTwo
+                                                          color: createTableManager.getTurnTimeTwo
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
@@ -1328,7 +1215,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        turnTimeThree
+                                                        createTableManager.getTurnTimeThree
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1345,7 +1232,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "turnTimeThree");
                                                     },
                                                     child: Center(
@@ -1354,7 +1241,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             .translate(
                                                             'txtTurnTime45'),
                                                         style: TextStyle(
-                                                          color: turnTimeThree
+                                                          color: createTableManager.getTurnTimeThree
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
@@ -1405,7 +1292,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        turnTimeFour
+                                                        createTableManager.getTurnTimeFour
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1422,7 +1309,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "turnTimeFour");
                                                     },
                                                     child: Center(
@@ -1431,7 +1318,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             .translate(
                                                             'txtTurnTime60'),
                                                         style: TextStyle(
-                                                          color: turnTimeFour
+                                                          color: createTableManager.getTurnTimeFour
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
@@ -1453,14 +1340,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.02)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)),
                                       ),
@@ -1514,10 +1401,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         0.0515)),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
                                                       : (isIphone
-                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
-                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
@@ -1557,7 +1444,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "pointsOne");
                                                     },
                                                     child: Text(
@@ -1588,10 +1475,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                 ),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
                                                       : (isIphone
-                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
-                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
@@ -1631,7 +1518,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection(
+                                                      createTableManager.toggleSelection(
                                                           "pointsTwo");
                                                     },
                                                     child: Center(
@@ -1669,10 +1556,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                 ),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
                                                       : (isIphone
-                                                      ? (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
-                                                      : (professionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
+                                                      : (createTableManager.getProfessionalToggle ? screenWidth * 0.086 : screenWidth * 0.063)
                                                   ),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
@@ -1700,7 +1587,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      toggleSelection("pointsThree");
+                                                      createTableManager.toggleSelection("pointsThree");
                                                     },
                                                     child: Center(
                                                       child: Text(
@@ -1775,7 +1662,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        toggleSelection(
+                                                        createTableManager.toggleSelection(
                                                             "pointsFour");
                                                       },
                                                       child: Center(
@@ -1807,14 +1694,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.02)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)),
                                       ),
@@ -1868,10 +1755,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         0.02)),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? (professionalToggle ? screenWidth * 0.085 : screenWidth * 0.0564)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.085 : screenWidth * 0.0564)
                                                       : (isIphone
-                                                      ? (professionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
-                                                      : (professionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
+                                                      : (createTableManager.getProfessionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
                                                   ),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
@@ -1920,10 +1807,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         0.02)),
                                                 SizedBox(
                                                   width: isIpad
-                                                      ? (professionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.08 : screenWidth * 0.0564)
                                                       : (isIphone
-                                                      ? (professionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
-                                                      : (professionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
+                                                      ? (createTableManager.getProfessionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
+                                                      : (createTableManager.getProfessionalToggle ? screenWidth * 0.0635 : screenWidth * 0.0635)
                                                   ),
                                                   height: isIpad
                                                       ? screenHeight * 0.04
@@ -2003,14 +1890,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.01
                                             : screenHeight * 0.02)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.008
                                             : screenHeight * 0.02)),
                                       ),
@@ -2385,14 +2272,14 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                       ),
                                       SizedBox(
                                         height: isIpad
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.02
                                             : screenHeight * 0.03)
                                             : (isIphone
-                                            ? (professionalToggle
+                                            ? (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.02
                                             : screenHeight * 0.03)
-                                            : (professionalToggle
+                                            : (createTableManager.getProfessionalToggle
                                             ? screenHeight * 0.02
                                             : screenHeight * 0.03)),
                                       ),
