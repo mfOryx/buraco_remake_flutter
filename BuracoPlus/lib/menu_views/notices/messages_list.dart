@@ -22,7 +22,6 @@ class InfiniteScrollNotices extends StatefulWidget {
 
   const InfiniteScrollNotices({
     required this.getNotices,
-    super.key,
   });
 
   @override
@@ -33,7 +32,7 @@ class InfiniteScrollNotices extends StatefulWidget {
 
 class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
   final ScrollController _scrollController = ScrollController();
-  late List<Map<String, dynamic>> _notices;
+  late final List<Map<String, dynamic>> _notices;
   bool _isLoading = false;
 
   @override
@@ -107,9 +106,9 @@ class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
         if (_isLoading)
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Color.fromARGB(115, 117, 36, 120),
+            child: const CircularProgressIndicator(
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                const Color.fromARGB(115, 117, 36, 120),
               ),
               strokeAlign: CircularProgressIndicator.strokeAlignCenter,
               strokeWidth: 5.0,

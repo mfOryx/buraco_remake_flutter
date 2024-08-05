@@ -66,8 +66,8 @@ class NoticesMenu extends StatefulWidget {
 class _NoticesMenuState extends State<NoticesMenu> {
   @override
   Widget build(BuildContext context) {
-    const padding1 = 10.0;
-    const padding2 = 30.0;
+    const double padding1 = 10.0;
+    const double padding2 = 30.0;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final topPosition = (screenHeight * 0.15) / 1.8;

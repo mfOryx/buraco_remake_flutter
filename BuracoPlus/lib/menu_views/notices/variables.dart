@@ -11,7 +11,7 @@ import 'package:flutter/material.dart'
         TextDecoration,
         TextStyle;
 
-const noticeGradient = LinearGradient(
+final LinearGradient noticeGradient = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
   colors: [
@@ -20,14 +20,14 @@ const noticeGradient = LinearGradient(
   ],
 );
 
-const noticesTextStyle = TextStyle(
+final TextStyle noticesTextStyle = TextStyle(
   color: Colors.white,
   wordSpacing: 0.0,
   letterSpacing: 0.2,
   decoration: TextDecoration.none,
 );
 
-const menuBorderRadius = BoxDecoration(
+final BoxDecoration menuBorderRadius = BoxDecoration(
   gradient: noticeGradient,
   borderRadius: BorderRadius.vertical(
     top: Radius.circular(20.0),
@@ -35,7 +35,7 @@ const menuBorderRadius = BoxDecoration(
   ),
 );
 
-final menuBoxInside = BoxDecoration(
+final BoxDecoration menuBoxInside = BoxDecoration(
   border: Border.all(color: Colors.transparent),
   borderRadius: BorderRadius.circular(20.0),
   color: const Color(0xFFF0F0F0),
