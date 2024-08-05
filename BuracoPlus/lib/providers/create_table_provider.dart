@@ -22,9 +22,9 @@ class CreateTableProvider with ChangeNotifier {
   bool passwordToggle = false;
   bool chatToggle = false;
   String? selectedLevel = "None";
-  String? selectedStyle = "assets/cardImagesFront/cards-front-01.png";
-  String? selectedDeck = "assets/cardImagesBack/cards-back-01.png";
-  String? selectedTable = "assets/tablesImages/table_blue.png";
+  int selectedStyle = 0;
+  int selectedDeck = 0;
+  int selectedTable = 0;
 
   bool get getClassicToggle => classicToggle;
   bool get getProfessionalToggle => professionalToggle;
@@ -44,9 +44,9 @@ class CreateTableProvider with ChangeNotifier {
   bool get getPasswordToggle => passwordToggle;
   bool get getChatToggle => chatToggle;
   String? get getSelectedLevel => selectedLevel;
-  String? get getSelectedStyle => selectedStyle;
-  String? get getSelectedDeck => selectedDeck;
-  String? get getSelectedTable => selectedTable;
+  int get getSelectedStyle => selectedStyle;
+  int get getSelectedDeck => selectedDeck;
+  int get getSelectedTable => selectedTable;
 
   void setClassicToggle(bool value) {
     classicToggle = value;
@@ -156,19 +156,19 @@ class CreateTableProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setSelectedStyle(String value) {
+  void setSelectedStyle(int value) {
     selectedStyle = value;
     saveOptionsDataInSharedPreferences();
     notifyListeners();
   }
 
-  void setSelectedDeck(String value) {
+  void setSelectedDeck(int value) {
     selectedDeck = value;
     saveOptionsDataInSharedPreferences();
     notifyListeners();
   }
 
-  void setSelectedTable(String value) {
+  void setSelectedTable(int value) {
     selectedTable = value;
     saveOptionsDataInSharedPreferences();
     notifyListeners();
@@ -280,9 +280,9 @@ class CreateTableProvider with ChangeNotifier {
     passwordToggle = prefs.getBool('passwordToggle') ?? passwordToggle;
     chatToggle = prefs.getBool('chatToggle') ?? chatToggle;
     selectedLevel = prefs.getString('selectedLevel') ?? selectedLevel;
-    selectedStyle = prefs.getString('selectedStyle') ?? selectedStyle;
-    selectedDeck = prefs.getString('selectedDeck') ?? selectedDeck;
-    selectedTable = prefs.getString('selectedTable') ?? selectedTable;
+    selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
+    selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
+    selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
 
     notifyListeners();
   }
@@ -310,9 +310,9 @@ class CreateTableProvider with ChangeNotifier {
     options['passwordToggle'] = prefs.getBool('passwordToggle') ?? passwordToggle;
     options['chatToggle'] = prefs.getBool('chatToggle') ?? chatToggle;
     options['selectedLevel'] = prefs.getString('selectedLevel') ?? selectedLevel;
-    options['selectedStyle'] = prefs.getString('selectedStyle') ?? selectedStyle;
-    options['selectedDeck'] = prefs.getString('selectedDeck') ?? selectedDeck;
-    options['selectedTable'] = prefs.getString('selectedTable') ?? selectedTable;
+    options['selectedStyle'] = prefs.getInt('selectedStyle') ?? selectedStyle;
+    options['selectedDeck'] = prefs.getInt('selectedDeck') ?? selectedDeck;
+    options['selectedTable'] = prefs.getInt('selectedTable') ?? selectedTable;
 
     return jsonEncode(options);
   }
@@ -340,9 +340,9 @@ class CreateTableProvider with ChangeNotifier {
     await prefs.setBool('passwordToggle', passwordToggle);
     await prefs.setBool('chatToggle', chatToggle);
     await prefs.setString('selectedLevel', selectedLevel!);
-    await prefs.setString('selectedStyle', selectedStyle!);
-    await prefs.setString('selectedDeck', selectedDeck!);
-    await prefs.setString('selectedTable', selectedTable!);
+    await prefs.setInt('selectedStyle', selectedStyle);
+    await prefs.setInt('selectedDeck', selectedDeck);
+    await prefs.setInt('selectedTable', selectedTable);
 
     if(kDebugMode){
       print("Shared Prefrences changed : ");
@@ -383,9 +383,9 @@ class CreateTableProvider with ChangeNotifier {
     passwordToggle = prefs.getBool('passwordToggle') ?? passwordToggle;
     chatToggle = prefs.getBool('chatToggle') ?? chatToggle;
     selectedLevel = prefs.getString('selectedLevel') ?? selectedLevel;
-    selectedStyle = prefs.getString('selectedStyle') ?? selectedStyle;
-    selectedDeck = prefs.getString('selectedDeck') ?? selectedDeck;
-    selectedTable = prefs.getString('selectedTable') ?? selectedTable;
+    selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
+    selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
+    selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
 
     if (kDebugMode) {
       print(">>loadAndSaveSettingsFromAndToSharedPreferences<<<");
@@ -442,9 +442,9 @@ class CreateTableProvider with ChangeNotifier {
         await prefs.setBool('passwordToggle', settings['passwordToggle'] ?? passwordToggle);
         await prefs.setBool('chatToggle', settings['chatToggle'] ?? chatToggle);
         await prefs.setString('selectedLevel', settings['selectedLevel'] ?? selectedLevel);
-        await prefs.setString('selectedStyle', settings['selectedStyle'] ?? selectedStyle);
-        await prefs.setString('selectedDeck', settings['selectedDeck'] ?? selectedDeck);
-        await prefs.setString('selectedTable', settings['selectedTable'] ?? selectedTable);
+        await prefs.setInt('selectedStyle', settings['selectedStyle'] ?? selectedStyle);
+        await prefs.setInt('selectedDeck', settings['selectedDeck'] ?? selectedDeck);
+        await prefs.setInt('selectedTable', settings['selectedTable'] ?? selectedTable);
 
         // update the state variables and call notify listeners to update the settings UI
         loadOptionsFromSharedPreferences();

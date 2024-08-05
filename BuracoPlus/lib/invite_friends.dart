@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'package:buracoplus/models/logged_in_player.dart';
+import 'package:buracoplus/providers/create_table_provider.dart';
 import 'package:buracoplus/providers/dialog_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-// import 'dart:math' as math;
+import 'helpers/user.dart';
 
 class InviteFriends extends StatefulWidget {
   const InviteFriends({super.key});
@@ -23,6 +25,8 @@ class _CreateInviteFriends extends State<InviteFriends> {
   bool isRightChairOccupied = false;
   bool isTopChairOccupied = false;
   bool isBottomChairOccupied = false;
+  LoggedInPlayer? user = User().getPlayer();
+  String? username;
 
   String? selectedLevel;
   final List<String> levels =
@@ -99,8 +103,10 @@ class _CreateInviteFriends extends State<InviteFriends> {
     //final themeProvider = Provider.of<ThemeProvider>(context);
     //final colors = themeProvider.currentColors;
     final translationManager = Provider.of<TranslationManager>(context);
+    final createTableManager = Provider.of<CreateTableProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    username = user!.playerName;
     checkDeviceType();
 
     return Stack(
@@ -820,8 +826,7 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    translationManager
-                                                        .translate('Table of ABC'),
+                                                    translationManager.translate("txtTableOf") + (username!),
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight: FontWeight.bold,
@@ -833,8 +838,42 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    translationManager
-                                                        .translate('Classic - 60s - 1005'),
+                                                    (createTableManager.getClassicToggle 
+                                                        ? translationManager.translate("txtItalian")
+                                                        : (createTableManager.getProfessionalToggle
+                                                        ? translationManager.translate("txtProfessional")
+                                                        : translationManager.translate("txtNone")
+                                                    ))
+                                                    + " - "
+                                                    + (createTableManager.getTurnTimeOne
+                                                        ? translationManager.translate("txtTurnTime15")
+                                                        : (createTableManager.getTurnTimeTwo
+                                                        ? translationManager.translate("txtTurnTime30")
+                                                        : (createTableManager.getTurnTimeThree
+                                                        ? translationManager.translate("txtTurnTime45")
+                                                        : (createTableManager.getTurnTimeFour
+                                                        ? translationManager.translate("txtTurnTime60")
+                                                        : translationManager.translate("txtNone")
+                                                    )
+                                                    )
+                                                    ))
+                                                    + "s - "
+                                                    + (createTableManager.getPointsOne
+                                                        ? translationManager.translate("txtOneHand")
+                                                        : (createTableManager.getPointsTwo
+                                                        ? (createTableManager.getClassicToggle
+                                                        ? translationManager.translate('txtPoints1005')
+                                                        : translationManager.translate('txtPoints1505'))
+                                                        : (createTableManager.getPointsThree
+                                                        ? (createTableManager.getClassicToggle
+                                                        ? translationManager.translate('txtPoints1505')
+                                                        : translationManager.translate('txtPoints2000'))
+                                                        : (createTableManager.getPointsFour
+                                                        ? translationManager.translate("txtPoints2005")
+                                                        : translationManager.translate("txtNone")
+                                                    )
+                                                    )
+                                                    )),
                                                     style: TextStyle(
                                                       color: Colors.amber,
                                                       fontWeight: FontWeight.bold,

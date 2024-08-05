@@ -1427,7 +1427,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        pointsOne
+                                                        createTableManager.getPointsOne
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1451,7 +1451,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       translationManager
                                                           .translate('txtOneHand'),
                                                       style: TextStyle(
-                                                        color: pointsOne
+                                                        color: createTableManager.getPointsOne
                                                             ? Colors.white
                                                             : Colors.black87,
                                                         fontSize:
@@ -1501,7 +1501,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       backgroundColor:
                                                       WidgetStateProperty
                                                           .all(
-                                                        pointsTwo
+                                                        createTableManager.getPointsTwo
                                                             ? const Color
                                                             .fromRGBO(
                                                             90, 64, 126, 1)
@@ -1523,7 +1523,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     },
                                                     child: Center(
                                                       child: Text(
-                                                        classicToggle
+                                                        createTableManager.getClassicToggle
                                                             ? translationManager
                                                             .translate(
                                                             'txtPoints1005')
@@ -1531,7 +1531,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                             .translate(
                                                             'txtPoints1505'),
                                                         style: TextStyle(
-                                                          color: pointsTwo
+                                                          color: createTableManager.getPointsTwo
                                                               ? Colors.white
                                                               : Colors.black87,
                                                           fontSize:
@@ -1575,7 +1575,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         ),
                                                       ),
                                                       backgroundColor: WidgetStateProperty.all(
-                                                        pointsThree
+                                                        createTableManager.getPointsThree
                                                             ? const Color.fromRGBO(90, 64, 126, 1)
                                                             : const Color.fromRGBO(230, 230, 230, 1),
                                                       ),
@@ -1591,11 +1591,13 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     },
                                                     child: Center(
                                                       child: Text(
-                                                        classicToggle
+                                                        createTableManager.getClassicToggle
                                                             ? translationManager.translate('txtPoints1505')
                                                             : translationManager.translate('txtPoints2000'),
                                                         style: TextStyle(
-                                                          color: pointsThree ? Colors.white : Colors.black87,
+                                                          color: createTableManager.getPointsThree
+                                                              ? Colors.white
+                                                              : Colors.black87,
                                                           fontSize: isIpad
                                                               ? screenWidth * 0.013
                                                               : (isIphone ? screenWidth * 0.01 : screenWidth * 0.01),
@@ -1605,7 +1607,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                   ),
                                                 ),
                                                 Visibility(
-                                                  visible: classicToggle,
+                                                  visible: createTableManager.getClassicToggle,
                                                   child: SizedBox(
                                                     width: isIpad
                                                         ? screenWidth * 0.015
@@ -1616,7 +1618,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                   ),
                                                 ),
                                                 Visibility(
-                                                  visible: classicToggle,
+                                                  visible: createTableManager.getClassicToggle,
                                                   child: SizedBox(
                                                     width: isIpad
                                                         ? screenWidth * 0.0564
@@ -1645,7 +1647,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         backgroundColor:
                                                         WidgetStateProperty
                                                             .all(
-                                                          pointsFour
+                                                          createTableManager.getPointsFour
                                                               ? const Color
                                                               .fromRGBO(
                                                               90, 64, 126, 1)
@@ -1671,7 +1673,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                               .translate(
                                                               'txtPoints2005'),
                                                           style: TextStyle(
-                                                            color: pointsFour
+                                                            color: createTableManager.getPointsFour
                                                                 ? Colors.white
                                                                 : Colors.black87,
                                                             fontSize:
@@ -1779,11 +1781,9 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         return const Icon(Icons.close);
                                                       },
                                                       ),
-                                                      value: passwordToggle,
+                                                      value: createTableManager.getPasswordToggle,
                                                       onChanged: (bool newValue) {
-                                                        setState(() {
-                                                          passwordToggle = !passwordToggle;
-                                                        });
+                                                        createTableManager.setPasswordToggle(newValue);
                                                       },
                                                     ),
                                                   ),
@@ -1831,10 +1831,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         return const Icon(Icons.close);
                                                       },
                                                       ),
-                                                      value: chatToggle,
+                                                      value: createTableManager.getChatToggle,
                                                       onChanged: (bool newValue) {
                                                         setState(() {
-                                                          chatToggle = !chatToggle;
+                                                          createTableManager.setChatToggle(newValue);
                                                         });
                                                       },
                                                     ),
@@ -1851,7 +1851,9 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                   ),
                                                   child: DropdownButtonHideUnderline(
                                                     child: DropdownButton<String>(
-                                                      value: selectedLevel,
+                                                      value: createTableManager.selectedLevel!.isNotEmpty
+                                                          ? createTableManager.selectedLevel
+                                                          : null,
                                                       hint: Text(
                                                         "Min. Level",
                                                         style: TextStyle(
@@ -1872,9 +1874,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                         );
                                                       }).toList(),
                                                       onChanged: (String? newValue) {
-                                                        setState(() {
-                                                          selectedLevel = newValue;
-                                                        });
+                                                        createTableManager.setSelectedLevel(newValue!);
                                                       },
                                                       dropdownColor: const Color.fromRGBO(90, 64, 126, 1),
                                                       style: const TextStyle(color: Colors.white), // Selected text color
@@ -1928,9 +1928,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     child: PageView.builder(
                                                       controller: frontCardImageController,
                                                       onPageChanged: (int index) {
-                                                        setState(() {
-                                                          currentFrontCardImage = index;
-                                                        });
+                                                        createTableManager.setSelectedStyle(index);
                                                       },
                                                       itemCount: cardImageFrontPaths.length,
                                                       itemBuilder: (context, index) {
@@ -1971,7 +1969,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentFrontCardImage > 0) {
+                                                                if (createTableManager.getSelectedStyle > 0) {
                                                                   frontCardImageController.previousPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
@@ -2005,7 +2003,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentFrontCardImage < cardImageFrontPaths.length - 1) {
+                                                                if (createTableManager.getSelectedStyle < cardImageFrontPaths.length - 1) {
                                                                   frontCardImageController.nextPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
@@ -2051,9 +2049,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     child: PageView.builder(
                                                       controller: backCardImageController,
                                                       onPageChanged: (int index) {
-                                                        setState(() {
-                                                          currentBackCardImage = index;
-                                                        });
+                                                        createTableManager.setSelectedDeck(index);
                                                       },
                                                       itemCount: cardImageBackPaths.length,
                                                       itemBuilder: (context, index) {
@@ -2094,7 +2090,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentBackCardImage > 0) {
+                                                                if (createTableManager.getSelectedDeck > 0) {
                                                                   backCardImageController.previousPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
@@ -2128,7 +2124,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentBackCardImage < cardImageBackPaths.length - 1) {
+                                                                if (createTableManager.getSelectedDeck < cardImageBackPaths.length - 1) {
                                                                   backCardImageController.nextPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
@@ -2174,9 +2170,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     child: PageView.builder(
                                                       controller: tableImageController,
                                                       onPageChanged: (int index) {
-                                                        setState(() {
-                                                          currentTableImage = index;
-                                                        });
+                                                        createTableManager.setSelectedTable(index);
                                                       },
                                                       itemCount: tableImagePaths.length,
                                                       itemBuilder: (context, index) {
@@ -2217,7 +2211,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentTableImage > 0) {
+                                                                if (createTableManager.getSelectedTable > 0) {
                                                                   tableImageController.previousPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
@@ -2251,7 +2245,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                                   : screenWidth * 0.02),
                                                               color: Colors.white,
                                                               onPressed: () {
-                                                                if (currentTableImage < tableImagePaths.length - 1) {
+                                                                if (createTableManager.getSelectedTable < tableImagePaths.length - 1) {
                                                                   tableImageController.nextPage(
                                                                     duration: const Duration(milliseconds: 300),
                                                                     curve: Curves.easeInOut,
