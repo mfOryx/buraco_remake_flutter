@@ -641,7 +641,7 @@
     "txtPoints2005" : "2005",
     "txtThisIsAnImportantMessage!" : "This is an important message!",
     "txtTrainingVSComputer" : "Training vs computer",
-    "txtShop" : "Shop",
+    
     "txtFaq": "FAQ",
     "txtMessages" : "Messages",
     "txtClubs" : "Clubs",
@@ -658,5 +658,14 @@
     "txtTypeMessageHere"  : "Type Message here..." ,
     "txtSupportViewHeading": "Write your query to customer support For Assistance",
     "txtSupportViewDescription"  : "To get the most from customer service messaging, you need to be clear about why you're offering the option to customers.",
-    "txtRefresh" : "Refresh"
+    "txtRefresh" : "Refresh",
+    "txtSubscription" : "Subscriptions" ,
+    "txtCoins":"Coins",
+    "txtEmojis":"Emojis",
+    "txtTables":"Tables",
+    "txtSpecial":"Special",
+    "txtRedeem":"Redeem",
+    "txtHome":"Home" ,
+    "txtShop": "SHOP"
+
 }
