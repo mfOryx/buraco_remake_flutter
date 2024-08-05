@@ -48,10 +48,10 @@ class _ButtonsNoticesState extends State<ButtonsNotices> {
             ? const Color.fromARGB(115, 59, 6, 61)
             : const Color.fromARGB(115, 117, 36, 120),
         shape: shape,
-        elevation: 10.0,
+        elevation: 5.0,
         padding: EdgeInsets.zero,
         shadowColor: Colors.black.withOpacity(
-          isSelected ? 0.9 : 0.2,
+          isSelected ? 0.6 : 0.0,
         ),
       ),
       onPressed: _toggleButtons,

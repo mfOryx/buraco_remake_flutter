@@ -1,10 +1,3 @@
-import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
-    show ButtonsNotices;
-import 'package:buracoplus/menu_views/notices/messages_list.dart'
-    show InfiniteScrollNotices;
-import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextTitle;
-import 'package:buracoplus/menu_views/notices/variables.dart'
-    show menuBorderRadius, menuBoxInside;
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -13,6 +6,7 @@ import 'package:flutter/material.dart'
         BorderRadius,
         BoxDecoration,
         BuildContext,
+        Center,
         Color,
         Colors,
         Container,
@@ -32,15 +26,29 @@ import 'package:flutter/material.dart'
         Row,
         Stack,
         StackFit,
-        StatelessWidget,
+        State,
+        StatefulWidget,
+        Text,
+        TextDecoration,
         TextDirection,
+        TextStyle,
         VoidCallback,
         Widget;
+import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
+    show ButtonsNotices;
+import 'package:buracoplus/menu_views/notices/messages_list.dart'
+    show InfiniteScrollNotices;
+import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextTitle;
+import 'package:buracoplus/menu_views/notices/variables.dart'
+    show menuBorderRadius, menuBoxInside;
 
-class NoticesMenu extends StatelessWidget {
+class NoticesMenu extends StatefulWidget {
+  static const double padding1 = 10.0;
+  static const double padding2 = 30.0;
+  static const double borderRadiusValue = 20.0;
   final bool isNoticesVisible;
   final VoidCallback onClose;
-  final List noticeList;
+  final List<Map<String, dynamic>> noticeList;
 
   const NoticesMenu({
     required this.isNoticesVisible,
@@ -49,6 +57,13 @@ class NoticesMenu extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<NoticesMenu> createState() {
+    return _NoticesMenuState();
+  }
+}
+
+class _NoticesMenuState extends State<NoticesMenu> {
   @override
   Widget build(BuildContext context) {
     const padding1 = 10.0;
@@ -59,19 +74,19 @@ class NoticesMenu extends StatelessWidget {
 
     return AnimatedPositioned(
       duration: const Duration(
-        milliseconds: 300,
+        milliseconds: 400,
       ),
       curve: Curves.easeInOut,
       top: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       bottom: MediaQuery.of(context).size.height < 550 ? 10.0 : 20.0,
       left: Directionality.of(context) == TextDirection.rtl
-          ? isNoticesVisible
+          ? widget.isNoticesVisible
               ? 15
               : -screenWidth
           : null,
       right: Directionality.of(context) == TextDirection.rtl
           ? null
-          : isNoticesVisible
+          : widget.isNoticesVisible
               ? 15
               : -screenWidth,
       child: Material(
@@ -118,7 +133,7 @@ class NoticesMenu extends StatelessWidget {
                       padding: const EdgeInsets.only(
                         left: 10,
                       ),
-                      onPressed: onClose,
+                      onPressed: widget.onClose,
                     ),
                   ],
                 ),
@@ -136,18 +151,41 @@ class NoticesMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                top: screenHeight * 0.15,
-                bottom: padding1,
-                left: padding1,
-                right: padding1,
-                child: Container(
-                  decoration: menuBoxInside,
-                  child: InfiniteScrollNotices(
-                    getNotices: noticeList,
+              if (widget.noticeList.isEmpty)
+                Positioned(
+                  top: screenHeight * 0.15,
+                  bottom: padding1,
+                  left: padding1,
+                  right: padding1,
+                  child: Container(
+                    decoration: menuBoxInside,
+                    child: const Center(
+                      child: Text(
+                        'Notice is empty',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16.0,
+                          wordSpacing: 0.0,
+                          letterSpacing: 0.2,
+                          decoration: TextDecoration.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              else
+                Positioned(
+                  top: screenHeight * 0.155,
+                  bottom: padding1,
+                  left: padding1,
+                  right: padding1,
+                  child: Container(
+                    decoration: menuBoxInside,
+                    child: InfiniteScrollNotices(
+                      getNotices: widget.noticeList,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

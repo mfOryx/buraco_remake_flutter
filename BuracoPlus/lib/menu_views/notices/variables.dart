@@ -1,4 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        Alignment,
+        Border,
+        BorderRadius,
+        BoxDecoration,
+        Color,
+        Colors,
+        LinearGradient,
+        Radius,
+        TextDecoration,
+        TextStyle;
 
 const noticeGradient = LinearGradient(
   begin: Alignment.topCenter,

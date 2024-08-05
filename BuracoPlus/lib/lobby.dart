@@ -1,62 +1,146 @@
-import 'dart:io';
-import 'package:buracoplus/blocks/lobby_card.dart';
-import 'package:buracoplus/blocks/lobby_user_stats.dart';
-import 'package:buracoplus/create_table_multi_player.dart';
-import 'package:buracoplus/helpers/user.dart';
-import 'package:buracoplus/menu_views/notices/notices_menu.dart';
-import 'package:buracoplus/models/logged_in_player.dart';
-import 'package:buracoplus/models/tables.dart';
-import 'package:buracoplus/providers/dialog_provider.dart';
-import 'package:buracoplus/sockets/socket_service.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'common/general_functions.dart';
-import 'common/translation_manager.dart';
-import 'invite_friends.dart';
+import 'dart:io' show Platform;
+import 'package:buracoplus/blocks/lobby_card.dart' show LobbyCard;
+import 'package:buracoplus/blocks/lobby_user_stats.dart' show LobbyUserStats;
+import 'package:buracoplus/create_table_multi_player.dart' show CreateTableMP;
+import 'package:buracoplus/helpers/user.dart' show User;
+import 'package:buracoplus/menu_views/notices/notices_menu.dart'
+    show NoticesMenu;
+import 'package:buracoplus/models/logged_in_player.dart' show LoggedInPlayer;
+import 'package:buracoplus/models/tables.dart' show GameTable;
+import 'package:buracoplus/providers/dialog_provider.dart' show DialogProvider;
+import 'package:buracoplus/sockets/socket_service.dart' show SocketService;
+import 'package:device_info_plus/device_info_plus.dart'
+    show DeviceInfoPlugin, IosDeviceInfo;
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/material.dart'
+    show
+        Align,
+        Alignment,
+        AnimationController,
+        Border,
+        BorderRadius,
+        BoxDecoration,
+        BoxFit,
+        BoxShape,
+        BuildContext,
+        Center,
+        Clip,
+        ClipOval,
+        Color,
+        Colors,
+        Column,
+        Container,
+        EdgeInsets,
+        ElevatedButton,
+        Expanded,
+        Flexible,
+        FloatingActionButton,
+        FontWeight,
+        GestureDetector,
+        Icon,
+        IconButton,
+        Icons,
+        Image,
+        LinearGradient,
+        MainAxisAlignment,
+        MediaQuery,
+        Offset,
+        Padding,
+        PageView,
+        Positioned,
+        Radius,
+        Row,
+        SafeArea,
+        Scaffold,
+        Shadow,
+        SingleTickerProviderStateMixin,
+        SizedBox,
+        Stack,
+        State,
+        StatefulWidget,
+        StatelessWidget,
+        Text,
+        TextStyle,
+        Widget,
+        Wrap;
+import 'package:provider/provider.dart' show Provider;
+import 'common/general_functions.dart' show getPublicIP;
+import 'common/translation_manager.dart' show TranslationManager;
+import 'invite_friends.dart' show InviteFriends;
 
 class Lobby extends StatefulWidget {
-  const Lobby({super.key});
+  const Lobby({
+    super.key,
+  });
 
   @override
-  State<Lobby> createState() => _LobbyState();
+  State<Lobby> createState() {
+    return _LobbyState();
+  }
 }
 
 class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  bool isMenuVisible = false;
-
-  // Barra
-  bool isNoticesVisible = false;
-  late List<dynamic> _noticeList = [];
-  // Barra
-
   late final socketService = Provider.of<SocketService>(context, listen: false);
   int totalPages = 0;
-  List<GameTable> gameTables = [];
-  List<GameTable> gameTablesFiltered = [];
   int playerOnline = 100;
   int numberofTables = 70;
+  List<GameTable> gameTables = [];
+  List<GameTable> gameTablesFiltered = [];
   LoggedInPlayer currentlyLoggedInPlayer = User().getPlayer();
-  bool isIphone = false;
   bool isIpad = false;
+  bool isIphone = false;
+
+//// BARRA START \\\\
+  bool isMenuVisible = false;
+  bool isNoticesVisible = false;
+  List<Map<String, dynamic>> _noticeList = [];
 
   @override
   void initState() {
     super.initState();
     getTables();
     checkDeviceType();
+    _getDummyNotices();
   }
 
-  // Barra
   void _toggleNotices() {
-    setState(() {
-      isNoticesVisible = !isNoticesVisible;
-      if (kDebugMode) {
-        print(isNoticesVisible.toString());
-      }
-    });
+    setState(
+      () {
+        isNoticesVisible = !isNoticesVisible;
+        if (kDebugMode) {
+          print(isNoticesVisible.toString());
+        }
+      },
+    );
+  }
+
+  void _getDummyNotices() {
+    _noticeList = [
+      {
+        'title': 'Notice 1',
+        'message': 'TEST',
+        // 'date': '2024-08-05',
+        // 'time': '10:00',
+        // 'isRead': false
+      },
+      {
+        'title': 'Notice 2',
+        'message': 'TEST',
+      },
+      {
+        'title': 'Notice 3',
+        'message': 'TEST',
+      },
+      {
+        'title': 'Notice 4',
+        'message': 'TEST',
+      },
+      {
+        'title': 'Notice 5',
+        'message': 'TEST',
+      },
+    ];
   }
 
   getPlayerNotifications() async {
@@ -66,7 +150,9 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
               {'playerId': currentlyLoggedInPlayer.id});
 
       if (getAllPlayerNotifications.containsKey('notificationsList')) {
-        List allNotifications = getAllPlayerNotifications['notificationsList'];
+        List<Map<String, dynamic>> allNotifications =
+            List<Map<String, dynamic>>.from(
+                getAllPlayerNotifications['notificationsList']);
         if (allNotifications.isNotEmpty) {
           _noticeList = allNotifications;
         }
@@ -78,7 +164,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
       }
     }
   }
-  // Barra
+//// BARRA END \\\\
 
   bool isIOS() {
     return Platform.isIOS;
@@ -233,7 +319,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                // Barra
+                                //// BARRA START \\\\
                                 Container(
                                   height: 44,
                                   width: 44,
@@ -254,7 +340,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                     onPressed: _toggleNotices,
                                   ),
                                 ),
-                                // Barra
+                                //// BARRA END \\\\
                                 const SizedBox(
                                   width: 30,
                                 ),
@@ -747,7 +833,6 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                   ],
                                 ),
                               ),
-                              //QUI
                             ],
                           ),
                         ),
@@ -758,13 +843,13 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
               ),
             ),
             const CreateTableMP(),
-            // Barra
+            //// BARRA START \\\\
             NoticesMenu(
               isNoticesVisible: isNoticesVisible,
               onClose: _toggleNotices,
               noticeList: _noticeList,
             ),
-            // Barra
+            //// BARRA END \\\\
             const InviteFriends(),
           ],
         ),
