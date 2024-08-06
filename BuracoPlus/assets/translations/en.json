@@ -666,6 +666,9 @@
     "txtSpecial":"Special",
     "txtRedeem":"Redeem",
     "txtHome":"Home" ,
-    "txtShop": "SHOP"
+    "txtShop": "SHOP",
+    "txtGift" : "Gift",
+    "txtBuy": "Buy"  ,
+    "txt3LettersNickName"  : "3 Letters NickName"
 
 }

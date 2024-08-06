@@ -1,9 +1,11 @@
+import 'package:buracoplus/shopViews/three_letters_buy.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'common/translation_manager.dart';
+import '../common/translation_manager.dart';
  // double mainContentWidth = 1000;
  // double mainContentHeight =  800;
 enum Views
@@ -97,7 +99,7 @@ class _MainShopDialogState extends State<MainShopDialog> {
       emojisView (isIpad: isIpad, isIphone: isIphone),
       tablesView (isIpad: isIpad, isIphone: isIphone),
       cardsView (isIpad: isIpad, isIphone: isIphone),
-      specialView (isIpad: isIpad, isIphone: isIphone),
+      specialView (isIpad: isIpad, isIphone: isIphone,context: this.context),
       redeemView (isIpad: isIpad, isIphone: isIphone),
     ];
     setState(() {
@@ -111,6 +113,11 @@ class _MainShopDialogState extends State<MainShopDialog> {
     setState(() {
       _selected = {0};
     });
+  }
+
+  void onClick_BuyButton(View view){
+
+
   }
   //################################## sidebar tab changed #####################
   void _onTabTapped(int index) {
@@ -325,9 +332,9 @@ class _MainShopDialogState extends State<MainShopDialog> {
     }
   }
 
-  // ################################################################################
-  // ###############################   LAYOUT WIDGETS    ###########################
-  // #################################################################################
+  // ###########################################################################
+  // ###############################   LAYOUT WIDGETS    #######################
+  // ###########################################################################
 
   Widget topBar({
     required bool isIpad,
@@ -695,8 +702,8 @@ class _MainShopDialogState extends State<MainShopDialog> {
             gradient:
             (view)? LinearGradient(
               colors: [
-                Color.fromRGBO(255, 255, 255, 1.0),
-                Color.fromRGBO(255, 255, 255, 1.0)
+                Color.fromRGBO(224, 224, 224, 1.0),
+                Color.fromRGBO(224, 224, 224, 1.0),
               ],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -736,7 +743,7 @@ class _MainShopDialogState extends State<MainShopDialog> {
               Text(
                 text, // Text from the function argument
                 style: TextStyle(
-                  color: Colors.white,
+                  color:(view)?Color(0xFF7e2d79): Colors.white,
                   fontSize: (isIphone) ? 14 : 18.0,
                   fontWeight: FontWeight.bold,
                 ),
@@ -748,12 +755,15 @@ class _MainShopDialogState extends State<MainShopDialog> {
     );
   }
 }
-//######################################### SHOP ITEM #####################
+//######################################### SHOP ITEM ##########################
 
 Widget shopItem({
   required bool isIpad,
   required bool isIphone,
-  String topLeftRibbontext = 'New',
+  String topLeftRibbonText = 'New',
+  String productID = "0"  ,
+  VoidCallback? onClickBuy,
+  VoidCallback? onClickGift,
 }) {
   double containerWidth = (isIphone) ? 200 : 300,
       containerHeight = (isIphone) ? 150 : 230,
@@ -841,13 +851,17 @@ Widget shopItem({
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
+
                 style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
                   fixedSize: WidgetStateProperty.all<Size>(
                       Size((isIphone) ? 70 : 50, (isIphone) ? 25 : 50)),
                 ),
                 onPressed: () {
-                  // Action for "Gift" button
+                  // Action for "BUY" button
+                  if(onClickBuy !=null)
+                  onClickBuy();
+                  print("Product ID : "+productID);
                 },
                 child: Text(
                     style: TextStyle(
@@ -872,7 +886,9 @@ Widget shopItem({
                       Size((isIphone) ? 70 : 50, 50)),
                 ),
                 onPressed: () {
-                  // Action for "Gift" button
+                  // Action for "GIFT" button
+                  if(onClickGift !=null)
+                 onClickGift();
                 },
                 child: Text(
                     style: TextStyle(
@@ -880,6 +896,7 @@ Widget shopItem({
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
+
                     'GIFT'),
               ), //GIFT
             ],
@@ -888,7 +905,7 @@ Widget shopItem({
 
         // ######################################## top left tag
 
-        topLeftRibbon(isIpad: isIpad, isIphone: isIphone, text: topLeftRibbontext),
+        topLeftRibbon(isIpad: isIpad, isIphone: isIphone, text: topLeftRibbonText),
         // Positioned(
         //   top: 0,
         //   left: (isIphone) ? 100 : 160,
@@ -920,6 +937,7 @@ Widget shopItem({
     ),
   );
 }
+
 
 
 // overload of shop item with one button in center
@@ -1102,7 +1120,7 @@ Widget shopItemSingle({
 }
 
 
-//######################################### Top ITEMs #####################
+//######################################### Top ITEMs ##########################
 Widget topItems({
   required bool isIpad,
   required bool isIphone,
@@ -1197,7 +1215,7 @@ Widget topItems({
 }
 
 
-//########################## TOP_LEFT_RIBBON  ###########################
+//########################## TOP_LEFT_RIBBON  ##################################
 
 Widget topLeftRibbon({
   required bool isIpad,
@@ -2249,6 +2267,7 @@ Widget cardsView({
 Widget specialView({
   required bool isIpad,
   required bool isIphone,
+  required BuildContext context,
 
 }) {
 
@@ -2270,21 +2289,28 @@ Widget specialView({
                 child: Transform.scale(
                     scale: 0.9,
                     // scale:1,
-                    child: shopItem(isIpad: isIpad, isIphone: isIphone)),
+                    child: shopItem(isIpad: isIpad, isIphone: isIphone,productID: "001",topLeftRibbonText: "3 letters",onClickBuy:(){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const ThreeLettersBuy();
+                        },
+                      );
+                    },onClickGift: (){})),
               ),
               Padding(
                 padding: const EdgeInsets.all(2),
                 child: Transform.scale(
                     scale: 0.9,
                     // scale:1,
-                    child: shopItem(isIpad: isIpad, isIphone: isIphone)),
+                    child: shopItem(isIpad: isIpad, isIphone: isIphone,productID: "002",topLeftRibbonText: "Exclusive",onClickBuy:(){},onClickGift: (){})),
               ),
               Padding(
                 padding: const EdgeInsets.all(2),
                 child: Transform.scale(
                     scale: 0.9,
                     // scale:1,
-                    child: shopItem(isIpad: isIpad, isIphone: isIphone)),
+                    child: shopItem(isIpad: isIpad, isIphone: isIphone,productID: "003",topLeftRibbonText: "Friends",onClickBuy:(){},onClickGift: (){})),
               ),
             ],
           ),
@@ -2614,7 +2640,7 @@ Widget redeemView({
     ),
   );
 }
-
+//######################################### purchase VIEW content ##############
 Widget purchasesView({
   required bool isIpad,
   required bool isIphone,
@@ -2798,7 +2824,7 @@ Widget purchasesView({
     ),
   );
 }
-
+//######################################### GIFTS VIEW content #################
 Widget giftsView({
   required bool isIpad,
   required bool isIphone,
@@ -2981,4 +3007,4 @@ Widget giftsView({
       ),
     ),
   );
-}
+ }
