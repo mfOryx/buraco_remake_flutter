@@ -1,3 +1,4 @@
+import 'package:buracoplus/menu_views/notices/buttons/menu_title_button.dart';
 import 'package:flutter/material.dart'
     show
         Alignment,
@@ -10,15 +11,9 @@ import 'package:flutter/material.dart'
         Color,
         Colors,
         Container,
-        CrossAxisAlignment,
         Curves,
         Directionality,
-        EdgeInsets,
         Expanded,
-        Icon,
-        IconButton,
-        Icons,
-        MainAxisAlignment,
         Material,
         MaterialType,
         MediaQuery,
@@ -38,9 +33,8 @@ import 'package:buracoplus/menu_views/notices/buttons/menu_buttons.dart'
     show ButtonsNotices;
 import 'package:buracoplus/menu_views/notices/messages_list.dart'
     show InfiniteScrollNotices;
-import 'package:buracoplus/menu_views/notices/text.dart' show NoticeTextTitle;
 import 'package:buracoplus/menu_views/notices/variables.dart'
-    show menuBorderRadius, menuBoxInside;
+    show menuBoxInside;
 
 class NoticesMenu extends StatefulWidget {
   static const double padding1 = 10.0;
@@ -108,36 +102,40 @@ class _NoticesMenuState extends State<NoticesMenu> {
             alignment: Alignment.topCenter,
             fit: StackFit.loose,
             children: [
-              Container(
-                width: double.infinity,
-                height: screenHeight * 0.35,
-                padding: const EdgeInsets.only(
-                  left: 10,
-                  top: 10,
-                  bottom: 100,
-                ),
-                decoration: menuBorderRadius,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const NoticeTextTitle(
-                      noticeText: 'NOTICE',
-                    ),
-                    IconButton(
-                      alignment: Alignment.topRight,
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                      ),
-                      onPressed: widget.onClose,
-                    ),
-                  ],
-                ),
+              NoticesMenuHeader(
+                screenHeight: screenHeight,
+                onClose: widget.onClose,
               ),
+              // Container(
+              //   width: double.infinity,
+              //   height: screenHeight * 0.35,
+              //   padding: const EdgeInsets.only(
+              //     left: 10,
+              //     top: 10,
+              //     bottom: 100,
+              //   ),
+              //   decoration: menuBorderRadius,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       const NoticeTextTitle(
+              //         noticeText: 'NOTICE',
+              //       ),
+              //       IconButton(
+              //         alignment: Alignment.topRight,
+              //         icon: const Icon(
+              //           Icons.close,
+              //           color: Colors.white,
+              //         ),
+              //         padding: const EdgeInsets.only(
+              //           left: 10,
+              //         ),
+              //         onPressed: widget.onClose,
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Positioned(
                 height: screenHeight * 0.05,
                 top: topPosition,

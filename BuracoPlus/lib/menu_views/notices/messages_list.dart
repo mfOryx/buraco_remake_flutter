@@ -94,6 +94,7 @@ class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
 
   @override
   Widget build(BuildContext context) {
+    final double maxHeight = MediaQuery.of(context).size.height * 0.33;
     return Column(
       children: [
         Expanded(
@@ -116,7 +117,7 @@ class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
                 ),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * 0.33,
+                    maxHeight: maxHeight,
                   ),
                   child: SingleChildScrollView(
                     child: Column(
