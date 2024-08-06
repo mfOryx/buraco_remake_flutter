@@ -118,27 +118,62 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
   void _getDummyNotices() {
     _noticeList = [
       {
-        'title': 'Notice 1',
-        'message': 'TEST',
-        // 'date': '2024-08-05',
-        // 'time': '10:00',
-        // 'isRead': false
+        'title': 'SYSTEM',
+        'message':
+            'I am going to configure the following boxes to pickup data from socket.io',
+        'date': '2024-08-05',
+        'time': '10:00',
+        'isRead': false
       },
       {
-        'title': 'Notice 2',
-        'message': 'TEST',
+        'title': 'SYSTEM',
+        'message': 'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n'
+            'You can scroll to infinite this text but the box will never exceed a given size...\n',
+        'date': '2024-08-05',
+        'time': '17:00',
+        'isRead': false
       },
       {
-        'title': 'Notice 3',
-        'message': 'TEST',
+        'title': 'SYSTEM',
+        'message': 'blablabla',
+        'date': '2024-08-05',
+        'time': '10:00',
+        'isRead': false
       },
       {
-        'title': 'Notice 4',
-        'message': 'TEST',
+        'title': 'SYSTEM',
+        'message': 'blablabla',
+        'date': '2024-08-05',
+        'time': '10:00',
+        'isRead': false
       },
       {
-        'title': 'Notice 5',
-        'message': 'TEST',
+        'title': 'SYSTEM',
+        'message': 'blablabla',
+        'date': '2024-08-05',
+        'time': '10:00',
+        'isRead': false
       },
     ];
   }

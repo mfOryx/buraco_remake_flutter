@@ -1,21 +1,34 @@
 import 'package:flutter/material.dart'
     show
+        Alignment,
         AlwaysStoppedAnimation,
+        BorderRadius,
+        BoxConstraints,
+        BoxDecoration,
         BuildContext,
-        Center,
         CircularProgressIndicator,
         Color,
+        Colors,
         Column,
+        ConstrainedBox,
+        Container,
+        CrossAxisAlignment,
         EdgeInsets,
         Expanded,
-        ListTile,
+        FontWeight,
         ListView,
+        MediaQuery,
         Padding,
         ScrollController,
+        SingleChildScrollView,
+        SizedBox,
         State,
         StatefulWidget,
         Text,
+        TextAlign,
+        TextStyle,
         Widget;
+import 'package:flutter/src/widgets/basic.dart';
 
 class InfiniteScrollNotices extends StatefulWidget {
   final List<Map<String, dynamic>> getNotices;
@@ -88,15 +101,83 @@ class _InfiniteScrollNoticesState extends State<InfiniteScrollNotices> {
             controller: _scrollController,
             itemCount: _notices.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Center(
-                  child: Text(
-                    _notices[index]['title'] ?? 'No Title',
-                  ),
+              return Container(
+                margin: EdgeInsets.only(
+                  top: 6.0,
+                  left: 6.0,
+                  right: 6.0,
+                  bottom: 3.0,
                 ),
-                subtitle: Center(
-                  child: Text(
-                    _notices[index]['message'] ?? 'No Message',
+                padding: EdgeInsets.all(8.0),
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(115, 99, 130, 162),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.33,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                _notices[index]['title'] ?? 'No Title',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    _notices[index]['date'] ?? 'No Date',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    _notices[index]['time'] ?? 'No Time',
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Text(
+                            _notices[index]['message'] ?? 'No Message',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 11.5,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
