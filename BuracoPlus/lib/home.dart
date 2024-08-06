@@ -5,7 +5,7 @@ import 'package:buracoplus/lobby.dart';
 import 'package:buracoplus/login/views/login.dart';
 import 'package:buracoplus/options_view.dart';
 import 'package:buracoplus/rankings_view.dart';
-import 'package:buracoplus/shop.dart';
+import 'package:buracoplus/shopViews/shop.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

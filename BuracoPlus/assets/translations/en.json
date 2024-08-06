@@ -668,4 +668,7 @@
     "txtHome":"Home" ,
     "txtShop": "SHOP",
     "txtEnterPassword": "Enter Password..."
+    "txtGift" : "Gift",
+    "txtBuy": "Buy"  ,
+    "txt3LettersNickName"  : "3 Letters NickName"
 }
