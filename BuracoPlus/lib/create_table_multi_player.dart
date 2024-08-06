@@ -15,40 +15,17 @@ class CreateTableMP extends StatefulWidget {
 }
 
 class _CreateTableMPState extends State<CreateTableMP> {
-  bool classicToggle = false;
-  bool professionalToggle = true;
-  bool twoPlayersToggle = true;
-  bool fourPlayersToggle = false;
-  bool directToggle = true;
-  bool indirectToggle = false;
-  bool makartCheckbox = true;
-  bool pointsOne = true;
-  bool pointsTwo = false;
-  bool pointsThree = false;
-  bool pointsFour = false;
-  bool turnTimeOne = true;
-  bool turnTimeTwo = false;
-  bool turnTimeThree = false;
-  bool turnTimeFour = false;
-  bool passwordToggle = false;
-  bool chatToggle = false;
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = false;
-  String? selectedLevel;
-  final List<String> levels =
+  final List<int> levels =
   [
-    "None", "Level 5", "Level 10", "Level 15", "Level 20", "Level 25", "Level 30", "Level 35", "Level 40", "Level 45", "Level 50",
-    "Level 55", "Level 60", "Level 65", "Level 70", "Level 75", "Level 80", "Level 85", "Level 90", "Level 95", "Level 100",
-    "Level 105", "Level 110", "Level 115", "Level 120", "Level 125", "Level 130", "Level 135", "Level 140"
+    0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140
   ];
 
   final PageController frontCardImageController = PageController();
-  int currentFrontCardImage = 0;
   final PageController backCardImageController = PageController();
-  int currentBackCardImage = 0;
   final PageController tableImageController = PageController();
-  int currentTableImage = 0;
 
   final List<String> tableImagePaths = [
     'assets/tablesImages/table_blue.png',
@@ -1768,7 +1745,51 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       ? screenHeight * 0.05
                                                       : screenHeight *
                                                       0.07),
-                                                  child: Transform.scale(
+                                                  child: createTableManager.getPasswordToggle ?
+                                                  SizedBox(
+                                                    width: isIpad ? screenWidth * 0.24 : (isIphone ? screenWidth * 0.0 : screenWidth * 0.0),
+                                                    height: isIpad ? screenHeight * 0.04 : (isIphone ? screenHeight * 0.0 : screenWidth * screenHeight * 0.0),
+                                                    child: TextField(
+                                                      maxLines: 1,
+                                                      textAlign: TextAlign.left,
+                                                      cursorHeight: isIpad ? screenHeight * 0.02 : (isIphone ? screenHeight * 0.03 : screenWidth * screenHeight * 0.03),
+                                                      cursorColor: Colors.black,
+                                                      decoration: InputDecoration(
+                                                        contentPadding: EdgeInsets.only(
+                                                          left: isIpad ? screenWidth * 0.005 : (isIphone ? screenWidth * 0.005 : screenWidth * 0.005),
+                                                        ),
+                                                        hintText: translationManager.translate('txtEnterPassword'),
+                                                        hintStyle: TextStyle(
+                                                          fontSize: screenWidth * 0.015,
+                                                          color: Colors.white,
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Colors.grey.withOpacity(0.8),
+                                                        border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        errorBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                        disabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(5.0),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                  :
+                                                  Transform.scale(
                                                     scaleX: isIpad ? screenWidth * 0.00085 : (isIphone ? screenWidth * 0.0008 : screenWidth * 0.0008),
                                                     scaleY: isIpad ? screenHeight * 0.0011 : (isIphone ? screenHeight * 0.0016 : screenHeight * 0.0016),
                                                     child: Switch(
@@ -1850,10 +1871,8 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                     border: Border.all(color: Colors.black), // Border color
                                                   ),
                                                   child: DropdownButtonHideUnderline(
-                                                    child: DropdownButton<String>(
-                                                      value: createTableManager.selectedLevel!.isNotEmpty
-                                                          ? createTableManager.selectedLevel
-                                                          : null,
+                                                    child: DropdownButton<int>(
+                                                      value: createTableManager.selectedLevel,
                                                       hint: Text(
                                                         "Min. Level",
                                                         style: TextStyle(
@@ -1861,11 +1880,11 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                           fontSize: isIpad ? screenWidth * 0.012 : (isIphone ? screenWidth * 0.01 : screenWidth * 0.01),
                                                         ),
                                                       ),
-                                                      items: levels.toSet().map((String level) {
-                                                        return DropdownMenuItem<String>(
+                                                      items: levels.toSet().map((int level) {
+                                                        return DropdownMenuItem<int>(
                                                           value: level,
                                                           child: Text(
-                                                            level,
+                                                            "Level $level",
                                                             style: TextStyle(
                                                               color: Colors.white,
                                                               fontSize: isIpad ? screenWidth * 0.012 : (isIphone ? screenWidth * 0.01 : screenWidth * 0.01),
@@ -1873,8 +1892,10 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                           ),
                                                         );
                                                       }).toList(),
-                                                      onChanged: (String? newValue) {
-                                                        createTableManager.setSelectedLevel(newValue!);
+                                                      onChanged: (int? newValue) {
+                                                        if (newValue != null) {
+                                                          createTableManager.setSelectedLevel(newValue);
+                                                        }
                                                       },
                                                       dropdownColor: const Color.fromRGBO(90, 64, 126, 1),
                                                       style: const TextStyle(color: Colors.white), // Selected text color
@@ -1932,7 +1953,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       },
                                                       itemCount: cardImageFrontPaths.length,
                                                       itemBuilder: (context, index) {
-                                                        return Image.asset(cardImageFrontPaths[index]);
+                                                        return Image.asset(cardImageFrontPaths[createTableManager.getSelectedStyle]);
                                                       },
                                                     ),
                                                   ),
@@ -2053,7 +2074,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       },
                                                       itemCount: cardImageBackPaths.length,
                                                       itemBuilder: (context, index) {
-                                                        return Image.asset(cardImageBackPaths[index]);
+                                                        return Image.asset(cardImageBackPaths[createTableManager.getSelectedDeck]);
                                                       },
                                                     ),
                                                   ),
@@ -2174,7 +2195,7 @@ class _CreateTableMPState extends State<CreateTableMP> {
                                                       },
                                                       itemCount: tableImagePaths.length,
                                                       itemBuilder: (context, index) {
-                                                        return Image.asset(tableImagePaths[index]);
+                                                        return Image.asset(tableImagePaths[createTableManager.getSelectedTable]);
                                                       },
                                                     ),
                                                   ),

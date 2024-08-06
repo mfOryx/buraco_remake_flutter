@@ -2,8 +2,14 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helpers/user.dart';
+import '../models/logged_in_player.dart';
+import '../models/tables.dart';
+
 class CreateTableProvider with ChangeNotifier {
 
+  LoggedInPlayer? user = User().getPlayer();
+  String? username;
   bool classicToggle = false;
   bool professionalToggle = true;
   bool twoPlayersToggle = true;
@@ -20,11 +26,18 @@ class CreateTableProvider with ChangeNotifier {
   bool turnTimeThree = false;
   bool turnTimeFour = false;
   bool passwordToggle = false;
+  String? password = "";
   bool chatToggle = false;
-  String? selectedLevel = "None";
+  int selectedLevel = 0;
   int selectedStyle = 0;
   int selectedDeck = 0;
   int selectedTable = 0;
+  List<TablePlayers> players = [
+    TablePlayers(playerId: '0', ip: '0', chairId: 0,),
+    TablePlayers(playerId: '0', ip: '0', chairId: 0,),
+    TablePlayers(playerId: '0', ip: '0', chairId: 0,),
+    TablePlayers(playerId: '0', ip: '0', chairId: 0,),
+  ];
 
   bool get getClassicToggle => classicToggle;
   bool get getProfessionalToggle => professionalToggle;
@@ -42,8 +55,9 @@ class CreateTableProvider with ChangeNotifier {
   bool get getTurnTimeThree => turnTimeThree;
   bool get getTurnTimeFour => turnTimeFour;
   bool get getPasswordToggle => passwordToggle;
+  String? get getPassword => password;
   bool get getChatToggle => chatToggle;
-  String? get getSelectedLevel => selectedLevel;
+  int get getSelectedLevel => selectedLevel;
   int get getSelectedStyle => selectedStyle;
   int get getSelectedDeck => selectedDeck;
   int get getSelectedTable => selectedTable;
@@ -144,13 +158,19 @@ class CreateTableProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setPassword(String value) {
+    password = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
   void setChatToggle(bool value) {
     chatToggle = value;
     saveOptionsDataInSharedPreferences();
     notifyListeners();
   }
 
-  void setSelectedLevel(String value) {
+  void setSelectedLevel(int value) {
     selectedLevel = value;
     saveOptionsDataInSharedPreferences();
     notifyListeners();
@@ -278,8 +298,9 @@ class CreateTableProvider with ChangeNotifier {
     pointsThree = prefs.getBool('pointsThree') ?? pointsThree;
     pointsFour = prefs.getBool('pointsFour') ?? pointsFour;
     passwordToggle = prefs.getBool('passwordToggle') ?? passwordToggle;
+    password = prefs.getString('password') ?? password;
     chatToggle = prefs.getBool('chatToggle') ?? chatToggle;
-    selectedLevel = prefs.getString('selectedLevel') ?? selectedLevel;
+    selectedLevel = prefs.getInt('selectedLevel') ?? selectedLevel;
     selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
     selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
     selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
@@ -292,24 +313,20 @@ class CreateTableProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> options = {};
 
-    options['classicToggle'] = prefs.getBool('classicToggle') ?? classicToggle;
-    options['professionalToggle'] = prefs.getBool('professionalToggle') ?? professionalToggle;
-    options['twoPlayersToggle'] = prefs.getBool('twoPlayersToggle') ?? twoPlayersToggle;
-    options['fourPlayersToggle'] = prefs.getBool('fourPlayersToggle') ?? fourPlayersToggle;
-    options['directToggle'] = prefs.getBool('directToggle') ?? directToggle;
-    options['indirectToggle'] = prefs.getBool('indirectToggle') ?? indirectToggle;
-    options['makartCheckbox'] = prefs.getBool('makartCheckbox') ?? makartCheckbox;
-    options['turnTimeOne'] = prefs.getBool('turnTimeOne') ?? turnTimeOne;
-    options['turnTimeTwo'] = prefs.getBool('turnTimeTwo') ?? turnTimeTwo;
-    options['turnTimeThree'] = prefs.getBool('turnTimeThree') ?? turnTimeThree;
-    options['turnTimeFour'] = prefs.getBool('turnTimeFour') ?? turnTimeFour;
-    options['pointsOne'] = prefs.getBool('pointsOne') ?? pointsOne;
-    options['pointsTwo'] = prefs.getBool('pointsTwo') ?? pointsTwo;
-    options['pointsThree'] = prefs.getBool('pointsThree') ?? pointsThree;
-    options['pointsFour'] = prefs.getBool('pointsFour') ?? pointsFour;
-    options['passwordToggle'] = prefs.getBool('passwordToggle') ?? passwordToggle;
-    options['chatToggle'] = prefs.getBool('chatToggle') ?? chatToggle;
-    options['selectedLevel'] = prefs.getString('selectedLevel') ?? selectedLevel;
+    options['tableName'] = "Table of " + username!;
+    options['gameRule'] = (prefs.getBool('classicToggle') ?? classicToggle) ? 1 : 2;
+    options['numberOfPlayers'] = (prefs.getBool('twoPlayersToggle') ?? twoPlayersToggle) ? 2 : 4;
+    options['isDirect'] = (prefs.getBool('directToggle') ?? directToggle) ? 1 : 0;
+    options['isMakart'] = (prefs.getBool('makartCheckbox') ?? makartCheckbox) ? 1 : 0;
+    options['turnTime'] = (prefs.getBool('turnTimeOne') ?? turnTimeOne) ? 15 : ((prefs.getBool('turnTimeTwo') ?? turnTimeTwo) ? 30
+        : ((prefs.getBool('turnTimeThree') ?? turnTimeThree) ? 45 : ((prefs.getBool('turnTimeFour') ?? turnTimeFour) ? 60 : 15)));
+    options['pointsToWin'] = (prefs.getBool('pointsOne') ?? pointsOne) ? "One Hand" : ((prefs.getBool('pointsTwo') ?? pointsTwo)
+        ? ((prefs.getBool('classicToggle') ?? classicToggle) ? "1005" : "1505") : ((prefs.getBool('pointsThree') ?? pointsThree)
+        ? ((prefs.getBool('classicToggle') ?? classicToggle) ? "1505" : "2000") : ((prefs.getBool('pointsFour') ?? pointsFour)
+        ? "2005" : "One Hand")));
+    options['password'] = (prefs.getBool('passwordToggle') ?? passwordToggle) ? password : null;
+    options['chatToggle'] = (prefs.getBool('chatToggle') ?? chatToggle) ? 1 : 0;
+    options['selectedLevel'] = prefs.getInt('selectedLevel') ?? selectedLevel;
     options['selectedStyle'] = prefs.getInt('selectedStyle') ?? selectedStyle;
     options['selectedDeck'] = prefs.getInt('selectedDeck') ?? selectedDeck;
     options['selectedTable'] = prefs.getInt('selectedTable') ?? selectedTable;
@@ -339,7 +356,7 @@ class CreateTableProvider with ChangeNotifier {
     await prefs.setBool('pointsFour', pointsFour);
     await prefs.setBool('passwordToggle', passwordToggle);
     await prefs.setBool('chatToggle', chatToggle);
-    await prefs.setString('selectedLevel', selectedLevel!);
+    await prefs.setInt('selectedLevel', selectedLevel!);
     await prefs.setInt('selectedStyle', selectedStyle);
     await prefs.setInt('selectedDeck', selectedDeck);
     await prefs.setInt('selectedTable', selectedTable);
@@ -382,7 +399,7 @@ class CreateTableProvider with ChangeNotifier {
     pointsFour = prefs.getBool('pointsFour') ?? pointsFour;
     passwordToggle = prefs.getBool('passwordToggle') ?? passwordToggle;
     chatToggle = prefs.getBool('chatToggle') ?? chatToggle;
-    selectedLevel = prefs.getString('selectedLevel') ?? selectedLevel;
+    selectedLevel = prefs.getInt('selectedLevel') ?? selectedLevel;
     selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
     selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
     selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
@@ -441,10 +458,10 @@ class CreateTableProvider with ChangeNotifier {
         await prefs.setBool('pointsFour', settings['pointsFour'] ?? pointsFour);
         await prefs.setBool('passwordToggle', settings['passwordToggle'] ?? passwordToggle);
         await prefs.setBool('chatToggle', settings['chatToggle'] ?? chatToggle);
-        await prefs.setString('selectedLevel', settings['selectedLevel'] ?? selectedLevel);
+        await prefs.setInt('selectedLevel', settings['selectedLevel'] ?? selectedLevel);
         await prefs.setInt('selectedStyle', settings['selectedStyle'] ?? selectedStyle);
         await prefs.setInt('selectedDeck', settings['selectedDeck'] ?? selectedDeck);
-        await prefs.setInt('selectedTable', settings['selectedTable'] ?? selectedTable);
+        await prefs.setInt('selectedT able', settings['selectedTable'] ?? selectedTable);
 
         // update the state variables and call notify listeners to update the settings UI
         loadOptionsFromSharedPreferences();

@@ -666,6 +666,6 @@
     "txtSpecial":"Special",
     "txtRedeem":"Redeem",
     "txtHome":"Home" ,
-    "txtShop": "SHOP"
-
+    "txtShop": "SHOP",
+    "txtEnterPassword": "Enter Password..."
 }
