@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:buracoplus/common/toast_with_button.dart';
 import 'common/translation_manager.dart';
+import 'profile/player_profile_in_lobby_view.dart';
+import 'providers/dialog_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -489,7 +491,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                 height: 70,
                                 child: FloatingActionButton(
                                   heroTag: null,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      Provider.of<DialogProvider>(context,
+                                              listen: false)
+                                          .showPlayerProfileDialog();
+                                    });
+                                  },
                                   backgroundColor: Colors.transparent,
                                   splashColor: Colors.transparent,
                                   elevation: 0.0,
@@ -546,6 +554,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   isMenuVisible: isMenuVisible,
                   launchURL: launchUrl,
                 ),
+                const PlayerProfileLobbyView()
               ],
             ),
           ),

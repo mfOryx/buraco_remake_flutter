@@ -54,6 +54,7 @@ dependencies:
   jailbreak_root_detection: "^1.1.4"
   flutter_udid: ^3.0.0
   intl: ^0.19.0
+  clip_shadowx: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

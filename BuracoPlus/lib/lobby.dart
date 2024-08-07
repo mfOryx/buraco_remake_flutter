@@ -67,6 +67,7 @@ import 'package:provider/provider.dart' show Provider;
 import 'common/general_functions.dart' show getPublicIP;
 import 'common/translation_manager.dart' show TranslationManager;
 import 'invite_friends.dart' show InviteFriends;
+import 'profile/opponent_profile_view.dart';
 
 class Lobby extends StatefulWidget {
   const Lobby({
@@ -826,7 +827,14 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
                                             height: 70,
                                             child: FloatingActionButton(
                                               heroTag: null,
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                setState(() {
+                                                  Provider.of<DialogProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .showPlayerProfileDialog();
+                                                });
+                                              },
                                               backgroundColor:
                                                   Colors.transparent,
                                               splashColor: Colors.transparent,
@@ -886,6 +894,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
             ),
             //// BARRA END \\\\
             const InviteFriends(),
+            const OpponentProfileView()
           ],
         ),
       ),
