@@ -670,5 +670,10 @@
     "txtEnterPassword": "Enter Password...",
     "txtGift" : "Gift",
     "txtBuy": "Buy"  ,
-    "txt3LettersNickName"  : "3 Letters NickName"
+    "txt3LettersNickName"  : "3 Letters NickName" ,
+    "txtExclusiveCards"  : "Exclusive Cards" ,
+
+    "txtExclusiveCardsHeading1": "create your games with custom cards, wait for the acceptance of your uploaded custom card images up to 72 hours. Rejecting your uploaded custom cards images will be return your coins to your account.",
+    "txtExclusiveCardsHeading2": "You  can have more than one custom cards to enjoy a variety of customizations. For the best resolution, choose an image size of 164*226.",
+    "txtExclusiveCardsHeading3": "Free accounts cannot use this item wait for the acceptance of your."
 }

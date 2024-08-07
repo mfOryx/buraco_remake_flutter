@@ -28,12 +28,11 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = true;
-
+  List<String> searchedNames = [];
   // ################################ HELPERS FUNCTIONS
   bool isIOS() {
     return Platform.isIOS;
   }
-
   bool isAndroid() {
     return Platform.isAndroid;
   }
@@ -59,18 +58,6 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
     }
     setState(() {});
   }
-
-  void toggleSelection(String toggleSelected) {
-    switch (toggleSelected) {
-      case "professionalToggle":
-        setState(() {});
-        return;
-      default:
-        return;
-    }
-  }
-
-  // ################################ FUNCTIONS ON CLICK/PRESSED/TAP
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +171,7 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                           //####################################################### INNER WHITE DIALOG ####################
                           Padding(
                             padding: EdgeInsets.only(top: (isIphone) ? 16 : 15,
-                                bottom: (isIphone) ? 46 : 62),
+                                bottom: (isIphone) ? 20 : 62),
                             child: Align(
                               alignment: Alignment.bottomCenter,
 
@@ -194,8 +181,8 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                                     ? screenWidth * 0.34
                                     : screenWidth * 0.40,
                                 height: isIphone
-                                    ? screenHeight * 0.61
-                                    : screenHeight * 0.65,
+                                    ? screenHeight * 0.64
+                                    : screenHeight * 0.64,
                                 decoration: BoxDecoration(
                                   color: const Color.fromRGBO(
                                       240, 240, 240, 1), // Box color
@@ -211,9 +198,11 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                                       //##########################################################
                                       //##################### SEARCH TEXT FIELD ##################
                                       //##########################################################
+                                      SizedBox(height: (isIphone)?4:10,),
                                       Container( // Wrap TextField in a Container
+                                      
                                         width:(isIphone)?240: 300.0, // Set width
-                                        height:(isIphone)?36: 50.0, // Set height
+                                        height:(isIphone)?34: 50.0, // Set height
                                         decoration: BoxDecoration( // Add decoration to the Container
                                           color: Colors.white70, // Background color
                                           boxShadow: [ // Add shadow
@@ -226,6 +215,7 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                                           borderRadius: BorderRadius.circular(12.0), // Rounded corners
                                         ),
                                         child: TextField( // Create a TextField inside the Container
+                                          onChanged: onSearchFieldChange,
                                           decoration: InputDecoration( // Add decoration to the TextField
                                             border: InputBorder.none, // Removes the border
                                             filled: true, // Enables background color
@@ -244,11 +234,11 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                                       SingleChildScrollView(
 
                                           child:  SizedBox(
-
+                                          
                                             height: isIphone
-                                                ? screenHeight * 0.41
-                                                : screenHeight * 0.55,
-
+                                                ? screenHeight * 0.52
+                                                : screenHeight * 0.54,
+                                          
                                             child: userListItem(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
                                           )
                                       ),
@@ -262,7 +252,7 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                           Positioned(
                               left:(isIphone)? -15:0,
                               right: 0,
-                              top: (isIphone) ? 40 : 60,
+                              top: (isIphone) ? 36 : 60,
                               child: topAvatarWithText(
                                 context: context,
                                 screenWidth: screenWidth,
@@ -283,8 +273,6 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
     );
   }
 
-
-
   Widget topAvatarWithText({
     required BuildContext context,
     required double screenWidth,
@@ -297,19 +285,21 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
     final rankingProvider = Provider.of<RankingProvider>(context);
 
     return Padding(
-      padding: EdgeInsets.only(left: (screenWidth * (0.15)) / 2,),
+      padding: EdgeInsets.only(left: (screenWidth * (0.1)) / 2,),
       child: Row(
         children: [
       Container(
-       // color: Colors.lightGreenAccent,
-       width:  (isIphone)?  screenWidth * 0.22:screenWidth * 0.28 ,
+        //color: Colors.lightGreenAccent,
+       width:  (isIphone)?  screenWidth * 0.31:screenWidth * 0.34 ,
           height : (isIphone)? screenHeight * 0.13 : screenHeight * 0.13,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
             CircleAvatar(
+              backgroundImage: AssetImage('assets/shop/nickname.png'),
             radius: (isIphone)?40:60,
           ),
+              (isIpad)?SizedBox(width: 16,):SizedBox(width: 0,),
              Column(
                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +344,7 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
     
     return ListView.builder(
 
-      itemCount: combinations.length,
+      itemCount: (searchedNames.length>0) ? searchedNames.length:combinations.length,
       itemBuilder: (context, index) {
         return Padding(
           padding:  EdgeInsets.only(left:(isIphone)?0:18,right:(isIphone) ?0:18,top: 8,bottom: 2),
@@ -369,7 +359,7 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
               }, // End of onPressed
               style: OutlinedButton.styleFrom(
                 // Define the button style
-                
+
                 foregroundColor: Colors.black, backgroundColor: Colors.white, // Button background color (white)
                 side: BorderSide(color: Colors.black),
                 shape: RoundedRectangleBorder(
@@ -389,7 +379,9 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
 
-                  Text(combinations[index].toUpperCase(),
+                  Text(
+
+                    (searchedNames.length>0) ? searchedNames[index].toUpperCase() : combinations[index].toUpperCase(),
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -424,109 +416,15 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
     );
   }
 
+ 
 
-  Widget bottomListItem({
-    required BuildContext context,
-    required double screenWidth,
-    required double screenHeight,
-    required bool isIpad,
-    required bool isIphone,
-    required String imageUrl  ,
-    required String userName,
-    required String points
-
-  }) {
-    //final translationManager = Provider.of<TranslationManager>(context);
-    //final settingsManager = Provider.of<SettingsManager>(context);
-    final rankingProvider = Provider.of<RankingProvider>(context);
-
-    return
-
-
-      Padding(
-        padding: EdgeInsets.only(top: (isIphone) ? 20 : 15,
-            bottom: (isIphone) ? 5 : 25),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-
-          child: Container(
-            width: isIphone
-                ? screenWidth * 0.34
-                : screenWidth * 0.37,
-            height: isIphone
-                ? screenHeight * 0.09
-                : screenHeight * 0.06,
-            decoration: BoxDecoration(
-                color: const Color.fromRGBO(
-                    76, 29, 100, 1.0), // Box color
-                borderRadius: BorderRadius.circular(8.0),
-
-                border: Border.all(
-                    width: (isIphone)?3:5,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                    color: const Color.fromRGBO(
-                        69, 32, 110, 0.4))
-            ),
-            child:
-            Padding(
-              padding: const EdgeInsets.only(top: 2.0,bottom: 2.0),
-              child: Row(
-
-                children: [
-                  //############### SPACE
-                  SizedBox(width: (isIphone)?15:12,),
-                  //############### RANK No.
-                  Text(rankingProvider.myRanking.playerRank.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: (isIphone) ? 13 : 18,
-                    ),
-                  )  ,
-                  //############### SPACE
-                  SizedBox(width: (isIphone)?12:12,),
-                  //############### AVATAR OF THE USER
-                  Container(
-                    width: (isIphone)?35:45,
-                    height: (isIphone)?35:45,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color.fromRGBO(
-                          228, 180, 255, 0.85), width: 2),
-                    ),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(rankingProvider.myRanking.avatarUrl.toString()),
-                      radius:(isIphone)? 15.5:25,
-                    ),
-                  ) ,
-                  //############### SPACE
-                  SizedBox(width: (isIphone)?4:4,),
-                  //############### USERNAME
-                  Text(rankingProvider.myRanking.playerName.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: (isIphone) ? 13 : 18,
-                    ),
-                  )  ,
-                  //############### SPACE
-                  SizedBox(width: (isIphone)?110:230,),
-                  //############### POINTS
-                  Text(rankingProvider.myRanking.playerPoints.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: (isIphone) ? 13 : 18,
-                    ),
-                  )  ,
-
-
-                ],
-              ) ,
-            ),
-          ),
-        ),
-      );
+  // ... FUNCTION TO TRIGGER UPON TEXT FIELD CHANGE ...
+  void onSearchFieldChange(String value) {
+    setState(() {
+      if(value == "")
+        searchedNames = [];
+      else
+        searchedNames = NicknamesGenerator().searchCombinations(value);
+    });
   }
-
 }

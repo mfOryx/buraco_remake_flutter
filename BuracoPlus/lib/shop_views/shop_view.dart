@@ -1,4 +1,5 @@
-import 'package:buracoplus/shopViews/three_letters_buy.dart';
+import 'package:buracoplus/shop_views/exclusive_cards_view.dart';
+import 'package:buracoplus/shop_views/three_letters_buy.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class MainShopDialog extends StatefulWidget {
   State<MainShopDialog> createState() => _MainShopDialogState();
 }
 
-class _MainShopDialogState extends State<MainShopDialog> {
+class _MainShopDialogState extends State<MainShopDialog>
+{
   //#############################################################################
   //############################### | STATE VARIABLES | #########################
   // TABS RELATED
@@ -1267,6 +1269,7 @@ Widget topLeftRibbon({
         )),
   );
 }
+
 // #############################################################################
 // ############################### |  CONTENT WIDGETS   | ######################
 // #############################################################################
@@ -2278,6 +2281,7 @@ Widget specialView({
                         topLeftRibbonText: "3 letters",
                         onClickBuy: () {
                           showDialog(
+                           // useSafeArea: false,
                             context: context,
                             builder: (BuildContext context) {
                               return const ThreeLettersBuy();
@@ -2296,7 +2300,15 @@ Widget specialView({
                         isIphone: isIphone,
                         productID: "002",
                         topLeftRibbonText: "Exclusive",
-                        onClickBuy: () {},
+                        onClickBuy: () {
+                          showDialog(
+                            // useSafeArea: false,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const ExclusiveCardsView();
+                            },
+                          );
+                        },
                         onClickGift: () {})),
               ),
               Padding(
