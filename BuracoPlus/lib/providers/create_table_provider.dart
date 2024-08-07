@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../helpers/user.dart';
 import '../models/logged_in_player.dart';
 import '../models/tables.dart';
+import '../sockets/socket_service.dart';
 
 class CreateTableProvider with ChangeNotifier {
   LoggedInPlayer? user = User().getPlayer();
@@ -31,28 +31,18 @@ class CreateTableProvider with ChangeNotifier {
   int selectedStyle = 0;
   int selectedDeck = 0;
   int selectedTable = 0;
-  List<TablePlayers> players = [
-    TablePlayers(
-      playerId: '0',
-      ip: '0',
-      chairId: 0,
-    ),
-    TablePlayers(
-      playerId: '0',
-      ip: '0',
-      chairId: 0,
-    ),
-    TablePlayers(
-      playerId: '0',
-      ip: '0',
-      chairId: 0,
-    ),
-    TablePlayers(
-      playerId: '0',
-      ip: '0',
-      chairId: 0,
-    ),
-  ];
+  bool isLeftChairOccupied = false;
+  bool isRightChairOccupied = false;
+  bool isTopChairOccupied = false;
+  bool isBottomChairOccupied = false;
+  bool isLeftChairSelected = false;
+  bool isRightChairSelected = false;
+  bool isTopChairSelected = false;
+  bool isBottomChairSelected = false;
+  TablePlayers playerNorth = TablePlayers(playerId: '0', ip: '0', chairId: 0,);
+  TablePlayers playerSouth = TablePlayers(playerId: '0', ip: '0', chairId: 0,);
+  TablePlayers playerEast = TablePlayers(playerId: '0', ip: '0', chairId: 0,);
+  TablePlayers playerWest = TablePlayers(playerId: '0', ip: '0', chairId: 0,);
 
   bool get getClassicToggle => classicToggle;
   bool get getProfessionalToggle => professionalToggle;
@@ -76,6 +66,18 @@ class CreateTableProvider with ChangeNotifier {
   int get getSelectedStyle => selectedStyle;
   int get getSelectedDeck => selectedDeck;
   int get getSelectedTable => selectedTable;
+  bool get getIsLeftChairOccupied => isLeftChairOccupied;
+  bool get getIsRightChairOccupied => isRightChairOccupied;
+  bool get getIsTopChairOccupied => isTopChairOccupied;
+  bool get getIsBottomChairOccupied => isBottomChairOccupied;
+  bool get getIsLeftChairSelected => isLeftChairSelected;
+  bool get getIsRightChairSelected => isRightChairSelected;
+  bool get getIsTopChairSelected => isTopChairSelected;
+  bool get getIsBottomChairSelected => isBottomChairSelected;
+  TablePlayers get getPlayerNorth => playerNorth;
+  TablePlayers get getPlayerSouth => playerSouth;
+  TablePlayers get getPlayerEast => playerEast;
+  TablePlayers get getPlayerWest => playerWest;
 
   void setClassicToggle(bool value) {
     classicToggle = value;
@@ -209,6 +211,86 @@ class CreateTableProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void setIsLeftChairOccupied (bool value){
+    isLeftChairOccupied = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsRightChairOccupied (bool value){
+    isRightChairOccupied = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsTopChairOccupied (bool value){
+    isTopChairOccupied = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsBottomChairOccupied (bool value){
+    isBottomChairOccupied = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsLeftChairSelected (bool value){
+    isLeftChairSelected = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsRightChairSelected (bool value){
+    isRightChairSelected = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsTopChairSelected (bool value){
+    isTopChairSelected = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setIsBottomChairSelected (bool value){
+    isBottomChairSelected = value;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setPlayerNorth({String? playerId, String? ip, int? chairId}) {
+    if (playerId != null) playerNorth.playerId = playerId;
+    if (ip != null) playerNorth.ip = ip;
+    if (chairId != null) playerNorth.chairId = chairId;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setPlayerSouth({String? playerId, String? ip, int? chairId}) {
+    if (playerId != null) playerSouth.playerId = playerId;
+    if (ip != null) playerSouth.ip = ip;
+    if (chairId != null) playerSouth.chairId = chairId;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setPlayerEast({String? playerId, String? ip, int? chairId}) {
+    if (playerId != null) playerEast.playerId = playerId;
+    if (ip != null) playerEast.ip = ip;
+    if (chairId != null) playerEast.chairId = chairId;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
+  void setPlayerWest({String? playerId, String? ip, int? chairId}) {
+    if (playerId != null) playerWest.playerId = playerId;
+    if (ip != null) playerWest.ip = ip;
+    if (chairId != null) playerWest.chairId = chairId;
+    saveOptionsDataInSharedPreferences();
+    notifyListeners();
+  }
+
   void toggleSelection(String toggleSelected) {
     switch (toggleSelected) {
       case "classicToggle":
@@ -320,6 +402,10 @@ class CreateTableProvider with ChangeNotifier {
     selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
     selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
     selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
+    playerNorth.updateFromPrefs('playerNorth', prefs);
+    playerSouth.updateFromPrefs('playerSouth', prefs);
+    playerEast.updateFromPrefs('playerEast', prefs);
+    playerWest.updateFromPrefs('playerWest', prefs);
 
     notifyListeners();
   }
@@ -328,7 +414,7 @@ class CreateTableProvider with ChangeNotifier {
   Future<String> prepareAllOptionsInJsonFormat() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> options = {};
-
+    username = user!.playerName;
     options['tableName'] = "Table of " + username!;
     options['gameRule'] =
         (prefs.getBool('classicToggle') ?? classicToggle) ? 1 : 2;
@@ -365,6 +451,12 @@ class CreateTableProvider with ChangeNotifier {
     options['selectedStyle'] = prefs.getInt('selectedStyle') ?? selectedStyle;
     options['selectedDeck'] = prefs.getInt('selectedDeck') ?? selectedDeck;
     options['selectedTable'] = prefs.getInt('selectedTable') ?? selectedTable;
+    options['players'] = {
+      'playerNorth': playerNorth.toJson(),
+      'playerSouth': playerSouth.toJson(),
+      'playerEast': playerEast.toJson(),
+      'playerWest': playerWest.toJson(),
+    };
 
     return jsonEncode(options);
   }
@@ -394,14 +486,22 @@ class CreateTableProvider with ChangeNotifier {
     await prefs.setInt('selectedStyle', selectedStyle);
     await prefs.setInt('selectedDeck', selectedDeck);
     await prefs.setInt('selectedTable', selectedTable);
+    await playerNorth.saveToPrefs('playerNorth', prefs);
+    await playerSouth.saveToPrefs('playerSouth', prefs);
+    await playerEast.saveToPrefs('playerEast', prefs);
+    await playerWest.saveToPrefs('playerWest', prefs);
 
     if (kDebugMode) {
       print("Shared Prefrences changed : ");
     }
     //Prepare the JSON and send it to the server
-    //String settingJsonString = await prepareAllSettingsInJsonFormat();
-    // Post the JSON to the server
+    String optionsJsonString = await prepareAllOptionsInJsonFormat();
+    // Emit the JSON to the server
     //  SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
+    // if (SocketService.isConnected()) {
+    //   Map<String, dynamic> getAllTables = await SocketService.emitWithAck(
+    //       'getAllTables', {'playerId': currentlyLoggedInPlayer.id});
+    //   }
   }
 
   //***************************************************************************
@@ -437,6 +537,10 @@ class CreateTableProvider with ChangeNotifier {
     selectedStyle = prefs.getInt('selectedStyle') ?? selectedStyle;
     selectedDeck = prefs.getInt('selectedDeck') ?? selectedDeck;
     selectedTable = prefs.getInt('selectedTable') ?? selectedTable;
+    playerNorth.updateFromPrefs('playerNorth', prefs);
+    playerSouth.updateFromPrefs('playerSouth', prefs);
+    playerEast.updateFromPrefs('playerEast', prefs);
+    playerWest.updateFromPrefs('playerWest', prefs);
 
     if (kDebugMode) {
       print(">>loadAndSaveSettingsFromAndToSharedPreferences<<<");
@@ -511,7 +615,34 @@ class CreateTableProvider with ChangeNotifier {
         await prefs.setInt(
             'selectedDeck', settings['selectedDeck'] ?? selectedDeck);
         await prefs.setInt(
-            'selectedT able', settings['selectedTable'] ?? selectedTable);
+            'selectedTable', settings['selectedTable'] ?? selectedTable);
+        await prefs.setString(
+            'playerNorthPlayerId', settings['playerNorth']['playerId'] ?? playerNorth.playerId);
+        await prefs.setString(
+            'playerNorthIp', settings['playerNorth']['ip'] ?? playerNorth.ip);
+        await prefs.setInt(
+            'playerNorthChairId', settings['playerNorth']['chairId'] ?? playerNorth.chairId);
+
+        await prefs.setString(
+            'playerSouthPlayerId', settings['playerSouth']['playerId'] ?? playerSouth.playerId);
+        await prefs.setString(
+            'playerSouthIp', settings['playerSouth']['ip'] ?? playerSouth.ip);
+        await prefs.setInt(
+            'playerSouthChairId', settings['playerSouth']['chairId'] ?? playerSouth.chairId);
+
+        await prefs.setString(
+            'playerEastPlayerId', settings['playerEast']['playerId'] ?? playerEast.playerId);
+        await prefs.setString(
+            'playerEastIp', settings['playerEast']['ip'] ?? playerEast.ip);
+        await prefs.setInt(
+            'playerEastChairId', settings['playerEast']['chairId'] ?? playerEast.chairId);
+
+        await prefs.setString(
+            'playerWestPlayerId', settings['playerWest']['playerId'] ?? playerWest.playerId);
+        await prefs.setString(
+            'playerWestIp', settings['playerWest']['ip'] ?? playerWest.ip);
+        await prefs.setInt(
+            'playerWestChairId', settings['playerWest']['chairId'] ?? playerWest.chairId);
 
         // update the state variables and call notify listeners to update the settings UI
         loadOptionsFromSharedPreferences();

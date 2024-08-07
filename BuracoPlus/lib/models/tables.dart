@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class TablePlayers {
   String? playerId;
   String? ip;
@@ -8,6 +10,16 @@ class TablePlayers {
     this.ip,
     this.chairId,
   });
+  void updateFromPrefs(String prefix, SharedPreferences prefs) {
+    playerId = prefs.getString('${prefix}PlayerId') ?? playerId;
+    ip = prefs.getString('${prefix}Ip') ?? ip;
+    chairId = prefs.getInt('${prefix}ChairId') ?? chairId;
+  }
+  Future<void> saveToPrefs(String prefix, SharedPreferences prefs) async {
+    await prefs.setString('${prefix}PlayerId', playerId!);
+    await prefs.setString('${prefix}Ip', ip!);
+    await prefs.setInt('${prefix}ChairId', chairId!);
+  }
   TablePlayers.fromJson(Map<String, dynamic> json) {
     playerId = json['playerId']?.toString();
     ip = json['ip']?.toString();
