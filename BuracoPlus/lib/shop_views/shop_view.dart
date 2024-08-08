@@ -1,3 +1,4 @@
+import 'package:buracoplus/shop_views/buy_confirm_popup.dart';
 import 'package:buracoplus/shop_views/exclusive_cards_view.dart';
 import 'package:buracoplus/shop_views/three_letters_buy.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -901,33 +902,7 @@ Widget shopItem({
 
         topLeftRibbon(
             isIpad: isIpad, isIphone: isIphone, text: topLeftRibbonText),
-        // Positioned(
-        //   top: 0,
-        //   left: (isIphone) ? 100 : 160,
-        //   right: 0,
-        //   child: Container(
-        //       height: (isIphone) ? 20 : 30, // 70% of 300
-        //       decoration: const BoxDecoration(
-        //         color: Colors.amber,
-        //         borderRadius: BorderRadius.only(
-        //           topLeft: Radius.circular(10),
-        //           topRight: Radius.circular(10),
-        //           bottomLeft: Radius.circular(10),
-        //           bottomRight:
-        //               Radius.circular(0), // No radius for bottom-right corner
-        //         ),
-        //       ),
-        //       child: Align(
-        //         alignment: Alignment.center,
-        //         child: Text(
-        //           "popular",
-        //           style: TextStyle(
-        //               color: Colors.white,
-        //               fontWeight: FontWeight.bold,
-        //               fontSize: (isIphone) ? 14 : 16),
-        //         ),
-        //       )),
-        // ),
+      
       ],
     ),
   );
@@ -2321,7 +2296,16 @@ Widget specialView({
                         isIphone: isIphone,
                         productID: "003",
                         topLeftRibbonText: "Friends",
-                        onClickBuy: () {},
+                        onClickBuy: () {
+                          showDialog(
+                            // useSafeArea: false,
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const BuyConfirmPopup();
+                            },
+                          );
+
+                        },
                         onClickGift: () {})),
               ),
             ],

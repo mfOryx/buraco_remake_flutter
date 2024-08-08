@@ -353,23 +353,30 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
 
             dense:(isIphone)?true: false,
 
-            trailing: OutlinedButton( // Create an OutlinedButton
-              onPressed: () { // Define the onPressed event
-                // Add your onPressed code here! This is what happens when the button is pressed.
-              }, // End of onPressed
-              style: OutlinedButton.styleFrom(
-                // Define the button style
+            trailing: SizedBox(
+              height: (isIphone)?26:40,
+              width: (isIphone)?70:96,
+              child: OutlinedButton(
+                onPressed: () {
+                  // Add your onPressed code here! This is what happens when the button is pressed.
+                }, // End of onPressed
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.black, // Text color
+                  backgroundColor: Colors.white, // Button background color (white)
+                  side: BorderSide(color: Colors.black), // Border color (black)
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0), // Set rounded corners with a radius of 8.0
+                  ), // End of shape
+                  padding: EdgeInsets.zero, // Remove padding inside the button
+                ), // End of style
+                child: Text(
+                  'Buy',
+                  style: TextStyle(
+                    fontSize: (isIphone) ? 12 : 18, // Set font size based on device type
+                  ), // End of TextStyle
+                ), // Set the button text
+              ), // End of OutlinedButton
 
-                foregroundColor: Colors.black, backgroundColor: Colors.white, // Button background color (white)
-                side: BorderSide(color: Colors.black),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0), // Set rounded corners with a radius of 8.0
-                ),// Border color (black)
-              ), // End of style
-              child: Text('Buy',
-              style: TextStyle(
-                fontSize: (isIphone) ? 12 : 18,
-              ),), // Set the button text
             ), // End of OutlinedButton
 
             leading: SizedBox
@@ -396,7 +403,10 @@ class _ThreeLettersBuyState extends State<ThreeLettersBuy> {
                       children: [
                         // (isIphone)?const SizedBox(width: 90,):const SizedBox(width: 100,)  ,
                         //coin image
-                        Image.asset("assets/shop/coins.png"),
+                        Image.asset("assets/lobby/BuracoPlusCoin.png" ,
+                        width:  (isIphone) ? 18 : 26,
+                        ),
+                        SizedBox(width: (isIphone)?4:8,),
                         Text("360000",
                           style: TextStyle(
                             color: Colors.black,

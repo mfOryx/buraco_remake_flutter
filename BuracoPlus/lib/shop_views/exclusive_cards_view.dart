@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:buracoplus/providers/ranking_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -28,7 +30,29 @@ class _ExclusiveCardsViewState extends State<ExclusiveCardsView> {
   bool isIphone = false;
   bool isIpad = false;
   bool createTablePopup = true;
-  List<String> searchedNames = [];
+
+  File? imageLeft;
+  File? imageRight;
+  Future pickImageLeft() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.imageLeft = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+  }
+  Future pickImageRight() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.imageRight = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+  }
   // ################################ HELPERS FUNCTIONS ########################
   bool isIOS() {
     return Platform.isIOS;
@@ -191,24 +215,18 @@ class _ExclusiveCardsViewState extends State<ExclusiveCardsView> {
                                 child:     Padding(
                                   padding: const EdgeInsets.only(top: 4.0,bottom: 4.0,left: 0,right: 0),
                                   child:
-
                                   Column(
                                     children: [
-
                                       SizedBox(height: (isIphone)?4:10,),
-                                     
                                       //##########################################################
                                       //##################### Scroll View List ###################
                                       //##########################################################
                                       SingleChildScrollView(
-
                                           child:  SizedBox(
-
                                             height: isIphone
                                                 ? screenHeight * 0.52
-                                                : screenHeight * 0.54,
-
-                                            child: description(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone),
+                                                : screenHeight * 0.58,
+                                          child:  description(context: context, screenWidth: screenWidth, screenHeight: screenHeight, isIpad: isIpad, isIphone: isIphone,pickImageLeft:pickImageLeft,pickImageRight:pickImageRight,imageLeft: imageLeft,imageRight: imageRight),
                                           )
                                       ),
                                     ],
@@ -291,6 +309,11 @@ class _ExclusiveCardsViewState extends State<ExclusiveCardsView> {
     required double screenHeight,
     required bool isIpad,
     required bool isIphone,
+    required Future Function() pickImageLeft,
+    required Future Function() pickImageRight,
+    required File? imageLeft,
+    required File? imageRight,
+
 
   }) {
     final translationManager = Provider.of<TranslationManager>(context);
@@ -312,19 +335,90 @@ class _ExclusiveCardsViewState extends State<ExclusiveCardsView> {
                 style: TextStyle(fontSize:(isIphone)?12: 22),
               ),
             ),
-  ],
+          Padding(
+            padding:  EdgeInsets.only(left:(isIphone)?18:18,right:(isIphone) ?18:18,top: 8,bottom: 2),
+            child:  Text(
+              textAlign: TextAlign.center,
+              translationManager.translate("txtExclusiveCardsHeading2"
+              ),
+              style: TextStyle(fontSize:(isIphone)?12: 22,color: Colors.blue),
+            ),
+          ),
+          Padding(
+            padding:  EdgeInsets.only(left:(isIphone)?18:18,right:(isIphone) ?18:18,top: 8,bottom: 2),
+            child:  Text(
+              textAlign: TextAlign.center,
+              translationManager.translate("txtExclusiveCardsHeading3"
+              ),
+              style: TextStyle(fontSize:(isIphone)?12: 22,color: Colors.red),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10.0,top: 20),
+                  child: InkWell(
+                    onTap: pickImageLeft,
+                    child: (imageLeft!=null)?Image.file(imageLeft,height: 150.0,width: 90,fit: BoxFit.cover,):  Image.asset(
+                      'assets/shop/exclusive_card.png', // Load the image asset
+                      height: 150.0,width: 90,fit: BoxFit.cover,
+                      // Set the height
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10.0,top: 20),
+                  child: InkWell(
+                    onTap: pickImageRight,
+                    child: (imageRight!=null)?Image.file(imageRight,height: 150.0,width: 90,fit: BoxFit.cover,):  Image.asset(
+                      'assets/shop/exclusive_card.png', // Load the image asset
+                      height: 150.0,width: 90,fit: BoxFit.cover,
+                      // Set the height
+                    ),
+                  ),
+                ),
+              ),
+
+
+
+            ],
+          ),
+          Column(
+            children: [
+              SizedBox(height: 8,),
+              Text(translationManager.translate("txtSpecial").toUpperCase(),
+                style :TextStyle(fontSize:(isIphone)?12: 20,color: Color.fromRGBO(
+                    121, 121, 121, 1.0) ),),
+              Text(translationManager.translate("txt3LettersNickName"),
+                style :TextStyle(fontSize:(isIphone)?11: 18,color: Color.fromRGBO(
+                    30, 30, 30, 1.0) ),),
+               Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Image.asset("assets/lobby/BuracoPlusCoin.png",
+                     width: (isIphone)?16:24,
+                       height: (isIphone)?16:24,
+                     ),
+                     SizedBox(width: 8,),
+                     Text("50,000",
+                       style :TextStyle(fontSize:(isIphone)?11: 18,color: Color.fromRGBO(
+                           30, 30, 30, 1.0) ),),
+                   ],
+                 ),
+               )
+            ],
+          )
+        ],
     );
   }
 
 
 
-  // ... FUNCTION TO TRIGGER UPON TEXT FIELD CHANGE ...
-  void onSearchFieldChange(String value) {
-    setState(() {
-      if(value == "")
-        searchedNames = [];
-      else
-        searchedNames = NicknamesGenerator().searchCombinations(value);
-    });
-  }
+
 }

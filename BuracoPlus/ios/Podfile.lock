@@ -66,6 +66,8 @@ PODS:
   - GoogleUtilities/UserDefaults (7.13.3):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
+  - image_picker_ios (0.0.1):
+    - Flutter
   - immutable_device_identifier (0.0.1):
     - Flutter
     - KeychainAccess
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_udid (from `.symlinks/plugins/flutter_udid/ios`)
+  - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
   - immutable_device_identifier (from `.symlinks/plugins/immutable_device_identifier/ios`)
   - jailbreak_root_detection (from `.symlinks/plugins/jailbreak_root_detection/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -131,6 +134,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_udid:
     :path: ".symlinks/plugins/flutter_udid/ios"
+  image_picker_ios:
+    :path: ".symlinks/plugins/image_picker_ios/ios"
   immutable_device_identifier:
     :path: ".symlinks/plugins/immutable_device_identifier/ios"
   jailbreak_root_detection:
@@ -157,6 +162,7 @@ SPEC CHECKSUMS:
   flutter_udid: a2482c67a61b9c806ef59dd82ed8d007f1b7ac04
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
+  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
   immutable_device_identifier: 4f10706df9dfe7eccc33ce0e06f9f270b4947de5
   IOSSecuritySuite: b51056d5411aee567153ca86ce7f6edfdc5d2654
   jailbreak_root_detection: b95de80c3e51eec1fc7d0225784d2fc038fa95ed
