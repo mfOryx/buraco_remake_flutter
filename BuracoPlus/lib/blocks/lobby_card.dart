@@ -281,14 +281,12 @@ class LobbyCard extends StatelessWidget {
           color: Colors.black,
           child: Column(
             children: [
-              const SizedBox(
-                child: Image(
-                  image: NetworkImage(
-                      'https://th.bing.com/th/id/OIP.U9mrdYXcN3yMCZXFUcMMeAAAAA?rs=1&pid=ImgDetMain'),
+              SizedBox(
+                child: Image.asset(
+                  'assets/menuIcons/blankAvatar_2.png',
                   fit: BoxFit.cover,
                   height: 20,
-                  width: 30,
-                ),
+                  width: 30,),
               ),
               Container(
                 padding: const EdgeInsets.only(top: 2, bottom: 2),

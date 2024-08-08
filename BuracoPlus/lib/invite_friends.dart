@@ -2,12 +2,15 @@ import 'dart:io';
 import 'package:buracoplus/models/logged_in_player.dart';
 import 'package:buracoplus/providers/create_table_provider.dart';
 import 'package:buracoplus/providers/dialog_provider.dart';
+import 'package:buracoplus/sockets/socket_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:buracoplus/common/translation_manager.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'common/general_functions.dart';
 import 'helpers/user.dart';
+import 'models/tables.dart';
 
 class InviteFriends extends StatefulWidget {
   const InviteFriends({super.key});
@@ -18,10 +21,16 @@ class InviteFriends extends StatefulWidget {
 
 class _CreateInviteFriends extends State<InviteFriends> {
 
+  late final socketService = Provider.of<SocketService>(context, listen: false);
+  int totalPages = 0;
+  List<GameTable> gameTables = [];
+  List<GameTable> gameTablesFiltered = [];
+  LoggedInPlayer currentlyLoggedInPlayer = User().getPlayer();
+  late Map<String, dynamic> friendsList;
+  late List<dynamic> playersData;
   bool isIphone = false;
   bool isIpad = false;
   bool isChairSelected = true;
-  LoggedInPlayer? user = User().getPlayer();
   String? username;
 
   bool isIOS() {
@@ -53,6 +62,80 @@ class _CreateInviteFriends extends State<InviteFriends> {
     }
   }
 
+  // getTables() async {
+  //   if (socketService.isConnected()) {
+  //     Map<String, dynamic> getAllTables = await socketService.emitWithAck(
+  //         'getAllTables', {'playerId': currentlyLoggedInPlayer.id});
+  //
+  //     if (getAllTables.containsKey('tablesList')) {
+  //       List allTables = getAllTables['tablesList'];
+  //
+  //       if (allTables.isNotEmpty) {
+  //         gameTables =
+  //             allTables.map((element) => GameTable.fromJson(element)).toList();
+  //         gameTablesFiltered = gameTables;
+  //       }
+  //       setState(
+  //             () {
+  //           totalPages = (gameTablesFiltered.length / 6).ceil();
+  //         },
+  //       );
+  //     }
+  //   }
+  // }
+  //
+  // sitAtTable(int chairId, String tableId) async {
+  //   if (kDebugMode) {
+  //     print('chairId: $chairId, tableId: $tableId');
+  //   }
+  //   String ipAddress = await getPublicIP();
+  //
+  //   if (socketService.isConnected()) {
+  //     Map<String, dynamic> response =
+  //     await socketService.emitWithAck('sitAtTable', {
+  //       'playerId': currentlyLoggedInPlayer.id,
+  //       "tableId": tableId,
+  //       "chairId": chairId,
+  //       "ip": ipAddress
+  //     });
+  //
+  //     getTables();
+  //
+  //     if (kDebugMode) {
+  //       print(response);
+  //     }
+  //   }
+  // }
+
+  getFriends() async {
+    try{
+      print(currentlyLoggedInPlayer.oldId);
+      if (socketService.isConnected()) {
+        Map<String, dynamic> response = await socketService.emitWithAck('getFriends', {
+          currentlyLoggedInPlayer.oldId,
+        });
+        if (kDebugMode) {
+          print(response);
+        }
+        List<int> friendsIds = (response['friendsList'] as List<dynamic>)
+            .map((friend) => friend['oldReceiverId'] as int)
+            .toList();
+        if (kDebugMode) {
+          print(friendsIds);
+        }
+        friendsList = await socketService.emitWithAck('getPlayersData', {
+          friendsIds,
+        });
+        if (kDebugMode) {
+          print(friendsList);
+        }
+      }
+    }
+    catch(error){
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //final themeProvider = Provider.of<ThemeProvider>(context);
@@ -61,13 +144,17 @@ class _CreateInviteFriends extends State<InviteFriends> {
     final createTableManager = Provider.of<CreateTableProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    username = user!.playerName;
+    username = currentlyLoggedInPlayer.playerName;
     checkDeviceType();
 
     return Stack(
       children: [
         Consumer<DialogProvider>(
           builder: (context, dialogProvider, child) {
+            if(dialogProvider.isInviteFriendsDialogVisible) {
+              getFriends();
+              playersData = friendsList['playersData'];
+            }
             return dialogProvider.isInviteFriendsDialogVisible ?
             Stack(
               children: [
@@ -951,8 +1038,10 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                       ),
                                       Expanded(
                                         child: ListView.builder(
-                                          itemCount: 10,
+                                          itemCount: playersData.length,
                                           itemBuilder: (context, index) {
+                                            final player = playersData[index];
+                                            final playerName = player['playerName'] ?? 'Name not found';
                                             return Padding(
                                               padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 50.0),
                                               child: Row(
@@ -982,7 +1071,7 @@ class _CreateInviteFriends extends State<InviteFriends> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          'Player Name',
+                                                          playerName,
                                                           style: TextStyle(
                                                             fontSize: isIpad ? screenWidth * 0.015
                                                                 : (isIphone ? screenWidth * 0.012

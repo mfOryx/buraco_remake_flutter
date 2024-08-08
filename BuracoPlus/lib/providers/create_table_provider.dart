@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../common/general_functions.dart';
 import '../helpers/user.dart';
 import '../models/logged_in_player.dart';
 import '../models/tables.dart';
@@ -414,6 +415,8 @@ class CreateTableProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> options = {};
     username = user!.playerName;
+    String ipAddress = await getPublicIP();
+    playerNorth.saveToPrefs("playerNorth", prefs);
     options['tableName'] = "Table of " + username!;
     options['gameRule'] =
         (prefs.getBool('classicToggle') ?? classicToggle) ? 1 : 2;
@@ -461,7 +464,7 @@ class CreateTableProvider with ChangeNotifier {
   }
 
   //**************************** SAVE SETTINGS DATA IN SHARED PREFERENCE *********************
-  void saveOptionsDataInSharedPreferences() async {
+  Future<String> saveOptionsDataInSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool('classicToggle', classicToggle);
@@ -495,6 +498,8 @@ class CreateTableProvider with ChangeNotifier {
     }
     //Prepare the JSON and send it to the server
     String optionsJsonString = await prepareAllOptionsInJsonFormat();
+
+    return optionsJsonString;
     // Emit the JSON to the server
     //  SocketServiceSingleton().emitWithAck(Socketemitkeys.settingsEmit, settingJsonString)  ;
     // if (SocketService.isConnected()) {

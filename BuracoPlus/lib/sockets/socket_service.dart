@@ -62,6 +62,7 @@ class SocketService with ChangeNotifier {
   Future<dynamic> emitWithAck(String event, dynamic data) {
     final completer = Completer<dynamic>();
 
+    print("event called: " + event);
     if (_isConnected) {
       _socket.emitWithAck(event, data, ack: (dynamic result) {
         completer.complete(result);
