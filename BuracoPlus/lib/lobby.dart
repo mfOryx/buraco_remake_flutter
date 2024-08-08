@@ -102,7 +102,8 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     super.initState();
     getTables();
     checkDeviceType();
-    _getDummyNotices();
+    //_getPlayerNotifications();
+    _getDummyNotices(); // To be removed
   }
 
   void _toggleNotices() {
@@ -116,6 +117,7 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
     );
   }
 
+  //// To be removed (start)
   void _getDummyNotices() {
     _noticeList = [
       {
@@ -178,28 +180,30 @@ class _LobbyState extends State<Lobby> with SingleTickerProviderStateMixin {
       },
     ];
   }
+  //// To be removed (end)
 
-  getPlayerNotifications() async {
-    if (socketService.isConnected()) {
-      Map<String, dynamic> getAllPlayerNotifications = await socketService
-          .emitWithAck('getAllPlayerNotifications',
-              {'playerId': currentlyLoggedInPlayer.id});
-
-      if (getAllPlayerNotifications.containsKey('notificationsList')) {
-        List<Map<String, dynamic>> allNotifications =
-            List<Map<String, dynamic>>.from(
-                getAllPlayerNotifications['notificationsList']);
-        if (allNotifications.isNotEmpty) {
-          _noticeList = allNotifications;
-        }
-        setState(
-          () {
-            totalPages = (_noticeList.length / 6).ceil();
-          },
-        );
-      }
-    }
-  }
+  // _getPlayerNotifications() async {
+  //   if (socketService.isConnected()) {
+  //     print('start from here' + currentlyLoggedInPlayer.id.toString());
+  //     Map<String, dynamic> getAllPlayerNotifications = await socketService
+  //         .emitWithAck('getPlayerNotifications',
+  //             {'playerId': currentlyLoggedInPlayer.oldId});
+  //     print(getAllPlayerNotifications);
+  //     if (getAllPlayerNotifications.containsKey('notificationsList')) {
+  //       List<Map<String, dynamic>> allNotifications =
+  //           List<Map<String, dynamic>>.from(
+  //               getAllPlayerNotifications['notificationsList']);
+  //       if (allNotifications.isNotEmpty) {
+  //         _noticeList = allNotifications;
+  //       }
+  //       setState(
+  //         () {
+  //           totalPages = (_noticeList.length / 6).ceil();
+  //         },
+  //       );
+  //     }
+  //   }
+  // }
 //// BARRA END \\\\
 
   bool isIOS() {

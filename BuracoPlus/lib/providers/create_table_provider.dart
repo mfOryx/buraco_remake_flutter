@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../helpers/user.dart';
 import '../models/logged_in_player.dart';
 import '../models/tables.dart';
-import '../sockets/socket_service.dart';
 
 class CreateTableProvider with ChangeNotifier {
   LoggedInPlayer? user = User().getPlayer();
